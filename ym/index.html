@@ -1,0 +1,427 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+.wrap{padding:1.5rem 0;font-family:var(--font-sans)}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:1.25rem}
+.tb{padding:6px 14px;font-size:13px;font-weight:500;border:0.5px solid var(--color-border-secondary);border-radius:20px;background:var(--color-background-primary);color:var(--color-text-secondary);cursor:pointer;transition:all .15s}
+.tb.on{background:#EEEDFE;color:#3C3489;border-color:#AFA9EC}
+.sec{display:none}.sec.on{display:block}
+.notice{background:#E6F1FB;border-left:3px solid #378ADD;border-radius:0 8px 8px 0;padding:10px 14px;margin-bottom:1.25rem;font-size:13px;color:#0C447C}
+.qcard{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:12px;margin-bottom:10px;overflow:hidden}
+.qhd{display:flex;align-items:flex-start;gap:10px;padding:12px 16px;cursor:pointer;background:var(--color-background-secondary)}
+.badge{font-size:11px;font-weight:500;padding:3px 8px;border-radius:20px;white-space:nowrap;flex-shrink:0;margin-top:1px}
+.b-p{background:#EEEDFE;color:#534AB7}
+.b-t{background:#E1F5EE;color:#0F6E56}
+.b-b{background:#E6F1FB;color:#185FA5}
+.b-a{background:#FAEEDA;color:#854F0B}
+.b-r{background:#FCEBEB;color:#A32D2D}
+.b-g{background:#EAF3DE;color:#3B6D11}
+.qtxt{font-size:14px;font-weight:500;color:var(--color-text-primary);flex:1;line-height:1.5}
+.qarr{font-size:11px;color:var(--color-text-tertiary);transition:transform .2s;flex-shrink:0;margin-top:2px}
+.qbody{display:none;padding:14px 16px;border-top:0.5px solid var(--color-border-tertiary)}
+.qcard.open .qbody{display:block}
+.qcard.open .qarr{transform:rotate(180deg)}
+.lbl{font-size:11px;font-weight:500;color:var(--color-text-tertiary);margin-bottom:6px;letter-spacing:.04em;text-transform:uppercase}
+.ans{font-size:13.5px;color:var(--color-text-primary);line-height:1.75;margin-bottom:10px}
+.kw-wrap{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.kw{font-size:12px;padding:3px 10px;background:#EEEDFE;color:#534AB7;border-radius:20px}
+.code-box{background:var(--color-background-secondary);border:0.5px solid var(--color-border-tertiary);border-radius:8px;padding:10px 14px;font-family:var(--font-mono);font-size:12.5px;color:var(--color-text-primary);line-height:1.8;margin:10px 0;white-space:pre-wrap}
+.warn{background:#FAEEDA;border-left:3px solid #EF9F27;border-radius:0 8px 8px 0;padding:8px 12px;font-size:12.5px;color:#633806;margin-top:8px}
+.strategy-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-bottom:1.25rem}
+.sg{background:var(--color-background-secondary);border-radius:10px;padding:14px}
+.sg-icon{font-size:18px;margin-bottom:6px}
+.sg-title{font-size:13px;font-weight:500;color:var(--color-text-primary);margin-bottom:4px}
+.sg-desc{font-size:12px;color:var(--color-text-secondary);line-height:1.6}
+.dd{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:1rem}
+.do-box{background:#EAF3DE;border-radius:8px;padding:12px}
+.dont-box{background:#FCEBEB;border-radius:8px;padding:12px}
+.do-t{font-size:12px;font-weight:500;color:#3B6D11;margin-bottom:6px}
+.dont-t{font-size:12px;font-weight:500;color:#A32D2D;margin-bottom:6px}
+.do-i{font-size:12px;color:#3B6D11;margin-bottom:3px}
+.dont-i{font-size:12px;color:#A32D2D;margin-bottom:3px}
+.section-title{font-size:11px;font-weight:500;color:var(--color-text-tertiary);letter-spacing:.06em;text-transform:uppercase;margin:1.25rem 0 .6rem}
+.quiz-area{margin-top:1rem}
+.quiz-q{font-size:14px;font-weight:500;color:var(--color-text-primary);margin-bottom:12px;line-height:1.6}
+.quiz-opts{display:flex;flex-direction:column;gap:6px}
+.quiz-opt{padding:9px 14px;border:0.5px solid var(--color-border-secondary);border-radius:8px;font-size:13px;color:var(--color-text-primary);cursor:pointer;background:var(--color-background-primary);text-align:left;transition:background .1s}
+.quiz-opt:hover{background:var(--color-background-secondary)}
+.quiz-opt.correct{background:#EAF3DE;border-color:#97C459;color:#27500A}
+.quiz-opt.wrong{background:#FCEBEB;border-color:#F09595;color:#791F1F}
+.quiz-exp{margin-top:10px;font-size:13px;color:var(--color-text-secondary);line-height:1.7;padding:10px 14px;background:var(--color-background-secondary);border-radius:8px}
+.quiz-nav{display:flex;gap:8px;margin-top:14px;align-items:center}
+.quiz-progress{font-size:12px;color:var(--color-text-tertiary);margin-left:auto}
+</style>
+
+<div class="wrap">
+<div class="tabs">
+  <button class="tb on" onclick="sw('intro',this)">지원동기</button>
+  <button class="tb" onclick="sw('ct',this)">컴퓨팅사고력</button>
+  <button class="tb" onclick="sw('algo',this)">알고리즘</button>
+  <button class="tb" onclick="sw('ai',this)">AI·기술</button>
+  <button class="tb" onclick="sw('project',this)">프로젝트</button>
+  <button class="tb" onclick="sw('quiz',this)">개념 퀴즈</button>
+  <button class="tb" onclick="sw('strategy',this)">면접 전략</button>
+</div>
+
+<div class="sec on" id="s-intro">
+<div class="notice">화성시 영재교육원 정보 분야는 과학·정보 융합 + 서울대·서울교대 교수진 참여 기관입니다. 단순 코딩 지식보다 <strong style="font-weight:500">컴퓨팅 사고력·탐구 동기·창의적 문제해결</strong>을 중시합니다.</div>
+
+<div class="qcard" onclick="tog(this)">
+  <div class="qhd"><span class="badge b-p">필수</span><span class="qtxt">정보(SW·AI) 분야에 관심을 갖게 된 계기는 무엇인가요?</span><span class="qarr">▼</span></div>
+  <div class="qbody">
+    <div class="lbl">핵심 전략</div>
+    <div class="ans">추상적인 "좋아해서"는 금물. 구체적 사건·경험 → 깨달은 것 → 더 알고 싶은 것, 이 3단계 구조로 답합니다.</div>
+    <div class="lbl">예시 답변</div>
+    <div class="ans">"스크래치로 간단한 게임을 만들다가 '같은 결과인데 왜 어떤 코드는 느리고 어떤 코드는 빠를까?' 라는 의문이 생겼습니다. 그 답을 찾다가 알고리즘이라는 개념을 알게 됐고, 문제를 해결하는 '방법 자체'를 설계하는 것이 정보 분야의 핵심임을 깨달았습니다. 그 이후로 프로그램이 동작하는 원리에 더 깊이 파고들고 싶었습니다."</div>
+    <div class="kw-wrap"><span class="kw">구체적 계기</span><span class="kw">원리 탐구 욕구</span><span class="kw">3단계 구조</span></div>
+  </div>
+</div>
+
+<div class="qcard" onclick="tog(this)">
+  <div class="qhd"><span class="badge b-p">필수</span><span class="qtxt">정보 영재교육원에 지원한 이유가 무엇인가요?</span><span class="qarr">▼</span></div>
+  <div class="qbody">
+    <div class="lbl">예시 답변</div>
+    <div class="ans">"혼자 공부할 때는 '내가 옳은 방향으로 가고 있는지' 확인하기 어려웠습니다. 영재교육원에서는 서울대 교수님 같은 전문가와 함께 R&E 탐구 프로젝트를 할 수 있고, 비슷한 관심을 가진 친구들과 토론하며 제 사고를 점검할 수 있다고 생각해 지원했습니다."</div>
+    <div class="kw-wrap"><span class="kw">기관 특성 언급</span><span class="kw">협력 탐구</span><span class="kw">자기점검</span></div>
+  </div>
+</div>
+
+<div class="qcard" onclick="tog(this)">
+  <div class="qhd"><span class="badge b-b">심화</span><span class="qtxt">10년 후 어떤 연구자·개발자가 되고 싶나요?</span><span class="qarr">▼</span></div>
+  <div class="qbody">
+    <div class="lbl">예시 답변</div>
+    <div class="ans">"기술 자체보다, 기술이 사람의 삶에 실질적인 변화를 줄 수 있는지에 관심이 있습니다. AI가 의료 진단을 보조하거나, 장애인의 접근성을 높이는 것처럼 사회 문제를 정보 기술로 해결하는 연구를 하고 싶습니다. 그러려면 기술적 깊이와 함께 다양한 분야와 협력하는 능력도 필요하다고 생각합니다."</div>
+    <div class="kw-wrap"><span class="kw">사회 기여</span><span class="kw">융합 시각</span><span class="kw">겸손한 포부</span></div>
+  </div>
+</div>
+</div>
+
+<div class="sec" id="s-ct">
+<div class="notice">컴퓨팅 사고력(CT)은 정보 영재 면접의 핵심입니다. 분해 → 패턴인식 → 추상화 → 알고리즘 설계, 4요소를 이해하고 일상 문제에 적용해 설명할 수 있어야 합니다.</div>
+
+<div class="qcard" onclick="tog(this)">
+  <div class="qhd"><span class="badge b-t">CT</span><span class="qtxt">컴퓨팅 사고력이란 무엇인지 설명해보세요.</span><span class="qarr">▼</span></div>
+  <div class="qbody">
+    <div class="lbl">예시 답변</div>
+    <div class="ans">컴퓨팅 사고력은 복잡한 문제를 컴퓨터가 처리할 수 있는 방식으로 생각하는 능력입니다. 4가지 핵심 요소가 있습니다.</div>
+    <div class="code-box">① 분해(Decomposition)
+   복잡한 문제를 작은 단위로 쪼개기
+   예) 학교 가는 길 → 집에서 나오기 / 버스타기 / 학교 들어가기
+
+② 패턴 인식(Pattern Recognition)
+   반복되는 규칙이나 공통점 찾기
+   예) 소수들의 공통 특징 파악
+
+③ 추상화(Abstraction)
+   불필요한 세부사항을 제거하고 핵심만 남기기
+   예) 지도에서 건물 모양 대신 아이콘으로 표시
+
+④ 알고리즘 설계(Algorithm Design)
+   단계별 해결 절차 만들기
+   예) 라면 끓이는 순서처럼 명확한 순서 정의</div>
+    <div class="kw-wrap"><span class="kw">4요소 암기</span><span class="kw">일상 예시 연결</span><span class="kw">자신감 있게</span></div>
+  </div>
+</div>
+
+<div class="qcard" onclick="tog(this)">
+  <div class="qhd"><span class="badge b-t">CT</span><span class="qtxt">일상 속 문제를 컴퓨팅 사고력으로 해결한 경험이 있나요?</span><span class="qarr">▼</span></div>
+  <div class="qbody">
+    <div class="lbl">답변 구조 틀</div>
+    <div class="ans">문제 상황 → 어떻게 분해했는지 → 어떤 패턴을 발견했는지 → 어떤 절차로 해결했는지 → 결과 순으로 이야기합니다.</div>
+    <div class="lbl">예시 답변</div>
+    <div class="ans">"학교 알림장을 매번 놓쳐서 문제였습니다. 왜 놓치는지 분해해보니 '확인 시점이 불규칙하다'는 패턴을 발견했습니다. 그래서 매일 저녁 8시에 알림장을 확인하는 고정 루틴(알고리즘)을 만들었더니 해결됐습니다. 이 과정이 컴퓨팅 사고력의 분해·패턴·알고리즘 설계와 동일하다는 것을 나중에 깨달았습니다."</div>
+    <div class="kw-wrap"><span class="kw">본인 경험</span><span class="kw">CT 연결</span><span class="kw">구조적 사고</span></div>
+  </div>
+</div>
+
+<div class="qcard" onclick="tog(this)">
+  <div class="qhd"><span class="badge b-a">즉흥</span><span class="qtxt">도서관에서 책을 빠르게 찾는 방법을 알고리즘으로 설명해보세요.</span><span class="qarr">▼</span></div>
+  <div class="qbody">
+    <div class="lbl">예시 답변 (이진탐색 연결)</div>
+    <div class="code-box">1. 책이 번호순으로 정렬되어 있다면:
+   → 중간 번호 확인
+   → 찾는 책 번호가 더 크면 오른쪽 절반만 탐색
+   → 작으면 왼쪽 절반만 탐색
+   → 반복 (이진 탐색 - 이분 탐색)
+
+2. 정렬이 안 되어 있다면:
+   → 처음부터 끝까지 하나씩 확인
+   → (선형 탐색 - 비효율적)
+
+결론: 데이터를 미리 정렬해두면 탐색이 훨씬 빨라집니다.
+이것이 '자료구조와 알고리즘'이 중요한 이유입니다.</div>
+    <div class="kw-wrap"><span class="kw">이진 탐색</span><span class="kw">정렬의 중요성</span><span class="kw">효율성 비교</span></div>
+  </div>
+</div>
+</div>
+
+<div class="sec" id="s-algo">
+<div class="notice">중학생 수준에서 기대하는 알고리즘 개념은 정렬·탐색·재귀·기초 자료구조입니다. 공식 암기보다 "왜 이 방법이 더 좋은가?"를 설명할 수 있어야 합니다.</div>
+
+<div class="qcard" onclick="tog(this)">
+  <div class="qhd"><span class="badge b-b">알고리즘</span><span class="qtxt">버블 정렬과 선택 정렬의 차이를 설명해보세요.</span><span class="qarr">▼</span></div>
+  <div class="qbody">
+    <div class="code-box">버블 정렬: 인접한 두 원소를 비교해 큰 것을 뒤로 보냄
+  [5, 3, 1] → [3, 5, 1] → [3, 1, 5] → [1, 3, 5]
+  특징: 매 번 비교·교환 → 교환 횟수 많음
+
+선택 정렬: 전체에서 가장 작은 값을 찾아 맨 앞과 교환
+  [5, 3, 1] → 최솟값 1 찾기 → [1, 3, 5]
+  특징: 비교는 많지만 교환 횟수는 적음
+
+공통점: 둘 다 O(n²) - 데이터가 많아지면 느려짐
+차이: 버블은 교환이 많고, 선택은 교환이 적음</div>
+    <div class="kw-wrap"><span class="kw">O(n²)</span><span class="kw">비교·교환 횟수</span><span class="kw">효율성 분석</span></div>
+  </div>
+</div>
+
+<div class="qcard" onclick="tog(this)">
+  <div class="qhd"><span class="badge b-b">알고리즘</span><span class="qtxt">재귀(Recursion)란 무엇이고, 언제 쓰면 좋을까요?</span><span class="qarr">▼</span></div>
+  <div class="qbody">
+    <div class="lbl">예시 답변</div>
+    <div class="ans">재귀는 함수가 자기 자신을 호출하는 방법입니다. 반드시 종료 조건(기저 조건)이 있어야 무한 반복을 막을 수 있습니다.</div>
+    <div class="code-box">팩토리얼 예시:
+  5! = 5 × 4!
+  4! = 4 × 3!
+  ... (계속)
+  1! = 1  ← 기저 조건(여기서 멈춤)
+
+재귀가 유리한 경우:
+  - 트리 구조 탐색 (폴더 안의 폴더)
+  - 분할 정복 (큰 문제 → 작은 문제로 분해)
+  - 피보나치, 하노이탑</div>
+    <div class="warn">주의: "재귀는 느릴 수 있다. 중복 계산이 생기면 메모이제이션으로 개선할 수 있다"고 언급하면 가산점!</div>
+  </div>
+</div>
+
+<div class="qcard" onclick="tog(this)">
+  <div class="qhd"><span class="badge b-b">알고리즘</span><span class="qtxt">스택(Stack)과 큐(Queue)의 차이와 실생활 예를 들어보세요.</span><span class="qarr">▼</span></div>
+  <div class="qbody">
+    <div class="code-box">스택 (Stack) - LIFO (Last In, First Out)
+  마지막에 넣은 것이 먼저 나옴
+  실생활 예: 접시 쌓기, 뒤로가기 버튼, 괄호 검사
+  활용: 함수 호출 스택, 수식 계산
+
+큐 (Queue) - FIFO (First In, First Out)
+  먼저 넣은 것이 먼저 나옴
+  실생활 예: 줄 서기, 프린터 대기열, 콜센터 대기
+  활용: BFS(너비 우선 탐색), 작업 스케줄링</div>
+    <div class="kw-wrap"><span class="kw">LIFO/FIFO</span><span class="kw">실생활 연결</span><span class="kw">BFS 언급</span></div>
+  </div>
+</div>
+
+<div class="qcard" onclick="tog(this)">
+  <div class="qhd"><span class="badge b-a">즉흥사고</span><span class="qtxt">1부터 100까지의 숫자 중 소수를 찾는 방법을 설명해보세요.</span><span class="qarr">▼</span></div>
+  <div class="qbody">
+    <div class="code-box">방법 1: 단순 탐색 (브루트 포스)
+  각 숫자마다 2부터 자기 자신-1까지 나눠봄
+  → 느리지만 이해하기 쉬움
+
+방법 2: 에라토스테네스의 체 (더 효율적)
+  ① 2부터 100까지 나열
+  ② 2의 배수 모두 지움 (2는 남김)
+  ③ 3의 배수 모두 지움 (3은 남김)
+  ④ 반복...
+  ⑤ 남은 숫자가 모두 소수
+
+개선 포인트: √100 = 10 까지만 체크하면 충분!
+  → 10보다 큰 합성수는 반드시 10 이하의 소인수를 가짐</div>
+    <div class="kw-wrap"><span class="kw">에라토스테네스의 체</span><span class="kw">효율성 비교</span><span class="kw">√n 최적화</span></div>
+  </div>
+</div>
+</div>
+
+<div class="sec" id="s-ai">
+<div class="notice">화성시 영재교육원은 서울대와 AI 인재 육성 협약을 맺은 기관입니다. AI·기술 트렌드에 대한 자신의 생각을 논리적으로 말할 수 있어야 합니다.</div>
+
+<div class="qcard" onclick="tog(this)">
+  <div class="qhd"><span class="badge b-g">AI</span><span class="qtxt">인공지능(AI)이란 무엇이라고 생각하나요?</span><span class="qarr">▼</span></div>
+  <div class="qbody">
+    <div class="lbl">예시 답변</div>
+    <div class="ans">AI는 기계가 데이터를 통해 스스로 패턴을 학습하고, 새로운 상황에서 판단·예측하는 기술입니다. 사람이 규칙을 직접 프로그래밍하던 기존 방식과 달리, 머신러닝은 데이터에서 규칙을 스스로 찾아냅니다. 예를 들어 스팸 메일 필터는 수천 개의 스팸 예시를 학습해 새 메일이 스팸인지 스스로 판단합니다.</div>
+    <div class="kw-wrap"><span class="kw">규칙 vs 학습</span><span class="kw">머신러닝</span><span class="kw">구체적 예시</span></div>
+  </div>
+</div>
+
+<div class="qcard" onclick="tog(this)">
+  <div class="qhd"><span class="badge b-g">AI</span><span class="qtxt">AI의 장점과 우려되는 점을 함께 말해보세요.</span><span class="qarr">▼</span></div>
+  <div class="qbody">
+    <div class="lbl">예시 답변</div>
+    <div class="ans">장점으로는 방대한 데이터를 빠르게 처리해 의료 진단, 기후 예측, 장애인 보조 기술 등 사람이 못하던 일을 가능하게 합니다. 반면 우려되는 점은 학습 데이터에 편향이 있으면 AI의 판단도 편향될 수 있고, 딥페이크처럼 오용될 가능성도 있습니다. 기술 자체보다 어떻게 설계하고 사용하느냐가 더 중요하다고 생각합니다.</div>
+    <div class="kw-wrap"><span class="kw">균형 잡힌 시각</span><span class="kw">편향 문제</span><span class="kw">윤리적 관점</span></div>
+  </div>
+</div>
+
+<div class="qcard" onclick="tog(this)">
+  <div class="qhd"><span class="badge b-g">AI</span><span class="qtxt">알고리즘과 AI(머신러닝)의 차이는 무엇인가요?</span><span class="qarr">▼</span></div>
+  <div class="qbody">
+    <div class="code-box">전통적 알고리즘:
+  사람이 규칙을 직접 작성
+  입력 → [규칙 적용] → 출력
+  예) if 키 > 170 then "큰 편"
+
+머신러닝(AI):
+  데이터에서 규칙을 스스로 학습
+  입력 + 정답 데이터 → [학습] → 모델
+  새 입력 → [모델 적용] → 예측
+  예) 수천 장의 고양이 사진으로 학습 후 새 사진 분류
+
+핵심 차이: 규칙을 사람이 만드냐, 데이터에서 찾느냐</div>
+    <div class="kw-wrap"><span class="kw">규칙 vs 학습</span><span class="kw">지도학습</span><span class="kw">모델</span></div>
+  </div>
+</div>
+
+<div class="qcard" onclick="tog(this)">
+  <div class="qhd"><span class="badge b-a">시사</span><span class="qtxt">최근 관심 있는 기술 뉴스나 IT 트렌드가 있나요?</span><span class="qarr">▼</span></div>
+  <div class="qbody">
+    <div class="lbl">답변 구조</div>
+    <div class="ans">뉴스 소개(1~2문장) → 기술 원리 간단히 설명 → 본인 생각이나 더 알고 싶은 점. 관심 분야 키워드를 미리 준비해두세요.</div>
+    <div class="code-box">추천 관심 키워드 (2025~2026):
+  - 생성형 AI (LLM, ChatGPT, Claude)
+  - 자율주행차의 인지 알고리즘
+  - 양자컴퓨팅의 원리와 한계
+  - 사이버보안과 암호화
+  - AI 반도체 (GPU, NPU)
+  - 로보틱스와 강화학습</div>
+    <div class="kw-wrap"><span class="kw">시사 연결</span><span class="kw">본인 의견</span><span class="kw">후속 탐구</span></div>
+  </div>
+</div>
+</div>
+
+<div class="sec" id="s-project">
+<div class="notice">화성시 영재교육원은 R&E(연구과제) 탐구 활동을 중시합니다. 본인의 프로젝트·탐구 경험을 STAR 구조로 설명할 수 있도록 준비하세요.</div>
+
+<div class="qcard" onclick="tog(this)">
+  <div class="qhd"><span class="badge b-r">경험</span><span class="qtxt">직접 만든 프로그램이나 프로젝트를 소개해주세요.</span><span class="qarr">▼</span></div>
+  <div class="qbody">
+    <div class="lbl">STAR 구조</div>
+    <div class="code-box">S (Situation) - 어떤 문제나 아이디어에서 시작했나?
+T (Task)      - 무엇을 만들거나 탐구하려 했나?
+A (Action)    - 어떻게 구현/탐구했나? (사용 언어, 방법)
+R (Result)    - 결과는? 어려움은? 배운 것은?
++             - 다음에 개선하고 싶은 점</div>
+    <div class="lbl">예시 답변 (간단한 경우)</div>
+    <div class="ans">"파이썬으로 반 친구들의 수행평가 점수를 입력하면 평균·최고·최저를 자동으로 계산해주는 프로그램을 만들었습니다. 처음엔 리스트 사용법을 몰라서 변수를 10개 만들었는데, 리스트를 배운 후 코드가 훨씬 짧아졌습니다. 이 경험으로 자료구조가 왜 중요한지 실감했습니다. 다음엔 정렬 기능과 그래프 시각화를 추가하고 싶습니다."</div>
+    <div class="kw-wrap"><span class="kw">구체적 경험</span><span class="kw">어려움+극복</span><span class="kw">배운 점</span><span class="kw">발전 계획</span></div>
+  </div>
+</div>
+
+<div class="qcard" onclick="tog(this)">
+  <div class="qhd"><span class="badge b-r">경험</span><span class="qtxt">프로그래밍 중 버그를 해결한 경험을 말해주세요.</span><span class="qarr">▼</span></div>
+  <div class="qbody">
+    <div class="lbl">예시 답변</div>
+    <div class="ans">"루프에서 인덱스 오류가 계속 났는데, 처음엔 이유를 몰랐습니다. 코드를 한 줄씩 print로 값을 출력해보며 추적했더니 리스트 인덱스가 0부터 시작하는데 1부터 시작한다고 잘못 가정한 것이 원인이었습니다. 이후로 '경계값 확인'을 항상 먼저 하게 됐습니다."</div>
+    <div class="warn">디버깅 경험은 문제 해결 능력과 논리적 사고를 보여주는 최고의 소재입니다.</div>
+    <div class="kw-wrap"><span class="kw">디버깅 과정</span><span class="kw">원인 분석</span><span class="kw">교훈</span></div>
+  </div>
+</div>
+
+<div class="qcard" onclick="tog(this)">
+  <div class="qhd"><span class="badge b-b">탐구</span><span class="qtxt">영재교육원에서 어떤 R&E 프로젝트를 하고 싶나요?</span><span class="qarr">▼</span></div>
+  <div class="qbody">
+    <div class="lbl">예시 답변</div>
+    <div class="ans">"교통 체증을 줄이는 신호등 최적화 알고리즘을 연구하고 싶습니다. 현재 신호등은 고정된 시간으로 작동하지만, 실시간 교통량 데이터를 활용한다면 대기 시간을 줄일 수 있을 것입니다. 그래프 이론과 강화학습을 결합해볼 수 있을 것 같은데, 어떻게 접근해야 할지 교수님께 배우고 싶습니다."</div>
+    <div class="kw-wrap"><span class="kw">구체적 주제</span><span class="kw">기술 연결</span><span class="kw">배움 의지</span></div>
+  </div>
+</div>
+</div>
+
+<div class="sec" id="s-quiz">
+<div class="notice">실제 면접에서 나올 수 있는 개념 확인 퀴즈입니다. 직접 풀어보고 설명할 수 있는지 확인하세요.</div>
+<div id="quiz-container"></div>
+</div>
+
+<div class="sec" id="s-strategy">
+<div class="strategy-grid">
+  <div class="sg"><div class="sg-icon" style="font-size:18px">01</div><div class="sg-title">답변 구조</div><div class="sg-desc">결론 먼저 → 이유 → 예시 순서. 30초~1분 이내. 길면 역효과.</div></div>
+  <div class="sg"><div class="sg-icon" style="font-size:18px">02</div><div class="sg-title">모를 때</div><div class="sg-desc">"정확히는 모르지만, 이렇게 추론해보겠습니다" → 논리적 접근 보여주기.</div></div>
+  <div class="sg"><div class="sg-icon" style="font-size:18px">03</div><div class="sg-title">추가 질문</div><div class="sg-desc">면접관이 더 깊이 파고들면 좋은 신호. 모르면 솔직하게, 아는 선까지 설명.</div></div>
+  <div class="sg"><div class="sg-icon" style="font-size:18px">04</div><div class="sg-title">코드 설명</div><div class="sg-desc">코드를 설명할 때 "이 줄은 ~하기 위해"처럼 의도 중심으로.</div></div>
+  <div class="sg"><div class="sg-icon" style="font-size:18px">05</div><div class="sg-title">비유 활용</div><div class="sg-desc">어려운 개념은 일상 비유로. 스택=접시, 큐=줄서기, 재귀=거울 속 거울.</div></div>
+  <div class="sg"><div class="sg-icon" style="font-size:18px">06</div><div class="sg-title">탐구 의지</div><div class="sg-desc">답변 끝에 "이 부분이 더 궁금해서 ~를 공부하고 싶습니다" 추가.</div></div>
+</div>
+
+<div class="dd">
+  <div class="do-box">
+    <div class="do-t">이렇게 하세요</div>
+    <div class="do-i">✓ 구체적 경험 + 코드 언급</div>
+    <div class="do-i">✓ 효율성·원리 설명</div>
+    <div class="do-i">✓ 모르면 가설 세우기</div>
+    <div class="do-i">✓ AI·알고리즘 시사 연결</div>
+    <div class="do-i">✓ 질문 끝까지 듣고 답변</div>
+    <div class="do-i">✓ 실패 경험도 자신 있게</div>
+  </div>
+  <div class="dont-box">
+    <div class="dont-t">이것은 피하세요</div>
+    <div class="dont-i">✗ 언어·도구 이름만 나열</div>
+    <div class="dont-i">✗ "모릅니다"로 끝내기</div>
+    <div class="dont-i">✗ 외운 티 나는 정의 암송</div>
+    <div class="dont-i">✗ 성적·대회 입상 자랑</div>
+    <div class="dont-i">✗ 단답형으로만 대답</div>
+    <div class="dont-i">✗ 너무 어려운 개념 과장</div>
+  </div>
+</div>
+
+<div class="section-title" style="margin-top:1.5rem">핵심 메시지 — 면접 내내 일관되게 전달할 것</div>
+<div style="background:#EEEDFE;border-radius:10px;padding:16px;font-size:14px;color:#3C3489;line-height:1.8">
+나는 코드를 짤 줄 아는 학생이 아니라,<br>
+<strong style="font-weight:500">"왜 이 방법이 더 좋은가?"를 끊임없이 묻는 학생</strong>입니다.
+</div>
+</div>
+
+</div>
+
+<script>
+const quizData=[
+  {q:"버블 정렬의 시간 복잡도는?",opts:["O(n)","O(n log n)","O(n²)","O(1)"],ans:2,exp:"버블 정렬은 n개의 원소에 대해 n번 반복하므로 O(n²)입니다. 데이터가 2배 늘면 연산이 4배 늘어납니다."},
+  {q:"스택(Stack)에서 데이터를 꺼내는 순서는?",opts:["먼저 넣은 것 먼저","나중에 넣은 것 먼저","랜덤","크기 순서"],ans:1,exp:"스택은 LIFO(Last In, First Out) 구조입니다. 접시를 쌓고 꺼낼 때 위에서부터 꺼내는 것과 같습니다."},
+  {q:"이진 탐색(Binary Search)을 사용하기 위한 조건은?",opts:["데이터가 많을 것","데이터가 정렬되어 있을 것","데이터가 숫자일 것","데이터가 100개 이하일 것"],ans:1,exp:"이진 탐색은 반드시 정렬된 데이터에서만 사용할 수 있습니다. 중간값과 비교해 탐색 범위를 절반씩 줄여나갑니다."},
+  {q:"재귀 함수에서 반드시 필요한 것은?",opts:["반복문","전역 변수","기저 조건(종료 조건)","클래스"],ans:2,exp:"기저 조건(Base Case)이 없으면 함수가 무한히 자기 자신을 호출해 스택 오버플로우가 발생합니다."},
+  {q:"컴퓨팅 사고력(CT)의 4요소가 아닌 것은?",opts:["분해","패턴 인식","암호화","추상화"],ans:2,exp:"컴퓨팅 사고력의 4요소는 분해, 패턴 인식, 추상화, 알고리즘 설계입니다. 암호화는 정보보안 개념입니다."},
+  {q:"큐(Queue)의 실생활 예시로 가장 적절한 것은?",opts:["책 쌓기","음식 주문 대기열","계산기 버튼","폴더 구조"],ans:1,exp:"큐는 FIFO(First In, First Out) 구조로, 먼저 온 순서대로 처리합니다. 음식점 대기열, 프린터 작업 순서 등이 해당됩니다."}
+];
+
+let cur=0,answered=false;
+
+function renderQuiz(){
+  const q=quizData[cur];
+  const c=document.getElementById('quiz-container');
+  c.innerHTML=`
+    <div class="quiz-area">
+      <div class="quiz-q">${cur+1}. ${q.q}</div>
+      <div class="quiz-opts">${q.opts.map((o,i)=>`<button class="quiz-opt" onclick="checkAns(${i})">${String.fromCharCode(65+i)}. ${o}</button>`).join('')}</div>
+      <div id="quiz-exp" class="quiz-exp" style="display:none"></div>
+      <div class="quiz-nav">
+        <button onclick="prevQ()" style="font-size:13px;padding:6px 14px" ${cur===0?'disabled':''}>이전</button>
+        <button onclick="nextQ()" style="font-size:13px;padding:6px 14px" ${cur===quizData.length-1?'disabled':''}>다음</button>
+        <span class="quiz-progress">${cur+1} / ${quizData.length}</span>
+      </div>
+    </div>`;
+  answered=false;
+}
+
+function checkAns(i){
+  if(answered)return;
+  answered=true;
+  const q=quizData[cur];
+  const opts=document.querySelectorAll('.quiz-opt');
+  opts[q.ans].classList.add('correct');
+  if(i!==q.ans) opts[i].classList.add('wrong');
+  const exp=document.getElementById('quiz-exp');
+  exp.style.display='block';
+  exp.textContent=q.exp;
+}
+function nextQ(){if(cur<quizData.length-1){cur++;renderQuiz();}}
+function prevQ(){if(cur>0){cur--;renderQuiz();}}
+
+function sw(id,btn){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('on'));
+  document.querySelectorAll('.tb').forEach(b=>b.classList.remove('on'));
+  document.getElementById('s-'+id).classList.add('on');
+  btn.classList.add('on');
+  if(id==='quiz') renderQuiz();
+}
+function tog(card){card.classList.toggle('open');}
+
+renderQuiz();
+</script>
