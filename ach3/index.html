@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>중등정보올림피아드 알고리즘 3장 - 우선순위 큐와 이진 힙</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Pretendard", "Noto Sans KR", Arial, sans-serif;
+      background: #f6f8fb;
+      color: #1f2937;
+      line-height: 1.75;
+    }
+
+    header {
+      background: linear-gradient(135deg, #064e3b, #059669, #22d3ee);
+      color: white;
+      padding: 72px 24px 62px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2.65rem;
+      line-height: 1.3;
+      font-weight: 900;
+    }
+
+    header p {
+      max-width: 920px;
+      margin: 22px auto 0;
+      font-size: 1.16rem;
+      opacity: 0.96;
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid #a7f3d0;
+      padding: 12px 18px;
+      overflow-x: auto;
+      white-space: nowrap;
+      box-shadow: 0 4px 18px rgba(15, 23, 42, 0.08);
+    }
+
+    nav a {
+      display: inline-block;
+      text-decoration: none;
+      color: #047857;
+      font-weight: 800;
+      margin: 4px 8px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: #ecfdf5;
+      transition: 0.2s;
+    }
+
+    nav a:hover {
+      background: #059669;
+      color: white;
+    }
+
+    main {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 34px 20px 80px;
+    }
+
+    section {
+      background: white;
+      border-radius: 24px;
+      padding: 34px;
+      margin: 28px 0;
+      box-shadow: 0 12px 32px rgba(15, 23, 42, 0.08);
+      border: 1px solid #e5e7eb;
+    }
+
+    h2 {
+      font-size: 2rem;
+      color: #065f46;
+      margin-top: 0;
+      border-left: 8px solid #10b981;
+      padding-left: 16px;
+    }
+
+    h3 {
+      font-size: 1.45rem;
+      color: #111827;
+      margin-top: 34px;
+    }
+
+    h4 {
+      color: #047857;
+      font-size: 1.15rem;
+      margin-bottom: 8px;
+    }
+
+    .goal-box,
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+      margin-top: 22px;
+    }
+
+    .goal-card,
+    .concept-card {
+      background: linear-gradient(180deg, #ecfdf5, #ffffff);
+      border: 1px solid #a7f3d0;
+      border-radius: 18px;
+      padding: 18px;
+      font-weight: 700;
+    }
+
+    .concept-card strong {
+      display: block;
+      color: #059669;
+      font-size: 1.25rem;
+      margin-bottom: 8px;
+    }
+
+    .note {
+      background: #fff7ed;
+      border-left: 6px solid #f97316;
+      padding: 18px 20px;
+      border-radius: 14px;
+      margin: 20px 0;
+      font-weight: 700;
+    }
+
+    .tip {
+      background: #ecfdf5;
+      border-left: 6px solid #10b981;
+      padding: 18px 20px;
+      border-radius: 14px;
+      margin: 20px 0;
+      font-weight: 700;
+    }
+
+    .warning {
+      background: #fef2f2;
+      border-left: 6px solid #ef4444;
+      padding: 18px 20px;
+      border-radius: 14px;
+      margin: 20px 0;
+      font-weight: 700;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+      overflow: hidden;
+      border-radius: 14px;
+      font-size: 0.98rem;
+    }
+
+    th {
+      background: #047857;
+      color: white;
+      padding: 13px;
+      text-align: center;
+    }
+
+    td {
+      padding: 13px;
+      border: 1px solid #bbf7d0;
+      text-align: center;
+      background: #ffffff;
+    }
+
+    tr:nth-child(even) td {
+      background: #f8fafc;
+    }
+
+    pre {
+      background: #0f172a;
+      color: #e5e7eb;
+      padding: 20px;
+      border-radius: 18px;
+      overflow-x: auto;
+      font-size: 0.93rem;
+      line-height: 1.65;
+      border: 1px solid #334155;
+    }
+
+    code {
+      font-family: "Consolas", "D2Coding", monospace;
+    }
+
+    .inline-code {
+      background: #d1fae5;
+      color: #065f46;
+      padding: 2px 7px;
+      border-radius: 7px;
+      font-weight: 800;
+    }
+
+    .example-box {
+      background: #f8fafc;
+      border: 1px dashed #94a3b8;
+      border-radius: 18px;
+      padding: 22px;
+      margin: 22px 0;
+    }
+
+    .flow {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 18px 0;
+    }
+
+    .flow span {
+      background: #d1fae5;
+      color: #064e3b;
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-weight: 900;
+    }
+
+    .formula {
+      background: #111827;
+      color: #f9fafb;
+      border-radius: 18px;
+      padding: 18px 20px;
+      font-size: 1.1rem;
+      text-align: center;
+      font-weight: 900;
+      margin: 18px 0;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 18px;
+    }
+
+    .tree {
+      font-family: "Consolas", "D2Coding", monospace;
+      background: #f0fdf4;
+      color: #064e3b;
+      border: 1px solid #bbf7d0;
+      padding: 20px;
+      border-radius: 18px;
+      white-space: pre;
+      overflow-x: auto;
+      font-weight: 800;
+    }
+
+    .quiz {
+      background: #fefce8;
+      border: 1px solid #fde68a;
+      border-radius: 18px;
+      padding: 22px;
+      margin-top: 20px;
+    }
+
+    .summary-list li {
+      margin: 9px 0;
+      font-weight: 650;
+    }
+
+    footer {
+      text-align: center;
+      background: #0f172a;
+      color: white;
+      padding: 34px 20px;
+      font-weight: 650;
+    }
+
+    @media (max-width: 700px) {
+      header h1 {
+        font-size: 1.9rem;
+      }
+
+      section {
+        padding: 24px 18px;
+      }
+
+      h2 {
+        font-size: 1.55rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>중등정보올림피아드 알고리즘 3장<br />우선순위 큐와 이진 힙</h1>
+    <p>
+      우선순위 큐의 추상 자료형, 완전 이진 트리에 기반한 최대 힙·최소 힙, 힙의 삽입·삭제 원리, 중앙값 실시간 추적, 카드 정렬 최소 비용 알고리즘을 정리한 강의 노트입니다.
+    </p>
+  </header>
+
+  <nav>
+    <a href="#goal">학습 목표</a>
+    <a href="#priority">우선순위 큐</a>
+    <a href="#heap">힙 개념</a>
+    <a href="#complete-tree">완전 이진 트리</a>
+    <a href="#index">인덱스 규칙</a>
+    <a href="#max-heap">최대 힙</a>
+    <a href="#insert">삽입</a>
+    <a href="#delete">삭제</a>
+    <a href="#min-heap">최소 힙</a>
+    <a href="#median">가운데를 말해요</a>
+    <a href="#card">카드 정렬하기</a>
+    <a href="#practice">실전 유형</a>
+    <a href="#summary">핵심 정리</a>
+  </nav>
+
+  <main>
+    <section id="goal">
+      <h2>1. 학습 목표</h2>
+      <div class="goal-box">
+        <div class="goal-card">1. 우선순위 큐의 개념을 이해한다.</div>
+        <div class="goal-card">2. 일반 큐와 우선순위 큐의 차이를 설명한다.</div>
+        <div class="goal-card">3. 완전 이진 트리 구조를 이해한다.</div>
+        <div class="goal-card">4. 최대 힙과 최소 힙의 차이를 이해한다.</div>
+        <div class="goal-card">5. 힙의 삽입과 삭제 과정을 구현한다.</div>
+        <div class="goal-card">6. 배열 기반 힙의 부모·자식 인덱스 규칙을 활용한다.</div>
+        <div class="goal-card">7. 가운데를 말해요 문제를 두 개의 힙으로 해결한다.</div>
+        <div class="goal-card">8. 카드 정렬하기 문제를 최소 힙으로 해결한다.</div>
+      </div>
+    </section>
+
+    <section id="priority">
+      <h2>2. 우선순위 큐(Priority Queue)</h2>
+      <h3>2.1 일반 큐와 우선순위 큐의 차이</h3>
+      <div class="two-col">
+        <div class="concept-card">
+          <strong>일반 큐</strong>
+          먼저 들어온 데이터가 먼저 나갑니다.<br />FIFO 구조입니다.
+        </div>
+        <div class="concept-card">
+          <strong>우선순위 큐</strong>
+          먼저 들어온 순서가 아니라 우선순위가 높은 데이터가 먼저 나갑니다.
+        </div>
+      </div>
+
+      <div class="example-box">
+        <h4>예시</h4>
+        <p><strong>입력:</strong> (1, A), (5, B), (3, C)</p>
+        <p><strong>출력 순서:</strong> B → C → A</p>
+        <p>우선순위가 가장 높은 5가 먼저 나옵니다.</p>
+      </div>
+
+      <h3>2.2 우선순위 큐가 필요한 문제</h3>
+      <ol>
+        <li>가장 작은 값 빠르게 찾기</li>
+        <li>가장 큰 값 빠르게 찾기</li>
+        <li>실시간 중앙값 찾기</li>
+        <li>최소 비용 계산</li>
+        <li>다익스트라 알고리즘</li>
+        <li>작업 스케줄링</li>
+      </ol>
+
+      <h3>2.3 우선순위 큐의 시간복잡도</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>연산</th>
+            <th>시간복잡도</th>
+            <th>설명</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>삽입</td><td>O(log N)</td><td>힙의 높이만큼 이동</td></tr>
+          <tr><td>삭제</td><td>O(log N)</td><td>루트 삭제 후 재정렬</td></tr>
+          <tr><td>최댓값/최솟값 확인</td><td>O(1)</td><td>루트만 확인</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="heap">
+      <h2>3. 힙(Heap)이란?</h2>
+      <p>
+        힙은 우선순위 큐를 구현하는 대표적인 자료구조입니다. 힙은 <strong>완전 이진 트리</strong>를 기반으로 하며, 부모와 자식 사이에 일정한 크기 관계를 유지합니다.
+      </p>
+
+      <div class="card-grid">
+        <div class="concept-card">
+          <strong>최대 힙</strong>
+          부모 노드가 자식 노드보다 크거나 같습니다.<br />루트에는 최댓값이 있습니다.
+        </div>
+        <div class="concept-card">
+          <strong>최소 힙</strong>
+          부모 노드가 자식 노드보다 작거나 같습니다.<br />루트에는 최솟값이 있습니다.
+        </div>
+      </div>
+
+      <div class="tip">
+        힙은 전체가 완전히 정렬된 구조가 아닙니다. 루트가 최댓값 또는 최솟값이라는 것이 핵심입니다.
+      </div>
+    </section>
+
+    <section id="complete-tree">
+      <h2>4. 완전 이진 트리</h2>
+      <h3>4.1 완전 이진 트리의 특징</h3>
+      <p>
+        완전 이진 트리는 위쪽 레벨부터 채워지고, 같은 레벨에서는 왼쪽부터 차례대로 채워지는 트리입니다.
+      </p>
+
+      <div class="tree">        10
+      /    \
+     8      5
+    / \    /
+   3   2  1</div>
+
+      <h3>4.2 왜 배열로 구현할 수 있을까?</h3>
+      <p>
+        완전 이진 트리는 중간에 빈칸 없이 왼쪽부터 채워지므로 배열에 저장하기 쉽습니다. 포인터로 트리를 만들지 않아도 인덱스 계산만으로 부모와 자식을 찾을 수 있습니다.
+      </p>
+    </section>
+
+    <section id="index">
+      <h2>5. 힙의 인덱스 규칙</h2>
+      <p>
+        힙을 배열로 구현할 때 보통 1번 인덱스부터 사용합니다. 그러면 부모와 자식 인덱스를 쉽게 계산할 수 있습니다.
+      </p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>관계</th>
+            <th>공식</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>부모</td><td>i / 2</td></tr>
+          <tr><td>왼쪽 자식</td><td>i * 2</td></tr>
+          <tr><td>오른쪽 자식</td><td>i * 2 + 1</td></tr>
+        </tbody>
+      </table>
+
+      <div class="example-box">
+        <p><strong>배열:</strong></p>
+        <pre><code>index : 1  2  3  4  5  6
+value : 50 30 20 10 5 15</code></pre>
+        <p><strong>트리 구조:</strong></p>
+        <div class="tree">        50
+      /    \
+    30      20
+   /  \    /
+ 10   5  15</div>
+      </div>
+
+      <div class="warning">
+        힙 구현에서 가장 많이 발생하는 실수는 자식 인덱스가 배열 범위를 넘었는지 확인하지 않는 것입니다.
+      </div>
+    </section>
+
+    <section id="max-heap">
+      <h2>6. 최대 힙(Max Heap)</h2>
+      <p>
+        최대 힙은 부모 노드가 자식 노드보다 크거나 같은 구조입니다. 따라서 항상 루트에 가장 큰 값이 있습니다.
+      </p>
+
+      <div class="tree">        100
+      /     \
+    50       30
+   /  \     /  \
+ 20   10   5    1</div>
+
+      <div class="formula">최대 힙 규칙: 부모 ≥ 자식</div>
+    </section>
+
+    <section id="insert">
+      <h2>7. 최대 힙 삽입 원리</h2>
+      <h3>7.1 삽입 과정</h3>
+      <ol>
+        <li>새 값을 배열의 맨 뒤에 넣습니다.</li>
+        <li>부모와 비교합니다.</li>
+        <li>부모보다 크면 부모와 교환합니다.</li>
+        <li>힙 조건이 만족될 때까지 위로 올라갑니다.</li>
+      </ol>
+
+      <h3>7.2 삽입 예시</h3>
+      <div class="example-box">
+        <p><strong>현재 힙:</strong></p>
+        <div class="tree">       50
+     /    \
+   30      20</div>
+        <p><strong>40 삽입:</strong></p>
+        <div class="tree">       50
+     /    \
+   30      20
+  /
+40</div>
+        <p>40은 부모 30보다 크므로 교환합니다.</p>
+        <div class="tree">       50
+     /    \
+   40      20
+  /
+30</div>
+      </div>
+
+      <div class="formula">삽입 시간복잡도: O(log N)</div>
+
+      <h3>7.3 최대 힙 삽입 C 코드</h3>
+      <pre><code>#include &lt;stdio.h&gt;
+
+#define MAX 100001
+
+int heap[MAX];
+int size = 0;
+
+void push(int value) {
+    heap[++size] = value;
+
+    int current = size;
+
+    while (current &gt; 1) {
+        int parent = current / 2;
+
+        if (heap[parent] &gt;= heap[current]) {
+            break;
+        }
+
+        int temp = heap[parent];
+        heap[parent] = heap[current];
+        heap[current] = temp;
+
+        current = parent;
+    }
+}
+
+int main() {
+    push(10);
+    push(50);
+    push(30);
+    push(70);
+
+    for (int i = 1; i &lt;= size; i++) {
+        printf("%d ", heap[i]);
+    }
+
+    return 0;
+}</code></pre>
+    </section>
+
+    <section id="delete">
+      <h2>8. 최대 힙 삭제 원리</h2>
+      <h3>8.1 삭제 대상</h3>
+      <p>
+        최대 힙에서 삭제되는 값은 항상 루트, 즉 가장 큰 값입니다.
+      </p>
+
+      <h3>8.2 삭제 과정</h3>
+      <ol>
+        <li>루트 값을 저장합니다.</li>
+        <li>마지막 노드를 루트로 옮깁니다.</li>
+        <li>자식 노드들과 비교합니다.</li>
+        <li>더 큰 자식과 교환합니다.</li>
+        <li>힙 조건이 만족될 때까지 아래로 내려갑니다.</li>
+      </ol>
+
+      <h3>8.3 삭제 예시</h3>
+      <div class="example-box">
+        <p><strong>현재 힙:</strong></p>
+        <div class="tree">       100
+      /   \
+    50     30
+   /  \
+ 20   10</div>
+        <p><strong>100 삭제 후 마지막 값 10을 루트로 이동:</strong></p>
+        <div class="tree">       10
+      /   \
+    50     30
+   /
+ 20</div>
+        <p><strong>50과 교환:</strong></p>
+        <div class="tree">       50
+      /   \
+    10     30
+   /
+ 20</div>
+        <p><strong>20과 교환:</strong></p>
+        <div class="tree">       50
+      /   \
+    20     30
+   /
+ 10</div>
+      </div>
+
+      <div class="formula">삭제 시간복잡도: O(log N)</div>
+
+      <h3>8.4 최대 힙 삭제 C 코드</h3>
+      <pre><code>#include &lt;stdio.h&gt;
+
+#define MAX 100001
+
+int heap[MAX];
+int size = 0;
+
+void push(int value) {
+    heap[++size] = value;
+
+    int current = size;
+
+    while (current &gt; 1) {
+        int parent = current / 2;
+
+        if (heap[parent] &gt;= heap[current]) {
+            break;
+        }
+
+        int temp = heap[parent];
+        heap[parent] = heap[current];
+        heap[current] = temp;
+
+        current = parent;
+    }
+}
+
+int pop() {
+    int result = heap[1];
+    heap[1] = heap[size--];
+
+    int current = 1;
+
+    while (1) {
+        int left = current * 2;
+        int right = current * 2 + 1;
+        int largest = current;
+
+        if (left &lt;= size && heap[left] &gt; heap[largest]) {
+            largest = left;
+        }
+
+        if (right &lt;= size && heap[right] &gt; heap[largest]) {
+            largest = right;
+        }
+
+        if (largest == current) {
+            break;
+        }
+
+        int temp = heap[current];
+        heap[current] = heap[largest];
+        heap[largest] = temp;
+
+        current = largest;
+    }
+
+    return result;
+}
+
+int main() {
+    push(10);
+    push(50);
+    push(30);
+    push(70);
+
+    printf("%d\n", pop());
+    printf("%d\n", pop());
+
+    return 0;
+}</code></pre>
+    </section>
+
+    <section id="min-heap">
+      <h2>9. 최소 힙(Min Heap)</h2>
+      <p>
+        최소 힙은 부모 노드가 자식 노드보다 작거나 같은 구조입니다. 따라서 항상 루트에 가장 작은 값이 있습니다.
+      </p>
+
+      <div class="tree">         1
+      /     \
+     3       5
+    / \     / \
+   7   8   9  10</div>
+
+      <div class="formula">최소 힙 규칙: 부모 ≤ 자식</div>
+
+      <h3>9.1 최대 힙과 최소 힙의 차이</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>구분</th>
+            <th>규칙</th>
+            <th>루트</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>최대 힙</td><td>부모 ≥ 자식</td><td>최댓값</td></tr>
+          <tr><td>최소 힙</td><td>부모 ≤ 자식</td><td>최솟값</td></tr>
+        </tbody>
+      </table>
+
+      <h3>9.2 C++ STL priority_queue</h3>
+      <pre><code>// 최대 힙
+priority_queue&lt;int&gt; pq;
+
+// 최소 힙
+priority_queue&lt;int, vector&lt;int&gt;, greater&lt;int&gt;&gt; pq;</code></pre>
+    </section>
+
+    <section id="median">
+      <h2>10. 실전 문제: 가운데를 말해요</h2>
+      <h3>10.1 문제 설명</h3>
+      <p>
+        숫자가 하나씩 입력될 때마다 현재까지 입력된 숫자들의 중앙값을 출력하는 문제입니다.
+      </p>
+
+      <div class="example-box">
+        <p><strong>입력 순서:</strong> 1, 5, 2, 10</p>
+        <p><strong>출력 중앙값:</strong> 1, 1, 2, 2</p>
+      </div>
+
+      <h3>10.2 핵심 아이디어</h3>
+      <p>
+        힙 두 개를 사용합니다.
+      </p>
+      <table>
+        <thead>
+          <tr>
+            <th>힙</th>
+            <th>역할</th>
+            <th>의미</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>최대 힙</td><td>작은 값들 관리</td><td>중앙값 이하</td></tr>
+          <tr><td>최소 힙</td><td>큰 값들 관리</td><td>중앙값 이상</td></tr>
+        </tbody>
+      </table>
+
+      <h3>10.3 중앙값 유지 규칙</h3>
+      <ol>
+        <li>최대 힙 크기는 최소 힙 크기와 같거나 1개 더 많게 유지합니다.</li>
+        <li>최대 힙의 루트는 최소 힙의 루트보다 작거나 같아야 합니다.</li>
+        <li>중앙값은 최대 힙의 루트입니다.</li>
+      </ol>
+
+      <h3>10.4 진행 예시</h3>
+      <div class="example-box">
+        <p><strong>1 입력</strong></p>
+        <pre><code>최대 힙: 1
+최소 힙: 없음
+중앙값: 1</code></pre>
+        <p><strong>5 입력</strong></p>
+        <pre><code>최대 힙: 1
+최소 힙: 5
+중앙값: 1</code></pre>
+        <p><strong>2 입력</strong></p>
+        <pre><code>최대 힙: 2 1
+최소 힙: 5
+중앙값: 2</code></pre>
+      </div>
+
+      <div class="tip">
+        실시간으로 중앙값을 구할 때 매번 정렬하면 느립니다. 두 개의 힙을 사용하면 매 입력마다 O(log N)에 처리할 수 있습니다.
+      </div>
+    </section>
+
+    <section id="card">
+      <h2>11. 실전 문제: 카드 정렬하기</h2>
+      <h3>11.1 문제 설명</h3>
+      <p>
+        여러 카드 묶음이 있을 때, 두 묶음을 합치는 비용은 두 묶음 크기의 합입니다. 모든 카드를 하나로 합칠 때 필요한 최소 비용을 구합니다.
+      </p>
+
+      <h3>11.2 핵심 아이디어</h3>
+      <p>
+        항상 가장 작은 두 묶음을 먼저 합쳐야 전체 비용이 최소가 됩니다. 따라서 최소 힙을 사용합니다.
+      </p>
+
+      <div class="example-box">
+        <h4>예시: 10, 20, 40</h4>
+        <p><strong>잘못된 방법:</strong></p>
+        <pre><code>40 + 20 = 60
+60 + 10 = 70
+총 비용 = 130</code></pre>
+        <p><strong>최적 방법:</strong></p>
+        <pre><code>10 + 20 = 30
+30 + 40 = 70
+총 비용 = 100</code></pre>
+      </div>
+
+      <h3>11.3 C++ STL 코드</h3>
+      <pre><code>#include &lt;iostream&gt;
+#include &lt;queue&gt;
+#include &lt;vector&gt;
+#include &lt;functional&gt;
+
+using namespace std;
+
+int main() {
+    priority_queue&lt;int, vector&lt;int&gt;, greater&lt;int&gt;&gt; pq;
+
+    int N;
+    cin &gt;&gt; N;
+
+    for (int i = 0; i &lt; N; i++) {
+        int x;
+        cin &gt;&gt; x;
+        pq.push(x);
+    }
+
+    int answer = 0;
+
+    while (pq.size() &gt; 1) {
+        int a = pq.top();
+        pq.pop();
+
+        int b = pq.top();
+        pq.pop();
+
+        int sum = a + b;
+        answer += sum;
+
+        pq.push(sum);
+    }
+
+    cout &lt;&lt; answer;
+    return 0;
+}</code></pre>
+
+      <h3>11.4 C언어 최소 힙 코드 핵심</h3>
+      <pre><code>void push(int value) {
+    heap[++size] = value;
+    int current = size;
+
+    while (current &gt; 1) {
+        int parent = current / 2;
+
+        if (heap[parent] &lt;= heap[current]) break;
+
+        int temp = heap[parent];
+        heap[parent] = heap[current];
+        heap[current] = temp;
+
+        current = parent;
+    }
+}</code></pre>
+
+      <div class="formula">카드 정렬하기 시간복잡도: O(N log N)</div>
+    </section>
+
+    <section id="practice">
+      <h2>12. 실전 문제 유형</h2>
+
+      <h3>12.1 우선순위 큐 유형</h3>
+      <ol>
+        <li>최댓값 관리</li>
+        <li>최솟값 관리</li>
+        <li>중앙값 유지</li>
+        <li>작업 우선순위 처리</li>
+        <li>다익스트라 최단거리</li>
+      </ol>
+
+      <h3>12.2 힙 유형</h3>
+      <ol>
+        <li>카드 정렬하기</li>
+        <li>최소 비용 합치기</li>
+        <li>강의실 배정</li>
+        <li>파일 합치기</li>
+        <li>실시간 순위 관리</li>
+      </ol>
+
+      <h3>12.3 힙 사용 시 주의점</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>항목</th>
+            <th>주의할 점</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>부모 인덱스</td><td>i / 2</td></tr>
+          <tr><td>왼쪽 자식</td><td>i * 2</td></tr>
+          <tr><td>오른쪽 자식</td><td>i * 2 + 1</td></tr>
+          <tr><td>범위 체크</td><td>left &lt;= size, right &lt;= size 확인</td></tr>
+          <tr><td>삭제</td><td>마지막 값을 루트로 옮긴 뒤 내려보내기</td></tr>
+        </tbody>
+      </table>
+
+      <div class="quiz">
+        <h3>수업 중 확인 질문</h3>
+        <ol>
+          <li>일반 큐와 우선순위 큐의 가장 큰 차이는 무엇인가?</li>
+          <li>최대 힙에서 루트에는 어떤 값이 있는가?</li>
+          <li>배열 힙에서 i번 노드의 부모 인덱스는 무엇인가?</li>
+          <li>힙에 값을 삽입할 때 새 값은 처음에 어디에 들어가는가?</li>
+          <li>힙에서 삭제할 때 루트를 제거한 뒤 어떤 값을 루트로 옮기는가?</li>
+          <li>가운데를 말해요 문제에서 두 개의 힙을 사용하는 이유는 무엇인가?</li>
+          <li>카드 정렬하기 문제에서 가장 작은 두 묶음을 먼저 합쳐야 하는 이유는 무엇인가?</li>
+        </ol>
+      </div>
+    </section>
+
+    <section id="summary">
+      <h2>13. 핵심 정리</h2>
+      <ol class="summary-list">
+        <li>우선순위 큐는 우선순위가 높은 데이터가 먼저 나오는 자료구조입니다.</li>
+        <li>힙은 우선순위 큐를 구현하는 대표 자료구조입니다.</li>
+        <li>힙은 완전 이진 트리를 기반으로 합니다.</li>
+        <li>최대 힙은 부모가 자식보다 크거나 같습니다.</li>
+        <li>최소 힙은 부모가 자식보다 작거나 같습니다.</li>
+        <li>힙은 배열로 구현할 수 있습니다.</li>
+        <li>부모 인덱스는 i / 2입니다.</li>
+        <li>왼쪽 자식 인덱스는 i * 2입니다.</li>
+        <li>오른쪽 자식 인덱스는 i * 2 + 1입니다.</li>
+        <li>힙 삽입은 새 값을 맨 뒤에 넣고 위로 올리는 과정입니다.</li>
+        <li>힙 삭제는 루트를 제거하고 마지막 값을 루트로 올린 뒤 아래로 내리는 과정입니다.</li>
+        <li>힙의 삽입과 삭제 시간복잡도는 O(log N)입니다.</li>
+        <li>가운데를 말해요 문제는 최대 힙과 최소 힙 두 개를 사용합니다.</li>
+        <li>카드 정렬하기 문제는 최소 힙을 사용하는 대표적인 최소 비용 문제입니다.</li>
+        <li>힙은 중등정보올림피아드 실전 문제에서 매우 자주 등장합니다.</li>
+      </ol>
+    </section>
+  </main>
+
+  <footer>
+    <p>중등정보올림피아드 알고리즘 강의 노트 · 3장 우선순위 큐와 이진 힙</p>
+  </footer>
+</body>
+</html>
