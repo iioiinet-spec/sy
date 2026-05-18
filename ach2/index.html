@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>중등정보올림피아드 알고리즘 2장 - 정렬과 이진 탐색</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Pretendard", "Noto Sans KR", Arial, sans-serif;
+      background: #f5f7fb;
+      color: #1f2937;
+      line-height: 1.75;
+    }
+
+    header {
+      background: linear-gradient(135deg, #312e81, #4f46e5, #06b6d4);
+      color: white;
+      padding: 72px 24px 62px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2.65rem;
+      line-height: 1.3;
+      font-weight: 900;
+    }
+
+    header p {
+      max-width: 920px;
+      margin: 22px auto 0;
+      font-size: 1.16rem;
+      opacity: 0.96;
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid #ddd6fe;
+      padding: 12px 18px;
+      overflow-x: auto;
+      white-space: nowrap;
+      box-shadow: 0 4px 18px rgba(15, 23, 42, 0.08);
+    }
+
+    nav a {
+      display: inline-block;
+      text-decoration: none;
+      color: #4338ca;
+      font-weight: 800;
+      margin: 4px 8px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: #eef2ff;
+      transition: 0.2s;
+    }
+
+    nav a:hover {
+      background: #4f46e5;
+      color: white;
+    }
+
+    main {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 34px 20px 80px;
+    }
+
+    section {
+      background: white;
+      border-radius: 24px;
+      padding: 34px;
+      margin: 28px 0;
+      box-shadow: 0 12px 32px rgba(15, 23, 42, 0.08);
+      border: 1px solid #e5e7eb;
+    }
+
+    h2 {
+      font-size: 2rem;
+      color: #312e81;
+      margin-top: 0;
+      border-left: 8px solid #4f46e5;
+      padding-left: 16px;
+    }
+
+    h3 {
+      font-size: 1.45rem;
+      color: #111827;
+      margin-top: 34px;
+    }
+
+    h4 {
+      color: #4338ca;
+      font-size: 1.15rem;
+      margin-bottom: 8px;
+    }
+
+    .goal-box,
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+      margin-top: 22px;
+    }
+
+    .goal-card,
+    .concept-card {
+      background: linear-gradient(180deg, #eef2ff, #ffffff);
+      border: 1px solid #c7d2fe;
+      border-radius: 18px;
+      padding: 18px;
+      font-weight: 700;
+    }
+
+    .concept-card strong {
+      display: block;
+      color: #4f46e5;
+      font-size: 1.25rem;
+      margin-bottom: 8px;
+    }
+
+    .note {
+      background: #fff7ed;
+      border-left: 6px solid #f97316;
+      padding: 18px 20px;
+      border-radius: 14px;
+      margin: 20px 0;
+      font-weight: 700;
+    }
+
+    .tip {
+      background: #ecfdf5;
+      border-left: 6px solid #10b981;
+      padding: 18px 20px;
+      border-radius: 14px;
+      margin: 20px 0;
+      font-weight: 700;
+    }
+
+    .warning {
+      background: #fef2f2;
+      border-left: 6px solid #ef4444;
+      padding: 18px 20px;
+      border-radius: 14px;
+      margin: 20px 0;
+      font-weight: 700;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+      overflow: hidden;
+      border-radius: 14px;
+      font-size: 0.98rem;
+    }
+
+    th {
+      background: #4338ca;
+      color: white;
+      padding: 13px;
+      text-align: center;
+    }
+
+    td {
+      padding: 13px;
+      border: 1px solid #ddd6fe;
+      text-align: center;
+      background: #ffffff;
+    }
+
+    tr:nth-child(even) td {
+      background: #f8fafc;
+    }
+
+    pre {
+      background: #0f172a;
+      color: #e5e7eb;
+      padding: 20px;
+      border-radius: 18px;
+      overflow-x: auto;
+      font-size: 0.93rem;
+      line-height: 1.65;
+      border: 1px solid #334155;
+    }
+
+    code {
+      font-family: "Consolas", "D2Coding", monospace;
+    }
+
+    .inline-code {
+      background: #e0e7ff;
+      color: #3730a3;
+      padding: 2px 7px;
+      border-radius: 7px;
+      font-weight: 800;
+    }
+
+    .example-box {
+      background: #f8fafc;
+      border: 1px dashed #94a3b8;
+      border-radius: 18px;
+      padding: 22px;
+      margin: 22px 0;
+    }
+
+    .flow {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 18px 0;
+    }
+
+    .flow span {
+      background: #ddd6fe;
+      color: #312e81;
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-weight: 900;
+    }
+
+    .formula {
+      background: #111827;
+      color: #f9fafb;
+      border-radius: 18px;
+      padding: 18px 20px;
+      font-size: 1.1rem;
+      text-align: center;
+      font-weight: 900;
+      margin: 18px 0;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 18px;
+    }
+
+    .quiz {
+      background: #fefce8;
+      border: 1px solid #fde68a;
+      border-radius: 18px;
+      padding: 22px;
+      margin-top: 20px;
+    }
+
+    .summary-list li {
+      margin: 9px 0;
+      font-weight: 650;
+    }
+
+    footer {
+      text-align: center;
+      background: #0f172a;
+      color: white;
+      padding: 34px 20px;
+      font-weight: 650;
+    }
+
+    @media (max-width: 700px) {
+      header h1 {
+        font-size: 1.9rem;
+      }
+
+      section {
+        padding: 24px 18px;
+      }
+
+      h2 {
+        font-size: 1.55rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>중등정보올림피아드 알고리즘 2장<br />정렬과 이진 탐색</h1>
+    <p>
+      다양한 정렬 알고리즘, 조건별 정렬 선택, 이진 탐색, 매개 변수 탐색, 좌표 정렬, 나이순 정렬, 랜선 자르기와 나무 자르기 유형까지 한 번에 정리하는 강의 노트입니다.
+    </p>
+  </header>
+
+  <nav>
+    <a href="#goal">학습 목표</a>
+    <a href="#sorting">정렬 개념</a>
+    <a href="#sort-types">정렬 알고리즘</a>
+    <a href="#choose">정렬 선택</a>
+    <a href="#qsort">qsort</a>
+    <a href="#coordinate">좌표 정렬</a>
+    <a href="#age">나이순 정렬</a>
+    <a href="#binary">이진 탐색</a>
+    <a href="#bounds">lower/upper</a>
+    <a href="#parametric">매개 변수 탐색</a>
+    <a href="#lan">랜선 자르기</a>
+    <a href="#tree">나무 자르기</a>
+    <a href="#practice">실전 유형</a>
+    <a href="#summary">핵심 정리</a>
+  </nav>
+
+  <main>
+    <section id="goal">
+      <h2>1. 학습 목표</h2>
+      <div class="goal-box">
+        <div class="goal-card">1. 다양한 정렬 알고리즘의 원리를 이해한다.</div>
+        <div class="goal-card">2. 상황에 따라 어떤 정렬을 선택해야 하는지 판단한다.</div>
+        <div class="goal-card">3. 이진 탐색의 동작 원리를 이해한다.</div>
+        <div class="goal-card">4. 탐색 시간을 O(N)에서 O(log N)으로 줄인다.</div>
+        <div class="goal-card">5. 매개 변수 탐색의 핵심 개념을 이해한다.</div>
+        <div class="goal-card">6. 랜선 자르기, 나무 자르기 최적화 문제를 해결한다.</div>
+        <div class="goal-card">7. 좌표 정렬, 나이순 정렬 등 정렬 응용 문제를 해결한다.</div>
+      </div>
+    </section>
+
+    <section id="sorting">
+      <h2>2. 정렬(Sorting)이란?</h2>
+      <p>
+        정렬은 데이터를 특정 기준에 따라 순서대로 나열하는 것입니다. 정보올림피아드에서는 정렬을 통해 탐색, 비교, 중복 제거, 조건 판단을 훨씬 쉽게 만들 수 있습니다.
+      </p>
+
+      <div class="example-box">
+        <h4>예시</h4>
+        <p><strong>원래 데이터:</strong> 5 1 3 2 4</p>
+        <p><strong>오름차순:</strong> 1 2 3 4 5</p>
+        <p><strong>내림차순:</strong> 5 4 3 2 1</p>
+      </div>
+
+      <h3>2.1 정렬이 중요한 이유</h3>
+      <ol>
+        <li>탐색 속도를 빠르게 만들 수 있습니다.</li>
+        <li>이진 탐색을 사용할 수 있습니다.</li>
+        <li>중복 제거가 쉬워집니다.</li>
+        <li>조건 비교가 쉬워집니다.</li>
+        <li>구간 처리 문제에 활용할 수 있습니다.</li>
+      </ol>
+
+      <div class="tip">
+        정렬은 단독으로도 중요하지만, 보통 이진 탐색이나 투 포인터 같은 알고리즘과 함께 사용될 때 더 강력해집니다.
+      </div>
+    </section>
+
+    <section id="sort-types">
+      <h2>3. 대표 정렬 알고리즘</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>정렬</th>
+            <th>평균 시간복잡도</th>
+            <th>특징</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>버블 정렬</td><td>O(N²)</td><td>구현이 쉽지만 느림</td></tr>
+          <tr><td>선택 정렬</td><td>O(N²)</td><td>가장 작은 값을 선택</td></tr>
+          <tr><td>삽입 정렬</td><td>O(N²)</td><td>거의 정렬된 경우 빠름</td></tr>
+          <tr><td>병합 정렬</td><td>O(N log N)</td><td>안정 정렬, 분할 정복</td></tr>
+          <tr><td>퀵 정렬</td><td>O(N log N)</td><td>평균적으로 매우 빠름</td></tr>
+          <tr><td>qsort / sort</td><td>O(N log N)</td><td>실전에서 가장 많이 사용</td></tr>
+        </tbody>
+      </table>
+
+      <h3>3.1 버블 정렬</h3>
+      <p>
+        인접한 두 수를 비교해서 큰 값을 뒤로 보내는 방식입니다.
+      </p>
+      <div class="flow">
+        <span>5 3 2 4</span>
+        <span>3 5 2 4</span>
+        <span>3 2 5 4</span>
+        <span>3 2 4 5</span>
+      </div>
+      <pre><code>#include &lt;stdio.h&gt;
+
+int main() {
+    int arr[5] = {5, 3, 2, 4, 1};
+
+    for (int i = 0; i &lt; 5; i++) {
+        for (int j = 0; j &lt; 4 - i; j++) {
+            if (arr[j] &gt; arr[j + 1]) {
+                int temp = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = temp;
+            }
+        }
+    }
+
+    for (int i = 0; i &lt; 5; i++) {
+        printf("%d ", arr[i]);
+    }
+
+    return 0;
+}</code></pre>
+
+      <h3>3.2 선택 정렬</h3>
+      <p>
+        남은 숫자 중 가장 작은 값을 찾아 앞쪽으로 보내는 방식입니다.
+      </p>
+      <div class="flow">
+        <span>5 1 4 2 3</span>
+        <span>1 5 4 2 3</span>
+        <span>1 2 4 5 3</span>
+        <span>1 2 3 5 4</span>
+      </div>
+      <div class="note">
+        선택 정렬은 구현은 쉽지만 매번 가장 작은 값을 찾기 때문에 시간복잡도는 O(N²)입니다.
+      </div>
+
+      <h3>3.3 삽입 정렬</h3>
+      <p>
+        현재 숫자를 앞쪽의 이미 정렬된 부분에 알맞게 끼워 넣는 방식입니다. 카드를 손에 들고 정렬하는 방식과 비슷합니다.
+      </p>
+      <div class="tip">
+        삽입 정렬은 거의 정렬된 데이터에서는 매우 빠르게 동작할 수 있습니다.
+      </div>
+
+      <h3>3.4 병합 정렬</h3>
+      <p>
+        배열을 반으로 나누고, 각각 정렬한 뒤 다시 합치는 분할 정복 방식입니다.
+      </p>
+      <div class="flow">
+        <span>나누기</span>
+        <span>각각 정렬</span>
+        <span>합치기</span>
+        <span>완성</span>
+      </div>
+      <div class="formula">시간복잡도: O(N log N)</div>
+
+      <h3>3.5 퀵 정렬</h3>
+      <p>
+        기준값 Pivot을 정하고, 작은 값은 왼쪽, 큰 값은 오른쪽으로 나누는 방식입니다.
+      </p>
+      <div class="warning">
+        퀵 정렬은 평균적으로 빠르지만, Pivot 선택이 나쁘면 최악의 경우 O(N²)이 될 수 있습니다.
+      </div>
+    </section>
+
+    <section id="choose">
+      <h2>4. 조건별 최적 정렬 선택</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>상황</th>
+            <th>추천 정렬</th>
+            <th>이유</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>데이터가 매우 적음</td><td>버블 / 선택 / 삽입</td><td>구현이 간단함</td></tr>
+          <tr><td>거의 정렬되어 있음</td><td>삽입 정렬</td><td>이동 횟수가 적음</td></tr>
+          <tr><td>일반적인 대량 데이터</td><td>qsort / sort</td><td>O(N log N)으로 빠름</td></tr>
+          <tr><td>안정 정렬이 필요함</td><td>병합 정렬 / stable sort</td><td>같은 값의 기존 순서 유지</td></tr>
+          <tr><td>실전 대회</td><td>표준 라이브러리 정렬</td><td>빠르고 검증되어 있음</td></tr>
+        </tbody>
+      </table>
+
+      <div class="note">
+        중등정보올림피아드 실전에서는 직접 O(N²) 정렬을 구현하기보다 qsort, sort, 또는 문제 조건에 맞는 효율적인 정렬을 사용하는 것이 중요합니다.
+      </div>
+    </section>
+
+    <section id="qsort">
+      <h2>5. C언어 qsort 사용법</h2>
+      <p>
+        C언어에서는 <span class="inline-code">stdlib.h</span>의 <span class="inline-code">qsort</span>를 사용해 배열을 정렬할 수 있습니다.
+      </p>
+
+      <h3>5.1 기본 정수 정렬</h3>
+      <pre><code>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+int compare(const void *a, const void *b) {
+    int x = *(int*)a;
+    int y = *(int*)b;
+
+    if (x &lt; y) return -1;
+    if (x &gt; y) return 1;
+    return 0;
+}
+
+int main() {
+    int arr[5] = {5, 1, 4, 2, 3};
+
+    qsort(arr, 5, sizeof(int), compare);
+
+    for (int i = 0; i &lt; 5; i++) {
+        printf("%d ", arr[i]);
+    }
+
+    return 0;
+}</code></pre>
+
+      <div class="warning">
+        compare 함수에서 단순히 return x - y;를 사용하면 값이 매우 클 때 오버플로우가 날 수 있습니다. 안전하게 if문으로 비교하는 습관이 좋습니다.
+      </div>
+    </section>
+
+    <section id="coordinate">
+      <h2>6. 좌표 정렬</h2>
+      <h3>6.1 문제 설명</h3>
+      <p>
+        좌표 (x, y)가 여러 개 주어질 때 다음 기준으로 정렬합니다.
+      </p>
+      <ol>
+        <li>x 기준 오름차순</li>
+        <li>x가 같으면 y 기준 오름차순</li>
+      </ol>
+
+      <h3>6.2 구조체 정의</h3>
+      <pre><code>typedef struct {
+    int x;
+    int y;
+} Point;</code></pre>
+
+      <h3>6.3 비교 함수</h3>
+      <pre><code>int compare(const void *a, const void *b) {
+    Point *p1 = (Point*)a;
+    Point *p2 = (Point*)b;
+
+    if (p1-&gt;x &lt; p2-&gt;x) return -1;
+    if (p1-&gt;x &gt; p2-&gt;x) return 1;
+
+    if (p1-&gt;y &lt; p2-&gt;y) return -1;
+    if (p1-&gt;y &gt; p2-&gt;y) return 1;
+    return 0;
+}</code></pre>
+
+      <h3>6.4 전체 코드</h3>
+      <pre><code>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+#define MAX 100000
+
+typedef struct {
+    int x;
+    int y;
+} Point;
+
+Point arr[MAX];
+
+int compare(const void *a, const void *b) {
+    Point *p1 = (Point*)a;
+    Point *p2 = (Point*)b;
+
+    if (p1-&gt;x &lt; p2-&gt;x) return -1;
+    if (p1-&gt;x &gt; p2-&gt;x) return 1;
+
+    if (p1-&gt;y &lt; p2-&gt;y) return -1;
+    if (p1-&gt;y &gt; p2-&gt;y) return 1;
+    return 0;
+}
+
+int main() {
+    int N;
+    scanf("%d", &N);
+
+    for (int i = 0; i &lt; N; i++) {
+        scanf("%d %d", &arr[i].x, &arr[i].y);
+    }
+
+    qsort(arr, N, sizeof(Point), compare);
+
+    for (int i = 0; i &lt; N; i++) {
+        printf("%d %d\n", arr[i].x, arr[i].y);
+    }
+
+    return 0;
+}</code></pre>
+    </section>
+
+    <section id="age">
+      <h2>7. 나이순 정렬</h2>
+      <h3>7.1 문제 특징</h3>
+      <p>
+        나이순 정렬 문제는 보통 다음 조건을 가집니다.
+      </p>
+      <ol>
+        <li>나이 오름차순</li>
+        <li>나이가 같으면 입력 순서 유지</li>
+      </ol>
+
+      <div class="note">
+        같은 값의 기존 순서를 유지하는 정렬을 안정 정렬이라고 합니다.
+      </div>
+
+      <h3>7.2 C언어에서 처리하는 방법</h3>
+      <p>
+        C의 qsort는 안정 정렬을 보장하지 않습니다. 따라서 입력 순서를 index로 함께 저장하고, 나이가 같으면 index를 기준으로 정렬합니다.
+      </p>
+
+      <pre><code>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+#define MAX 100000
+
+typedef struct {
+    int age;
+    char name[101];
+    int index;
+} Member;
+
+Member arr[MAX];
+
+int compare(const void *a, const void *b) {
+    Member *m1 = (Member*)a;
+    Member *m2 = (Member*)b;
+
+    if (m1-&gt;age &lt; m2-&gt;age) return -1;
+    if (m1-&gt;age &gt; m2-&gt;age) return 1;
+
+    if (m1-&gt;index &lt; m2-&gt;index) return -1;
+    if (m1-&gt;index &gt; m2-&gt;index) return 1;
+    return 0;
+}
+
+int main() {
+    int N;
+    scanf("%d", &N);
+
+    for (int i = 0; i &lt; N; i++) {
+        scanf("%d %s", &arr[i].age, arr[i].name);
+        arr[i].index = i;
+    }
+
+    qsort(arr, N, sizeof(Member), compare);
+
+    for (int i = 0; i &lt; N; i++) {
+        printf("%d %s\n", arr[i].age, arr[i].name);
+    }
+
+    return 0;
+}</code></pre>
+    </section>
+
+    <section id="binary">
+      <h2>8. 이진 탐색(Binary Search)</h2>
+      <h3>8.1 왜 필요한가?</h3>
+      <p>
+        배열에서 특정 값을 찾을 때 하나씩 찾으면 O(N)이 걸립니다. 하지만 배열이 정렬되어 있다면 중간값을 기준으로 탐색 범위를 절반씩 줄일 수 있습니다.
+      </p>
+
+      <div class="two-col">
+        <div class="concept-card">
+          <strong>순차 탐색</strong>
+          앞에서부터 하나씩 확인합니다.<br />시간복잡도: O(N)
+        </div>
+        <div class="concept-card">
+          <strong>이진 탐색</strong>
+          중간을 기준으로 절반씩 줄입니다.<br />시간복잡도: O(log N)
+        </div>
+      </div>
+
+      <div class="warning">
+        이진 탐색은 반드시 정렬된 배열에서만 사용할 수 있습니다.
+      </div>
+
+      <h3>8.2 이진 탐색 원리</h3>
+      <div class="example-box">
+        <p><strong>배열:</strong> 1 3 5 7 9 11 13</p>
+        <p><strong>찾는 값:</strong> 9</p>
+        <p><strong>중간값:</strong> 7</p>
+        <p>9는 7보다 크므로 오른쪽 부분만 다시 탐색합니다.</p>
+      </div>
+
+      <h3>8.3 C 코드</h3>
+      <pre><code>#include &lt;stdio.h&gt;
+
+int main() {
+    int arr[7] = {1, 3, 5, 7, 9, 11, 13};
+    int target = 9;
+
+    int left = 0;
+    int right = 6;
+
+    while (left &lt;= right) {
+        int mid = (left + right) / 2;
+
+        if (arr[mid] == target) {
+            printf("찾음\n");
+            return 0;
+        }
+
+        if (arr[mid] &lt; target) {
+            left = mid + 1;
+        } else {
+            right = mid - 1;
+        }
+    }
+
+    printf("없음\n");
+    return 0;
+}</code></pre>
+
+      <div class="tip">
+        left와 right가 의미하는 범위를 정확히 유지하는 것이 이진 탐색 구현의 핵심입니다.
+      </div>
+    </section>
+
+    <section id="bounds">
+      <h2>9. lower_bound와 upper_bound 개념</h2>
+      <h3>9.1 lower_bound</h3>
+      <p>
+        lower_bound는 어떤 값 이상이 처음 등장하는 위치를 찾는 개념입니다.
+      </p>
+
+      <h3>9.2 upper_bound</h3>
+      <p>
+        upper_bound는 어떤 값을 초과하는 첫 위치를 찾는 개념입니다.
+      </p>
+
+      <div class="example-box">
+        <p><strong>배열:</strong> 1 2 2 2 3 4</p>
+        <p><strong>값 2의 lower_bound:</strong> 첫 번째 2의 위치</p>
+        <p><strong>값 2의 upper_bound:</strong> 3의 위치</p>
+        <p><strong>값 2의 개수:</strong> upper_bound - lower_bound</p>
+      </div>
+
+      <h3>9.3 lower_bound C 구현</h3>
+      <pre><code>int lower_bound(int arr[], int n, int target) {
+    int left = 0;
+    int right = n;
+
+    while (left &lt; right) {
+        int mid = (left + right) / 2;
+
+        if (arr[mid] &gt;= target) {
+            right = mid;
+        } else {
+            left = mid + 1;
+        }
+    }
+
+    return left;
+}</code></pre>
+
+      <h3>9.4 upper_bound C 구현</h3>
+      <pre><code>int upper_bound(int arr[], int n, int target) {
+    int left = 0;
+    int right = n;
+
+    while (left &lt; right) {
+        int mid = (left + right) / 2;
+
+        if (arr[mid] &gt; target) {
+            right = mid;
+        } else {
+            left = mid + 1;
+        }
+    }
+
+    return left;
+}</code></pre>
+    </section>
+
+    <section id="parametric">
+      <h2>10. 매개 변수 탐색(Parametric Search)</h2>
+      <h3>10.1 핵심 개념</h3>
+      <p>
+        매개 변수 탐색은 정답을 직접 찾는 것이 아니라, 어떤 값이 가능한지 검사하면서 정답 범위를 이진 탐색하는 방법입니다.
+      </p>
+
+      <div class="formula">정답 후보 X → 가능한가? → 가능하면 더 큰 값 / 불가능하면 더 작은 값</div>
+
+      <h3>10.2 기본 흐름</h3>
+      <ol>
+        <li>정답이 될 수 있는 범위를 정합니다.</li>
+        <li>중간값 mid를 정합니다.</li>
+        <li>mid가 가능한지 검사합니다.</li>
+        <li>가능하면 정답을 저장하고 더 좋은 방향으로 탐색합니다.</li>
+        <li>불가능하면 반대 방향으로 탐색합니다.</li>
+      </ol>
+
+      <h3>10.3 이런 문장이 나오면 의심하기</h3>
+      <div class="card-grid">
+        <div class="concept-card"><strong>최대값</strong>가능한 값 중 가장 큰 값을 구하라.</div>
+        <div class="concept-card"><strong>최솟값</strong>조건을 만족하는 가장 작은 값을 구하라.</div>
+        <div class="concept-card"><strong>가능 여부</strong>이 값으로 조건을 만족할 수 있는가?</div>
+        <div class="concept-card"><strong>최적화</strong>가장 좋은 높이, 길이, 거리, 용량을 구하라.</div>
+      </div>
+
+      <div class="tip">
+        매개 변수 탐색 문제는 대부분 “정답 후보를 정했을 때 가능 여부를 빠르게 판단할 수 있는가?”가 핵심입니다.
+      </div>
+    </section>
+
+    <section id="lan">
+      <h2>11. 랜선 자르기</h2>
+      <h3>11.1 문제 설명</h3>
+      <p>
+        여러 개의 랜선을 같은 길이로 잘라 N개 이상 만들고 싶습니다. 가능한 랜선 길이 중 최대값을 구하는 문제입니다.
+      </p>
+
+      <h3>11.2 핵심 아이디어</h3>
+      <p>
+        랜선의 길이를 기준으로 이진 탐색합니다.
+      </p>
+      <div class="flow">
+        <span>길이 200 가능?</span>
+        <span>가능하면 더 길게</span>
+        <span>길이 300 가능?</span>
+        <span>불가능하면 더 짧게</span>
+      </div>
+
+      <h3>11.3 C 코드</h3>
+      <pre><code>#include &lt;stdio.h&gt;
+
+long long arr[10001];
+
+int main() {
+    int K, N;
+    scanf("%d %d", &K, &N);
+
+    long long max = 0;
+
+    for (int i = 0; i &lt; K; i++) {
+        scanf("%lld", &arr[i]);
+        if (arr[i] &gt; max) {
+            max = arr[i];
+        }
+    }
+
+    long long left = 1;
+    long long right = max;
+    long long answer = 0;
+
+    while (left &lt;= right) {
+        long long mid = (left + right) / 2;
+        long long count = 0;
+
+        for (int i = 0; i &lt; K; i++) {
+            count += arr[i] / mid;
+        }
+
+        if (count &gt;= N) {
+            answer = mid;
+            left = mid + 1;
+        } else {
+            right = mid - 1;
+        }
+    }
+
+    printf("%lld\n", answer);
+    return 0;
+}</code></pre>
+
+      <div class="note">
+        길이가 길수록 만들 수 있는 랜선 개수는 줄어듭니다. 이런 단조성이 있기 때문에 이진 탐색이 가능합니다.
+      </div>
+    </section>
+
+    <section id="tree">
+      <h2>12. 나무 자르기</h2>
+      <h3>12.1 문제 설명</h3>
+      <p>
+        절단기 높이를 정해서 나무를 자릅니다. 잘린 나무 길이의 합이 필요한 길이 이상이 되도록 하는 최대 절단기 높이를 구합니다.
+      </p>
+
+      <h3>12.2 핵심 아이디어</h3>
+      <p>
+        절단기 높이를 기준으로 이진 탐색합니다.
+      </p>
+
+      <div class="example-box">
+        <p>절단기 높이가 낮으면 많이 잘립니다.</p>
+        <p>절단기 높이가 높으면 적게 잘립니다.</p>
+        <p>따라서 높이에 따라 얻는 나무 길이가 단조적으로 변합니다.</p>
+      </div>
+
+      <h3>12.3 C 코드</h3>
+      <pre><code>#include &lt;stdio.h&gt;
+
+#define MAX 1000000
+
+long long tree[MAX];
+
+int main() {
+    int N;
+    long long M;
+    scanf("%d %lld", &N, &M);
+
+    long long maxHeight = 0;
+
+    for (int i = 0; i &lt; N; i++) {
+        scanf("%lld", &tree[i]);
+        if (tree[i] &gt; maxHeight) {
+            maxHeight = tree[i];
+        }
+    }
+
+    long long left = 0;
+    long long right = maxHeight;
+    long long answer = 0;
+
+    while (left &lt;= right) {
+        long long mid = (left + right) / 2;
+        long long sum = 0;
+
+        for (int i = 0; i &lt; N; i++) {
+            if (tree[i] &gt; mid) {
+                sum += tree[i] - mid;
+            }
+        }
+
+        if (sum &gt;= M) {
+            answer = mid;
+            left = mid + 1;
+        } else {
+            right = mid - 1;
+        }
+    }
+
+    printf("%lld\n", answer);
+    return 0;
+}</code></pre>
+    </section>
+
+    <section id="practice">
+      <h2>13. 실전 문제 유형</h2>
+
+      <h3>13.1 정렬 유형</h3>
+      <ol>
+        <li>좌표 정렬</li>
+        <li>나이순 정렬</li>
+        <li>점수 정렬</li>
+        <li>문자열 정렬</li>
+        <li>여러 기준 정렬</li>
+      </ol>
+
+      <h3>13.2 이진 탐색 유형</h3>
+      <ol>
+        <li>수 찾기</li>
+        <li>중복 개수 세기</li>
+        <li>lower_bound</li>
+        <li>upper_bound</li>
+        <li>가장 가까운 값 찾기</li>
+      </ol>
+
+      <h3>13.3 매개 변수 탐색 유형</h3>
+      <ol>
+        <li>랜선 자르기</li>
+        <li>나무 자르기</li>
+        <li>공유기 설치</li>
+        <li>블루레이 나누기</li>
+        <li>예산 배정</li>
+      </ol>
+
+      <div class="quiz">
+        <h3>수업 중 확인 질문</h3>
+        <ol>
+          <li>이진 탐색을 사용하기 위한 가장 중요한 조건은 무엇인가?</li>
+          <li>O(N) 탐색과 O(log N) 탐색의 차이는 무엇인가?</li>
+          <li>나이순 정렬에서 나이가 같을 때 입력 순서를 유지하려면 무엇을 저장해야 하는가?</li>
+          <li>랜선 자르기 문제에서 이진 탐색의 기준값은 무엇인가?</li>
+          <li>매개 변수 탐색 문제에서 가장 먼저 확인해야 할 것은 무엇인가?</li>
+        </ol>
+      </div>
+    </section>
+
+    <section id="summary">
+      <h2>14. 핵심 정리</h2>
+      <ol class="summary-list">
+        <li>정렬은 데이터를 기준에 따라 순서대로 배치하는 과정입니다.</li>
+        <li>실전에서는 O(N log N) 정렬을 주로 사용합니다.</li>
+        <li>버블, 선택, 삽입 정렬은 구현은 쉽지만 일반적으로 O(N²)입니다.</li>
+        <li>병합 정렬과 퀵 정렬은 평균적으로 O(N log N)입니다.</li>
+        <li>C언어에서는 qsort를 활용할 수 있습니다.</li>
+        <li>좌표 정렬은 x 기준, x가 같으면 y 기준으로 정렬합니다.</li>
+        <li>나이순 정렬은 나이가 같을 때 입력 순서를 유지해야 합니다.</li>
+        <li>이진 탐색은 반드시 정렬된 배열에서 사용합니다.</li>
+        <li>이진 탐색의 시간복잡도는 O(log N)입니다.</li>
+        <li>매개 변수 탐색은 “가능한가?”를 기준으로 정답 범위를 줄이는 방법입니다.</li>
+        <li>랜선 자르기와 나무 자르기는 대표적인 최댓값 최적화 문제입니다.</li>
+        <li>정렬 후 이진 탐색하는 패턴은 정보올림피아드에서 매우 자주 등장합니다.</li>
+      </ol>
+    </section>
+  </main>
+
+  <footer>
+    <p>중등정보올림피아드 알고리즘 강의 노트 · 2장 정렬과 이진 탐색</p>
+  </footer>
+</body>
+</html>
