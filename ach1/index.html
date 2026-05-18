@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>중등정보올림피아드 알고리즘 1장 - 시간복잡도와 기초 자료구조</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Pretendard", "Noto Sans KR", Arial, sans-serif;
+      background: #f4f7fb;
+      color: #1f2937;
+      line-height: 1.75;
+    }
+
+    header {
+      background: linear-gradient(135deg, #1e3a8a, #2563eb, #38bdf8);
+      color: white;
+      padding: 70px 24px 60px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2.6rem;
+      line-height: 1.3;
+      font-weight: 900;
+    }
+
+    header p {
+      max-width: 860px;
+      margin: 22px auto 0;
+      font-size: 1.18rem;
+      opacity: 0.95;
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid #dbeafe;
+      padding: 12px 18px;
+      overflow-x: auto;
+      white-space: nowrap;
+      box-shadow: 0 4px 18px rgba(15, 23, 42, 0.08);
+    }
+
+    nav a {
+      display: inline-block;
+      text-decoration: none;
+      color: #1e40af;
+      font-weight: 700;
+      margin: 4px 8px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: #eff6ff;
+      transition: 0.2s;
+    }
+
+    nav a:hover {
+      background: #2563eb;
+      color: white;
+    }
+
+    main {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 34px 20px 80px;
+    }
+
+    section {
+      background: white;
+      border-radius: 24px;
+      padding: 34px;
+      margin: 28px 0;
+      box-shadow: 0 12px 32px rgba(15, 23, 42, 0.08);
+      border: 1px solid #e5e7eb;
+    }
+
+    h2 {
+      font-size: 2rem;
+      color: #1e3a8a;
+      margin-top: 0;
+      border-left: 8px solid #2563eb;
+      padding-left: 16px;
+    }
+
+    h3 {
+      font-size: 1.45rem;
+      color: #0f172a;
+      margin-top: 32px;
+    }
+
+    h4 {
+      color: #1e40af;
+      font-size: 1.14rem;
+      margin-bottom: 8px;
+    }
+
+    .goal-box {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 16px;
+      margin-top: 22px;
+    }
+
+    .goal-card {
+      background: linear-gradient(180deg, #eff6ff, #ffffff);
+      border: 1px solid #bfdbfe;
+      border-radius: 18px;
+      padding: 18px;
+      font-weight: 700;
+    }
+
+    .concept-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 18px;
+      margin-top: 20px;
+    }
+
+    .concept-card {
+      border-radius: 20px;
+      padding: 22px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+    }
+
+    .concept-card strong {
+      display: block;
+      font-size: 1.35rem;
+      color: #2563eb;
+      margin-bottom: 8px;
+    }
+
+    .note {
+      background: #fff7ed;
+      border-left: 6px solid #f97316;
+      padding: 18px 20px;
+      border-radius: 14px;
+      margin: 20px 0;
+      font-weight: 600;
+    }
+
+    .tip {
+      background: #ecfdf5;
+      border-left: 6px solid #10b981;
+      padding: 18px 20px;
+      border-radius: 14px;
+      margin: 20px 0;
+      font-weight: 600;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+      overflow: hidden;
+      border-radius: 14px;
+      font-size: 0.98rem;
+    }
+
+    th {
+      background: #1e40af;
+      color: white;
+      padding: 13px;
+      text-align: center;
+    }
+
+    td {
+      padding: 13px;
+      border: 1px solid #dbeafe;
+      text-align: center;
+      background: #ffffff;
+    }
+
+    tr:nth-child(even) td {
+      background: #f8fafc;
+    }
+
+    pre {
+      background: #0f172a;
+      color: #e5e7eb;
+      padding: 20px;
+      border-radius: 18px;
+      overflow-x: auto;
+      font-size: 0.93rem;
+      line-height: 1.65;
+      border: 1px solid #334155;
+    }
+
+    code {
+      font-family: "Consolas", "D2Coding", monospace;
+    }
+
+    .inline-code {
+      background: #e0f2fe;
+      color: #075985;
+      padding: 2px 7px;
+      border-radius: 7px;
+      font-weight: 700;
+    }
+
+    .example-box {
+      background: #f8fafc;
+      border: 1px dashed #94a3b8;
+      border-radius: 18px;
+      padding: 22px;
+      margin: 22px 0;
+    }
+
+    .flow {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 18px 0;
+    }
+
+    .flow span {
+      background: #dbeafe;
+      color: #1e3a8a;
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-weight: 800;
+    }
+
+    .quiz {
+      background: #fefce8;
+      border: 1px solid #fde68a;
+      border-radius: 18px;
+      padding: 22px;
+      margin-top: 20px;
+    }
+
+    .summary-list li {
+      margin: 9px 0;
+      font-weight: 600;
+    }
+
+    .badge {
+      display: inline-block;
+      background: #2563eb;
+      color: white;
+      border-radius: 999px;
+      padding: 5px 12px;
+      font-size: 0.85rem;
+      font-weight: 800;
+      margin-right: 6px;
+    }
+
+    footer {
+      text-align: center;
+      background: #0f172a;
+      color: white;
+      padding: 34px 20px;
+      font-weight: 600;
+    }
+
+    @media (max-width: 700px) {
+      header h1 {
+        font-size: 1.9rem;
+      }
+
+      section {
+        padding: 24px 18px;
+      }
+
+      h2 {
+        font-size: 1.55rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>중등정보올림피아드 알고리즘 1장<br />시간복잡도와 기초 자료구조</h1>
+    <p>
+      알고리즘의 효율성 분석, 스택과 큐, 빠른 입출력, 올바른 괄호 쌍, 구간 연산과 큐 회전 시뮬레이션을 한 번에 정리하는 강의 노트입니다.
+    </p>
+  </header>
+
+  <nav>
+    <a href="#goal">학습 목표</a>
+    <a href="#complexity">시간복잡도</a>
+    <a href="#big-o">빅오 표기법</a>
+    <a href="#stack">스택</a>
+    <a href="#queue">큐</a>
+    <a href="#io">입출력 최적화</a>
+    <a href="#parentheses">괄호 문제</a>
+    <a href="#prefix">구간 연산</a>
+    <a href="#rotation">큐 회전</a>
+    <a href="#practice">실전 문제</a>
+    <a href="#summary">핵심 정리</a>
+  </nav>
+
+  <main>
+    <section id="goal">
+      <h2>1. 학습 목표</h2>
+      <div class="goal-box">
+        <div class="goal-card">1. 알고리즘의 실행 시간이 입력 크기 N에 따라 어떻게 변하는지 이해한다.</div>
+        <div class="goal-card">2. O(1), O(N), O(N log N)의 차이를 설명할 수 있다.</div>
+        <div class="goal-card">3. 스택과 큐의 구조를 이해하고 문제 해결에 활용한다.</div>
+        <div class="goal-card">4. C언어와 Python에서 빠른 입출력을 사용하는 이유를 이해한다.</div>
+        <div class="goal-card">5. 올바른 괄호 쌍 문제를 스택으로 해결한다.</div>
+        <div class="goal-card">6. 수열의 구간 연산과 큐 회전 시뮬레이션을 구현한다.</div>
+      </div>
+    </section>
+
+    <section id="complexity">
+      <h2>2. 알고리즘의 효율성 분석</h2>
+      <h3>2.1 알고리즘이란?</h3>
+      <p>
+        알고리즘은 어떤 문제를 해결하기 위한 <strong>정해진 절차</strong>입니다. 정보올림피아드에서는 같은 문제라도 어떤 방법으로 해결하느냐에 따라 정답이 되기도 하고 시간초과가 되기도 합니다.
+      </p>
+
+      <div class="example-box">
+        <h4>예: N개의 숫자의 합 구하기</h4>
+        <pre><code>sum = 0;
+for (i = 0; i &lt; N; i++) {
+    sum += arr[i];
+}</code></pre>
+        <p>
+          이 코드는 숫자 N개를 하나씩 모두 확인합니다. 입력이 10개면 10번, 100000개면 100000번 정도 실행됩니다.
+        </p>
+      </div>
+
+      <div class="note">
+        시간복잡도 분석은 입력 크기가 커졌을 때 알고리즘이 버틸 수 있는지 판단하는 가장 중요한 기준입니다.
+      </div>
+    </section>
+
+    <section id="big-o">
+      <h2>3. 빅오 표기법</h2>
+      <p>
+        빅오 표기법은 알고리즘의 실행 시간이 입력 크기 <span class="inline-code">N</span>에 따라 얼마나 빠르게 증가하는지 나타내는 방법입니다.
+      </p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>시간복잡도</th>
+            <th>의미</th>
+            <th>대표 예시</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>O(1)</td>
+            <td>입력 크기와 상관없이 일정한 시간</td>
+            <td>배열의 특정 위치 접근</td>
+          </tr>
+          <tr>
+            <td>O(N)</td>
+            <td>입력 크기만큼 반복</td>
+            <td>배열 전체 합 구하기</td>
+          </tr>
+          <tr>
+            <td>O(N log N)</td>
+            <td>정렬에서 자주 등장</td>
+            <td>빠른 정렬, 병합 정렬</td>
+          </tr>
+          <tr>
+            <td>O(N²)</td>
+            <td>모든 쌍을 비교</td>
+            <td>이중 반복문</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>3.1 O(1)</h3>
+      <p>
+        O(1)은 입력 크기와 관계없이 실행 시간이 거의 일정한 경우입니다.
+      </p>
+      <pre><code>int arr[5] = {10, 20, 30, 40, 50};
+printf("%d\n", arr[2]);</code></pre>
+
+      <h3>3.2 O(N)</h3>
+      <p>
+        O(N)은 입력 크기 N만큼 반복하는 알고리즘입니다.
+      </p>
+      <pre><code>int sum = 0;
+for (int i = 0; i &lt; N; i++) {
+    sum += arr[i];
+}</code></pre>
+
+      <h3>3.3 O(N log N)</h3>
+      <p>
+        O(N log N)은 정렬 알고리즘에서 자주 등장합니다. C의 qsort, Python의 sort는 일반적으로 O(N log N) 정렬로 볼 수 있습니다.
+      </p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>N = 100000일 때</th>
+            <th>대략적인 연산 횟수</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>O(N)</td>
+            <td>100000</td>
+          </tr>
+          <tr>
+            <td>O(N log N)</td>
+            <td>약 1700000</td>
+          </tr>
+          <tr>
+            <td>O(N²)</td>
+            <td>10000000000</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="tip">
+        N이 100000 이상인데 이중 반복문을 사용하면 대부분 시간초과를 의심해야 합니다.
+      </div>
+    </section>
+
+    <section id="stack">
+      <h2>4. 스택(Stack)</h2>
+      <p>
+        스택은 <strong>나중에 들어온 데이터가 먼저 나가는 구조</strong>입니다. 이를 LIFO라고 합니다.
+      </p>
+
+      <div class="flow">
+        <span>push 10</span>
+        <span>push 20</span>
+        <span>push 30</span>
+        <span>pop → 30</span>
+        <span>pop → 20</span>
+        <span>pop → 10</span>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>연산</th>
+            <th>의미</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>push</td><td>스택에 데이터 넣기</td></tr>
+          <tr><td>pop</td><td>스택에서 맨 위 데이터 꺼내기</td></tr>
+          <tr><td>top</td><td>맨 위 데이터 확인하기</td></tr>
+          <tr><td>empty</td><td>스택이 비었는지 확인하기</td></tr>
+        </tbody>
+      </table>
+
+      <h3>4.1 C언어로 스택 구현</h3>
+      <pre><code>#include &lt;stdio.h&gt;
+
+#define MAX 100000
+
+int stack[MAX];
+int top = -1;
+
+void push(int value) {
+    stack[++top] = value;
+}
+
+int pop() {
+    return stack[top--];
+}
+
+int peek() {
+    return stack[top];
+}
+
+int empty() {
+    return top == -1;
+}
+
+int main() {
+    push(10);
+    push(20);
+    push(30);
+
+    printf("%d\n", pop());
+    printf("%d\n", pop());
+    printf("%d\n", pop());
+
+    return 0;
+}</code></pre>
+    </section>
+
+    <section id="queue">
+      <h2>5. 큐(Queue)</h2>
+      <p>
+        큐는 <strong>먼저 들어온 데이터가 먼저 나가는 구조</strong>입니다. 이를 FIFO라고 합니다.
+      </p>
+
+      <div class="flow">
+        <span>push 10</span>
+        <span>push 20</span>
+        <span>push 30</span>
+        <span>pop → 10</span>
+        <span>pop → 20</span>
+        <span>pop → 30</span>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>연산</th>
+            <th>의미</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>push / enqueue</td><td>큐 뒤에 데이터 넣기</td></tr>
+          <tr><td>pop / dequeue</td><td>큐 앞에서 데이터 꺼내기</td></tr>
+          <tr><td>front</td><td>큐의 맨 앞 데이터 확인</td></tr>
+          <tr><td>empty</td><td>큐가 비었는지 확인</td></tr>
+        </tbody>
+      </table>
+
+      <h3>5.1 C언어로 큐 구현</h3>
+      <pre><code>#include &lt;stdio.h&gt;
+
+#define MAX 100000
+
+int queue[MAX];
+int front = 0;
+int rear = 0;
+
+void push(int value) {
+    queue[rear++] = value;
+}
+
+int pop() {
+    return queue[front++];
+}
+
+int empty() {
+    return front == rear;
+}
+
+int main() {
+    push(10);
+    push(20);
+    push(30);
+
+    printf("%d\n", pop());
+    printf("%d\n", pop());
+    printf("%d\n", pop());
+
+    return 0;
+}</code></pre>
+    </section>
+
+    <section id="io">
+      <h2>6. 표준 라이브러리와 입출력 최적화</h2>
+      <p>
+        정보올림피아드에서는 입력 데이터가 매우 많을 수 있습니다. 입력이 많을 때 느린 입출력을 사용하면 알고리즘이 맞아도 시간초과가 날 수 있습니다.
+      </p>
+
+      <h3>6.1 C언어 기본 입출력</h3>
+      <pre><code>scanf("%d", &x);
+printf("%d\n", x);</code></pre>
+      <p>
+        중등 수준의 많은 문제는 scanf와 printf만으로 충분합니다.
+      </p>
+
+      <h3>6.2 C언어 빠른 입력 함수</h3>
+      <pre><code>#include &lt;stdio.h&gt;
+
+int fastInput() {
+    int x = 0;
+    int c = getchar();
+
+    while (c &lt; '0' || c &gt; '9') {
+        c = getchar();
+    }
+
+    while (c &gt;= '0' && c &lt;= '9') {
+        x = x * 10 + (c - '0');
+        c = getchar();
+    }
+
+    return x;
+}</code></pre>
+
+      <h3>6.3 Python 입출력 최적화</h3>
+      <pre><code>import sys
+input = sys.stdin.readline
+
+N = int(input())
+arr = list(map(int, input().split()))
+print(sum(arr))</code></pre>
+
+      <div class="tip">
+        Python에서 입력이 많으면 input() 대신 sys.stdin.readline을 사용하는 습관을 들이는 것이 좋습니다.
+      </div>
+    </section>
+
+    <section id="parentheses">
+      <h2>7. 대표 문제: 올바른 괄호 쌍 찾기</h2>
+      <h3>7.1 문제 설명</h3>
+      <p>
+        괄호 문자열이 주어졌을 때 올바른 괄호 문자열인지 판단합니다.
+      </p>
+
+      <div class="example-box">
+        <p><strong>올바른 예:</strong> <span class="inline-code">(())</span></p>
+        <p><strong>잘못된 예:</strong> <span class="inline-code">())(</span></p>
+      </div>
+
+      <h3>7.2 해결 아이디어</h3>
+      <ol>
+        <li>여는 괄호 '('가 나오면 스택에 넣습니다.</li>
+        <li>닫는 괄호 ')'가 나오면 스택에서 여는 괄호 하나를 꺼냅니다.</li>
+        <li>닫는 괄호가 나왔는데 스택이 비어 있으면 잘못된 문자열입니다.</li>
+        <li>문자열을 모두 확인한 뒤 스택이 비어 있어야 올바른 괄호 문자열입니다.</li>
+      </ol>
+
+      <h3>7.3 C 정답 코드</h3>
+      <pre><code>#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+
+#define MAX 100001
+
+char stack[MAX];
+int top = -1;
+
+int main() {
+    char s[MAX];
+    int valid = 1;
+
+    scanf("%s", s);
+
+    for (int i = 0; i &lt; strlen(s); i++) {
+        if (s[i] == '(') {
+            stack[++top] = '(';
+        } else {
+            if (top == -1) {
+                valid = 0;
+                break;
+            }
+            top--;
+        }
+    }
+
+    if (top != -1) {
+        valid = 0;
+    }
+
+    if (valid) {
+        printf("YES\n");
+    } else {
+        printf("NO\n");
+    }
+
+    return 0;
+}</code></pre>
+
+      <div class="note">
+        문자열 길이를 N이라고 하면 전체 시간복잡도는 O(N)입니다.
+      </div>
+    </section>
+
+    <section id="prefix">
+      <h2>8. 수열의 구간 연산</h2>
+      <h3>8.1 구간 합 문제</h3>
+      <p>
+        수열에서 L번째부터 R번째까지의 합을 여러 번 구해야 하는 문제가 자주 등장합니다.
+      </p>
+
+      <div class="example-box">
+        <p><strong>수열:</strong> 3 2 4 5 1</p>
+        <p><strong>질문:</strong> 2번째부터 4번째까지의 합은?</p>
+        <p><strong>답:</strong> 2 + 4 + 5 = 11</p>
+      </div>
+
+      <h3>8.2 누적합</h3>
+      <p>
+        누적합은 앞에서부터 더한 값을 미리 저장해 두는 방법입니다.
+      </p>
+
+      <pre><code>arr    = [3, 2, 4, 5, 1]
+prefix = [0, 3, 5, 9, 14, 15]
+
+구간 L부터 R까지의 합 = prefix[R] - prefix[L - 1]</code></pre>
+
+      <h3>8.3 C 정답 코드</h3>
+      <pre><code>#include &lt;stdio.h&gt;
+
+#define MAX 100001
+
+int prefix[MAX];
+
+int main() {
+    int N, Q;
+
+    scanf("%d %d", &N, &Q);
+
+    for (int i = 1; i &lt;= N; i++) {
+        int x;
+        scanf("%d", &x);
+        prefix[i] = prefix[i - 1] + x;
+    }
+
+    for (int i = 0; i &lt; Q; i++) {
+        int L, R;
+        scanf("%d %d", &L, &R);
+
+        printf("%d\n", prefix[R] - prefix[L - 1]);
+    }
+
+    return 0;
+}</code></pre>
+
+      <div class="tip">
+        누적합을 만들면 각 질문을 O(1)에 처리할 수 있습니다. 전체 시간복잡도는 O(N + Q)입니다.
+      </div>
+    </section>
+
+    <section id="rotation">
+      <h2>9. 큐 회전 시뮬레이션</h2>
+      <p>
+        큐 회전은 맨 앞의 값을 꺼내서 다시 뒤에 넣는 방식으로 구현합니다.
+      </p>
+
+      <div class="flow">
+        <span>1 2 3 4 5</span>
+        <span>왼쪽 1회전</span>
+        <span>2 3 4 5 1</span>
+        <span>왼쪽 2회전</span>
+        <span>3 4 5 1 2</span>
+      </div>
+
+      <h3>9.1 핵심 코드</h3>
+      <pre><code>int x = pop();
+push(x);</code></pre>
+
+      <h3>9.2 C 정답 코드</h3>
+      <pre><code>#include &lt;stdio.h&gt;
+
+#define MAX 200001
+
+int queue[MAX];
+int front = 0;
+int rear = 0;
+
+void push(int x) {
+    queue[rear++] = x;
+}
+
+int pop() {
+    return queue[front++];
+}
+
+int main() {
+    int N, K;
+
+    scanf("%d %d", &N, &K);
+
+    for (int i = 1; i &lt;= N; i++) {
+        push(i);
+    }
+
+    for (int i = 0; i &lt; K; i++) {
+        int x = pop();
+        push(x);
+    }
+
+    while (front &lt; rear) {
+        printf("%d ", pop());
+    }
+
+    return 0;
+}</code></pre>
+    </section>
+
+    <section id="practice">
+      <h2>10. 실전 문제 유형</h2>
+
+      <div class="concept-grid">
+        <div class="concept-card">
+          <strong>시간복잡도 판단</strong>
+          반복문 구조를 보고 O(1), O(N), O(N log N), O(N²)를 판단합니다.
+        </div>
+        <div class="concept-card">
+          <strong>스택 문제</strong>
+          괄호 검사, 되돌리기, 최근 데이터 처리, 막대기 문제 등에 활용합니다.
+        </div>
+        <div class="concept-card">
+          <strong>큐 문제</strong>
+          줄 서기, 카드 버리기, 회전 시뮬레이션, BFS 기초에 활용합니다.
+        </div>
+        <div class="concept-card">
+          <strong>구간 연산</strong>
+          누적합을 사용해 여러 번의 구간 합 질문에 빠르게 답합니다.
+        </div>
+      </div>
+
+      <div class="quiz">
+        <h3>수업 중 확인 질문</h3>
+        <ol>
+          <li>배열의 특정 위치 값을 바로 가져오는 시간복잡도는 무엇인가?</li>
+          <li>N개의 숫자를 모두 더하는 알고리즘의 시간복잡도는 무엇인가?</li>
+          <li>스택과 큐의 가장 큰 차이는 무엇인가?</li>
+          <li>올바른 괄호 문제에서 닫는 괄호가 나왔는데 스택이 비어 있으면 어떤 의미인가?</li>
+          <li>구간 합 문제에서 누적합을 사용하면 질문 하나를 몇 초가 아니라 어떤 시간복잡도로 처리할 수 있는가?</li>
+        </ol>
+      </div>
+    </section>
+
+    <section id="summary">
+      <h2>11. 핵심 정리</h2>
+      <ol class="summary-list">
+        <li>O(1)은 입력 크기와 관계없이 일정한 시간입니다.</li>
+        <li>O(N)은 입력 크기만큼 반복하는 알고리즘입니다.</li>
+        <li>O(N log N)은 정렬에서 자주 등장하는 효율적인 시간복잡도입니다.</li>
+        <li>스택은 나중에 들어온 것이 먼저 나가는 LIFO 구조입니다.</li>
+        <li>큐는 먼저 들어온 것이 먼저 나가는 FIFO 구조입니다.</li>
+        <li>올바른 괄호 쌍 문제는 스택으로 해결할 수 있습니다.</li>
+        <li>큐 회전 문제는 앞에서 꺼낸 값을 뒤에 다시 넣는 방식으로 해결합니다.</li>
+        <li>구간 합 문제는 누적합을 사용하면 질문 하나를 O(1)에 처리할 수 있습니다.</li>
+        <li>입력이 많을 때는 C에서는 scanf/printf, Python에서는 sys.stdin.readline을 활용합니다.</li>
+        <li>중등정보올림피아드에서는 시간복잡도 분석이 풀이의 출발점입니다.</li>
+      </ol>
+    </section>
+  </main>
+
+  <footer>
+    <p>중등정보올림피아드 알고리즘 강의 노트 · 1장 시간복잡도와 기초 자료구조</p>
+  </footer>
+</body>
+</html>
