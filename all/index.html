@@ -1,0 +1,2931 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>중등 정보올림피아드 — 알고리즘 완전 정복</title>
+<style>
+/* Windows 안전 폰트 스택 — 외부 의존 없음 */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+</style>
+<style>
+/* ── ROOT & RESET ─────────────────────────────── */
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; -webkit-box-sizing:border-box; }
+
+:root {
+  --navy:   #0a1628;
+  --navy2:  #0f2040;
+  --navy3:  #1a3258;
+  --blue:   #1e5eff;
+  --blue2:  #4a85ff;
+  --sky:    #5bb8f5;
+  --teal:   #00c9b1;
+  --gold:   #f5a623;
+  --amber:  #ffcc44;
+  --red:    #ff4757;
+  --green:  #2ed573;
+  --purple: #a55eea;
+  --pink:   #fd79a8;
+
+  --paper:  #f8f6f0;
+  --paper2: #eef0f8;
+  --ink:    #1a1f36;
+  --ink2:   #3a4066;
+  --ink3:   #6b7399;
+  --rule:   rgba(10,22,40,.08);
+  --rule2:  rgba(10,22,40,.15);
+
+  --mono: 'JetBrains Mono', Consolas, 'Courier New', monospace;
+  --serif: Georgia, 'Times New Roman', serif;
+  --sans: 'Noto Sans KR', 'Malgun Gothic', '맑은 고딕', Arial, sans-serif;
+  --r: 10px;
+  --r2: 16px;
+}
+
+html { scroll-behavior: smooth; font-size: 14px; }
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'Noto Sans KR', 'Malgun Gothic', '맑은 고딕', Arial, sans-serif;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--paper2); }
+::-webkit-scrollbar-thumb { background: var(--navy3); border-radius: 3px; }
+
+/* ── TOP NAV ──────────────────────────────────── */
+.top-nav {
+  position: sticky; top: 0; left: 0; right: 0; z-index: 200;
+  background: var(--navy);
+  padding: 0 28px;
+  height: 56px;
+  box-sizing: border-box;
+  display: flex; align-items: center; justify-content: space-between;
+  box-shadow: 0 2px 20px rgba(0,0,0,.3);
+}
+.nav-brand {
+  font-family: var(--serif);
+  font-size: 16px; font-weight: 700;
+  color: #fff;
+  display: flex; align-items: center; gap: 10px;
+}
+.nav-brand-icon {
+  width: 30px; height: 30px; border-radius: 8px;
+  background: linear-gradient(135deg, var(--blue), var(--teal));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px;
+}
+.nav-links {
+  display: flex; gap: 4px; overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.nav-links::-webkit-scrollbar { display: none; }
+.nav-link {
+  padding: 5px 12px; border-radius: 6px;
+  font-size: 11px; font-weight: 500; font-family: var(--sans);
+  color: rgba(255,255,255,.6);
+  cursor: pointer; white-space: nowrap;
+  transition: all .15s;
+  border: none; background: none;
+}
+.nav-link:hover { color: #fff; background: rgba(255,255,255,.1); }
+.nav-link.active { color: var(--amber); background: rgba(245,166,35,.12); }
+
+/* ── LAYOUT ───────────────────────────────────── */
+.layout {
+  display: flex;
+  flex-direction: row;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+/* ── SIDEBAR ──────────────────────────────────── */
+.sidebar {
+  position: sticky;
+  top: 56px;
+  height: calc(100vh - 56px);
+  max-height: calc(100vh - 56px);
+  width: 240px;
+  min-width: 240px;
+  flex-shrink: 0;
+  background: var(--navy2);
+  overflow-y: auto;
+  scrollbar-width: thin;
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+  padding: 20px 0 40px;
+  border-right: 1px solid rgba(255,255,255,.06);
+  align-self: flex-start;
+}
+.sidebar-section {
+  margin-bottom: 6px;
+}
+.sidebar-hdr {
+  font-size: 9px; font-weight: 700;
+  font-family: var(--mono);
+  color: rgba(255,255,255,.3);
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  padding: 10px 20px 4px;
+}
+.sidebar-item {
+  display: flex; align-items: center; gap: 8px;
+  padding: 7px 20px;
+  font-size: 12px; font-weight: 400;
+  color: rgba(255,255,255,.55);
+  cursor: pointer;
+  transition: all .15s;
+  border-left: 2px solid transparent;
+}
+.sidebar-item:hover { color: #fff; background: rgba(255,255,255,.06); }
+.sidebar-item.active { color: var(--sky); border-left-color: var(--sky); background: rgba(91,184,245,.08); }
+.sidebar-num {
+  font-family: var(--mono); font-size: 9px;
+  background: rgba(255,255,255,.08);
+  padding: 1px 5px; border-radius: 4px;
+  color: rgba(255,255,255,.4);
+  flex-shrink: 0;
+}
+
+/* ── MAIN CONTENT ─────────────────────────────── */
+.content {
+  flex: 1;
+  min-width: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+/* ── HERO ─────────────────────────────────────── */
+.hero {
+  background: linear-gradient(135deg, var(--navy) 0%, var(--navy3) 60%, #1a4a7a 100%);
+  padding: 64px 52px 52px;
+  position: relative; overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image:
+    radial-gradient(circle at 80% 20%, rgba(30,94,255,.2) 0%, transparent 50%),
+    radial-gradient(circle at 20% 80%, rgba(0,201,177,.15) 0%, transparent 50%);
+}
+.hero::after {
+  content: '';
+  position: absolute; right: -40px; top: -40px;
+  width: 400px; height: 400px;
+  border: 1px solid rgba(255,255,255,.05);
+  border-radius: 50%;
+}
+.hero-tag {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.15);
+  border-radius: 20px;
+  padding: 5px 14px;
+  font-size: 11px; font-weight: 500;
+  color: var(--sky);
+  font-family: var(--mono);
+  letter-spacing: .05em;
+  margin-bottom: 20px;
+  position: relative; z-index: 1;
+}
+.hero-title {
+  font-family: var(--serif);
+  font-size: 40px;
+  font-weight: 800;
+  color: #fff;
+  line-height: 1.2;
+  letter-spacing: -.02em;
+  position: relative; z-index: 1;
+  margin-bottom: 16px;
+}
+.hero-title em { color: var(--amber); font-style: normal; }
+.hero-sub {
+  font-size: 15px; font-weight: 300;
+  color: rgba(255,255,255,.6);
+  max-width: 560px;
+  position: relative; z-index: 1;
+  margin-bottom: 32px;
+}
+.hero-badges {
+  display: flex; gap: 10px; flex-wrap: wrap;
+  position: relative; z-index: 1;
+}
+.hero-badge {
+  padding: 6px 14px; border-radius: 8px;
+  font-size: 11px; font-weight: 600;
+  font-family: var(--mono);
+}
+.hb-blue   { background: rgba(30,94,255,.25); color: var(--blue2); border: 1px solid rgba(30,94,255,.4); }
+.hb-teal   { background: rgba(0,201,177,.2);  color: var(--teal);  border: 1px solid rgba(0,201,177,.4); }
+.hb-gold   { background: rgba(245,166,35,.2); color: var(--amber); border: 1px solid rgba(245,166,35,.4); }
+.hb-purple { background: rgba(165,94,234,.2); color: var(--purple);border: 1px solid rgba(165,94,234,.4); }
+.hb-red    { background: rgba(255,71,87,.2);  color: var(--red);   border: 1px solid rgba(255,71,87,.4); }
+
+/* ── CHAPTER LAYOUT ───────────────────────────── */
+.chapter {
+  padding: 48px 52px;
+  box-sizing: border-box;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+  border-bottom: 1px solid var(--rule2);
+  display: none;
+}
+.chapter.active { display: block; animation: fadeIn .3s ease; }
+@keyframes fadeIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:none; } }
+.chapter.all-visible { display: block !important; }
+
+.ch-header {
+  display: flex; align-items: flex-start; gap: 18px;
+  margin-bottom: 40px;
+  padding-bottom: 24px;
+  border-bottom: 2px solid var(--rule2);
+}
+.ch-num {
+  font-family: var(--mono);
+  font-size: 11px; font-weight: 600;
+  color: var(--blue);
+  background: rgba(30,94,255,.08);
+  border: 1px solid rgba(30,94,255,.2);
+  padding: 4px 10px; border-radius: 6px;
+  white-space: nowrap; margin-top: 6px;
+}
+.ch-title {
+  font-family: var(--serif);
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.25;
+}
+.ch-title em { color: var(--blue); font-style: normal; }
+.ch-desc {
+  font-size: 13px; color: var(--ink3);
+  margin-top: 6px; line-height: 1.7;
+}
+
+/* ── SECTION WITHIN CHAPTER ───────────────────── */
+.sec {
+  margin-bottom: 48px;
+}
+.sec-title {
+  font-size: 17px; font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 16px;
+  display: flex; align-items: center; gap: 10px;
+}
+.sec-title::before {
+  content: '';
+  display: block; width: 4px; height: 18px;
+  background: linear-gradient(to bottom, var(--blue), var(--teal));
+  border-radius: 2px; flex-shrink: 0;
+}
+.sec-sub {
+  font-size: 15px; font-weight: 600;
+  color: var(--ink2);
+  margin: 20px 0 10px;
+}
+
+/* ── PROSE ────────────────────────────────────── */
+p { margin-bottom: 12px; font-size: 14px; line-height: 1.8; color: var(--ink2); }
+ul, ol { padding-left: 22px; margin-bottom: 12px; }
+li { font-size: 14px; line-height: 1.9; color: var(--ink2); margin-bottom: 2px; }
+strong { color: var(--ink); font-weight: 600; }
+
+/* ── CODE BLOCK ───────────────────────────────── */
+.code-block {
+  background: var(--navy);
+  border-radius: var(--r2);
+  overflow: hidden;
+  overflow-x: auto;
+  margin: 16px 0;
+  box-shadow: 0 4px 24px rgba(10,22,40,.15);
+  max-width: 100%;
+}
+.code-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 10px 16px;
+  background: rgba(255,255,255,.04);
+  border-bottom: 1px solid rgba(255,255,255,.06);
+}
+.code-lang {
+  font-family: var(--mono); font-size: 10px; font-weight: 500;
+  color: rgba(255,255,255,.4); letter-spacing: .1em; text-transform: uppercase;
+}
+.code-title { font-size: 11px; color: rgba(255,255,255,.5); }
+.code-dots { display: flex; gap: 5px; }
+.code-dot { width: 10px; height: 10px; border-radius: 50%; }
+.cd-r { background: #ff5f57; } .cd-y { background: #ffbd2e; } .cd-g { background: #28ca41; }
+pre {
+  padding: 18px 18px;
+  overflow-x: auto;
+  white-space: pre;
+  word-break: normal;
+  -webkit-overflow-scrolling: touch;
+  font-family: var(--mono);
+  font-size: 12.5px;
+  line-height: 1.8;
+  color: #cdd6f4;
+}
+.kw  { color: #cba6f7; } /* keyword */
+.fn  { color: #89b4fa; } /* function */
+.st  { color: #a6e3a1; } /* string */
+.cm  { color: #585b70; font-style: italic; } /* comment */
+.nm  { color: #fab387; } /* number */
+.op  { color: #89dceb; } /* operator */
+.var { color: #cdd6f4; } /* variable */
+
+/* ── INFO BOXES ───────────────────────────────── */
+.box {
+  border-radius: var(--r2);
+  padding: 18px 22px;
+  margin: 16px 0;
+  border-left: 4px solid;
+}
+.box-blue   { background: rgba(30,94,255,.06);  border-color: var(--blue);   }
+.box-teal   { background: rgba(0,201,177,.06);  border-color: var(--teal);   }
+.box-gold   { background: rgba(245,166,35,.08); border-color: var(--gold);   }
+.box-red    { background: rgba(255,71,87,.06);  border-color: var(--red);    }
+.box-purple { background: rgba(165,94,234,.06); border-color: var(--purple); }
+.box-green  { background: rgba(46,213,115,.06); border-color: var(--green);  }
+
+.box-title {
+  font-size: 12px; font-weight: 700;
+  font-family: var(--mono); letter-spacing: .08em;
+  text-transform: uppercase; margin-bottom: 8px;
+}
+.bt-blue   { color: var(--blue); }
+.bt-teal   { color: var(--teal); }
+.bt-gold   { color: var(--gold); }
+.bt-red    { color: var(--red); }
+.bt-purple { color: var(--purple); }
+.bt-green  { color: var(--green); }
+
+.box p, .box li { font-size: 13px; color: var(--ink2); }
+
+/* ── COMPLEXITY TABLE ─────────────────────────── */
+.table-wrap { overflow-x: auto; margin: 16px 0; border-radius: var(--r2); box-shadow: 0 2px 12px var(--rule); -webkit-overflow-scrolling: touch; }
+table { width: 100%; border-collapse: collapse; font-size: 13px; table-layout: fixed; }
+thead { background: var(--navy); color: #fff; }
+thead th { padding: 10px 14px; text-align: left; font-weight: 500; font-family: var(--mono); font-size: 11px; letter-spacing: .03em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+tbody tr { border-bottom: 1px solid var(--rule); }
+tbody tr:hover { background: var(--paper2); }
+tbody td { padding: 10px 14px; font-size: 13px; vertical-align: middle; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.tc-best { color: var(--green); font-weight: 600; font-family: var(--mono); }
+.tc-avg  { color: var(--gold);  font-weight: 600; font-family: var(--mono); }
+.tc-worst{ color: var(--red);   font-weight: 600; font-family: var(--mono); }
+.tc-ok   { color: var(--blue2); font-weight: 600; font-family: var(--mono); }
+.tc-name { font-weight: 600; color: var(--ink); }
+
+/* ── BIG-O VISUAL ─────────────────────────────── */
+.bigo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  gap: 10px; margin: 16px 0;
+}
+.bigo-card {
+  background: white;
+  border: 1px solid var(--rule2);
+  border-radius: var(--r);
+  padding: 14px 16px;
+  text-align: center;
+  box-shadow: 0 2px 8px var(--rule);
+  transition: transform .2s, box-shadow .2s;
+}
+.bigo-card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px var(--rule2); }
+.bigo-notation {
+  font-family: var(--mono); font-size: 16px; font-weight: 600;
+  margin-bottom: 6px;
+}
+.bigo-label { font-size: 11px; color: var(--ink3); }
+.bigo-bar { height: 5px; border-radius: 3px; margin: 8px 0 4px; }
+.n1  { background: #2ed573; }
+.nlogn { background: #7bed9f; }
+.nn  { background: #ffcc44; }
+.nnn { background: #f5a623; }
+.n2n { background: #ff6b6b; }
+.nfact{ background: #c0392b; }
+
+/* ── ALGORITHM CARD ───────────────────────────── */
+.algo-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin: 16px 0; }
+.algo-card {
+  background: white;
+  border: 1px solid var(--rule2);
+  border-radius: var(--r2);
+  overflow: hidden;
+  box-shadow: 0 2px 12px var(--rule);
+  transition: transform .2s, box-shadow .2s;
+}
+.algo-card:hover { transform: translateY(-3px); box-shadow: 0 8px 28px var(--rule2); }
+.algo-card-head {
+  padding: 14px 18px;
+  display: flex; align-items: center; gap: 10px;
+}
+.algo-icon {
+  width: 36px; height: 36px; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; flex-shrink: 0;
+}
+.algo-card-title { font-size: 14px; font-weight: 700; color: var(--ink); }
+.algo-card-sub   { font-size: 11px; color: var(--ink3); margin-top: 2px; }
+.algo-card-body  { padding: 0 18px 16px; }
+.algo-card-body p { font-size: 12px; color: var(--ink3); margin-bottom: 8px; }
+.algo-badges { display: flex; gap: 5px; flex-wrap: wrap; }
+.abadge {
+  font-size: 10px; font-weight: 600; font-family: var(--mono);
+  padding: 2px 7px; border-radius: 4px;
+}
+.ab-n { background: rgba(30,94,255,.08); color: var(--blue); }
+.ab-t { background: rgba(0,201,177,.08); color: var(--teal); }
+.ab-g { background: rgba(46,213,115,.08); color: var(--green); }
+.ab-r { background: rgba(255,71,87,.08); color: var(--red); }
+.ab-p { background: rgba(165,94,234,.08); color: var(--purple); }
+
+/* ── STEP-BY-STEP ─────────────────────────────── */
+.steps {
+  counter-reset: step;
+  margin: 16px 0;
+}
+.step-item {
+  display: flex; gap: 14px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--rule);
+}
+.step-item:last-child { border-bottom: none; }
+.step-num {
+  counter-increment: step;
+  width: 28px; height: 28px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--blue), var(--blue2));
+  color: white; font-size: 12px; font-weight: 700; font-family: var(--mono);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; margin-top: 2px;
+}
+.step-num::before { content: counter(step); }
+.step-body { flex: 1; }
+.step-title { font-size: 13px; font-weight: 600; color: var(--ink); margin-bottom: 4px; }
+.step-desc  { font-size: 12px; color: var(--ink3); line-height: 1.7; }
+
+/* ── INLINE CODE ──────────────────────────────── */
+code {
+  font-family: var(--mono);
+  font-size: 12px;
+  background: rgba(30,94,255,.08);
+  color: var(--blue);
+  padding: 2px 6px; border-radius: 4px;
+}
+
+/* ── QUIZ SECTION ─────────────────────────────── */
+.quiz-card {
+  background: white;
+  border: 1px solid var(--rule2);
+  border-radius: var(--r2);
+  padding: 22px 26px;
+  margin: 12px 0;
+  box-shadow: 0 2px 12px var(--rule);
+}
+.quiz-q {
+  font-size: 14px; font-weight: 600;
+  color: var(--ink); margin-bottom: 14px;
+  display: flex; gap: 10px;
+}
+.quiz-num {
+  background: var(--navy); color: white;
+  width: 24px; height: 24px; border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-family: var(--mono); flex-shrink: 0;
+}
+.quiz-opts { display: flex; flex-direction: column; gap: 8px; }
+.quiz-opt {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 14px; border-radius: var(--r);
+  border: 1.5px solid var(--rule2);
+  cursor: pointer; transition: all .15s;
+  font-size: 13px; color: var(--ink2);
+}
+.quiz-opt:hover { border-color: var(--blue); background: rgba(30,94,255,.04); }
+.quiz-opt.correct { border-color: var(--green); background: rgba(46,213,115,.08); color: var(--ink); }
+.quiz-opt.wrong   { border-color: var(--red);   background: rgba(255,71,87,.06); color: var(--ink3); }
+.quiz-opt input[type=radio] { accent-color: var(--blue); }
+.quiz-feedback {
+  margin-top: 12px; padding: 10px 14px;
+  border-radius: var(--r); font-size: 12px; font-weight: 500;
+  display: none;
+}
+.qf-correct { background: rgba(46,213,115,.1); color: #1a7a3c; border: 1px solid rgba(46,213,115,.3); }
+.qf-wrong   { background: rgba(255,71,87,.08);  color: #c0392b; border: 1px solid rgba(255,71,87,.3); }
+
+/* ── DIVIDER ──────────────────────────────────── */
+.divider { height: 1px; background: var(--rule2); margin: 32px 0; }
+
+/* ── GRID 2 ───────────────────────────────────── */
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+@media(max-width:900px) { .grid2,.grid3 { grid-template-columns:1fr; } }
+
+/* ── PSEUDO CODE ──────────────────────────────── */
+.pseudo {
+  background: #fafbff;
+  border: 1px solid var(--rule2);
+  border-left: 4px solid var(--purple);
+  border-radius: var(--r);
+  padding: 16px 20px;
+  font-family: var(--mono);
+  font-size: 12px; line-height: 2;
+  color: var(--ink2);
+  margin: 12px 0;
+}
+.pseudo .pkey { color: var(--purple); font-weight: 600; }
+.pseudo .pcmt { color: var(--ink3); font-style: italic; }
+.pseudo .pnum { color: #e74c3c; }
+.pseudo .pind1 { display: block; padding-left: 20px; }
+.pseudo .pind2 { display: block; padding-left: 40px; }
+.pseudo .pind3 { display: block; padding-left: 60px; }
+
+/* ── COMPLEXITY BADGE ─────────────────────────── */
+.cx { display: inline-block; font-family: var(--mono); font-size: 12px; font-weight: 600; padding: 2px 8px; border-radius: 5px; }
+.cx-1    { background: rgba(46,213,115,.1); color: #1a7a3c; }
+.cx-logn { background: rgba(91,184,245,.1); color: #1a5a8a; }
+.cx-n    { background: rgba(245,166,35,.1); color: #8a5a00; }
+.cx-nlogn{ background: rgba(245,166,35,.15);color: #7a4500; }
+.cx-n2   { background: rgba(255,71,87,.1);  color: #8a1a2a; }
+.cx-2n   { background: rgba(165,94,234,.1); color: #5a2a8a; }
+
+/* ── FLOW CHART (CSS) ─────────────────────────── */
+.flow { display: flex; flex-direction: column; align-items: center; gap: 0; margin: 20px 0; }
+.flow-box {
+  padding: 10px 24px; border-radius: 8px;
+  font-size: 12px; font-weight: 500; font-family: var(--mono);
+  text-align: center; min-width: 160px;
+  border: 2px solid;
+}
+.flow-rect   { background: rgba(30,94,255,.06); border-color: var(--blue);   color: var(--blue); }
+.flow-diamond{
+  background: rgba(245,166,35,.08); border-color: var(--gold); color: var(--ink);
+  transform: rotate(0deg); border-radius: 4px;
+  position: relative;
+}
+.flow-oval   { background: rgba(0,201,177,.06); border-color: var(--teal);   color: var(--teal); border-radius: 40px; }
+.flow-arrow  {
+  width: 2px; height: 24px; background: var(--ink3);
+  position: relative;
+}
+.flow-arrow::after {
+  content: '▼'; position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%);
+  font-size: 12px; color: var(--ink3);
+}
+
+/* ── TAG BADGE ────────────────────────────────── */
+.tag {
+  display: inline-block;
+  font-size: 10px; font-weight: 600; font-family: var(--mono);
+  padding: 2px 8px; border-radius: 4px;
+  margin: 1px;
+}
+.tag-diff-easy { background: rgba(46,213,115,.12); color: #1a7a3c; }
+.tag-diff-med  { background: rgba(245,166,35,.12);  color: #7a5a00; }
+.tag-diff-hard { background: rgba(255,71,87,.12);   color: #8a1a2a; }
+.tag-type { background: rgba(30,94,255,.08); color: var(--blue); }
+
+/* ── VISUALIZER ───────────────────────────────── */
+.vis-wrap {
+  background: var(--navy);
+  border-radius: var(--r2);
+  overflow: hidden;
+  margin: 16px 0;
+  box-shadow: 0 4px 24px rgba(10,22,40,.18);
+}
+.vis-toolbar {
+  display: flex; align-items: center; gap: 8px;
+  padding: 10px 16px;
+  background: rgba(255,255,255,.04);
+  border-bottom: 1px solid rgba(255,255,255,.07);
+  flex-wrap: wrap;
+}
+.vis-btn {
+  padding: 5px 14px; border-radius: 6px;
+  font-size: 11px; font-weight: 600; font-family: var(--mono);
+  border: none; cursor: pointer; transition: all .15s;
+}
+.vb-play  { background: var(--teal);   color: #003a34; }
+.vb-pause { background: var(--gold);   color: #3a2800; }
+.vb-reset { background: rgba(255,255,255,.1); color: rgba(255,255,255,.7); }
+.vb-play:hover  { filter: brightness(1.1); }
+.vb-pause:hover { filter: brightness(1.1); }
+.vb-reset:hover { background: rgba(255,255,255,.18); }
+.vis-speed {
+  display: flex; align-items: center; gap: 6px;
+  font-family: var(--mono); font-size: 10px; color: rgba(255,255,255,.4);
+  margin-left: auto;
+}
+.vis-speed input[type=range] { width: 80px; accent-color: var(--teal); }
+canvas.vis-canvas {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  background: var(--navy);
+}
+.vis-status {
+  padding: 8px 16px;
+  font-family: var(--mono); font-size: 11px;
+  color: rgba(255,255,255,.4);
+  border-top: 1px solid rgba(255,255,255,.05);
+  min-height: 32px;
+}
+
+/* ── DP TABLE VIS ─────────────────────────────── */
+.dp-table-vis {
+  overflow-x: auto; margin: 12px 0;
+  background: var(--navy); border-radius: var(--r2);
+  padding: 16px;
+}
+.dp-table-vis table { border-collapse: collapse; font-family: var(--mono); font-size: 12px; }
+.dp-table-vis th { background: rgba(255,255,255,.08); color: rgba(255,255,255,.5); padding: 7px 12px; border: 1px solid rgba(255,255,255,.07); }
+.dp-table-vis td { padding: 7px 12px; border: 1px solid rgba(255,255,255,.07); text-align: center; color: rgba(255,255,255,.6); transition: all .3s; }
+.dp-cell-active { background: rgba(0,201,177,.25) !important; color: var(--teal) !important; font-weight: 700; }
+.dp-cell-done   { background: rgba(30,94,255,.15) !important; color: var(--blue2) !important; }
+
+/* ── GRAPH CANVAS VIS ─────────────────────────── */
+canvas#algoGraphCanvas { background: var(--navy); display: block; width: 100%; height: 260px; }
+
+/* ── COMPLEXITY CHART ─────────────────────────── */
+canvas#complexityChart { display: block; width: 100%; background: white; border-radius: var(--r2); }
+
+/* ── TAG ROW ──────────────────────────────────── */
+.tag-row { display: flex; gap: 6px; flex-wrap: wrap; margin: 8px 0; }
+
+@media(max-width:900px) {
+  .sidebar { width: 200px; min-width: 200px; }
+}
+@media(max-width:768px) {
+  .layout { flex-direction: column; }
+  .sidebar { display: none; }
+  .content { flex: 1; width: 100%; }
+  .chapter { padding: 32px 20px; }
+  .hero { padding: 48px 24px; }
+}
+</style>
+</head>
+<body>
+
+<!-- TOP NAV -->
+<nav class="top-nav">
+  <div class="nav-brand">
+    <div class="nav-brand-icon"></div>
+    정보올림피아드 알고리즘
+  </div>
+  <div class="nav-links">
+    <button class="nav-link active" onclick="showChapter('intro')">기초</button>
+    <button class="nav-link" onclick="showChapter('complexity')">복잡도</button>
+    <button class="nav-link" onclick="showChapter('sort')">정렬</button>
+    <button class="nav-link" onclick="showChapter('search')">탐색</button>
+    <button class="nav-link" onclick="showChapter('ds')">자료구조</button>
+    <button class="nav-link" onclick="showChapter('greedy')">그리디</button>
+    <button class="nav-link" onclick="showChapter('dp')">동적계획</button>
+    <button class="nav-link" onclick="showChapter('graph')">그래프</button>
+    <button class="nav-link" onclick="showChapter('divide')">분할정복</button>
+    <button class="nav-link" onclick="showChapter('advanced')">심화</button>
+    <button class="nav-link" onclick="showChapter('floyd')">플로이드</button>
+    <button class="nav-link" onclick="showChapter('string')">문자열</button>
+    <button class="nav-link" onclick="showChapter('vizsort')">🎬 정렬</button>
+    <button class="nav-link" onclick="showChapter('vizbfs')">🕸 그래프</button>
+    <button class="nav-link" onclick="showChapter('vizdp')">📊 DP</button>
+    <button class="nav-link" onclick="showChapter('visbsearch')">🔍 이진탐색</button>
+    <button class="nav-link" onclick="showChapter('quiz')">연습문제</button>
+  </div>
+</nav>
+
+<div class="layout">
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="sidebar-section">
+    <div class="sidebar-hdr"> 목차</div>
+
+    <div class="sidebar-hdr" style="margin-top:8px;">1. 알고리즘 기초</div>
+    <div class="sidebar-item active" onclick="showChapter('intro')">
+      <span class="sidebar-num">01</span> 알고리즘이란?
+    </div>
+    <div class="sidebar-item" onclick="showChapter('complexity')">
+      <span class="sidebar-num">02</span> 시간 복잡도
+    </div>
+
+    <div class="sidebar-hdr" style="margin-top:8px;">2. 정렬과 탐색</div>
+    <div class="sidebar-item" onclick="showChapter('sort')">
+      <span class="sidebar-num">03</span> 정렬 알고리즘
+    </div>
+    <div class="sidebar-item" onclick="showChapter('search')">
+      <span class="sidebar-num">04</span> 탐색 알고리즘
+    </div>
+
+    <div class="sidebar-hdr" style="margin-top:8px;">3. 자료구조</div>
+    <div class="sidebar-item" onclick="showChapter('ds')">
+      <span class="sidebar-num">05</span> 스택·큐·트리·힙
+    </div>
+
+    <div class="sidebar-hdr" style="margin-top:8px;">4. 설계 기법</div>
+    <div class="sidebar-item" onclick="showChapter('greedy')">
+      <span class="sidebar-num">06</span> 그리디 알고리즘
+    </div>
+    <div class="sidebar-item" onclick="showChapter('dp')">
+      <span class="sidebar-num">07</span> 동적 프로그래밍
+    </div>
+    <div class="sidebar-item" onclick="showChapter('divide')">
+      <span class="sidebar-num">08</span> 분할정복·재귀
+    </div>
+
+    <div class="sidebar-hdr" style="margin-top:8px;">5. 그래프</div>
+    <div class="sidebar-item" onclick="showChapter('graph')">
+      <span class="sidebar-num">09</span> 그래프 이론
+    </div>
+
+    <div class="sidebar-hdr" style="margin-top:8px;">6. 심화 알고리즘</div>
+    <div class="sidebar-item" onclick="showChapter('advanced')">
+      <span class="sidebar-num">10</span> 투포인터·슬라이딩
+    </div>
+    <div class="sidebar-item" onclick="showChapter('floyd')">
+      <span class="sidebar-num">11</span> 플로이드-워샬
+    </div>
+    <div class="sidebar-item" onclick="showChapter('string')">
+      <span class="sidebar-num">12</span> 문자열 알고리즘
+    </div>
+
+    <div class="sidebar-hdr" style="margin-top:8px;"> 시각화</div>
+    <div class="sidebar-item" onclick="showChapter('vizsort')">
+      <span class="sidebar-num">V1</span> 정렬 시각화
+    </div>
+    <div class="sidebar-item" onclick="showChapter('vizbfs')">
+      <span class="sidebar-num">V2</span> 그래프 시각화
+    </div>
+    <div class="sidebar-item" onclick="showChapter('vizdp')">
+      <span class="sidebar-num">V3</span> DP 테이블 시각화
+    </div>
+    <div class="sidebar-item" onclick="showChapter('visbsearch')">
+      <span class="sidebar-num">V4</span> 이진탐색 시각화
+    </div>
+    <div class="sidebar-item" onclick="showChapter('quiz')">
+      <span class="sidebar-num">Q</span> 연습문제
+    </div>
+  </div>
+</aside>
+
+<!-- MAIN CONTENT -->
+<main class="content">
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-tag"> 중등 정보올림피아드 대비</div>
+  <h1 class="hero-title">알고리즘 <em>완전 정복</em><br>학습 자료</h1>
+  <p class="hero-sub">시간복잡도부터 동적 프로그래밍까지 — 올림피아드에 필요한 모든 알고리즘 이론과 Python 코드 예제를 한 권에 담았습니다.</p>
+  <div class="hero-badges">
+    <span class="hero-badge hb-blue">정렬·탐색</span>
+    <span class="hero-badge hb-teal">자료구조</span>
+    <span class="hero-badge hb-gold">그리디·DP</span>
+    <span class="hero-badge hb-purple">그래프</span>
+    <span class="hero-badge hb-red">분할정복</span>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════
+     CHAPTER 1: 알고리즘 기초
+════════════════════════════════════════════ -->
+<section class="chapter active" id="ch-intro">
+  <div class="ch-header">
+    <span class="ch-num">Chapter 01</span>
+    <div>
+      <div class="ch-title">알고리즘이란 <em>무엇인가?</em></div>
+      <div class="ch-desc">문제를 해결하는 단계적 절차 — 올림피아드의 모든 것은 여기서 시작됩니다</div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-title">알고리즘의 정의</div>
+    <p><strong>알고리즘(Algorithm)</strong>이란 어떤 문제를 해결하기 위한 <strong>명확하고 유한한 단계적 절차</strong>입니다. 알고리즘은 반드시 다음 5가지 조건을 갖춰야 합니다.</p>
+
+    <div class="algo-grid" style="grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));">
+      <div class="algo-card">
+        <div class="algo-card-head">
+          <div class="algo-icon" style="background:rgba(30,94,255,.1);"></div>
+          <div><div class="algo-card-title">입력 (Input)</div></div>
+        </div>
+        <div class="algo-card-body"><p>0개 이상의 외부 입력이 존재해야 합니다</p></div>
+      </div>
+      <div class="algo-card">
+        <div class="algo-card-head">
+          <div class="algo-icon" style="background:rgba(0,201,177,.1);"></div>
+          <div><div class="algo-card-title">출력 (Output)</div></div>
+        </div>
+        <div class="algo-card-body"><p>1개 이상의 결과가 반드시 출력되어야 합니다</p></div>
+      </div>
+      <div class="algo-card">
+        <div class="algo-card-head">
+          <div class="algo-icon" style="background:rgba(245,166,35,.1);"></div>
+          <div><div class="algo-card-title">유한성 (Finiteness)</div></div>
+        </div>
+        <div class="algo-card-body"><p>유한한 단계 후에 반드시 종료되어야 합니다</p></div>
+      </div>
+      <div class="algo-card">
+        <div class="algo-card-head">
+          <div class="algo-icon" style="background:rgba(165,94,234,.1);"></div>
+          <div><div class="algo-card-title">명확성 (Definiteness)</div></div>
+        </div>
+        <div class="algo-card-body"><p>각 단계가 명확하고 모호하지 않아야 합니다</p></div>
+      </div>
+      <div class="algo-card">
+        <div class="algo-card-head">
+          <div class="algo-icon" style="background:rgba(255,71,87,.1);"></div>
+          <div><div class="algo-card-title">효율성 (Effectiveness)</div></div>
+        </div>
+        <div class="algo-card-body"><p>모든 연산은 실제로 수행 가능해야 합니다</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-title">좋은 알고리즘의 조건</div>
+    <div class="grid2">
+      <div class="box box-blue">
+        <div class="box-title bt-blue">⏱ 시간 효율성</div>
+        <p>같은 결과를 더 <strong>빠르게</strong> 계산할수록 좋습니다. 입력 크기 n이 커질 때 수행 시간이 얼마나 증가하는지가 핵심입니다.</p>
+      </div>
+      <div class="box box-teal">
+        <div class="box-title bt-teal"> 공간 효율성</div>
+        <p>더 <strong>적은 메모리</strong>를 사용할수록 좋습니다. 시간과 공간은 종종 트레이드오프(trade-off) 관계입니다.</p>
+      </div>
+      <div class="box box-gold">
+        <div class="box-title bt-gold"> 정확성</div>
+        <p>모든 입력에 대해 <strong>올바른 결과</strong>를 내야 합니다. 빠르지만 틀린 알고리즘은 의미 없습니다.</p>
+      </div>
+      <div class="box box-green">
+        <div class="box-title bt-green"> 가독성</div>
+        <p>다른 사람이 이해하기 <strong>쉽게</strong> 작성되어야 합니다. 올림피아드에서도 코드의 명확성이 중요합니다.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-title">첫 번째 예제 — 최댓값 찾기</div>
+    <p>배열에서 가장 큰 값을 찾는 가장 기본적인 알고리즘입니다.</p>
+    <div class="pseudo">
+      <span><span class="pkey">알고리즘</span> 최댓값 찾기(A, n)</span>
+      <span class="pind1"><span class="pcmt">// A: 숫자 배열, n: 원소 수</span></span>
+      <span class="pind1">max ← A[0]</span>
+      <span class="pind1"><span class="pkey">for</span> i ← <span class="pnum">1</span> to n-<span class="pnum">1</span> <span class="pkey">do</span></span>
+      <span class="pind2"><span class="pkey">if</span> A[i] &gt; max <span class="pkey">then</span></span>
+      <span class="pind3">max ← A[i]</span>
+      <span class="pind1"><span class="pkey">return</span> max</span>
+    </div>
+    <div class="code-block">
+      <div class="code-header">
+        <div class="code-dots"><div class="code-dot cd-r"></div><div class="code-dot cd-y"></div><div class="code-dot cd-g"></div></div>
+        <span class="code-title">최댓값 찾기</span>
+        <span class="code-lang">Python</span>
+      </div>
+      <pre><span class="kw">def</span> <span class="fn">find_max</span>(arr):
+    max_val = arr[<span class="nm">0</span>]           <span class="cm"># 첫 원소를 임시 최댓값으로</span>
+    <span class="kw">for</span> i <span class="kw">in</span> range(<span class="nm">1</span>, len(arr)):
+        <span class="kw">if</span> arr[i] &gt; max_val:   <span class="cm"># 더 큰 값 발견!</span>
+            max_val = arr[i]
+    <span class="kw">return</span> max_val
+
+<span class="cm"># 사용 예시</span>
+arr = [<span class="nm">3</span>, <span class="nm">7</span>, <span class="nm">1</span>, <span class="nm">9</span>, <span class="nm">4</span>, <span class="nm">2</span>]
+print(<span class="fn">find_max</span>(arr))  <span class="cm"># 출력: 9</span></pre>
+    </div>
+    <div class="box box-blue">
+      <div class="box-title bt-blue"> 분석</div>
+      <p>이 알고리즘은 배열의 모든 원소를 한 번씩 확인합니다. 원소 수가 n이면 최대 n번 비교 → <strong>시간 복잡도 O(n)</strong></p>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     CHAPTER 2: 시간 복잡도
+════════════════════════════════════════════ -->
+<section class="chapter" id="ch-complexity">
+  <div class="ch-header">
+    <span class="ch-num">Chapter 02</span>
+    <div>
+      <div class="ch-title">시간 복잡도와 <em>Big-O 표기법</em></div>
+      <div class="ch-desc">알고리즘의 효율성을 수학적으로 표현하는 방법</div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-title">Big-O 표기법</div>
+    <p>입력 크기 <strong>n</strong>이 증가할 때 알고리즘의 수행 시간이 어떻게 증가하는지를 나타냅니다. 가장 빠르게 증가하는 항만 표기하고 상수는 무시합니다.</p>
+    <div class="bigo-grid">
+      <div class="bigo-card">
+        <div class="bigo-notation" style="color:#2ed573">O(1)</div>
+        <div class="bigo-bar n1"></div>
+        <div class="bigo-label">상수 시간<br>가장 빠름</div>
+      </div>
+      <div class="bigo-card">
+        <div class="bigo-notation" style="color:#7bed9f">O(log n)</div>
+        <div class="bigo-bar nlogn"></div>
+        <div class="bigo-label">로그 시간<br>이진탐색</div>
+      </div>
+      <div class="bigo-card">
+        <div class="bigo-notation" style="color:#ffcc44">O(n)</div>
+        <div class="bigo-bar nn"></div>
+        <div class="bigo-label">선형 시간<br>순차탐색</div>
+      </div>
+      <div class="bigo-card">
+        <div class="bigo-notation" style="color:#f5a623">O(n log n)</div>
+        <div class="bigo-bar nlogn" style="background:#f5a623"></div>
+        <div class="bigo-label">선형로그<br>합병정렬</div>
+      </div>
+      <div class="bigo-card">
+        <div class="bigo-notation" style="color:#ff6b6b">O(n²)</div>
+        <div class="bigo-bar n2n" style="background:#ff6b6b"></div>
+        <div class="bigo-label">이차 시간<br>버블정렬</div>
+      </div>
+      <div class="bigo-card">
+        <div class="bigo-notation" style="color:#c0392b">O(2ⁿ)</div>
+        <div class="bigo-bar nfact"></div>
+        <div class="bigo-label">지수 시간<br>완전탐색</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-title">n에 따른 실제 연산 횟수 비교</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>n</th><th>O(log n)</th><th>O(n)</th><th>O(n log n)</th><th>O(n²)</th><th>O(2ⁿ)</th></tr></thead>
+        <tbody>
+          <tr><td class="tc-name">10</td><td class="tc-best">3</td><td class="tc-ok">10</td><td class="tc-avg">33</td><td class="tc-worst">100</td><td class="tc-worst">1,024</td></tr>
+          <tr><td class="tc-name">100</td><td class="tc-best">7</td><td class="tc-ok">100</td><td class="tc-avg">664</td><td class="tc-worst">10,000</td><td class="tc-worst">너무 큼</td></tr>
+          <tr><td class="tc-name">1,000</td><td class="tc-best">10</td><td class="tc-ok">1,000</td><td class="tc-avg">9,966</td><td class="tc-worst">1,000,000</td><td class="tc-worst">불가능</td></tr>
+          <tr><td class="tc-name">10,000</td><td class="tc-best">13</td><td class="tc-ok">10,000</td><td class="tc-avg">132,877</td><td class="tc-worst">100,000,000</td><td class="tc-worst">불가능</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="box box-gold">
+      <div class="box-title bt-gold">⚠ 올림피아드 핵심 기준</div>
+      <p>1초에 약 <strong>1억(10⁸)번</strong> 연산 가능. n=10,000이면 O(n²)은 10억 번 → 시간 초과! O(n log n) 이하를 목표로 하세요.</p>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-title">Big-O 계산 방법</div>
+    <div class="code-block">
+      <div class="code-header">
+        <div class="code-dots"><div class="code-dot cd-r"></div><div class="code-dot cd-y"></div><div class="code-dot cd-g"></div></div>
+        <span class="code-title">복잡도 계산 예시</span>
+        <span class="code-lang">Python</span>
+      </div>
+      <pre><span class="cm"># O(1) — 입력 크기와 무관하게 항상 1번</span>
+<span class="kw">def</span> <span class="fn">get_first</span>(arr):
+    <span class="kw">return</span> arr[<span class="nm">0</span>]
+
+<span class="cm"># O(n) — n번 반복</span>
+<span class="kw">def</span> <span class="fn">print_all</span>(arr):
+    <span class="kw">for</span> x <span class="kw">in</span> arr:
+        print(x)
+
+<span class="cm"># O(n²) — 이중 반복문</span>
+<span class="kw">def</span> <span class="fn">print_pairs</span>(arr):
+    <span class="kw">for</span> i <span class="kw">in</span> range(len(arr)):
+        <span class="kw">for</span> j <span class="kw">in</span> range(len(arr)):
+            print(arr[i], arr[j])
+
+<span class="cm"># O(log n) — 매번 절반으로 줄임</span>
+<span class="kw">def</span> <span class="fn">binary_search_count</span>(n):
+    count = <span class="nm">0</span>
+    <span class="kw">while</span> n &gt; <span class="nm">1</span>:
+        n = n // <span class="nm">2</span>
+        count += <span class="nm">1</span>
+    <span class="kw">return</span> count</pre>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     CHAPTER 3: 정렬 알고리즘
+════════════════════════════════════════════ -->
+<section class="chapter" id="ch-sort">
+  <div class="ch-header">
+    <span class="ch-num">Chapter 03</span>
+    <div>
+      <div class="ch-title">정렬 <em>알고리즘</em></div>
+      <div class="ch-desc">데이터를 순서대로 배열하는 가장 기본적이고 핵심적인 알고리즘</div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-title">정렬 알고리즘 비교표</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>알고리즘</th><th>최선</th><th>평균</th><th>최악</th><th>공간</th><th>안정성</th><th>특징</th></tr></thead>
+        <tbody>
+          <tr><td class="tc-name">버블 정렬</td><td class="tc-best">O(n)</td><td class="tc-worst">O(n²)</td><td class="tc-worst">O(n²)</td><td class="tc-best">O(1)</td><td>✅</td><td>가장 단순</td></tr>
+          <tr><td class="tc-name">선택 정렬</td><td class="tc-worst">O(n²)</td><td class="tc-worst">O(n²)</td><td class="tc-worst">O(n²)</td><td class="tc-best">O(1)</td><td>❌</td><td>교환 횟수 최소</td></tr>
+          <tr><td class="tc-name">삽입 정렬</td><td class="tc-best">O(n)</td><td class="tc-worst">O(n²)</td><td class="tc-worst">O(n²)</td><td class="tc-best">O(1)</td><td>✅</td><td>거의 정렬됐을 때 빠름</td></tr>
+          <tr><td class="tc-name">합병 정렬</td><td class="tc-avg">O(n log n)</td><td class="tc-avg">O(n log n)</td><td class="tc-avg">O(n log n)</td><td class="tc-worst">O(n)</td><td>✅</td><td>항상 안정적</td></tr>
+          <tr><td class="tc-name">퀵 정렬</td><td class="tc-avg">O(n log n)</td><td class="tc-avg">O(n log n)</td><td class="tc-worst">O(n²)</td><td class="tc-ok">O(log n)</td><td>❌</td><td>실제 가장 빠름</td></tr>
+          <tr><td class="tc-name">힙 정렬</td><td class="tc-avg">O(n log n)</td><td class="tc-avg">O(n log n)</td><td class="tc-avg">O(n log n)</td><td class="tc-best">O(1)</td><td>❌</td><td>메모리 효율적</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-sub">① 버블 정렬 (Bubble Sort)</div>
+    <p>인접한 두 원소를 비교하여 큰 값을 오른쪽으로 밀어나가는 정렬입니다. <span class="cx cx-n2">O(n²)</span></p>
+    <div class="box box-blue">
+      <div class="box-title bt-blue"> 동작 원리</div>
+      <p>한 번의 패스(pass)에서 가장 큰 원소가 맨 오른쪽으로 이동합니다. n-1번의 패스 후 정렬 완료.</p>
+      <p>예: [5, 3, 8, 1] → [3, 5, 1, 8] → [3, 1, 5, 8] → [1, 3, 5, 8]</p>
+    </div>
+    <div class="code-block">
+      <div class="code-header">
+        <div class="code-dots"><div class="code-dot cd-r"></div><div class="code-dot cd-y"></div><div class="code-dot cd-g"></div></div>
+        <span class="code-title">버블 정렬</span><span class="code-lang">Python</span>
+      </div>
+      <pre><span class="kw">def</span> <span class="fn">bubble_sort</span>(arr):
+    n = len(arr)
+    <span class="kw">for</span> i <span class="kw">in</span> range(n):
+        swapped = <span class="kw">False</span>
+        <span class="kw">for</span> j <span class="kw">in</span> range(<span class="nm">0</span>, n-i-<span class="nm">1</span>):
+            <span class="kw">if</span> arr[j] &gt; arr[j+<span class="nm">1</span>]:
+                arr[j], arr[j+<span class="nm">1</span>] = arr[j+<span class="nm">1</span>], arr[j]  <span class="cm"># 교환</span>
+                swapped = <span class="kw">True</span>
+        <span class="kw">if not</span> swapped:  <span class="cm"># 교환 없으면 이미 정렬됨 → 최적화</span>
+            <span class="kw">break</span>
+    <span class="kw">return</span> arr</pre>
+    </div>
+
+    <div class="sec-sub">② 선택 정렬 (Selection Sort)</div>
+    <p>매 패스마다 최솟값을 찾아 맨 앞으로 이동시키는 정렬입니다. <span class="cx cx-n2">O(n²)</span></p>
+    <div class="code-block">
+      <div class="code-header">
+        <div class="code-dots"><div class="code-dot cd-r"></div><div class="code-dot cd-y"></div><div class="code-dot cd-g"></div></div>
+        <span class="code-title">선택 정렬</span><span class="code-lang">Python</span>
+      </div>
+      <pre><span class="kw">def</span> <span class="fn">selection_sort</span>(arr):
+    n = len(arr)
+    <span class="kw">for</span> i <span class="kw">in</span> range(n):
+        min_idx = i
+        <span class="kw">for</span> j <span class="kw">in</span> range(i+<span class="nm">1</span>, n):
+            <span class="kw">if</span> arr[j] &lt; arr[min_idx]:
+                min_idx = j
+        arr[i], arr[min_idx] = arr[min_idx], arr[i]  <span class="cm"># 최솟값을 앞으로</span>
+    <span class="kw">return</span> arr</pre>
+    </div>
+
+    <div class="sec-sub">③ 합병 정렬 (Merge Sort)</div>
+    <p>분할정복을 사용하여 배열을 반으로 나누고 정렬 후 합병합니다. <span class="cx cx-nlogn">O(n log n)</span> 항상 보장</p>
+    <div class="code-block">
+      <div class="code-header">
+        <div class="code-dots"><div class="code-dot cd-r"></div><div class="code-dot cd-y"></div><div class="code-dot cd-g"></div></div>
+        <span class="code-title">합병 정렬</span><span class="code-lang">Python</span>
+      </div>
+      <pre><span class="kw">def</span> <span class="fn">merge_sort</span>(arr):
+    <span class="kw">if</span> len(arr) &lt;= <span class="nm">1</span>:
+        <span class="kw">return</span> arr
+    
+    mid = len(arr) // <span class="nm">2</span>
+    left  = <span class="fn">merge_sort</span>(arr[:mid])
+    right = <span class="fn">merge_sort</span>(arr[mid:])
+    
+    <span class="kw">return</span> <span class="fn">merge</span>(left, right)
+
+<span class="kw">def</span> <span class="fn">merge</span>(left, right):
+    result = []
+    i = j = <span class="nm">0</span>
+    <span class="kw">while</span> i &lt; len(left) <span class="kw">and</span> j &lt; len(right):
+        <span class="kw">if</span> left[i] &lt;= right[j]:
+            result.append(left[i]); i += <span class="nm">1</span>
+        <span class="kw">else</span>:
+            result.append(right[j]); j += <span class="nm">1</span>
+    <span class="kw">return</span> result + left[i:] + right[j:]</pre>
+    </div>
+
+    <div class="sec-sub">④ 퀵 정렬 (Quick Sort)</div>
+    <p>피벗(pivot)을 기준으로 작은 값은 왼쪽, 큰 값은 오른쪽으로 분할합니다. 평균 <span class="cx cx-nlogn">O(n log n)</span>, 최악 <span class="cx cx-n2">O(n²)</span></p>
+    <div class="code-block">
+      <div class="code-header">
+        <div class="code-dots"><div class="code-dot cd-r"></div><div class="code-dot cd-y"></div><div class="code-dot cd-g"></div></div>
+        <span class="code-title">퀵 정렬</span><span class="code-lang">Python</span>
+      </div>
+      <pre><span class="kw">def</span> <span class="fn">quick_sort</span>(arr):
+    <span class="kw">if</span> len(arr) &lt;= <span class="nm">1</span>:
+        <span class="kw">return</span> arr
+    
+    pivot = arr[len(arr) // <span class="nm">2</span>]          <span class="cm"># 중간값을 피벗으로</span>
+    left   = [x <span class="kw">for</span> x <span class="kw">in</span> arr <span class="kw">if</span> x &lt; pivot]
+    middle = [x <span class="kw">for</span> x <span class="kw">in</span> arr <span class="kw">if</span> x == pivot]
+    right  = [x <span class="kw">for</span> x <span class="kw">in</span> arr <span class="kw">if</span> x &gt; pivot]
+    
+    <span class="kw">return</span> <span class="fn">quick_sort</span>(left) + middle + <span class="fn">quick_sort</span>(right)</pre>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     CHAPTER 4: 탐색 알고리즘
+════════════════════════════════════════════ -->
+<section class="chapter" id="ch-search">
+  <div class="ch-header">
+    <span class="ch-num">Chapter 04</span>
+    <div>
+      <div class="ch-title">탐색 <em>알고리즘</em></div>
+      <div class="ch-desc">원하는 데이터를 찾는 방법 — 선형탐색, 이진탐색, BFS, DFS</div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-sub">① 선형 탐색 (Linear Search)</div>
+    <p>처음부터 끝까지 하나씩 확인합니다. <span class="cx cx-n">O(n)</span> — 정렬 불필요</p>
+    <div class="code-block">
+      <div class="code-header"><div class="code-dots"><div class="code-dot cd-r"></div><div class="code-dot cd-y"></div><div class="code-dot cd-g"></div></div><span class="code-title">선형 탐색</span><span class="code-lang">Python</span></div>
+      <pre><span class="kw">def</span> <span class="fn">linear_search</span>(arr, target):
+    <span class="kw">for</span> i, val <span class="kw">in</span> enumerate(arr):
+        <span class="kw">if</span> val == target:
+            <span class="kw">return</span> i         <span class="cm"># 인덱스 반환</span>
+    <span class="kw">return</span> -<span class="nm">1</span>             <span class="cm"># 없으면 -1</span></pre>
+    </div>
+
+    <div class="sec-sub">② 이진 탐색 (Binary Search)</div>
+    <p>정렬된 배열에서 중간값과 비교하며 절반씩 탐색 범위를 줄입니다. <span class="cx cx-logn">O(log n)</span> — 반드시 정렬 필요!</p>
+    <div class="box box-blue">
+      <div class="box-title bt-blue"> 핵심 아이디어</div>
+      <p>배열이 정렬되어 있으면 중간값과 비교만으로 절반을 제거할 수 있습니다. n=1,000,000 이어도 약 20번이면 충분!</p>
+    </div>
+    <div class="code-block">
+      <div class="code-header"><div class="code-dots"><div class="code-dot cd-r"></div><div class="code-dot cd-y"></div><div class="code-dot cd-g"></div></div><span class="code-title">이진 탐색</span><span class="code-lang">Python</span></div>
+      <pre><span class="kw">def</span> <span class="fn">binary_search</span>(arr, target):
+    left, right = <span class="nm">0</span>, len(arr) - <span class="nm">1</span>
+    
+    <span class="kw">while</span> left &lt;= right:
+        mid = (left + right) // <span class="nm">2</span>
+        
+        <span class="kw">if</span> arr[mid] == target:
+            <span class="kw">return</span> mid        <span class="cm"># 찾음!</span>
+        <span class="kw">elif</span> arr[mid] &lt; target:
+            left = mid + <span class="nm">1</span>    <span class="cm"># 오른쪽 절반만 탐색</span>
+        <span class="kw">else</span>:
+            right = mid - <span class="nm">1</span>   <span class="cm"># 왼쪽 절반만 탐색</span>
+    
+    <span class="kw">return</span> -<span class="nm">1</span>               <span class="cm"># 없으면 -1</span>
+
+<span class="cm"># 예시</span>
+arr = [<span class="nm">1</span>, <span class="nm">3</span>, <span class="nm">5</span>, <span class="nm">7</span>, <span class="nm">9</span>, <span class="nm">11</span>, <span class="nm">13</span>]
+print(<span class="fn">binary_search</span>(arr, <span class="nm">7</span>))   <span class="cm"># 출력: 3</span></pre>
+    </div>
+
+    <div class="sec-sub">③ BFS (너비 우선 탐색)</div>
+    <p>그래프/트리에서 가까운 노드부터 탐색합니다. <span class="cx cx-n">O(V+E)</span> — 큐(Queue) 사용</p>
+    <div class="box box-teal">
+      <div class="box-title bt-teal"> BFS 활용</div>
+      <ul>
+        <li>최단 경로 찾기 (가중치 없는 그래프)</li>
+        <li>레벨별 탐색 필요할 때</li>
+        <li>연결 요소 개수 세기</li>
+      </ul>
+    </div>
+    <div class="code-block">
+      <div class="code-header"><div class="code-dots"><div class="code-dot cd-r"></div><div class="code-dot cd-y"></div><div class="code-dot cd-g"></div></div><span class="code-title">BFS — 너비 우선 탐색</span><span class="code-lang">Python</span></div>
+      <pre><span class="kw">from</span> collections <span class="kw">import</span> deque
+
+<span class="kw">def</span> <span class="fn">bfs</span>(graph, start):
+    visited = set()
+    queue = deque([start])
+    visited.add(start)
+    order = []
+    
+    <span class="kw">while</span> queue:
+        node = queue.popleft()    <span class="cm"># 큐에서 꺼내기</span>
+        order.append(node)
+        
+        <span class="kw">for</span> neighbor <span class="kw">in</span> graph[node]:
+            <span class="kw">if</span> neighbor <span class="kw">not in</span> visited:
+                visited.add(neighbor)
+                queue.append(neighbor)
+    
+    <span class="kw">return</span> order
+
+<span class="cm"># 예시 그래프</span>
+graph = {<span class="nm">1</span>:[<span class="nm">2</span>,<span class="nm">3</span>], <span class="nm">2</span>:[<span class="nm">4</span>,<span class="nm">5</span>], <span class="nm">3</span>:[<span class="nm">6</span>], <span class="nm">4</span>:[], <span class="nm">5</span>:[], <span class="nm">6</span>:[]}
+print(<span class="fn">bfs</span>(graph, <span class="nm">1</span>))  <span class="cm"># [1, 2, 3, 4, 5, 6]</span></pre>
+    </div>
+
+    <div class="sec-sub">④ DFS (깊이 우선 탐색)</div>
+    <p>한 방향으로 최대한 깊게 들어간 후 돌아오는 탐색. <span class="cx cx-n">O(V+E)</span> — 스택/재귀 사용</p>
+    <div class="code-block">
+      <div class="code-header"><div class="code-dots"><div class="code-dot cd-r"></div><div class="code-dot cd-y"></div><div class="code-dot cd-g"></div></div><span class="code-title">DFS — 깊이 우선 탐색</span><span class="code-lang">Python</span></div>
+      <pre><span class="kw">def</span> <span class="fn">dfs</span>(graph, node, visited=None):
+    <span class="kw">if</span> visited <span class="kw">is None</span>:
+        visited = set()
+    
+    visited.add(node)
+    print(node, end=<span class="st">' '</span>)
+    
+    <span class="kw">for</span> neighbor <span class="kw">in</span> graph[node]:
+        <span class="kw">if</span> neighbor <span class="kw">not in</span> visited:
+            <span class="fn">dfs</span>(graph, neighbor, visited)  <span class="cm"># 재귀!</span>
+    
+    <span class="kw">return</span> visited</pre>
+    </div>
+
+    <div class="box box-gold">
+      <div class="box-title bt-gold"> BFS vs DFS 선택 기준</div>
+      <ul>
+        <li><strong>BFS</strong>: 최단 경로, 가까운 노드 먼저 탐색</li>
+        <li><strong>DFS</strong>: 경로 존재 여부, 사이클 탐지, 위상 정렬</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     CHAPTER 5: 자료구조
+════════════════════════════════════════════ -->
+<section class="chapter" id="ch-ds">
+  <div class="ch-header">
+    <span class="ch-num">Chapter 05</span>
+    <div>
+      <div class="ch-title">핵심 <em>자료구조</em></div>
+      <div class="ch-desc">스택·큐·트리·힙 — 알고리즘의 뼈대가 되는 구조들</div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="grid2">
+      <div>
+        <div class="sec-sub">① 스택 (Stack)</div>
+        <p>LIFO(Last In First Out) — 나중에 들어온 것이 먼저 나갑니다.</p>
+        <div class="box box-blue">
+          <div class="box-title bt-blue"> 활용 사례</div>
+          <ul>
+            <li>괄호 검사</li>
+            <li>DFS 구현</li>
+            <li>재귀 호출 스택</li>
+            <li>수식 계산 (후위 표기)</li>
+          </ul>
+        </div>
+        <div class="code-block">
+          <div class="code-header"><div class="code-dots"><div class="code-dot cd-r"></div><div class="code-dot cd-y"></div><div class="code-dot cd-g"></div></div><span class="code-lang">Python</span></div>
+          <pre>stack = []
+stack.append(<span class="nm">1</span>)  <span class="cm"># push</span>
+stack.append(<span class="nm">2</span>)
+stack.append(<span class="nm">3</span>)
+top = stack.pop()  <span class="cm"># pop → 3</span>
+top = stack[-<span class="nm">1</span>]   <span class="cm"># peek → 2</span></pre>
+        </div>
+      </div>
+      <div>
+        <div class="sec-sub">② 큐 (Queue)</div>
+        <p>FIFO(First In First Out) — 먼저 들어온 것이 먼저 나갑니다.</p>
+        <div class="box box-teal">
+          <div class="box-title bt-teal">🎡 활용 사례</div>
+          <ul>
+            <li>BFS 구현</li>
+            <li>프린터 대기열</li>
+            <li>프로세스 스케줄링</li>
+            <li>레벨 순서 트리 탐색</li>
+          </ul>
+        </div>
+        <div class="code-block">
+          <div class="code-header"><div class="code-dots"><div class="code-dot cd-r"></div><div class="code-dot cd-y"></div><div class="code-dot cd-g"></div></div><span class="code-lang">Python</span></div>
+          <pre><span class="kw">from</span> collections <span class="kw">import</span> deque
+q = deque()
+q.append(<span class="nm">1</span>)     <span class="cm"># enqueue</span>
+q.append(<span class="nm">2</span>)
+front = q.popleft() <span class="cm"># dequeue → 1</span></pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+    <div class="sec-sub">③ 힙 (Heap) — 우선순위 큐</div>
+    <p>완전 이진 트리 구조로 최솟값(또는 최댓값)을 O(log n)에 삽입/삭제합니다.</p>
+    <div class="code-block">
+      <div class="code-header"><div class="code-dots"><div class="code-dot cd-r"></div><div class="code-dot cd-y"></div><div class="code-dot cd-g"></div></div><span class="code-title">힙 — 우선순위 큐</span><span class="code-lang">Python</span></div>
+      <pre><span class="kw">import</span> heapq
+
+heap = []
+heapq.heappush(heap, <span class="nm">5</span>)   <span class="cm"># 삽입 O(log n)</span>
+heapq.heappush(heap, <span class="nm">2</span>)
+heapq.heappush(heap, <span class="nm">8</span>)
+heapq.heappush(heap, <span class="nm">1</span>)
+
+print(heap[<span class="nm">0</span>])             <span class="cm"># 최솟값 확인: 1</span>
+print(heapq.heappop(heap)) <span class="cm"># 최솟값 삭제: 1, O(log n)</span>
+
+<span class="cm"># 최대 힙 = 값에 음수 붙이기</span>
+heapq.heappush(heap, -<span class="nm">10</span>)
+max_val = -heapq.heappop(heap)  <span class="cm"># 10</span></pre>
+    </div>
+
+    <div class="divider"></div>
+    <div class="sec-sub">④ 유니온-파인드 (Union-Find)</div>
+    <p>집합의 합병과 원소의 소속 집합 확인을 효율적으로 처리합니다. 크루스칼 알고리즘의 핵심!</p>
+    <div class="code-block">
+      <div class="code-header"><div class="code-dots"><div class="code-dot cd-r"></div><div class="code-dot cd-y"></div><div class="code-dot cd-g"></div></div><span class="code-title">유니온-파인드</span><span class="code-lang">Python</span></div>
+      <pre>parent = list(range(n))  <span class="cm"># 자기 자신이 부모</span>
+
+<span class="kw">def</span> <span class="fn">find</span>(x):           <span class="cm"># 루트 찾기 (경로 압축)</span>
+    <span class="kw">if</span> parent[x] != x:
+        parent[x] = <span class="fn">find</span>(parent[x])
+    <span class="kw">return</span> parent[x]
+
+<span class="kw">def</span> <span class="fn">union</span>(x, y):       <span class="cm"># 두 집합 합치기</span>
+    px, py = <span class="fn">find</span>(x), <span class="fn">find</span>(y)
+    <span class="kw">if</span> px != py:
+        parent[px] = py</pre>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     CHAPTER 6: 그리디
+════════════════════════════════════════════ -->
+<section class="chapter" id="ch-greedy">
+  <div class="ch-header">
+    <span class="ch-num">Chapter 06</span>
+    <div>
+      <div class="ch-title">그리디 <em>알고리즘</em></div>
+      <div class="ch-desc">매 순간 가장 좋아 보이는 선택을 하는 탐욕 전략</div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-title">그리디의 조건</div>
+    <div class="grid2">
+      <div class="box box-green">
+        <div class="box-title bt-green">✅ 탐욕적 선택 속성</div>
+        <p>지역적으로 최적인 선택이 전역적으로도 최적인 결과를 만들어야 합니다.</p>
+      </div>
+      <div class="box box-blue">
+        <div class="box-title bt-blue">✅ 최적 부분 구조</div>
+        <p>문제의 최적해가 부분 문제의 최적해를 포함해야 합니다.</p>
+      </div>
+    </div>
+
+    <div class="sec-sub">① 동전 교환 문제</div>
+    <p>거스름돈을 최소 개수의 동전으로 만들기 — 큰 단위부터 사용합니다.</p>
+    <div class="code-block">
+      <div class="code-header"><div class="code-dots"><div class="code-dot cd-r"></div><div class="code-dot cd-y"></div><div class="code-dot cd-g"></div></div><span class="code-title">동전 교환 (그리디)</span><span class="code-lang">Python</span></div>
+      <pre>coins = [<span class="nm">500</span>, <span class="nm">100</span>, <span class="nm">50</span>, <span class="nm">10</span>, <span class="nm">1</span>]
+
+<span class="kw">def</span> <span class="fn">min_coins</span>(amount):
+    count = <span class="nm">0</span>
+    result = {}
+    <span class="kw">for</span> coin <span class="kw">in</span> coins:
+        num = amount // coin    <span class="cm"># 이 동전으로 몇 개?</span>
+        result[coin] = num
+        amount -= coin * num
+        count += num
+    <span class="kw">return</span> count, result
+
+count, detail = <span class="fn">min_coins</span>(<span class="nm">1260</span>)
+<span class="cm"># 500×2, 100×2, 50×1, 10×1 = 6개</span></pre>
+    </div>
+
+    <div class="sec-sub">② 회의실 배정 문제</div>
+    <p>하나의 회의실에서 가능한 많은 회의를 배정하기 — <strong>끝나는 시간 기준</strong>으로 정렬!</p>
+    <div class="code-block">
+      <div class="code-header"><div class="code-dots"><div class="code-dot cd-r"></div><div class="code-dot cd-y"></div><div class="code-dot cd-g"></div></div><span class="code-title">회의실 배정</span><span class="code-lang">Python</span></div>
+      <pre>meetings = [(<span class="nm">1</span>,<span class="nm">4</span>), (<span class="nm">3</span>,<span class="nm">5</span>), (<span class="nm">0</span>,<span class="nm">6</span>), (<span class="nm">5</span>,<span class="nm">7</span>), (<span class="nm">3</span>,<span class="nm">9</span>), (<span class="nm">6</span>,<span class="nm">10</span>)]
+
+<span class="kw">def</span> <span class="fn">meeting_rooms</span>(meetings):
+    meetings.sort(key=<span class="kw">lambda</span> x: x[<span class="nm">1</span>])  <span class="cm"># 끝 시간 기준 정렬!</span>
+    count = <span class="nm">0</span>
+    end_time = -<span class="nm">1</span>
+    
+    <span class="kw">for</span> start, end <span class="kw">in</span> meetings:
+        <span class="kw">if</span> start &gt;= end_time:   <span class="cm"># 이전 회의가 끝났으면</span>
+            count += <span class="nm">1</span>
+            end_time = end
+    
+    <span class="kw">return</span> count
+
+print(<span class="fn">meeting_rooms</span>(meetings))  <span class="cm"># 4</span></pre>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     CHAPTER 7: 동적 프로그래밍
+════════════════════════════════════════════ -->
+<section class="chapter" id="ch-dp">
+  <div class="ch-header">
+    <span class="ch-num">Chapter 07</span>
+    <div>
+      <div class="ch-title">동적 프로그래밍 <em>(DP)</em></div>
+      <div class="ch-desc">부분 문제의 결과를 저장하여 반복 계산을 없애는 강력한 기법</div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-title">DP의 핵심 개념</div>
+    <div class="box box-purple">
+      <div class="box-title bt-purple"> 메모이제이션 (Memoization)</div>
+      <p>한 번 계산한 결과를 테이블에 저장해두고 다시 필요할 때 재사용합니다. "계산 결과를 기억하는 재귀"</p>
+    </div>
+
+    <div class="sec-sub">① 피보나치 수열 — 재귀 vs DP 비교</div>
+    <div class="code-block">
+      <div class="code-header"><div class="code-dots"><div class="code-dot cd-r"></div><div class="code-dot cd-y"></div><div class="code-dot cd-g"></div></div><span class="code-title">피보나치 — 세 가지 방법</span><span class="code-lang">Python</span></div>
+      <pre><span class="cm"># 방법 1: 순수 재귀 — O(2^n) 매우 느림!</span>
+<span class="kw">def</span> <span class="fn">fib_slow</span>(n):
+    <span class="kw">if</span> n &lt;= <span class="nm">1</span>: <span class="kw">return</span> n
+    <span class="kw">return</span> <span class="fn">fib_slow</span>(n-<span class="nm">1</span>) + <span class="fn">fib_slow</span>(n-<span class="nm">2</span>)
+
+<span class="cm"># 방법 2: 메모이제이션 — O(n) 빠름</span>
+memo = {}
+<span class="kw">def</span> <span class="fn">fib_memo</span>(n):
+    <span class="kw">if</span> n <span class="kw">in</span> memo: <span class="kw">return</span> memo[n]
+    <span class="kw">if</span> n &lt;= <span class="nm">1</span>: <span class="kw">return</span> n
+    memo[n] = <span class="fn">fib_memo</span>(n-<span class="nm">1</span>) + <span class="fn">fib_memo</span>(n-<span class="nm">2</span>)
+    <span class="kw">return</span> memo[n]
+
+<span class="cm"># 방법 3: 바텀업 DP — O(n) 가장 실용적</span>
+<span class="kw">def</span> <span class="fn">fib_dp</span>(n):
+    dp = [<span class="nm">0</span>] * (n + <span class="nm">1</span>)
+    dp[<span class="nm">1</span>] = <span class="nm">1</span>
+    <span class="kw">for</span> i <span class="kw">in</span> range(<span class="nm">2</span>, n+<span class="nm">1</span>):
+        dp[i] = dp[i-<span class="nm">1</span>] + dp[i-<span class="nm">2</span>]
+    <span class="kw">return</span> dp[n]</pre>
+    </div>
+
+    <div class="sec-sub">② 0/1 배낭 문제 (Knapsack)</div>
+    <p>무게 제한 W의 배낭에 가치 합이 최대가 되도록 물건을 선택합니다. <span class="cx cx-n2">O(nW)</span></p>
+    <div class="code-block">
+      <div class="code-header"><div class="code-dots"><div class="code-dot cd-r"></div><div class="code-dot cd-y"></div><div class="code-dot cd-g"></div></div><span class="code-title">0/1 배낭 문제 (DP)</span><span class="code-lang">Python</span></div>
+      <pre><span class="kw">def</span> <span class="fn">knapsack</span>(weights, values, W):
+    n = len(weights)
+    dp = [[<span class="nm">0</span>] * (W+<span class="nm">1</span>) <span class="kw">for</span> _ <span class="kw">in</span> range(n+<span class="nm">1</span>)]
+    
+    <span class="kw">for</span> i <span class="kw">in</span> range(<span class="nm">1</span>, n+<span class="nm">1</span>):
+        <span class="kw">for</span> w <span class="kw">in</span> range(W+<span class="nm">1</span>):
+            <span class="cm"># 물건 i를 안 넣는 경우</span>
+            dp[i][w] = dp[i-<span class="nm">1</span>][w]
+            <span class="cm"># 물건 i를 넣는 경우 (무게가 허용될 때)</span>
+            <span class="kw">if</span> weights[i-<span class="nm">1</span>] &lt;= w:
+                dp[i][w] = max(dp[i][w],
+                    dp[i-<span class="nm">1</span>][w-weights[i-<span class="nm">1</span>]] + values[i-<span class="nm">1</span>])
+    
+    <span class="kw">return</span> dp[n][W]
+
+weights = [<span class="nm">2</span>, <span class="nm">3</span>, <span class="nm">4</span>, <span class="nm">5</span>]
+values  = [<span class="nm">3</span>, <span class="nm">4</span>, <span class="nm">5</span>, <span class="nm">6</span>]
+print(<span class="fn">knapsack</span>(weights, values, <span class="nm">8</span>))  <span class="cm"># 10</span></pre>
+    </div>
+
+    <div class="sec-sub">③ 최장 공통 부분수열 (LCS)</div>
+    <p>두 문자열의 공통된 가장 긴 부분수열을 찾습니다. <span class="cx cx-n2">O(mn)</span></p>
+    <div class="code-block">
+      <div class="code-header"><div class="code-dots"><div class="code-dot cd-r"></div><div class="code-dot cd-y"></div><div class="code-dot cd-g"></div></div><span class="code-title">LCS — 최장 공통 부분수열</span><span class="code-lang">Python</span></div>
+      <pre><span class="kw">def</span> <span class="fn">lcs</span>(s1, s2):
+    m, n = len(s1), len(s2)
+    dp = [[<span class="nm">0</span>]*(n+<span class="nm">1</span>) <span class="kw">for</span> _ <span class="kw">in</span> range(m+<span class="nm">1</span>)]
+    
+    <span class="kw">for</span> i <span class="kw">in</span> range(<span class="nm">1</span>, m+<span class="nm">1</span>):
+        <span class="kw">for</span> j <span class="kw">in</span> range(<span class="nm">1</span>, n+<span class="nm">1</span>):
+            <span class="kw">if</span> s1[i-<span class="nm">1</span>] == s2[j-<span class="nm">1</span>]:   <span class="cm"># 문자가 같으면</span>
+                dp[i][j] = dp[i-<span class="nm">1</span>][j-<span class="nm">1</span>] + <span class="nm">1</span>
+            <span class="kw">else</span>:                      <span class="cm"># 다르면 최댓값</span>
+                dp[i][j] = max(dp[i-<span class="nm">1</span>][j], dp[i][j-<span class="nm">1</span>])
+    
+    <span class="kw">return</span> dp[m][n]
+
+print(<span class="fn">lcs</span>(<span class="st">"ABCBDAB"</span>, <span class="st">"BDCAB"</span>))  <span class="cm"># 4 (BCAB)</span></pre>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     CHAPTER 8: 그래프 알고리즘
+════════════════════════════════════════════ -->
+<section class="chapter" id="ch-graph">
+  <div class="ch-header">
+    <span class="ch-num">Chapter 09</span>
+    <div>
+      <div class="ch-title">그래프 <em>알고리즘</em></div>
+      <div class="ch-desc">최단경로, 최소신장트리, 위상정렬 — 올림피아드 단골 주제</div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-sub">① 다익스트라 (Dijkstra) — 최단경로</div>
+    <p>음의 가중치가 없는 그래프에서 출발점에서 모든 정점까지의 최단거리를 구합니다. <span class="cx cx-nlogn">O((V+E) log V)</span></p>
+    <div class="box box-blue">
+      <div class="box-title bt-blue"> 핵심 아이디어</div>
+      <p>현재 가장 거리가 짧은 미방문 정점을 선택 → 인접 정점의 거리 갱신 → 반복. 우선순위 큐(힙)로 구현.</p>
+    </div>
+    <div class="code-block">
+      <div class="code-header"><div class="code-dots"><div class="code-dot cd-r"></div><div class="code-dot cd-y"></div><div class="code-dot cd-g"></div></div><span class="code-title">다익스트라</span><span class="code-lang">Python</span></div>
+      <pre><span class="kw">import</span> heapq
+
+<span class="kw">def</span> <span class="fn">dijkstra</span>(graph, start):
+    dist = {v: float(<span class="st">'inf'</span>) <span class="kw">for</span> v <span class="kw">in</span> graph}
+    dist[start] = <span class="nm">0</span>
+    pq = [(<span class="nm">0</span>, start)]  <span class="cm"># (거리, 정점)</span>
+    
+    <span class="kw">while</span> pq:
+        d, u = heapq.heappop(pq)
+        <span class="kw">if</span> d &gt; dist[u]: <span class="kw">continue</span>  <span class="cm"># 이미 처리됨</span>
+        
+        <span class="kw">for</span> v, w <span class="kw">in</span> graph[u]:
+            <span class="kw">if</span> dist[u] + w &lt; dist[v]:
+                dist[v] = dist[u] + w
+                heapq.heappush(pq, (dist[v], v))
+    
+    <span class="kw">return</span> dist</pre>
+    </div>
+
+    <div class="sec-sub">② 크루스칼 (Kruskal) — 최소신장트리</div>
+    <p>간선을 가중치 기준 오름차순 정렬 후 사이클이 생기지 않는 간선을 추가합니다. <span class="cx cx-nlogn">O(E log E)</span></p>
+    <div class="code-block">
+      <div class="code-header"><div class="code-dots"><div class="code-dot cd-r"></div><div class="code-dot cd-y"></div><div class="code-dot cd-g"></div></div><span class="code-title">크루스칼 MST</span><span class="code-lang">Python</span></div>
+      <pre>parent = []
+
+<span class="kw">def</span> <span class="fn">find</span>(x):
+    <span class="kw">if</span> parent[x] != x: parent[x] = <span class="fn">find</span>(parent[x])
+    <span class="kw">return</span> parent[x]
+
+<span class="kw">def</span> <span class="fn">kruskal</span>(V, edges):
+    global parent
+    parent = list(range(V))
+    edges.sort(key=<span class="kw">lambda</span> e: e[<span class="nm">2</span>])  <span class="cm"># 가중치 정렬</span>
+    total, count = <span class="nm">0</span>, <span class="nm">0</span>
+    
+    <span class="kw">for</span> u, v, w <span class="kw">in</span> edges:
+        pu, pv = <span class="fn">find</span>(u), <span class="fn">find</span>(v)
+        <span class="kw">if</span> pu != pv:          <span class="cm"># 사이클 없으면 추가</span>
+            parent[pu] = pv
+            total += w; count += <span class="nm">1</span>
+            <span class="kw">if</span> count == V-<span class="nm">1</span>: <span class="kw">break</span>
+    <span class="kw">return</span> total</pre>
+    </div>
+
+    <div class="sec-sub">③ 위상 정렬 (Topological Sort)</div>
+    <p>방향 그래프에서 의존 관계를 지키면서 노드를 선형으로 나열합니다. <span class="cx cx-n">O(V+E)</span></p>
+    <div class="code-block">
+      <div class="code-header"><div class="code-dots"><div class="code-dot cd-r"></div><div class="code-dot cd-y"></div><div class="code-dot cd-g"></div></div><span class="code-title">위상 정렬 (칸의 알고리즘)</span><span class="code-lang">Python</span></div>
+      <pre><span class="kw">from</span> collections <span class="kw">import</span> deque
+
+<span class="kw">def</span> <span class="fn">topological_sort</span>(V, graph, indegree):
+    queue = deque([i <span class="kw">for</span> i <span class="kw">in</span> range(V) <span class="kw">if</span> indegree[i] == <span class="nm">0</span>])
+    result = []
+    
+    <span class="kw">while</span> queue:
+        node = queue.popleft()
+        result.append(node)
+        <span class="kw">for</span> nxt <span class="kw">in</span> graph[node]:
+            indegree[nxt] -= <span class="nm">1</span>
+            <span class="kw">if</span> indegree[nxt] == <span class="nm">0</span>:
+                queue.append(nxt)
+    
+    <span class="kw">return</span> result <span class="kw">if</span> len(result) == V <span class="kw">else</span> []  <span class="cm"># 사이클이면 빈 리스트</span></pre>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     CHAPTER 9: 분할정복·재귀
+════════════════════════════════════════════ -->
+<section class="chapter" id="ch-divide">
+  <div class="ch-header">
+    <span class="ch-num">Chapter 08</span>
+    <div>
+      <div class="ch-title">재귀와 <em>분할정복</em></div>
+      <div class="ch-desc">큰 문제를 작은 부분으로 나누어 해결하는 전략</div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-title">재귀의 구조</div>
+    <div class="box box-purple">
+      <div class="box-title bt-purple"> 재귀의 핵심</div>
+      <ul>
+        <li><strong>기저 조건(Base Case)</strong>: 재귀를 멈추는 조건 — 반드시 있어야 합니다</li>
+        <li><strong>재귀 조건(Recursive Case)</strong>: 문제를 더 작은 형태로 만드는 호출</li>
+      </ul>
+    </div>
+
+    <div class="grid2">
+      <div>
+        <div class="sec-sub">팩토리얼</div>
+        <div class="code-block">
+          <div class="code-header"><div class="code-dots"><div class="code-dot cd-r"></div><div class="code-dot cd-y"></div><div class="code-dot cd-g"></div></div><span class="code-lang">Python</span></div>
+          <pre><span class="kw">def</span> <span class="fn">factorial</span>(n):
+    <span class="kw">if</span> n == <span class="nm">0</span>:    <span class="cm"># 기저 조건</span>
+        <span class="kw">return</span> <span class="nm">1</span>
+    <span class="kw">return</span> n * <span class="fn">factorial</span>(n-<span class="nm">1</span>)</pre>
+        </div>
+      </div>
+      <div>
+        <div class="sec-sub">하노이 탑</div>
+        <div class="code-block">
+          <div class="code-header"><div class="code-dots"><div class="code-dot cd-r"></div><div class="code-dot cd-y"></div><div class="code-dot cd-g"></div></div><span class="code-lang">Python</span></div>
+          <pre><span class="kw">def</span> <span class="fn">hanoi</span>(n, src, dst, via):
+    <span class="kw">if</span> n == <span class="nm">1</span>:
+        print(f<span class="st">"{src}→{dst}"</span>)
+        <span class="kw">return</span>
+    <span class="fn">hanoi</span>(n-<span class="nm">1</span>, src, via, dst)
+    print(f<span class="st">"{src}→{dst}"</span>)
+    <span class="fn">hanoi</span>(n-<span class="nm">1</span>, via, dst, src)</pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec-sub">이진 탐색 (재귀 버전)</div>
+    <div class="code-block">
+      <div class="code-header"><div class="code-dots"><div class="code-dot cd-r"></div><div class="code-dot cd-y"></div><div class="code-dot cd-g"></div></div><span class="code-title">이진 탐색 — 재귀</span><span class="code-lang">Python</span></div>
+      <pre><span class="kw">def</span> <span class="fn">binary_search_rec</span>(arr, target, left, right):
+    <span class="kw">if</span> left &gt; right:     <span class="cm"># 기저 조건: 못 찾음</span>
+        <span class="kw">return</span> -<span class="nm">1</span>
+    
+    mid = (left + right) // <span class="nm">2</span>
+    <span class="kw">if</span> arr[mid] == target:
+        <span class="kw">return</span> mid
+    <span class="kw">elif</span> arr[mid] &lt; target:
+        <span class="kw">return</span> <span class="fn">binary_search_rec</span>(arr, target, mid+<span class="nm">1</span>, right)
+    <span class="kw">else</span>:
+        <span class="kw">return</span> <span class="fn">binary_search_rec</span>(arr, target, left, mid-<span class="nm">1</span>)</pre>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     CHAPTER 10: 연습문제
+════════════════════════════════════════════ -->
+<section class="chapter" id="ch-quiz">
+  <div class="ch-header">
+    <span class="ch-num">연습문제</span>
+    <div>
+      <div class="ch-title">실력 확인 <em>퀴즈</em></div>
+      <div class="ch-desc">배운 내용을 문제로 확인해보세요</div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div id="quizScore" style="font-family:var(--mono);font-size:13px;color:var(--ink3);margin-bottom:16px;"></div>
+
+    <!-- Q1 -->
+    <div class="quiz-card">
+      <div class="quiz-q">
+        <div class="quiz-num">1</div>
+        <div>n=10,000인 배열을 정렬할 때, 시간 초과가 가장 덜 날 것 같은 알고리즘은?</div>
+      </div>
+      <div class="quiz-opts" id="q1">
+        <label class="quiz-opt"><input type="radio" name="q1" value="a"> 버블 정렬 — O(n²)</label>
+        <label class="quiz-opt"><input type="radio" name="q1" value="b"> 선택 정렬 — O(n²)</label>
+        <label class="quiz-opt"><input type="radio" name="q1" value="c"> 합병 정렬 — O(n log n)</label>
+        <label class="quiz-opt"><input type="radio" name="q1" value="d"> 삽입 정렬 — O(n²)</label>
+      </div>
+      <div class="quiz-feedback" id="qf1"></div>
+    </div>
+
+    <!-- Q2 -->
+    <div class="quiz-card">
+      <div class="quiz-q">
+        <div class="quiz-num">2</div>
+        <div>정렬된 배열 [1,3,5,7,9,11,13]에서 이진 탐색으로 7을 찾을 때 최대 비교 횟수는?</div>
+      </div>
+      <div class="quiz-opts" id="q2">
+        <label class="quiz-opt"><input type="radio" name="q2" value="a"> 1번</label>
+        <label class="quiz-opt"><input type="radio" name="q2" value="b"> 2번</label>
+        <label class="quiz-opt"><input type="radio" name="q2" value="c"> 3번</label>
+        <label class="quiz-opt"><input type="radio" name="q2" value="d"> 7번</label>
+      </div>
+      <div class="quiz-feedback" id="qf2"></div>
+    </div>
+
+    <!-- Q3 -->
+    <div class="quiz-card">
+      <div class="quiz-q">
+        <div class="quiz-num">3</div>
+        <div>BFS와 DFS 중, 가중치 없는 그래프에서 최단 경로를 찾을 때 올바른 알고리즘은?</div>
+      </div>
+      <div class="quiz-opts" id="q3">
+        <label class="quiz-opt"><input type="radio" name="q3" value="a"> DFS (깊이 우선 탐색)</label>
+        <label class="quiz-opt"><input type="radio" name="q3" value="b"> BFS (너비 우선 탐색)</label>
+        <label class="quiz-opt"><input type="radio" name="q3" value="c"> 둘 다 가능</label>
+        <label class="quiz-opt"><input type="radio" name="q3" value="d"> 둘 다 불가능</label>
+      </div>
+      <div class="quiz-feedback" id="qf3"></div>
+    </div>
+
+    <!-- Q4 -->
+    <div class="quiz-card">
+      <div class="quiz-q">
+        <div class="quiz-num">4</div>
+        <div>동적 프로그래밍(DP)이 적용 가능한 조건으로 올바른 것은?</div>
+      </div>
+      <div class="quiz-opts" id="q4">
+        <label class="quiz-opt"><input type="radio" name="q4" value="a"> 탐욕적 선택 속성만 있으면 된다</label>
+        <label class="quiz-opt"><input type="radio" name="q4" value="b"> 부분 문제가 독립적이어야 한다</label>
+        <label class="quiz-opt"><input type="radio" name="q4" value="c"> 최적 부분 구조와 중복 부분 문제가 있어야 한다</label>
+        <label class="quiz-opt"><input type="radio" name="q4" value="d"> 문제가 반드시 정렬되어 있어야 한다</label>
+      </div>
+      <div class="quiz-feedback" id="qf4"></div>
+    </div>
+
+    <!-- Q5 -->
+    <div class="quiz-card">
+      <div class="quiz-q">
+        <div class="quiz-num">5</div>
+        <div>스택(Stack) 자료구조에 1, 2, 3을 순서대로 push한 후 pop을 두 번 하면 남은 원소는?</div>
+      </div>
+      <div class="quiz-opts" id="q5">
+        <label class="quiz-opt"><input type="radio" name="q5" value="a"> 3</label>
+        <label class="quiz-opt"><input type="radio" name="q5" value="b"> 2</label>
+        <label class="quiz-opt"><input type="radio" name="q5" value="c"> 1</label>
+        <label class="quiz-opt"><input type="radio" name="q5" value="d"> 비어 있음</label>
+      </div>
+      <div class="quiz-feedback" id="qf5"></div>
+    </div>
+
+    <!-- Q6 -->
+    <div class="quiz-card">
+      <div class="quiz-q">
+        <div class="quiz-num">6</div>
+        <div>다익스트라 알고리즘이 올바르게 동작하지 않는 경우는?</div>
+      </div>
+      <div class="quiz-opts" id="q6">
+        <label class="quiz-opt"><input type="radio" name="q6" value="a"> 가중치가 모두 0인 그래프</label>
+        <label class="quiz-opt"><input type="radio" name="q6" value="b"> 가중치가 모두 양수인 그래프</label>
+        <label class="quiz-opt"><input type="radio" name="q6" value="c"> 음의 가중치가 있는 그래프</label>
+        <label class="quiz-opt"><input type="radio" name="q6" value="d"> 연결되지 않은 그래프</label>
+      </div>
+      <div class="quiz-feedback" id="qf6"></div>
+    </div>
+
+    <!-- Q7 -->
+    <div class="quiz-card">
+      <div class="quiz-q">
+        <div class="quiz-num">7</div>
+        <div>다음 중 그리디 알고리즘으로 최적해를 보장하는 문제는?</div>
+      </div>
+      <div class="quiz-opts" id="q7">
+        <label class="quiz-opt"><input type="radio" name="q7" value="a"> 0/1 배낭 문제</label>
+        <label class="quiz-opt"><input type="radio" name="q7" value="b"> 최장 공통 부분수열(LCS)</label>
+        <label class="quiz-opt"><input type="radio" name="q7" value="c"> 분수 배낭 문제 (물건을 쪼갤 수 있음)</label>
+        <label class="quiz-opt"><input type="radio" name="q7" value="d"> 피보나치 수 계산</label>
+      </div>
+      <div class="quiz-feedback" id="qf7"></div>
+    </div>
+
+    <!-- Q8 -->
+    <div class="quiz-card">
+      <div class="quiz-q">
+        <div class="quiz-num">8</div>
+        <div>수열 [3, 1, 4, 1, 5, 9, 2, 6]의 LIS(최장 증가 부분수열) 길이는?</div>
+      </div>
+      <div class="quiz-opts" id="q8">
+        <label class="quiz-opt"><input type="radio" name="q8" value="a"> 3</label>
+        <label class="quiz-opt"><input type="radio" name="q8" value="b"> 4</label>
+        <label class="quiz-opt"><input type="radio" name="q8" value="c"> 5</label>
+        <label class="quiz-opt"><input type="radio" name="q8" value="d"> 6</label>
+      </div>
+      <div class="quiz-feedback" id="qf8"></div>
+    </div>
+
+    <!-- Q9 -->
+    <div class="quiz-card">
+      <div class="quiz-q">
+        <div class="quiz-num">9</div>
+        <div>크루스칼 알고리즘에서 사이클을 판별하기 위해 사용하는 자료구조는?</div>
+      </div>
+      <div class="quiz-opts" id="q9">
+        <label class="quiz-opt"><input type="radio" name="q9" value="a"> 스택 (Stack)</label>
+        <label class="quiz-opt"><input type="radio" name="q9" value="b"> 큐 (Queue)</label>
+        <label class="quiz-opt"><input type="radio" name="q9" value="c"> 유니온-파인드 (Union-Find)</label>
+        <label class="quiz-opt"><input type="radio" name="q9" value="d"> 해시맵 (HashMap)</label>
+      </div>
+      <div class="quiz-feedback" id="qf9"></div>
+    </div>
+
+    <!-- Q10 -->
+    <div class="quiz-card">
+      <div class="quiz-q">
+        <div class="quiz-num">10</div>
+        <div>재귀 함수에서 반드시 있어야 하는 조건은?</div>
+      </div>
+      <div class="quiz-opts" id="q10">
+        <label class="quiz-opt"><input type="radio" name="q10" value="a"> 반복문이 하나 이상 있어야 한다</label>
+        <label class="quiz-opt"><input type="radio" name="q10" value="b"> 기저 조건(Base Case)이 있어야 한다</label>
+        <label class="quiz-opt"><input type="radio" name="q10" value="c"> 매개변수가 2개 이상이어야 한다</label>
+        <label class="quiz-opt"><input type="radio" name="q10" value="d"> 전역 변수를 사용해야 한다</label>
+      </div>
+      <div class="quiz-feedback" id="qf10"></div>
+    </div>
+
+    <div style="margin-top:20px;display:flex;gap:10px;flex-wrap:wrap;">
+      <button onclick="checkQuiz()" style="padding:12px 28px;border-radius:10px;background:var(--navy);color:white;border:none;font-family:var(--sans);font-size:14px;font-weight:600;cursor:pointer;transition:background .15s;" onmouseover="this.style.background='#1a3258'" onmouseout="this.style.background='var(--navy)'">✅ 채점하기</button>
+      <button onclick="resetQuiz()"  style="padding:12px 28px;border-radius:10px;background:transparent;color:var(--ink3);border:2px solid var(--rule2);font-family:var(--sans);font-size:14px;cursor:pointer;">↺ 다시 풀기</button>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     CHAPTER 10: 심화 — 투포인터·슬라이딩윈도우
+════════════════════════════════════════════ -->
+<section class="chapter" id="ch-advanced">
+  <div class="ch-header">
+    <span class="ch-num">Chapter 10</span>
+    <div>
+      <div class="ch-title">투 포인터 · <em>슬라이딩 윈도우</em></div>
+      <div class="ch-desc">두 개의 포인터로 O(n)에 해결하는 고급 기법</div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-title">투 포인터 (Two Pointers)</div>
+    <p>배열의 양 끝 또는 같은 방향에 두 포인터를 두고 조건에 따라 이동시키며 O(n²)을 O(n)으로 줄입니다.</p>
+
+    <div class="sec-sub">① 두 수의 합 — 정렬된 배열</div>
+    <div class="box box-blue">
+      <div class="box-title bt-blue"> 아이디어</div>
+      <p>왼쪽(left=0)과 오른쪽(right=n-1) 포인터. 합이 크면 right↓, 작으면 left↑</p>
+    </div>
+    <div class="code-block">
+      <div class="code-header"><div class="code-dots"><div class="code-dot cd-r"></div><div class="code-dot cd-y"></div><div class="code-dot cd-g"></div></div><span class="code-title">두 수의 합 (투 포인터)</span><span class="code-lang">Python</span></div>
+      <pre><span class="kw">def</span> <span class="fn">two_sum_sorted</span>(arr, target):
+    left, right = <span class="nm">0</span>, len(arr) - <span class="nm">1</span>
+    
+    <span class="kw">while</span> left &lt; right:
+        s = arr[left] + arr[right]
+        <span class="kw">if</span> s == target:
+            <span class="kw">return</span> (left, right)   <span class="cm"># 찾음!</span>
+        <span class="kw">elif</span> s &lt; target:
+            left += <span class="nm">1</span>              <span class="cm"># 합이 작으면 left 증가</span>
+        <span class="kw">else</span>:
+            right -= <span class="nm">1</span>             <span class="cm"># 합이 크면 right 감소</span>
+    <span class="kw">return</span> (-<span class="nm">1</span>, -<span class="nm">1</span>)
+
+arr = [<span class="nm">1</span>, <span class="nm">3</span>, <span class="nm">5</span>, <span class="nm">7</span>, <span class="nm">9</span>, <span class="nm">11</span>]
+print(<span class="fn">two_sum_sorted</span>(arr, <span class="nm">12</span>))  <span class="cm"># (1, 4) → 3+9</span></pre>
+    </div>
+
+    <div class="sec-sub">② 연속 부분배열의 합</div>
+    <div class="code-block">
+      <div class="code-header"><div class="code-dots"><div class="code-dot cd-r"></div><div class="code-dot cd-y"></div><div class="code-dot cd-g"></div></div><span class="code-title">합이 S인 연속 부분배열</span><span class="code-lang">Python</span></div>
+      <pre><span class="kw">def</span> <span class="fn">subarray_sum</span>(arr, S):
+    left = <span class="nm">0</span>
+    cur_sum = <span class="nm">0</span>
+    result = []
+    
+    <span class="kw">for</span> right <span class="kw">in</span> range(len(arr)):
+        cur_sum += arr[right]
+        
+        <span class="kw">while</span> cur_sum &gt; S <span class="kw">and</span> left &lt;= right:
+            cur_sum -= arr[left]
+            left += <span class="nm">1</span>
+        
+        <span class="kw">if</span> cur_sum == S:
+            result.append((left, right))
+    <span class="kw">return</span> result
+
+arr = [<span class="nm">1</span>, <span class="nm">2</span>, <span class="nm">3</span>, <span class="nm">4</span>, <span class="nm">5</span>]
+print(<span class="fn">subarray_sum</span>(arr, <span class="nm">9</span>))  <span class="cm"># [(1, 4) → 2+3+4]</span></pre>
+    </div>
+
+    <div class="divider"></div>
+    <div class="sec-title">슬라이딩 윈도우</div>
+    <p>고정된 크기의 윈도우를 배열 위에서 슬라이딩하며 O(n)에 최적값을 찾습니다.</p>
+
+    <div class="sec-sub">③ 길이 k인 부분배열의 최댓값</div>
+    <div class="code-block">
+      <div class="code-header"><div class="code-dots"><div class="code-dot cd-r"></div><div class="code-dot cd-y"></div><div class="code-dot cd-g"></div></div><span class="code-title">슬라이딩 윈도우 최댓값</span><span class="code-lang">Python</span></div>
+      <pre><span class="kw">def</span> <span class="fn">max_subarray_k</span>(arr, k):
+    window_sum = sum(arr[:k])   <span class="cm"># 첫 윈도우</span>
+    max_sum = window_sum
+    
+    <span class="kw">for</span> i <span class="kw">in</span> range(k, len(arr)):
+        window_sum += arr[i] - arr[i-k]  <span class="cm"># 오른쪽 추가, 왼쪽 제거</span>
+        max_sum = max(max_sum, window_sum)
+    
+    <span class="kw">return</span> max_sum
+
+arr = [<span class="nm">2</span>, <span class="nm">1</span>, <span class="nm">5</span>, <span class="nm">1</span>, <span class="nm">3</span>, <span class="nm">2</span>]
+print(<span class="fn">max_subarray_k</span>(arr, <span class="nm">3</span>))  <span class="cm"># 9 (5+1+3)</span></pre>
+    </div>
+
+    <div class="divider"></div>
+    <div class="sec-title">최장 증가 부분수열 (LIS)</div>
+    <p>수열에서 오름차순으로 증가하는 가장 긴 부분수열의 길이를 구합니다.</p>
+    <div class="box box-purple">
+      <div class="box-title bt-purple"> 점화식</div>
+      <p><code>dp[i] = max(dp[j]+1)</code> for all j &lt; i where <code>arr[j] &lt; arr[i]</code></p>
+      <p>단순 DP: <span class="cx cx-n2">O(n²)</span> / 이진탐색 최적화: <span class="cx cx-nlogn">O(n log n)</span></p>
+    </div>
+    <div class="code-block">
+      <div class="code-header"><div class="code-dots"><div class="code-dot cd-r"></div><div class="code-dot cd-y"></div><div class="code-dot cd-g"></div></div><span class="code-title">LIS — 최장 증가 부분수열</span><span class="code-lang">Python</span></div>
+      <pre><span class="cm"># O(n²) — 기본 DP</span>
+<span class="kw">def</span> <span class="fn">lis_dp</span>(arr):
+    n = len(arr)
+    dp = [<span class="nm">1</span>] * n     <span class="cm"># 각 원소 자신만 포함할 때 길이 1</span>
+    
+    <span class="kw">for</span> i <span class="kw">in</span> range(<span class="nm">1</span>, n):
+        <span class="kw">for</span> j <span class="kw">in</span> range(i):
+            <span class="kw">if</span> arr[j] &lt; arr[i]:
+                dp[i] = max(dp[i], dp[j] + <span class="nm">1</span>)
+    
+    <span class="kw">return</span> max(dp)
+
+<span class="cm"># O(n log n) — 이진탐색 최적화</span>
+<span class="kw">import</span> bisect
+
+<span class="kw">def</span> <span class="fn">lis_fast</span>(arr):
+    tails = []    <span class="cm"># tails[i] = 길이 i+1인 LIS의 마지막 원소 최솟값</span>
+    <span class="kw">for</span> x <span class="kw">in</span> arr:
+        pos = bisect.bisect_left(tails, x)
+        <span class="kw">if</span> pos == len(tails):
+            tails.append(x)
+        <span class="kw">else</span>:
+            tails[pos] = x
+    <span class="kw">return</span> len(tails)
+
+arr = [<span class="nm">10</span>, <span class="nm">9</span>, <span class="nm">2</span>, <span class="nm">5</span>, <span class="nm">3</span>, <span class="nm">7</span>, <span class="nm">101</span>, <span class="nm">18</span>]
+print(<span class="fn">lis_fast</span>(arr))  <span class="cm"># 4 (2→3→7→18 또는 2→5→7→18)</span></pre>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     CHAPTER 11: 플로이드-워샬
+════════════════════════════════════════════ -->
+<section class="chapter" id="ch-floyd">
+  <div class="ch-header">
+    <span class="ch-num">Chapter 11</span>
+    <div>
+      <div class="ch-title">플로이드-워샬 · <em>벨만-포드</em></div>
+      <div class="ch-desc">모든 쌍 최단경로 · 음의 가중치 처리</div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-title">플로이드-워샬 (Floyd-Warshall)</div>
+    <p>모든 정점 쌍 사이의 최단거리를 한 번에 구합니다. <span class="cx cx-n2">O(V³)</span> — V가 작을 때 사용</p>
+    <div class="box box-blue">
+      <div class="box-title bt-blue"> 핵심 점화식</div>
+      <p><code>dist[i][j] = min(dist[i][j], dist[i][k] + dist[k][j])</code></p>
+      <p>중간 정점 k를 모든 정점에 대해 순서대로 고려합니다.</p>
+    </div>
+    <div class="code-block">
+      <div class="code-header"><div class="code-dots"><div class="code-dot cd-r"></div><div class="code-dot cd-y"></div><div class="code-dot cd-g"></div></div><span class="code-title">플로이드-워샬</span><span class="code-lang">Python</span></div>
+      <pre>INF = float(<span class="st">'inf'</span>)
+
+<span class="kw">def</span> <span class="fn">floyd_warshall</span>(V, graph):
+    <span class="cm"># dist[i][j]: i→j 최단거리 초기화</span>
+    dist = [[INF]*V <span class="kw">for</span> _ <span class="kw">in</span> range(V)]
+    <span class="kw">for</span> i <span class="kw">in</span> range(V):
+        dist[i][i] = <span class="nm">0</span>
+    <span class="kw">for</span> u, v, w <span class="kw">in</span> graph:
+        dist[u][v] = w
+
+    <span class="kw">for</span> k <span class="kw">in</span> range(V):          <span class="cm"># 중간 정점 k</span>
+        <span class="kw">for</span> i <span class="kw">in</span> range(V):
+            <span class="kw">for</span> j <span class="kw">in</span> range(V):
+                <span class="kw">if</span> dist[i][k] + dist[k][j] &lt; dist[i][j]:
+                    dist[i][j] = dist[i][k] + dist[k][j]
+    <span class="kw">return</span> dist
+
+<span class="cm"># 예시: 4개 정점</span>
+V = <span class="nm">4</span>
+edges = [(<span class="nm">0</span>,<span class="nm">1</span>,<span class="nm">5</span>),(<span class="nm">0</span>,<span class="nm">3</span>,<span class="nm">10</span>),(<span class="nm">1</span>,<span class="nm">2</span>,<span class="nm">3</span>),(<span class="nm">2</span>,<span class="nm">3</span>,<span class="nm">1</span>)]
+result = <span class="fn">floyd_warshall</span>(V, edges)
+<span class="cm"># result[0][3] = 9 (0→1→2→3: 5+3+1)</span></pre>
+    </div>
+
+    <div class="divider"></div>
+    <div class="sec-title">벨만-포드 (Bellman-Ford)</div>
+    <p>음의 가중치가 있는 그래프의 최단경로 탐색. 음의 사이클 검출 가능. <span class="cx cx-n2">O(VE)</span></p>
+    <div class="box box-gold">
+      <div class="box-title bt-gold">⚠ 다익스트라 vs 벨만-포드</div>
+      <ul>
+        <li><strong>다익스트라</strong>: 음의 가중치 ❌, 빠름 O((V+E)logV)</li>
+        <li><strong>벨만-포드</strong>: 음의 가중치 ✅, 느림 O(VE), 음수 사이클 검출</li>
+      </ul>
+    </div>
+    <div class="code-block">
+      <div class="code-header"><div class="code-dots"><div class="code-dot cd-r"></div><div class="code-dot cd-y"></div><div class="code-dot cd-g"></div></div><span class="code-title">벨만-포드</span><span class="code-lang">Python</span></div>
+      <pre><span class="kw">def</span> <span class="fn">bellman_ford</span>(V, edges, src):
+    dist = [INF] * V
+    dist[src] = <span class="nm">0</span>
+    
+    <span class="kw">for</span> _ <span class="kw">in</span> range(V - <span class="nm">1</span>):   <span class="cm"># V-1번 반복</span>
+        <span class="kw">for</span> u, v, w <span class="kw">in</span> edges:
+            <span class="kw">if</span> dist[u] != INF <span class="kw">and</span> dist[u] + w &lt; dist[v]:
+                dist[v] = dist[u] + w
+    
+    <span class="cm"># 음의 사이클 검출</span>
+    <span class="kw">for</span> u, v, w <span class="kw">in</span> edges:
+        <span class="kw">if</span> dist[u] != INF <span class="kw">and</span> dist[u] + w &lt; dist[v]:
+            <span class="kw">return</span> <span class="kw">None</span>   <span class="cm"># 음의 사이클 존재!</span>
+    <span class="kw">return</span> dist</pre>
+    </div>
+
+    <div class="divider"></div>
+    <div class="sec-title">알고리즘 선택 가이드</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>상황</th><th>권장 알고리즘</th><th>복잡도</th></tr></thead>
+        <tbody>
+          <tr><td>단일 출발, 음의 가중치 없음</td><td class="tc-name">다익스트라</td><td class="tc-avg">O((V+E)log V)</td></tr>
+          <tr><td>단일 출발, 음의 가중치 있음</td><td class="tc-name">벨만-포드</td><td class="tc-worst">O(VE)</td></tr>
+          <tr><td>모든 쌍 최단경로</td><td class="tc-name">플로이드-워샬</td><td class="tc-worst">O(V³)</td></tr>
+          <tr><td>가중치 없는 최단경로</td><td class="tc-name">BFS</td><td class="tc-best">O(V+E)</td></tr>
+          <tr><td>최소 신장 트리 (희소 그래프)</td><td class="tc-name">크루스칼</td><td class="tc-avg">O(E log E)</td></tr>
+          <tr><td>최소 신장 트리 (밀집 그래프)</td><td class="tc-name">프림</td><td class="tc-avg">O(E log V)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     CHAPTER 12: 문자열 알고리즘
+════════════════════════════════════════════ -->
+<section class="chapter" id="ch-string">
+  <div class="ch-header">
+    <span class="ch-num">Chapter 12</span>
+    <div>
+      <div class="ch-title">문자열 <em>알고리즘</em></div>
+      <div class="ch-desc">KMP 패턴 매칭 · 해시 · 팰린드롬</div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-title">KMP 패턴 매칭</div>
+    <p>텍스트에서 패턴을 찾을 때 브루트포스 O(nm) 대신 <span class="cx cx-n">O(n+m)</span>에 해결합니다.</p>
+    <div class="box box-blue">
+      <div class="box-title bt-blue"> 핵심 아이디어</div>
+      <p>실패 함수(failure function)를 미리 계산하여, 불일치 발생 시 처음부터 다시 비교하지 않고 적절한 위치로 점프합니다.</p>
+    </div>
+    <div class="code-block">
+      <div class="code-header"><div class="code-dots"><div class="code-dot cd-r"></div><div class="code-dot cd-y"></div><div class="code-dot cd-g"></div></div><span class="code-title">KMP 알고리즘</span><span class="code-lang">Python</span></div>
+      <pre><span class="kw">def</span> <span class="fn">kmp_failure</span>(pattern):
+    <span class="cm">"""실패 함수(접두사-접미사 일치 길이) 계산"""</span>
+    m = len(pattern)
+    f = [<span class="nm">0</span>] * m
+    j = <span class="nm">0</span>
+    <span class="kw">for</span> i <span class="kw">in</span> range(<span class="nm">1</span>, m):
+        <span class="kw">while</span> j &gt; <span class="nm">0</span> <span class="kw">and</span> pattern[i] != pattern[j]:
+            j = f[j-<span class="nm">1</span>]
+        <span class="kw">if</span> pattern[i] == pattern[j]:
+            j += <span class="nm">1</span>
+        f[i] = j
+    <span class="kw">return</span> f
+
+<span class="kw">def</span> <span class="fn">kmp_search</span>(text, pattern):
+    <span class="cm">"""텍스트에서 패턴의 모든 시작 위치 반환"""</span>
+    n, m = len(text), len(pattern)
+    f = <span class="fn">kmp_failure</span>(pattern)
+    result = []
+    j = <span class="nm">0</span>
+    <span class="kw">for</span> i <span class="kw">in</span> range(n):
+        <span class="kw">while</span> j &gt; <span class="nm">0</span> <span class="kw">and</span> text[i] != pattern[j]:
+            j = f[j-<span class="nm">1</span>]
+        <span class="kw">if</span> text[i] == pattern[j]:
+            j += <span class="nm">1</span>
+        <span class="kw">if</span> j == m:
+            result.append(i - m + <span class="nm">1</span>)
+            j = f[j-<span class="nm">1</span>]
+    <span class="kw">return</span> result
+
+text = <span class="st">"ABABDABACDABABCABAB"</span>
+pat  = <span class="st">"ABABCABAB"</span>
+print(<span class="fn">kmp_search</span>(text, pat))  <span class="cm"># [10]</span></pre>
+    </div>
+
+    <div class="divider"></div>
+    <div class="sec-title">팰린드롬 판별</div>
+    <div class="code-block">
+      <div class="code-header"><div class="code-dots"><div class="code-dot cd-r"></div><div class="code-dot cd-y"></div><div class="code-dot cd-g"></div></div><span class="code-title">팰린드롬 검사</span><span class="code-lang">Python</span></div>
+      <pre><span class="cm"># 방법 1: 슬라이싱 O(n)</span>
+<span class="kw">def</span> <span class="fn">is_palindrome</span>(s):
+    <span class="kw">return</span> s == s[::-<span class="nm">1</span>]
+
+<span class="cm"># 방법 2: 투 포인터 O(n)</span>
+<span class="kw">def</span> <span class="fn">is_palindrome_tp</span>(s):
+    left, right = <span class="nm">0</span>, len(s) - <span class="nm">1</span>
+    <span class="kw">while</span> left &lt; right:
+        <span class="kw">if</span> s[left] != s[right]: <span class="kw">return False</span>
+        left += <span class="nm">1</span>; right -= <span class="nm">1</span>
+    <span class="kw">return True</span>
+
+<span class="cm"># 가장 긴 팰린드롬 부분문자열 (DP) O(n²)</span>
+<span class="kw">def</span> <span class="fn">longest_palindrome</span>(s):
+    n = len(s)
+    dp = [[<span class="kw">False</span>]*n <span class="kw">for</span> _ <span class="kw">in</span> range(n)]
+    start, max_len = <span class="nm">0</span>, <span class="nm">1</span>
+    
+    <span class="kw">for</span> i <span class="kw">in</span> range(n): dp[i][i] = <span class="kw">True</span>  <span class="cm"># 길이 1</span>
+    <span class="kw">for</span> i <span class="kw">in</span> range(n-<span class="nm">1</span>):              <span class="cm"># 길이 2</span>
+        <span class="kw">if</span> s[i] == s[i+<span class="nm">1</span>]: dp[i][i+<span class="nm">1</span>] = <span class="kw">True</span>; start=i; max_len=<span class="nm">2</span>
+    <span class="kw">for</span> k <span class="kw">in</span> range(<span class="nm">3</span>, n+<span class="nm">1</span>):          <span class="cm"># 길이 3 이상</span>
+        <span class="kw">for</span> i <span class="kw">in</span> range(n-k+<span class="nm">1</span>):
+            j = i + k - <span class="nm">1</span>
+            <span class="kw">if</span> dp[i+<span class="nm">1</span>][j-<span class="nm">1</span>] <span class="kw">and</span> s[i]==s[j]:
+                dp[i][j]=<span class="kw">True</span>; start=i; max_len=k
+    <span class="kw">return</span> s[start:start+max_len]
+
+print(<span class="fn">longest_palindrome</span>(<span class="st">"babad"</span>))  <span class="cm"># "bab"</span></pre>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     VISUALIZER CHAPTERS (standalone pages)
+════════════════════════════════════════════ -->
+<section class="chapter" id="ch-vizsort">
+  <div class="ch-header">
+    <span class="ch-num">시각화 V1</span>
+    <div>
+      <div class="ch-title"> 정렬 알고리즘 <em>시각화</em></div>
+      <div class="ch-desc">배열이 정렬되는 과정을 실시간 애니메이션으로 확인하세요</div>
+    </div>
+  </div>
+  <div class="sec">
+    <p>알고리즘을 선택하고 ▶ 시작을 누르면 정렬 과정이 막대 그래프로 시각화됩니다.</p>
+    <div class="vis-wrap">
+      <div class="vis-toolbar">
+        <select id="sortAlgoSel" style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);color:#fff;padding:5px 10px;border-radius:6px;font-family:var(--mono);font-size:11px;outline:none;">
+          <option value="bubble">버블 정렬 O(n²)</option>
+          <option value="selection">선택 정렬 O(n²)</option>
+          <option value="insertion">삽입 정렬 O(n²)</option>
+          <option value="merge">합병 정렬 O(n log n)</option>
+          <option value="quick">퀵 정렬 O(n log n)</option>
+        </select>
+        <button class="vis-btn vb-play"  id="sortPlayBtn"  onclick="startSortVis()">▶ 시작</button>
+        <button class="vis-btn vb-reset" id="sortResetBtn" onclick="resetSortVis()">↺ 리셋</button>
+        <div class="vis-speed">
+          속도 <input type="range" id="sortSpeed" min="30" max="500" value="200">
+        </div>
+      </div>
+      <canvas id="sortCanvas" class="vis-canvas" height="220"></canvas>
+      <div class="vis-status" id="sortStatus">▶ 시작 버튼을 누르세요</div>
+    </div>
+    <div class="box box-blue" style="margin-top:16px;">
+      <div class="box-title bt-blue"> 색상 범례</div>
+      <p>
+        <span style="color:var(--teal)">■ 초록</span>: 현재 비교 중 &nbsp;
+        <span style="color:var(--gold)">■ 노랑</span>: 정렬된 위치 확정 &nbsp;
+        <span style="color:var(--blue2)">■ 파랑</span>: 일반 원소 &nbsp;
+        <span style="color:var(--red)">■ 빨강</span>: 교환 중
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="chapter" id="ch-vizbfs">
+  <div class="ch-header">
+    <span class="ch-num">시각화 V2</span>
+    <div>
+      <div class="ch-title">🕸 그래프 탐색 <em>시각화</em></div>
+      <div class="ch-desc">BFS와 DFS의 탐색 순서를 Canvas 애니메이션으로 확인하세요</div>
+    </div>
+  </div>
+  <div class="sec">
+    <div class="vis-wrap">
+      <div class="vis-toolbar">
+        <button class="vis-btn vb-play" onclick="startGraphVis('bfs')">▶ BFS 탐색</button>
+        <button class="vis-btn vb-play" style="background:var(--purple);color:#fff;" onclick="startGraphVis('dfs')">▶ DFS 탐색</button>
+        <button class="vis-btn vb-reset" onclick="resetGraphVis()">↺ 리셋</button>
+        <span style="font-family:var(--mono);font-size:10px;color:rgba(255,255,255,.35);margin-left:auto;">시작 노드: 0번</span>
+      </div>
+      <canvas id="algoGraphCanvas" height="280"></canvas>
+      <div class="vis-status" id="graphVisStatus">BFS 또는 DFS를 선택하세요</div>
+    </div>
+    <div class="grid2" style="margin-top:16px;">
+      <div class="box box-teal">
+        <div class="box-title bt-teal"> BFS (너비 우선)</div>
+        <ul>
+          <li>큐(Queue) 사용</li>
+          <li>레벨 순서대로 탐색</li>
+          <li>최단 경로 보장</li>
+          <li>방문 순서: 가까운 것 먼저</li>
+        </ul>
+      </div>
+      <div class="box box-purple">
+        <div class="box-title bt-purple"> DFS (깊이 우선)</div>
+        <ul>
+          <li>스택(재귀) 사용</li>
+          <li>한 방향으로 끝까지</li>
+          <li>경로 존재 여부 탐색에 유용</li>
+          <li>방문 순서: 깊은 것 먼저</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="chapter" id="ch-vizdp">
+  <div class="ch-header">
+    <span class="ch-num">시각화 V3</span>
+    <div>
+      <div class="ch-title"> DP 테이블 <em>시각화</em></div>
+      <div class="ch-desc">동적 프로그래밍이 테이블을 채워나가는 과정</div>
+    </div>
+  </div>
+  <div class="sec">
+    <div class="grid2">
+      <div>
+        <div class="sec-sub">피보나치 DP 테이블</div>
+        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:10px;">
+          <input type="number" id="dpFibN" value="10" min="3" max="15"
+            style="width:80px;padding:7px 10px;border:1px solid var(--rule2);border-radius:8px;font-family:var(--mono);font-size:12px;">
+          <button onclick="startDPVis()" style="padding:7px 16px;border-radius:8px;background:var(--navy);color:white;border:none;font-family:var(--mono);font-size:12px;cursor:pointer;">▶ 채우기</button>
+          <button onclick="resetDPVis()" style="padding:7px 14px;border-radius:8px;background:transparent;color:var(--ink3);border:1px solid var(--rule2);font-family:var(--mono);font-size:12px;cursor:pointer;">↺ 리셋</button>
+        </div>
+        <div class="dp-table-vis" id="dpTableWrap"></div>
+        <div style="font-family:var(--mono);font-size:11px;color:var(--ink3);margin-top:6px;" id="dpStatus">n을 입력하고 채우기를 눌러보세요</div>
+      </div>
+      <div>
+        <div class="sec-sub">LCS DP 테이블</div>
+        <div style="display:flex;gap:6px;flex-direction:column;margin-bottom:10px;">
+          <input type="text" id="lcsS1" value="ABCBDAB" placeholder="문자열 1"
+            style="padding:7px 10px;border:1px solid var(--rule2);border-radius:8px;font-family:var(--mono);font-size:12px;">
+          <input type="text" id="lcsS2" value="BDCAB" placeholder="문자열 2"
+            style="padding:7px 10px;border:1px solid var(--rule2);border-radius:8px;font-family:var(--mono);font-size:12px;">
+          <button onclick="showLCSTable()" style="padding:7px 16px;border-radius:8px;background:var(--navy);color:white;border:none;font-family:var(--mono);font-size:12px;cursor:pointer;">LCS 테이블 보기</button>
+        </div>
+        <div class="dp-table-vis" id="lcsTableWrap" style="max-height:240px;overflow:auto;"></div>
+        <div style="font-family:var(--mono);font-size:11px;color:var(--ink3);margin-top:6px;" id="lcsStatus"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     이진탐색 시각화 챕터 (탐색 챕터에 링크)
+══════════════════════════════════════════════════════════ -->
+<section class="chapter" id="ch-visbsearch">
+  <div class="ch-header">
+    <span class="ch-num">시각화 V4</span>
+    <div>
+      <div class="ch-title"> 이진 탐색 <em>단계별 시각화</em></div>
+      <div class="ch-desc">탐색 범위가 절반씩 줄어드는 과정을 확인하세요</div>
+    </div>
+  </div>
+  <div class="sec">
+    <div class="vis-wrap">
+      <div class="vis-toolbar">
+        <input type="number" id="bsTarget" placeholder="찾을 값 (1–99)" min="1" max="99" value="37"
+          style="width:150px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);color:#fff;padding:5px 10px;border-radius:6px;font-family:var(--mono);font-size:11px;outline:none;">
+        <button class="vis-btn vb-play"  onclick="startBSearch()">▶ 탐색 시작</button>
+        <button class="vis-btn vb-reset" onclick="resetBSearch()">↺ 리셋</button>
+        <span style="font-family:var(--mono);font-size:10px;color:rgba(255,255,255,.35);margin-left:auto;">정렬된 20개 배열</span>
+      </div>
+      <canvas id="bsCanvas" class="vis-canvas" height="170"></canvas>
+      <div class="vis-status" id="bsStatus">찾을 값을 입력하고 탐색을 시작하세요</div>
+    </div>
+    <div class="box box-blue" style="margin-top:14px;">
+      <div class="box-title bt-blue"> 색상 범례</div>
+      <p>
+        <span style="color:var(--teal)">■ 초록</span>: 현재 탐색 범위 &nbsp;
+        <span style="color:var(--gold)">■ 노랑</span>: mid (중간값) &nbsp;
+        <span style="color:var(--green)">■ 밝은초록</span>: 찾음! &nbsp;
+        <span style="color:#334060">■ 어두움</span>: 제외된 범위
+      </p>
+    </div>
+  </div>
+</section>
+
+</main>
+</div>
+
+<script>
+// ── roundRect 폴리필 (Windows 구버전 Chrome/Edge 호환) ──
+function roundRectPoly(ctx, x, y, w, h, r) {
+  if (typeof r === 'object') r = r[0] || 0;
+  r = Math.min(r, w / 2, h / 2);
+  if (r <= 0) { ctx.rect(x, y, w, h); return; }
+  ctx.moveTo(x + r, y);
+  ctx.lineTo(x + w - r, y);
+  ctx.arcTo(x + w, y,     x + w, y + r,     r);
+  ctx.lineTo(x + w, y + h - r);
+  ctx.arcTo(x + w, y + h, x + w - r, y + h, r);
+  ctx.lineTo(x + r, y + h);
+  ctx.arcTo(x,     y + h, x,     y + h - r, r);
+  ctx.lineTo(x,     y + r);
+  ctx.arcTo(x,     y,     x + r, y,         r);
+  ctx.closePath();
+}
+
+// ── 챕터 전환 ──────────────────────────────────────
+const chapterMap = {
+  'intro':      'ch-intro',
+  'complexity': 'ch-complexity',
+  'sort':       'ch-sort',
+  'search':     'ch-search',
+  'ds':         'ch-ds',
+  'greedy':     'ch-greedy',
+  'dp':         'ch-dp',
+  'graph':      'ch-graph',
+  'divide':     'ch-divide',
+  'advanced':   'ch-advanced',
+  'floyd':      'ch-floyd',
+  'string':     'ch-string',
+  'vizsort':    'ch-vizsort',
+  'vizbfs':     'ch-vizbfs',
+  'vizdp':      'ch-vizdp',
+  'visbsearch': 'ch-visbsearch',
+  'quiz':       'ch-quiz',
+};
+
+function showChapter(key) {
+  document.querySelectorAll('.chapter').forEach(c => c.classList.remove('active'));
+  document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+  document.querySelectorAll('.sidebar-item').forEach(s => s.classList.remove('active'));
+
+  const ch = document.getElementById(chapterMap[key]);
+  if (ch) ch.classList.add('active');
+
+  document.querySelectorAll('.nav-link').forEach(l => {
+    if (l.getAttribute('onclick')?.includes(`'${key}'`)) l.classList.add('active');
+  });
+  document.querySelectorAll('.sidebar-item').forEach(s => {
+    if (s.getAttribute('onclick')?.includes(`'${key}'`)) s.classList.add('active');
+  });
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  // 시각화 챕터 초기화
+  if (key === 'vizsort')    setTimeout(resetSortVis, 100);
+  if (key === 'vizbfs')     setTimeout(resetGraphVis, 100);
+  if (key === 'visbsearch') setTimeout(resetBSearch, 100);
+}
+
+// ═══════════════════════════════════════════════════════
+// 정렬 시각화
+// ═══════════════════════════════════════════════════════
+let sortArr = [], sortSteps = [], sortStepIdx = 0, sortTimer = null;
+const SORT_N = 30;
+const COL_DEFAULT = '#4a85ff';
+const COL_COMPARE = '#00c9b1';
+const COL_SWAP    = '#ff4757';
+const COL_SORTED  = '#f5a623';
+
+function genSortArr() {
+  sortArr = Array.from({length: SORT_N}, () => Math.floor(Math.random()*90)+10);
+}
+
+function resetSortVis() {
+  clearInterval(sortTimer); sortTimer = null;
+  genSortArr(); sortSteps = []; sortStepIdx = 0;
+  document.getElementById('sortStatus').textContent = '▶ 시작 버튼을 누르세요';
+  drawSortBars(sortArr, [], [], []);
+}
+
+function drawSortBars(arr, compare=[], swap=[], sorted=[]) {
+  const canvas = document.getElementById('sortCanvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const dpr = Math.round(window.devicePixelRatio || 1);
+  const W = canvas.offsetWidth || 600, H = 220;
+  canvas.width = W * dpr; canvas.height = H * dpr;
+  ctx.scale(dpr, dpr);
+  canvas.style.width = W + 'px'; canvas.style.height = H + 'px';
+
+  ctx.fillStyle = '#0a1628';
+  ctx.fillRect(0, 0, W, H);
+
+  const bw = (W - 8) / arr.length;
+  const maxVal = Math.max(...arr, 1);
+
+  arr.forEach((v, i) => {
+    const bh = (v / maxVal) * (H - 30);
+    const x  = 4 + i * bw;
+    const y  = H - bh - 10;
+
+    let color = COL_DEFAULT;
+    if (swap.includes(i))    color = COL_SWAP;
+    else if (compare.includes(i)) color = COL_COMPARE;
+    else if (sorted.includes(i))  color = COL_SORTED;
+
+    // bar
+    const grad = ctx.createLinearGradient(x, y, x, H-10);
+    grad.addColorStop(0, color);
+    grad.addColorStop(1, color + '88');
+    ctx.fillStyle = grad;
+    const bwp = Math.max(bw - 2, 1);
+    ctx.beginPath(); roundRectPoly(ctx,x,y,bwp,bh,3); ctx.fill();
+
+    // value label (only if bars are wide enough)
+    if (bw > 14) {
+      ctx.fillStyle = 'rgba(255,255,255,.5)';
+      ctx.font = `${Math.min(9, bw-2)}px JetBrains Mono`;
+      ctx.textAlign = 'center';
+      ctx.fillText(v, x + bwp/2, y - 3);
+    }
+  });
+}
+
+// 버블 정렬 스텝 생성
+function genBubbleSteps(arr) {
+  const a = [...arr], steps = [], n = a.length;
+  const sorted = [];
+  for (let i = 0; i < n; i++) {
+    let swapped = false;
+    for (let j = 0; j < n-i-1; j++) {
+      steps.push({type:'compare', arr:[...a], compare:[j,j+1], sorted:[...sorted]});
+      if (a[j] > a[j+1]) {
+        [a[j],a[j+1]] = [a[j+1],a[j]];
+        steps.push({type:'swap', arr:[...a], swap:[j,j+1], sorted:[...sorted]});
+        swapped = true;
+      }
+    }
+    sorted.push(n-i-1);
+    if (!swapped) break;
+  }
+  steps.push({type:'done', arr:[...a], sorted:Array.from({length:n},(_,i)=>i)});
+  return steps;
+}
+
+// 선택 정렬 스텝
+function genSelectionSteps(arr) {
+  const a = [...arr], steps = [], n = a.length, sorted = [];
+  for (let i = 0; i < n-1; i++) {
+    let minIdx = i;
+    for (let j = i+1; j < n; j++) {
+      steps.push({type:'compare', arr:[...a], compare:[minIdx,j], sorted:[...sorted]});
+      if (a[j] < a[minIdx]) minIdx = j;
+    }
+    if (minIdx !== i) { [a[i],a[minIdx]] = [a[minIdx],a[i]]; steps.push({type:'swap',arr:[...a],swap:[i,minIdx],sorted:[...sorted]}); }
+    sorted.push(i);
+  }
+  sorted.push(n-1);
+  steps.push({type:'done',arr:[...a],sorted:[...sorted]});
+  return steps;
+}
+
+// 삽입 정렬 스텝
+function genInsertionSteps(arr) {
+  const a = [...arr], steps = [], n = a.length, sorted = [0];
+  for (let i = 1; i < n; i++) {
+    let j = i;
+    while (j > 0) {
+      steps.push({type:'compare',arr:[...a],compare:[j-1,j],sorted:[...sorted]});
+      if (a[j] < a[j-1]) { [a[j],a[j-1]]=[a[j-1],a[j]]; steps.push({type:'swap',arr:[...a],swap:[j,j-1],sorted:[...sorted]}); j--; }
+      else break;
+    }
+    sorted.push(i);
+  }
+  steps.push({type:'done',arr:[...a],sorted:Array.from({length:n},(_,i)=>i)});
+  return steps;
+}
+
+// 합병 정렬 스텝
+function genMergeSteps(arr) {
+  const a = [...arr], steps = [];
+  function mergeSort(a, l, r) {
+    if (l >= r) return;
+    const m = (l+r)>>1;
+    mergeSort(a, l, m); mergeSort(a, m+1, r);
+    const tmp = [];
+    let i=l,j=m+1;
+    while (i<=m && j<=r) {
+      steps.push({type:'compare',arr:[...a],compare:[i,j],sorted:[]});
+      if (a[i]<=a[j]) tmp.push(a[i++]); else tmp.push(a[j++]);
+    }
+    while (i<=m) tmp.push(a[i++]);
+    while (j<=r) tmp.push(a[j++]);
+    for (let k=l;k<=r;k++) { a[k]=tmp[k-l]; steps.push({type:'swap',arr:[...a],swap:[k],sorted:[]}); }
+  }
+  mergeSort(a, 0, a.length-1);
+  steps.push({type:'done',arr:[...a],sorted:Array.from({length:a.length},(_,i)=>i)});
+  return steps;
+}
+
+// 퀵 정렬 스텝
+function genQuickSteps(arr) {
+  const a = [...arr], steps = [];
+  function quickSort(a, l, r) {
+    if (l >= r) return;
+    const pivot = a[(l+r)>>1];
+    let i=l, j=r;
+    while (i<=j) {
+      while (a[i]<pivot) { steps.push({type:'compare',arr:[...a],compare:[i,(l+r)>>1],sorted:[]}); i++; }
+      while (a[j]>pivot) { steps.push({type:'compare',arr:[...a],compare:[j,(l+r)>>1],sorted:[]}); j--; }
+      if (i<=j) { [a[i],a[j]]=[a[j],a[i]]; steps.push({type:'swap',arr:[...a],swap:[i,j],sorted:[]}); i++; j--; }
+    }
+    quickSort(a,l,j); quickSort(a,i,r);
+  }
+  quickSort(a, 0, a.length-1);
+  steps.push({type:'done',arr:[...a],sorted:Array.from({length:a.length},(_,i)=>i)});
+  return steps;
+}
+
+function startSortVis() {
+  clearInterval(sortTimer);
+  const algoEl = document.getElementById('sortAlgoSel');
+  const algo   = algoEl ? algoEl.value : 'bubble';
+  if (sortSteps.length === 0 || sortStepIdx >= sortSteps.length) {
+    genSortArr();
+    switch(algo) {
+      case 'bubble':    sortSteps = genBubbleSteps(sortArr);    break;
+      case 'selection': sortSteps = genSelectionSteps(sortArr); break;
+      case 'insertion': sortSteps = genInsertionSteps(sortArr); break;
+      case 'merge':     sortSteps = genMergeSteps(sortArr);     break;
+      case 'quick':     sortSteps = genQuickSteps(sortArr);     break;
+    }
+    sortStepIdx = 0;
+  }
+  const speedEl = document.getElementById('sortSpeed');
+  const delay   = speedEl ? (600 - parseInt(speedEl.value)) : 250;
+  sortTimer = setInterval(() => {
+    if (sortStepIdx >= sortSteps.length) {
+      clearInterval(sortTimer);
+      const el = document.getElementById('sortStatus');
+      if (el) el.textContent = '✅ 정렬 완료!';
+      return;
+    }
+    const step = sortSteps[sortStepIdx++];
+    drawSortBars(step.arr, step.compare||[], step.swap||[], step.sorted||[]);
+    const labels = { compare:' 비교 중...', swap:' 교환 중!', done:' 정렬 완료!' };
+    const el = document.getElementById('sortStatus');
+    if (el) el.textContent = `${labels[step.type]||''} (${sortStepIdx}/${sortSteps.length} 단계)`;
+  }, Math.max(delay, 30));
+}
+
+function updateSortSpeed() {
+  if (sortTimer) { startSortVis(); }
+}
+
+// ═══════════════════════════════════════════════════════
+// 이진 탐색 시각화
+// ═══════════════════════════════════════════════════════
+const BS_ARR = [3,7,11,15,19,23,27,31,37,41,47,53,59,63,67,71,79,83,89,97];
+let bsSteps = [], bsIdx = 0, bsTimer = null;
+
+function drawBSearch(arr, left, right, mid, found = -1, notFound = false) {
+  const canvas = document.getElementById('bsCanvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const dpr = Math.round(window.devicePixelRatio || 1);
+  const W = canvas.offsetWidth || 600, H = 170;
+  canvas.width = W * dpr; canvas.height = H * dpr;
+  ctx.scale(dpr, dpr);
+  canvas.style.width = W + 'px'; canvas.style.height = H + 'px';
+
+  ctx.fillStyle = '#0a1628';
+  ctx.fillRect(0, 0, W, H);
+
+  const n = arr.length;
+  const bw = (W - 20) / n;
+  const bh = 56, by = 60;
+
+  arr.forEach((v, i) => {
+    const x = 10 + i * bw;
+    const isInRange = i >= left && i <= right;
+    const isMid     = i === mid;
+    const isFound   = i === found;
+
+    // box background
+    let fillColor = '#1a3258';
+    if (notFound)       fillColor = '#2a1a1a';
+    else if (isFound)   fillColor = 'rgba(46,213,115,.4)';
+    else if (isMid)     fillColor = 'rgba(245,166,35,.3)';
+    else if (isInRange) fillColor = 'rgba(30,94,255,.18)';
+
+    ctx.fillStyle = fillColor;
+    ctx.beginPath(); roundRectPoly(ctx,x+1,by,bw-2,bh,5); ctx.fill();
+
+    // border
+    let stroke = 'rgba(255,255,255,.08)';
+    if (isFound)   stroke = '#2ed573';
+    else if (isMid) stroke = '#f5a623';
+    else if (isInRange) stroke = 'rgba(30,94,255,.5)';
+    ctx.strokeStyle = stroke;
+    ctx.lineWidth = isFound || isMid ? 2 : 1;
+    ctx.beginPath(); roundRectPoly(ctx,x+1,by,bw-2,bh,5); ctx.stroke();
+
+    // value
+    ctx.fillStyle = isFound ? '#2ed573' : isMid ? '#f5a623' : isInRange ? '#89b4fa' : '#334060';
+    ctx.font = `bold ${Math.min(12, bw-4)}px "JetBrains Mono", Consolas, monospace`;
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.fillText(v, x + bw/2, by + bh/2);
+
+    // index below
+    ctx.fillStyle = 'rgba(255,255,255,.2)';
+    ctx.font = `${Math.min(9, bw-3)}px "JetBrains Mono", Consolas, monospace`;
+    ctx.fillText(i, x + bw/2, by + bh + 12);
+
+    // label above mid / found
+    if (isMid && !isFound) {
+      ctx.fillStyle = '#f5a623';
+      ctx.font = 'bold 9px "JetBrains Mono", Consolas, monospace';
+      ctx.fillText('mid', x + bw/2, by - 10);
+    }
+    if (isFound) {
+      ctx.fillStyle = '#2ed573';
+      ctx.font = 'bold 9px "JetBrains Mono", Consolas, monospace';
+      ctx.fillText('✓', x + bw/2, by - 10);
+    }
+  });
+
+  // range bracket
+  if (left >= 0 && right >= 0 && !notFound && found < 0) {
+    const lx = 10 + left * bw + 2;
+    const rx = 10 + (right + 1) * bw - 2;
+    ctx.strokeStyle = 'rgba(30,94,255,.5)'; ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.moveTo(lx, by - 18); ctx.lineTo(lx, by - 14); ctx.lineTo(rx, by - 14); ctx.lineTo(rx, by - 18);
+    ctx.stroke();
+    ctx.fillStyle = 'rgba(74,133,255,.7)'; ctx.font = '9px "JetBrains Mono"'; ctx.textAlign = 'center';
+    ctx.fillText('탐색 범위', (lx+rx)/2, by - 22);
+  }
+}
+
+function genBSearchSteps(arr, target) {
+  const steps = [];
+  let l = 0, r = arr.length - 1;
+  while (l <= r) {
+    const m = (l + r) >> 1;
+    steps.push({ l, r, m, found: -1, notFound: false });
+    if (arr[m] === target) {
+      steps.push({ l, r, m, found: m, notFound: false });
+      return steps;
+    } else if (arr[m] < target) {
+      l = m + 1;
+    } else {
+      r = m - 1;
+    }
+  }
+  steps.push({ l: -1, r: -1, m: -1, found: -1, notFound: true });
+  return steps;
+}
+
+function startBSearch() {
+  clearInterval(bsTimer);
+  const target = parseInt(document.getElementById('bsTarget').value);
+  if (isNaN(target)) { document.getElementById('bsStatus').textContent = '올바른 숫자를 입력하세요'; return; }
+
+  bsSteps = genBSearchSteps(BS_ARR, target);
+  bsIdx = 0;
+  drawBSearch(BS_ARR, 0, BS_ARR.length - 1, -1);
+
+  bsTimer = setInterval(() => {
+    if (bsIdx >= bsSteps.length) {
+      clearInterval(bsTimer);
+      return;
+    }
+    const s = bsSteps[bsIdx];
+    drawBSearch(BS_ARR, s.l, s.r, s.m, s.found, s.notFound);
+    const el = document.getElementById('bsStatus');
+    if (el) {
+      if (s.notFound) el.textContent = `❌ ${target}은(는) 배열에 없습니다 (${bsIdx}번 비교)`;
+      else if (s.found >= 0) el.textContent = `✅ ${target} 발견! 인덱스 ${s.found} (${bsIdx}번 비교)`;
+      else el.textContent = ` mid[${s.m}]=${BS_ARR[s.m]} vs 목표 ${target} → ${BS_ARR[s.m] < target ? '오른쪽':'왼쪽'} 절반으로`;
+    }
+    bsIdx++;
+  }, 900);
+}
+
+function resetBSearch() {
+  clearInterval(bsTimer);
+  bsSteps = []; bsIdx = 0;
+  drawBSearch(BS_ARR, 0, BS_ARR.length - 1, -1);
+  const el = document.getElementById('bsStatus');
+  if (el) el.textContent = '찾을 값을 입력하고 탐색을 시작하세요';
+}
+
+// ═══════════════════════════════════════════════════════
+// 그래프 BFS/DFS 시각화
+// ═══════════════════════════════════════════════════════
+const GRAPH_NODES = [
+  {x:0.5, y:0.08, label:'0'}, {x:0.22, y:0.3,  label:'1'}, {x:0.78, y:0.3,  label:'2'},
+  {x:0.1,  y:0.62, label:'3'}, {x:0.4,  y:0.62, label:'4'}, {x:0.6,  y:0.62, label:'5'},
+  {x:0.9,  y:0.62, label:'6'}, {x:0.28, y:0.88, label:'7'}, {x:0.72, y:0.88, label:'8'},
+];
+const GRAPH_EDGES = [[0,1],[0,2],[1,3],[1,4],[2,5],[2,6],[3,7],[4,7],[5,8],[6,8]];
+let gVisTimer = null, gVisVisited = [], gVisCurrent = -1, gVisEdgeHL = [];
+
+function drawGraph(visited=[], current=-1, edgeHL=[]) {
+  const canvas = document.getElementById('algoGraphCanvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const dpr = Math.round(window.devicePixelRatio||1);
+  const W = canvas.offsetWidth||600, H = 280;
+  canvas.width = W*dpr; canvas.height = H*dpr;
+  ctx.scale(dpr,dpr);
+  canvas.style.width=W+'px'; canvas.style.height=H+'px';
+  ctx.fillStyle='#0a1628'; ctx.fillRect(0,0,W,H);
+
+  const pos = GRAPH_NODES.map(n=>({x:n.x*W, y:n.y*H+14, label:n.label}));
+
+  // 간선
+  GRAPH_EDGES.forEach(([u,v]) => {
+    const hl = edgeHL.some(e=>(e[0]===u&&e[1]===v)||(e[0]===v&&e[1]===u));
+    ctx.beginPath();
+    ctx.moveTo(pos[u].x, pos[u].y); ctx.lineTo(pos[v].x, pos[v].y);
+    ctx.strokeStyle = hl ? '#f5a623' : 'rgba(255,255,255,0.12)';
+    ctx.lineWidth   = hl ? 2.5 : 1.5;
+    ctx.stroke();
+  });
+
+  // 노드
+  pos.forEach((p, i) => {
+    const isCur   = i === current;
+    const isVis   = visited.includes(i);
+    const R = 18;
+    if (isCur) {
+      ctx.beginPath(); ctx.arc(p.x,p.y,R+6,0,Math.PI*2);
+      ctx.fillStyle='rgba(245,166,35,0.2)'; ctx.fill();
+    }
+    ctx.beginPath(); ctx.arc(p.x,p.y,R,0,Math.PI*2);
+    ctx.fillStyle  = isCur?'#f5a623': isVis?'rgba(0,201,177,0.3)':'#1a3258';
+    ctx.fill();
+    ctx.strokeStyle= isCur?'#ffcc44': isVis?'#00c9b1':'rgba(255,255,255,0.2)';
+    ctx.lineWidth  = isCur?2.5: isVis?2:1.5;
+    ctx.stroke();
+    ctx.fillStyle  = isCur?'#1a1400': isVis?'#00c9b1':'rgba(255,255,255,0.6)';
+    ctx.font       = `bold 13px "JetBrains Mono"`;
+    ctx.textAlign  = 'center'; ctx.textBaseline='middle';
+    ctx.fillText(p.label, p.x, p.y);
+  });
+}
+
+function resetGraphVis() {
+  clearInterval(gVisTimer);
+  gVisVisited=[]; gVisCurrent=-1; gVisEdgeHL=[];
+  drawGraph();
+  const el = document.getElementById('graphVisStatus');
+  if (el) el.textContent = 'BFS 또는 DFS를 선택하세요';
+}
+
+function startGraphVis(mode) {
+  clearInterval(gVisTimer);
+  gVisVisited=[]; gVisCurrent=-1; gVisEdgeHL=[];
+  drawGraph();
+
+  const adj = Array.from({length:GRAPH_NODES.length},()=>[]);
+  GRAPH_EDGES.forEach(([u,v])=>{ adj[u].push(v); adj[v].push(u); });
+
+  const order=[], edgeList=[];
+  if (mode==='bfs') {
+    const vis=new Array(GRAPH_NODES.length).fill(false);
+    const q=[0]; vis[0]=true;
+    while(q.length){ const u=q.shift(); order.push(u); for(const v of adj[u]) if(!vis[v]){vis[v]=true;q.push(v);edgeList.push([u,v]);} }
+  } else {
+    const vis=new Array(GRAPH_NODES.length).fill(false);
+    function dfs(u){ vis[u]=true; order.push(u); for(const v of adj[u]) if(!vis[v]){edgeList.push([u,v]);dfs(v);} }
+    dfs(0);
+  }
+
+  let step=0;
+  gVisTimer=setInterval(()=>{
+    if(step>=order.length){ clearInterval(gVisTimer); const el=document.getElementById('graphVisStatus'); if(el) el.textContent=`✅ ${mode.toUpperCase()} 완료! 탐색 순서: ${order.map(i=>i).join(' → ')}`; return; }
+    const cur=order[step];
+    gVisVisited.push(cur);
+    const hl=edgeList.filter((_,i)=>i<step);
+    drawGraph([...gVisVisited].slice(0,-1), cur, hl);
+    const el=document.getElementById('graphVisStatus');
+    if(el) el.textContent=`${mode.toUpperCase()} 진행 중: 노드 ${cur} 방문 (${step+1}/${order.length})`;
+    step++;
+  }, 700);
+}
+
+// ═══════════════════════════════════════════════════════
+// DP 테이블 시각화
+// ═══════════════════════════════════════════════════════
+let dpTimer = null;
+
+function buildFibTable(n) {
+  const dp = Array(n+1).fill(0);
+  dp[0]=0; if(n>0) dp[1]=1;
+  return dp;
+}
+
+function renderFibTable(dp, highlightIdx=-1, doneUpTo=-1) {
+  const wrap = document.getElementById('dpTableWrap');
+  if(!wrap) return;
+  let html = '<table><thead><tr><th>n</th>';
+  for(let i=0;i<dp.length;i++) html+=`<th>${i}</th>`;
+  html+='</tr></thead><tbody><tr><th>F(n)</th>';
+  dp.forEach((v,i)=>{
+    let cls='';
+    if(i===highlightIdx) cls=' class="dp-cell-active"';
+    else if(i<=doneUpTo) cls=' class="dp-cell-done"';
+    html+=`<td${cls}>${v}</td>`;
+  });
+  html+='</tr></tbody></table>';
+  wrap.innerHTML=html;
+}
+
+function startDPVis() {
+  clearInterval(dpTimer);
+  const n = Math.min(15, Math.max(3, parseInt(document.getElementById('dpFibN').value)||10));
+  const dp = Array(n+1).fill(0); dp[0]=0; if(n>=1) dp[1]=1;
+  renderFibTable(dp, 0);
+  let i=2;
+  dpTimer=setInterval(()=>{
+    if(i>n){ clearInterval(dpTimer); renderFibTable(dp,-1,n); document.getElementById('dpStatus').textContent=`✅ 완료! F(${n}) = ${dp[n].toLocaleString()}`; return; }
+    dp[i]=dp[i-1]+dp[i-2];
+    renderFibTable(dp,i,i-1);
+    document.getElementById('dpStatus').textContent=`F(${i}) = F(${i-1}) + F(${i-2}) = ${dp[i-1]} + ${dp[i-2]} = ${dp[i]}`;
+    i++;
+  }, 500);
+}
+
+function resetDPVis() {
+  clearInterval(dpTimer);
+  document.getElementById('dpTableWrap').innerHTML='';
+  document.getElementById('dpStatus').textContent='n을 입력하고 채우기를 눌러보세요';
+}
+
+function showLCSTable() {
+  const s1 = document.getElementById('lcsS1').value.toUpperCase();
+  const s2 = document.getElementById('lcsS2').value.toUpperCase();
+  if(!s1||!s2||s1.length>12||s2.length>12){ document.getElementById('lcsStatus').textContent='각 문자열 최대 12자'; return; }
+  const m=s1.length, n=s2.length;
+  const dp=Array.from({length:m+1},()=>Array(n+1).fill(0));
+  for(let i=1;i<=m;i++) for(let j=1;j<=n;j++)
+    dp[i][j]=s1[i-1]===s2[j-1] ? dp[i-1][j-1]+1 : Math.max(dp[i-1][j],dp[i][j-1]);
+
+  let html='<table><thead><tr><th></th><th>ε</th>';
+  for(const c of s2) html+=`<th style="color:var(--teal)">${c}</th>`;
+  html+='</tr></thead><tbody>';
+  for(let i=0;i<=m;i++){
+    html+=`<tr><th style="color:var(--teal)">${i===0?'ε':s1[i-1]}</th>`;
+    for(let j=0;j<=n;j++){
+      const v=dp[i][j];
+      const hl=v>0&&v===dp[i][j]&&i>0&&j>0&&s1[i-1]===s2[j-1]?' class="dp-cell-active"':v>0?' class="dp-cell-done"':'';
+      html+=`<td${hl}>${v}</td>`;
+    }
+    html+='</tr>';
+  }
+  html+='</tbody></table>';
+  document.getElementById('lcsTableWrap').innerHTML=html;
+  document.getElementById('lcsStatus').textContent=`LCS 길이: ${dp[m][n]}`;
+}
+
+// ── 퀴즈 채점 ──────────────────────────────────────
+const answers = {
+  q1:'c', q2:'c', q3:'b', q4:'c', q5:'c',
+  q6:'c', q7:'c', q8:'b', q9:'c', q10:'b'
+};
+const explanations = {
+  q1:  '✅ 합병 정렬 O(n log n)은 n=10,000에서 약 13만 번. 버블/선택/삽입 O(n²)은 1억 번 — 압도적 차이!',
+  q2:  '✅ 7원소 배열의 최대 비교 횟수: ⌈log₂(7+1)⌉ = 3번. 중간값(인덱스 3, 값 7)을 바로 찾으면 1번!',
+  q3:  '✅ BFS는 가까운 노드부터 탐색 → 가중치 없는 그래프에서 최단 경로 보장. DFS는 최단경로를 보장하지 않습니다.',
+  q4:  '✅ DP 적용 조건: ① 최적 부분 구조 ② 중복 부분 문제. 그리디는 탐욕적 선택 속성이 필요합니다.',
+  q5:  '✅ LIFO 구조: push(1)→[1], push(2)→[1,2], push(3)→[1,2,3], pop()→3 제거, pop()→2 제거. 남은 것: [1]',
+  q6:  '✅ 다익스트라는 음의 가중치가 있으면 잘못된 결과를 냅니다. 음의 가중치엔 벨만-포드를 사용하세요.',
+  q7:  '✅ 분수 배낭 문제(물건을 쪼갤 수 있음)는 탐욕적 선택(가치/무게 비율 큰 순서)으로 최적해 보장. 0/1 배낭은 DP 필요.',
+  q8:  '✅ [3,1,4,1,5,9,2,6]: LIS 예시 → 1,4,5,9 (길이 4) 또는 1,4,5,6 (길이 4). 정답: 4',
+  q9:  '✅ 크루스칼은 간선 추가 시 사이클 여부를 유니온-파인드(Union-Find)로 O(α(V)) ≈ O(1)에 판별합니다.',
+  q10: '✅ 재귀 함수에는 반드시 기저 조건(Base Case)이 있어야 합니다. 없으면 무한 재귀 → 스택 오버플로우!',
+};
+
+function checkQuiz() {
+  let correct = 0;
+  const total = Object.keys(answers).length;
+
+  Object.entries(answers).forEach(([qid, ans]) => {
+    const sel  = document.querySelector(`input[name="${qid}"]:checked`);
+    const opts = document.querySelectorAll(`#${qid} .quiz-opt`);
+    const fb   = document.getElementById(`qf${qid.slice(1)}`);
+    if (!opts.length) return; // 해당 문제가 HTML에 없으면 스킵
+    opts.forEach(o => o.classList.remove('correct', 'wrong'));
+    if (!sel) return;
+    const userAns = sel.value;
+    opts.forEach(o => {
+      const v = o.querySelector('input').value;
+      if (v === ans)                       o.classList.add('correct');
+      else if (v === userAns && v !== ans) o.classList.add('wrong');
+    });
+    if (userAns === ans) correct++;
+    if (fb) {
+      fb.style.display = 'block';
+      fb.className = 'quiz-feedback ' + (userAns === ans ? 'qf-correct' : 'qf-wrong');
+      fb.textContent = explanations[qid];
+    }
+  });
+
+  const scoreEl = document.getElementById('quizScore');
+  const pct     = Math.round(correct / total * 100);
+  const emoji   = pct === 100 ? '🏆' : pct >= 80 ? '🎉' : pct >= 60 ? '👍' : '💪';
+  const msg     = pct === 100 ? '만점! 올림피아드 준비 완료!' : pct >= 80 ? '훌륭합니다! 조금만 더!' : pct >= 60 ? '잘 하고 있어요!' : '다시 도전해보세요!';
+  scoreEl.textContent = `${emoji}  ${correct}/${total} 정답 (${pct}점) — ${msg}`;
+  scoreEl.style.cssText = `font-family:var(--mono);font-size:14px;font-weight:600;margin-bottom:16px;color:${pct===100?'var(--green)':pct>=60?'var(--gold)':'var(--red)'}`;
+  scoreEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function resetQuiz() {
+  document.querySelectorAll('input[type=radio]').forEach(r => r.checked = false);
+  document.querySelectorAll('.quiz-opt').forEach(o => o.classList.remove('correct', 'wrong'));
+  document.querySelectorAll('.quiz-feedback').forEach(f => f.style.display = 'none');
+  const scoreEl = document.getElementById('quizScore');
+  scoreEl.textContent = '';
+  scoreEl.style.cssText = '';
+}
+
+// ── 초기화 ──────────────────────────────────────────
+window.addEventListener('load', () => {
+  genSortArr();
+  setTimeout(()=>drawSortBars(sortArr,[],[],[]), 200);
+  setTimeout(resetGraphVis, 300);
+});
+</script>
+</body>
+</html>
