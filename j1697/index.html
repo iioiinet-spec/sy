@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>정올 1697번 큐(queue) 인터렉티브 설명</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Pretendard", "Noto Sans KR", Arial, sans-serif;
+      background: #f3f7fb;
+      color: #1f2937;
+      line-height: 1.75;
+    }
+
+    header {
+      background: linear-gradient(135deg, #0f172a, #2563eb, #38bdf8);
+      color: white;
+      padding: 62px 22px 52px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: clamp(2rem, 5vw, 3.4rem);
+      font-weight: 900;
+      line-height: 1.25;
+    }
+
+    header p {
+      max-width: 920px;
+      margin: 18px auto 0;
+      color: #dbeafe;
+      font-size: 1.08rem;
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid #bfdbfe;
+      padding: 12px 16px;
+      overflow-x: auto;
+      white-space: nowrap;
+      box-shadow: 0 4px 18px rgba(15, 23, 42, 0.08);
+    }
+
+    nav a {
+      display: inline-block;
+      text-decoration: none;
+      color: #1d4ed8;
+      font-weight: 800;
+      margin: 4px 7px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: #eff6ff;
+      transition: 0.2s;
+    }
+
+    nav a:hover {
+      background: #2563eb;
+      color: white;
+    }
+
+    main {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 30px 18px 80px;
+    }
+
+    section {
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 24px;
+      padding: 32px;
+      margin: 26px 0;
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+    }
+
+    h2 {
+      margin-top: 0;
+      color: #1e3a8a;
+      font-size: 1.9rem;
+      border-left: 8px solid #2563eb;
+      padding-left: 15px;
+    }
+
+    h3 {
+      color: #0f172a;
+      font-size: 1.35rem;
+      margin-top: 28px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+      margin-top: 18px;
+    }
+
+    .card {
+      background: linear-gradient(180deg, #eff6ff, #ffffff);
+      border: 1px solid #bfdbfe;
+      border-radius: 18px;
+      padding: 18px;
+      font-weight: 700;
+    }
+
+    .card strong {
+      display: block;
+      color: #2563eb;
+      font-size: 1.25rem;
+      margin-bottom: 8px;
+    }
+
+    .note {
+      background: #fff7ed;
+      border-left: 6px solid #f97316;
+      border-radius: 14px;
+      padding: 16px 18px;
+      margin: 18px 0;
+      font-weight: 700;
+    }
+
+    .tip {
+      background: #ecfdf5;
+      border-left: 6px solid #10b981;
+      border-radius: 14px;
+      padding: 16px 18px;
+      margin: 18px 0;
+      font-weight: 700;
+    }
+
+    .warning {
+      background: #fef2f2;
+      border-left: 6px solid #ef4444;
+      border-radius: 14px;
+      padding: 16px 18px;
+      margin: 18px 0;
+      font-weight: 700;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+      border-radius: 14px;
+      overflow: hidden;
+    }
+
+    th {
+      background: #1e40af;
+      color: white;
+      padding: 12px;
+      text-align: center;
+    }
+
+    td {
+      border: 1px solid #dbeafe;
+      padding: 12px;
+      text-align: center;
+      background: white;
+    }
+
+    tr:nth-child(even) td {
+      background: #f8fafc;
+    }
+
+    pre {
+      background: #0f172a;
+      color: #e5e7eb;
+      padding: 20px;
+      border-radius: 18px;
+      overflow-x: auto;
+      line-height: 1.65;
+      border: 1px solid #334155;
+      font-size: 0.94rem;
+    }
+
+    code {
+      font-family: "Consolas", "D2Coding", monospace;
+    }
+
+    .inline-code {
+      background: #e0f2fe;
+      color: #075985;
+      padding: 2px 7px;
+      border-radius: 7px;
+      font-weight: 800;
+    }
+
+    .simulator {
+      background: #0f172a;
+      color: white;
+      border-radius: 24px;
+      padding: 24px;
+      margin-top: 20px;
+      box-shadow: inset 0 0 30px rgba(0,0,0,0.25);
+    }
+
+    .sim-title {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+
+    .sim-title h3 {
+      margin: 0;
+      color: #f8fafc;
+    }
+
+    .badge {
+      display: inline-block;
+      background: #38bdf8;
+      color: #082f49;
+      border-radius: 999px;
+      padding: 6px 12px;
+      font-weight: 900;
+      font-size: 0.9rem;
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 16px 0;
+      align-items: center;
+    }
+
+    input {
+      width: 130px;
+      border: 0;
+      border-radius: 12px;
+      padding: 12px 14px;
+      font-size: 1rem;
+      font-weight: 800;
+      outline: none;
+    }
+
+    button {
+      border: 0;
+      border-radius: 12px;
+      padding: 12px 16px;
+      font-weight: 900;
+      cursor: pointer;
+      background: #2563eb;
+      color: white;
+      transition: 0.18s;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      background: #1d4ed8;
+    }
+
+    button.orange {
+      background: #f97316;
+    }
+
+    button.orange:hover {
+      background: #ea580c;
+    }
+
+    button.green {
+      background: #10b981;
+    }
+
+    button.green:hover {
+      background: #059669;
+    }
+
+    button.gray {
+      background: #64748b;
+    }
+
+    button.gray:hover {
+      background: #475569;
+    }
+
+    .queue-area {
+      background: #020617;
+      border: 1px solid #334155;
+      border-radius: 18px;
+      padding: 24px 18px;
+      overflow-x: auto;
+      min-height: 150px;
+    }
+
+    .queue-line {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: max-content;
+    }
+
+    .arrow-label {
+      color: #93c5fd;
+      font-weight: 900;
+      min-width: 70px;
+      text-align: center;
+    }
+
+    .queue-boxes {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      min-height: 80px;
+    }
+
+    .qbox {
+      width: 70px;
+      height: 70px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, #dbeafe, #60a5fa);
+      color: #0f172a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.45rem;
+      font-weight: 900;
+      box-shadow: 0 10px 24px rgba(59, 130, 246, 0.25);
+      animation: pop 0.22s ease-out;
+    }
+
+    .qbox.front {
+      outline: 4px solid #facc15;
+    }
+
+    @keyframes pop {
+      from { transform: scale(0.75); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .state-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .state-card {
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 16px;
+      padding: 14px;
+      text-align: center;
+    }
+
+    .state-card span {
+      display: block;
+      color: #93c5fd;
+      font-size: 0.9rem;
+      font-weight: 800;
+    }
+
+    .state-card strong {
+      display: block;
+      margin-top: 4px;
+      color: #f8fafc;
+      font-size: 1.35rem;
+    }
+
+    .log {
+      margin-top: 16px;
+      background: #020617;
+      border: 1px solid #334155;
+      border-radius: 16px;
+      padding: 16px;
+      height: 150px;
+      overflow-y: auto;
+      color: #dbeafe;
+      font-family: "Consolas", "D2Coding", monospace;
+      font-size: 0.92rem;
+    }
+
+    .step-box {
+      background: #f8fafc;
+      border: 1px dashed #94a3b8;
+      border-radius: 18px;
+      padding: 20px;
+      margin: 18px 0;
+    }
+
+    .summary-list li {
+      margin: 9px 0;
+      font-weight: 650;
+    }
+
+    footer {
+      background: #0f172a;
+      color: white;
+      text-align: center;
+      padding: 32px 20px;
+      font-weight: 700;
+    }
+
+    @media (max-width: 700px) {
+      section {
+        padding: 22px 16px;
+      }
+
+      .qbox {
+        width: 58px;
+        height: 58px;
+        font-size: 1.15rem;
+      }
+
+      .arrow-label {
+        min-width: 54px;
+        font-size: 0.85rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>정올 1697번 큐(queue)<br />인터렉티브 해설</h1>
+    <p>큐의 삽입, 삭제, 개수 확인을 직접 눌러 보면서 이해하는 수업용 HTML 자료입니다.</p>
+  </header>
+
+  <nav>
+    <a href="#problem">문제 이해</a>
+    <a href="#concept">큐 개념</a>
+    <a href="#simulator">큐 시뮬레이터</a>
+    <a href="#variables">변수 설명</a>
+    <a href="#code">정답 코드</a>
+    <a href="#trace">예제 추적</a>
+    <a href="#complexity">시간복잡도</a>
+    <a href="#summary">핵심 정리</a>
+  </nav>
+
+  <main>
+    <section id="problem">
+      <h2>1. 문제 이해</h2>
+      <p>
+        정올 1697번 큐(queue)는 큐 자료구조를 직접 구현하는 문제입니다. 명령어가 주어질 때마다 큐에 값을 넣거나, 맨 앞 값을 꺼내거나, 현재 큐의 크기를 출력해야 합니다.
+      </p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>명령</th>
+            <th>뜻</th>
+            <th>예시</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>i a</td>
+            <td>숫자 a를 큐에 넣기</td>
+            <td>i 10</td>
+          </tr>
+          <tr>
+            <td>o</td>
+            <td>큐의 맨 앞 숫자를 꺼내 출력</td>
+            <td>o</td>
+          </tr>
+          <tr>
+            <td>c</td>
+            <td>큐에 들어 있는 데이터 개수 출력</td>
+            <td>c</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="note">
+        큐가 비어 있는데 o 명령이 나오면 숫자를 꺼낼 수 없으므로 empty를 출력합니다.
+      </div>
+    </section>
+
+    <section id="concept">
+      <h2>2. 큐(Queue) 개념</h2>
+      <div class="grid">
+        <div class="card">
+          <strong>FIFO</strong>
+          First In First Out<br />먼저 들어온 데이터가 먼저 나갑니다.
+        </div>
+        <div class="card">
+          <strong>front</strong>
+          큐의 맨 앞 위치입니다.<br />pop할 때 이 위치의 값을 꺼냅니다.
+        </div>
+        <div class="card">
+          <strong>rear</strong>
+          새 데이터가 들어갈 위치입니다.<br />push할 때 이 위치에 넣습니다.
+        </div>
+      </div>
+
+      <div class="step-box">
+        <h3>예시</h3>
+        <p>큐에 10, 20, 30을 차례대로 넣으면 다음과 같습니다.</p>
+        <pre><code>입력 순서: 10 → 20 → 30
+출력 순서: 10 → 20 → 30</code></pre>
+        <p>가장 먼저 들어온 10이 가장 먼저 나옵니다.</p>
+      </div>
+    </section>
+
+    <section id="simulator">
+      <h2>3. 인터렉티브 큐 시뮬레이터</h2>
+      <p>아래에서 값을 입력하고 버튼을 눌러 큐의 동작을 직접 확인해 보세요.</p>
+
+      <div class="simulator">
+        <div class="sim-title">
+          <h3>Queue Simulator</h3>
+          <span class="badge">정올 1697 연습</span>
+        </div>
+
+        <div class="controls">
+          <input type="number" id="valueInput" placeholder="숫자 입력" value="10" />
+          <button class="green" onclick="pushQueue()">i : 넣기</button>
+          <button class="orange" onclick="popQueue()">o : 꺼내기</button>
+          <button onclick="countQueue()">c : 개수 확인</button>
+          <button class="gray" onclick="resetQueue()">초기화</button>
+        </div>
+
+        <div class="queue-area">
+          <div class="queue-line">
+            <div class="arrow-label">front<br />꺼내는 곳</div>
+            <div class="queue-boxes" id="queueBoxes"></div>
+            <div class="arrow-label">rear<br />넣는 곳</div>
+          </div>
+        </div>
+
+        <div class="state-grid">
+          <div class="state-card">
+            <span>front</span>
+            <strong id="frontState">0</strong>
+          </div>
+          <div class="state-card">
+            <span>rear</span>
+            <strong id="rearState">0</strong>
+          </div>
+          <div class="state-card">
+            <span>size = rear - front</span>
+            <strong id="sizeState">0</strong>
+          </div>
+          <div class="state-card">
+            <span>출력</span>
+            <strong id="outputState">-</strong>
+          </div>
+        </div>
+
+        <div class="log" id="logBox"></div>
+      </div>
+    </section>
+
+    <section id="variables">
+      <h2>4. 변수 설명</h2>
+      <pre><code>int queue[MAX];
+int front = 0;
+int rear = 0;</code></pre>
+
+      <table>
+        <thead>
+          <tr>
+            <th>변수</th>
+            <th>의미</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>queue</td>
+            <td>큐 데이터를 저장하는 배열</td>
+          </tr>
+          <tr>
+            <td>front</td>
+            <td>가장 앞 데이터의 위치</td>
+          </tr>
+          <tr>
+            <td>rear</td>
+            <td>새 데이터가 들어갈 위치</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>4.1 push 함수</h3>
+      <pre><code>void push(int x) {
+    queue[rear] = x;
+    rear++;
+}</code></pre>
+      <p>새로운 숫자를 <span class="inline-code">rear</span> 위치에 넣고, rear를 1 증가시킵니다.</p>
+
+      <h3>4.2 pop 함수</h3>
+      <pre><code>int pop() {
+    int value = queue[front];
+    front++;
+    return value;
+}</code></pre>
+      <p>큐의 맨 앞인 <span class="inline-code">front</span> 위치의 값을 꺼내고, front를 1 증가시킵니다.</p>
+
+      <h3>4.3 size 함수</h3>
+      <pre><code>int size() {
+    return rear - front;
+}</code></pre>
+      <p>큐에 남아 있는 데이터 개수는 <span class="inline-code">rear - front</span>입니다.</p>
+
+      <h3>4.4 empty 함수</h3>
+      <pre><code>int empty() {
+    return front == rear;
+}</code></pre>
+      <p>front와 rear가 같으면 큐가 비어 있다는 뜻입니다.</p>
+    </section>
+
+    <section id="code">
+      <h2>5. 정답 C 코드</h2>
+      <pre><code>#include &lt;stdio.h&gt;
+
+#define MAX 101
+
+int queue[MAX];
+int front = 0;
+int rear = 0;
+
+void push(int x) {
+    queue[rear] = x;
+    rear++;
+}
+
+int pop() {
+    int value = queue[front];
+    front++;
+    return value;
+}
+
+int size() {
+    return rear - front;
+}
+
+int empty() {
+    return front == rear;
+}
+
+int main() {
+    int N;
+    scanf("%d", &N);
+
+    for (int i = 0; i &lt; N; i++) {
+        char command;
+        scanf(" %c", &command);
+
+        if (command == 'i') {
+            int x;
+            scanf("%d", &x);
+            push(x);
+        }
+        else if (command == 'o') {
+            if (empty()) {
+                printf("empty\n");
+            } else {
+                printf("%d\n", pop());
+            }
+        }
+        else if (command == 'c') {
+            printf("%d\n", size());
+        }
+    }
+
+    return 0;
+}</code></pre>
+
+      <div class="warning">
+        scanf(" %c", &command); 에서 %c 앞의 공백은 매우 중요합니다. 줄바꿈 문자나 공백을 건너뛰고 실제 명령 문자를 읽게 해 줍니다.
+      </div>
+    </section>
+
+    <section id="trace">
+      <h2>6. 예제 추적</h2>
+      <div class="step-box">
+        <h3>입력 예시</h3>
+        <pre><code>7
+i 10
+i 20
+c
+o
+o
+o
+c</code></pre>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>명령</th>
+            <th>큐 상태</th>
+            <th>출력</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>i 10</td><td>10</td><td>-</td></tr>
+          <tr><td>i 20</td><td>10 20</td><td>-</td></tr>
+          <tr><td>c</td><td>10 20</td><td>2</td></tr>
+          <tr><td>o</td><td>20</td><td>10</td></tr>
+          <tr><td>o</td><td>비어 있음</td><td>20</td></tr>
+          <tr><td>o</td><td>비어 있음</td><td>empty</td></tr>
+          <tr><td>c</td><td>비어 있음</td><td>0</td></tr>
+        </tbody>
+      </table>
+
+      <h3>출력 결과</h3>
+      <pre><code>2
+10
+20
+empty
+0</code></pre>
+    </section>
+
+    <section id="complexity">
+      <h2>7. 시간복잡도</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>명령</th>
+            <th>작업</th>
+            <th>시간복잡도</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>i</td><td>rear 위치에 값 넣기</td><td>O(1)</td></tr>
+          <tr><td>o</td><td>front 위치의 값 꺼내기</td><td>O(1)</td></tr>
+          <tr><td>c</td><td>rear - front 계산</td><td>O(1)</td></tr>
+        </tbody>
+      </table>
+
+      <div class="tip">
+        명령이 N개라면 각 명령은 O(1)이므로 전체 시간복잡도는 O(N)입니다.
+      </div>
+    </section>
+
+    <section id="summary">
+      <h2>8. 핵심 정리</h2>
+      <ol class="summary-list">
+        <li>큐는 먼저 들어온 데이터가 먼저 나가는 FIFO 자료구조입니다.</li>
+        <li>front는 꺼낼 위치입니다.</li>
+        <li>rear는 새 값이 들어갈 위치입니다.</li>
+        <li>push는 rear 위치에 값을 넣고 rear를 증가시킵니다.</li>
+        <li>pop은 front 위치의 값을 꺼내고 front를 증가시킵니다.</li>
+        <li>큐의 크기는 rear - front입니다.</li>
+        <li>front와 rear가 같으면 큐가 비어 있습니다.</li>
+        <li>각 명령은 O(1)에 처리됩니다.</li>
+        <li>전체 시간복잡도는 O(N)입니다.</li>
+      </ol>
+    </section>
+  </main>
+
+  <footer>
+    정올 1697번 큐(queue) · 인터렉티브 C언어 해설 자료
+  </footer>
+
+  <script>
+    let queue = [];
+    let front = 0;
+    let rear = 0;
+
+    const boxes = document.getElementById("queueBoxes");
+    const frontState = document.getElementById("frontState");
+    const rearState = document.getElementById("rearState");
+    const sizeState = document.getElementById("sizeState");
+    const outputState = document.getElementById("outputState");
+    const logBox = document.getElementById("logBox");
+    const valueInput = document.getElementById("valueInput");
+
+    function render() {
+      boxes.innerHTML = "";
+
+      const visible = queue.slice(front, rear);
+
+      if (visible.length === 0) {
+        const empty = document.createElement("div");
+        empty.style.color = "#94a3b8";
+        empty.style.fontWeight = "900";
+        empty.textContent = "큐가 비어 있습니다.";
+        boxes.appendChild(empty);
+      } else {
+        visible.forEach((value, index) => {
+          const box = document.createElement("div");
+          box.className = "qbox" + (index === 0 ? " front" : "");
+          box.textContent = value;
+          boxes.appendChild(box);
+        });
+      }
+
+      frontState.textContent = front;
+      rearState.textContent = rear;
+      sizeState.textContent = rear - front;
+    }
+
+    function addLog(text) {
+      const line = document.createElement("div");
+      line.textContent = text;
+      logBox.appendChild(line);
+      logBox.scrollTop = logBox.scrollHeight;
+    }
+
+    function pushQueue() {
+      const value = Number(valueInput.value);
+
+      if (Number.isNaN(value)) {
+        outputState.textContent = "숫자 입력";
+        addLog("숫자를 입력하세요.");
+        return;
+      }
+
+      queue[rear] = value;
+      rear++;
+      outputState.textContent = "-";
+      addLog(`i ${value} → queue[rear]에 ${value} 삽입, rear 증가`);
+      render();
+    }
+
+    function popQueue() {
+      if (front === rear) {
+        outputState.textContent = "empty";
+        addLog("o → 큐가 비어 있으므로 empty 출력");
+      } else {
+        const value = queue[front];
+        front++;
+        outputState.textContent = value;
+        addLog(`o → ${value} 출력, front 증가`);
+      }
+      render();
+    }
+
+    function countQueue() {
+      const count = rear - front;
+      outputState.textContent = count;
+      addLog(`c → 현재 크기 rear - front = ${rear} - ${front} = ${count}`);
+      render();
+    }
+
+    function resetQueue() {
+      queue = [];
+      front = 0;
+      rear = 0;
+      outputState.textContent = "-";
+      logBox.innerHTML = "";
+      addLog("초기화 완료: front = 0, rear = 0");
+      render();
+    }
+
+    render();
+    addLog("시뮬레이터 시작: i, o, c 명령을 눌러 보세요.");
+  </script>
+</body>
+</html>

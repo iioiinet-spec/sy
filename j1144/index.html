@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>정올 1141번 불쾌한 날 인터렉티브 해설</title>
+  <style>
+    * { box-sizing: border-box; scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: "Pretendard", "Noto Sans KR", Arial, sans-serif;
+      background: #f4f7fb;
+      color: #1f2937;
+      line-height: 1.75;
+    }
+    header {
+      background: linear-gradient(135deg, #3b0764, #7c3aed, #38bdf8);
+      color: white;
+      text-align: center;
+      padding: 64px 22px 54px;
+    }
+    header h1 {
+      margin: 0;
+      font-size: clamp(2rem, 5vw, 3.4rem);
+      font-weight: 900;
+      line-height: 1.25;
+    }
+    header p {
+      max-width: 920px;
+      margin: 18px auto 0;
+      color: #ede9fe;
+      font-size: 1.08rem;
+    }
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid #ddd6fe;
+      padding: 12px 16px;
+      overflow-x: auto;
+      white-space: nowrap;
+      box-shadow: 0 4px 18px rgba(15, 23, 42, 0.08);
+    }
+    nav a {
+      display: inline-block;
+      text-decoration: none;
+      color: #6d28d9;
+      font-weight: 800;
+      margin: 4px 7px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: #f3e8ff;
+      transition: 0.2s;
+    }
+    nav a:hover { background: #7c3aed; color: white; }
+    main { max-width: 1180px; margin: 0 auto; padding: 30px 18px 80px; }
+    section {
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 24px;
+      padding: 32px;
+      margin: 26px 0;
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+    }
+    h2 {
+      margin-top: 0;
+      color: #581c87;
+      font-size: 1.9rem;
+      border-left: 8px solid #8b5cf6;
+      padding-left: 15px;
+    }
+    h3 { color: #111827; font-size: 1.35rem; margin-top: 28px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin-top: 18px; }
+    .card {
+      background: linear-gradient(180deg, #f5f3ff, #ffffff);
+      border: 1px solid #ddd6fe;
+      border-radius: 18px;
+      padding: 18px;
+      font-weight: 700;
+    }
+    .card strong { display: block; color: #7c3aed; font-size: 1.25rem; margin-bottom: 8px; }
+    .note { background: #fff7ed; border-left: 6px solid #f97316; border-radius: 14px; padding: 16px 18px; margin: 18px 0; font-weight: 700; }
+    .tip { background: #ecfdf5; border-left: 6px solid #10b981; border-radius: 14px; padding: 16px 18px; margin: 18px 0; font-weight: 700; }
+    .warning { background: #fef2f2; border-left: 6px solid #ef4444; border-radius: 14px; padding: 16px 18px; margin: 18px 0; font-weight: 700; }
+    table { width: 100%; border-collapse: collapse; margin: 20px 0; border-radius: 14px; overflow: hidden; }
+    th { background: #6d28d9; color: white; padding: 12px; text-align: center; }
+    td { border: 1px solid #ddd6fe; padding: 12px; text-align: center; background: white; }
+    tr:nth-child(even) td { background: #f8fafc; }
+    pre {
+      background: #0f172a;
+      color: #e5e7eb;
+      padding: 20px;
+      border-radius: 18px;
+      overflow-x: auto;
+      line-height: 1.65;
+      border: 1px solid #334155;
+      font-size: 0.94rem;
+    }
+    code { font-family: "Consolas", "D2Coding", monospace; }
+    .inline-code { background: #ede9fe; color: #5b21b6; padding: 2px 7px; border-radius: 7px; font-weight: 800; }
+    .simulator {
+      background: #111827;
+      color: white;
+      border-radius: 24px;
+      padding: 24px;
+      margin-top: 20px;
+      box-shadow: inset 0 0 30px rgba(0,0,0,0.25);
+    }
+    .sim-title { display: flex; justify-content: space-between; gap: 12px; align-items: center; flex-wrap: wrap; margin-bottom: 16px; }
+    .sim-title h3 { margin: 0; color: #f8fafc; }
+    .badge { display: inline-block; background: #c084fc; color: #2e1065; border-radius: 999px; padding: 6px 12px; font-weight: 900; font-size: 0.9rem; }
+    .controls { display: flex; flex-wrap: wrap; gap: 10px; margin: 16px 0; align-items: center; }
+    input {
+      min-width: 320px;
+      max-width: 100%;
+      border: 0;
+      border-radius: 12px;
+      padding: 12px 14px;
+      font-size: 1rem;
+      font-weight: 800;
+      outline: none;
+    }
+    button {
+      border: 0;
+      border-radius: 12px;
+      padding: 12px 16px;
+      font-weight: 900;
+      cursor: pointer;
+      background: #7c3aed;
+      color: white;
+      transition: 0.18s;
+    }
+    button:hover { transform: translateY(-2px); background: #6d28d9; }
+    button.green { background: #10b981; }
+    button.orange { background: #f97316; }
+    button.gray { background: #64748b; }
+    .visual-area {
+      background: #020617;
+      border: 1px solid #334155;
+      border-radius: 18px;
+      padding: 22px;
+      overflow-x: auto;
+      min-height: 220px;
+    }
+    .cow-row, .stack-row {
+      display: flex;
+      gap: 12px;
+      align-items: flex-end;
+      min-height: 120px;
+      padding: 12px 0;
+    }
+    .cow {
+      width: 54px;
+      border-radius: 12px 12px 6px 6px;
+      background: linear-gradient(180deg, #bfdbfe, #3b82f6);
+      color: #082f49;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding-top: 8px;
+      font-weight: 900;
+      box-shadow: 0 10px 20px rgba(59,130,246,0.25);
+      position: relative;
+      transition: 0.25s;
+    }
+    .cow::after {
+      content: "🐄";
+      position: absolute;
+      bottom: -28px;
+      font-size: 1.2rem;
+    }
+    .cow.current { background: linear-gradient(180deg, #fde68a, #f59e0b); color: #451a03; transform: translateY(-8px); }
+    .cow.removed { background: linear-gradient(180deg, #fecaca, #ef4444); color: white; opacity: 0.55; }
+    .cow.kept { outline: 4px solid #22c55e; }
+    .label { font-weight: 900; color: #c4b5fd; margin-top: 8px; }
+    .stack-box {
+      width: 64px;
+      height: 64px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #f5f3ff, #a78bfa);
+      color: #2e1065;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      font-weight: 900;
+      box-shadow: 0 8px 18px rgba(167,139,250,0.25);
+      animation: pop 0.22s ease-out;
+    }
+    .stack-box.top { outline: 4px solid #facc15; }
+    @keyframes pop { from { transform: scale(0.75); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+    .state-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin-top: 16px; }
+    .state-card { background: #1e293b; border: 1px solid #334155; border-radius: 16px; padding: 14px; text-align: center; }
+    .state-card span { display: block; color: #c4b5fd; font-size: 0.9rem; font-weight: 800; }
+    .state-card strong { display: block; margin-top: 4px; color: #f8fafc; font-size: 1.35rem; }
+    .log {
+      margin-top: 16px;
+      background: #020617;
+      border: 1px solid #334155;
+      border-radius: 16px;
+      padding: 16px;
+      height: 170px;
+      overflow-y: auto;
+      color: #e9d5ff;
+      font-family: "Consolas", "D2Coding", monospace;
+      font-size: 0.92rem;
+    }
+    .step-box { background: #f8fafc; border: 1px dashed #94a3b8; border-radius: 18px; padding: 20px; margin: 18px 0; }
+    .summary-list li { margin: 9px 0; font-weight: 650; }
+    footer { background: #0f172a; color: white; text-align: center; padding: 32px 20px; font-weight: 700; }
+    @media (max-width: 700px) {
+      section { padding: 22px 16px; }
+      .cow { width: 46px; }
+      .stack-box { width: 54px; height: 54px; }
+      input { min-width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>정올 1141번 불쾌한 날<br />단조 스택 인터렉티브 해설</h1>
+    <p>소의 키가 하나씩 들어올 때 스택에서 누가 빠지고, 정답이 왜 증가하는지 직접 확인하는 수업용 HTML 자료입니다.</p>
+  </header>
+
+  <nav>
+    <a href="#problem">문제 이해</a>
+    <a href="#idea">핵심 아이디어</a>
+    <a href="#simulator">시뮬레이터</a>
+    <a href="#code">정답 코드</a>
+    <a href="#trace">예제 추적</a>
+    <a href="#complexity">시간복잡도</a>
+    <a href="#summary">핵심 정리</a>
+  </nav>
+
+  <main>
+    <section id="problem">
+      <h2>1. 문제 이해</h2>
+      <p>소들이 한 줄로 서 있고 모두 오른쪽을 보고 있습니다. 각 소는 오른쪽에 있는 소들 중에서 자신보다 키가 작은 소를 볼 수 있습니다. 하지만 중간에 자신보다 크거나 같은 소가 나오면 그 뒤는 볼 수 없습니다.</p>
+      <div class="step-box">
+        <h3>예시</h3>
+        <pre><code>키: 5 2 4 2 6 1</code></pre>
+        <p>키가 5인 소는 오른쪽의 2, 4, 2를 볼 수 있지만 6이 나오면 시야가 막힙니다.</p>
+      </div>
+      <div class="warning">N이 최대 80000 수준이면 이중 반복문 O(N²)은 시간초과가 납니다. 단조 스택으로 O(N)에 해결해야 합니다.</div>
+    </section>
+
+    <section id="idea">
+      <h2>2. 핵심 아이디어: 관점 바꾸기</h2>
+      <div class="grid">
+        <div class="card"><strong>어려운 관점</strong>각 소가 오른쪽으로 몇 마리를 볼 수 있을까?</div>
+        <div class="card"><strong>쉬운 관점</strong>현재 들어온 소를 볼 수 있는 왼쪽 소가 몇 마리일까?</div>
+      </div>
+      <h3>2.1 스택에 남기는 것</h3>
+      <p>스택에는 앞으로도 오른쪽의 소를 볼 가능성이 있는 소들만 남깁니다.</p>
+      <pre><code>while (top >= 0 && stack[top] <= height) {
+    top--;
+}</code></pre>
+      <p>현재 소보다 작거나 같은 소는 현재 소에게 시야가 막히므로 스택에서 제거합니다.</p>
+      <div class="tip">제거가 끝난 뒤 스택에 남은 소들은 모두 현재 소보다 큽니다. 따라서 그 소들은 현재 소를 볼 수 있습니다.</div>
+    </section>
+
+    <section id="simulator">
+      <h2>3. 인터렉티브 단조 스택 시뮬레이터</h2>
+      <p>키 배열을 입력하고 한 단계씩 눌러 보세요. 기본 예시는 <span class="inline-code">5 2 4 2 6 1</span>입니다.</p>
+      <div class="simulator">
+        <div class="sim-title">
+          <h3>Monotonic Stack Simulator</h3>
+          <span class="badge">정올 1141</span>
+        </div>
+        <div class="controls">
+          <input id="heightInput" value="5 2 4 2 6 1" />
+          <button class="green" onclick="loadHeights()">배열 적용</button>
+          <button onclick="nextStep()">다음 소 처리</button>
+          <button class="orange" onclick="autoRun()">자동 실행</button>
+          <button class="gray" onclick="resetSim()">초기화</button>
+        </div>
+
+        <div class="visual-area">
+          <div class="label">소들의 키</div>
+          <div class="cow-row" id="cowRow"></div>
+          <div class="label">현재 스택: 현재 소를 볼 수 있는 왼쪽 후보들</div>
+          <div class="stack-row" id="stackRow"></div>
+        </div>
+
+        <div class="state-grid">
+          <div class="state-card"><span>현재 위치</span><strong id="idxState">0</strong></div>
+          <div class="state-card"><span>현재 키</span><strong id="heightState">-</strong></div>
+          <div class="state-card"><span>이번에 더한 값</span><strong id="addState">0</strong></div>
+          <div class="state-card"><span>정답 answer</span><strong id="answerState">0</strong></div>
+        </div>
+        <div class="log" id="logBox"></div>
+      </div>
+    </section>
+
+    <section id="code">
+      <h2>4. 정답 C 코드</h2>
+      <pre><code>#include &lt;stdio.h&gt;
+
+#define MAX 80001
+
+int stack[MAX];
+int top = -1;
+
+int main() {
+    int N;
+    long long answer = 0;
+
+    scanf("%d", &N);
+
+    for (int i = 0; i &lt; N; i++) {
+        int height;
+        scanf("%d", &height);
+
+        while (top &gt;= 0 && stack[top] &lt;= height) {
+            top--;
+        }
+
+        answer += top + 1;
+
+        stack[++top] = height;
+    }
+
+    printf("%lld\n", answer);
+
+    return 0;
+}</code></pre>
+      <div class="note">정답은 int 범위를 넘을 수 있으므로 반드시 long long을 사용합니다.</div>
+    </section>
+
+    <section id="trace">
+      <h2>5. 예제 추적</h2>
+      <div class="step-box">
+        <h3>입력</h3>
+        <pre><code>6
+5
+2
+4
+2
+6
+1</code></pre>
+      </div>
+      <table>
+        <thead>
+          <tr><th>현재 소</th><th>제거되는 소</th><th>스택에 남은 소</th><th>더하는 값</th><th>누적 answer</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>5</td><td>없음</td><td>없음</td><td>0</td><td>0</td></tr>
+          <tr><td>2</td><td>없음</td><td>5</td><td>1</td><td>1</td></tr>
+          <tr><td>4</td><td>2</td><td>5</td><td>1</td><td>2</td></tr>
+          <tr><td>2</td><td>없음</td><td>5, 4</td><td>2</td><td>4</td></tr>
+          <tr><td>6</td><td>2, 4, 5</td><td>없음</td><td>0</td><td>4</td></tr>
+          <tr><td>1</td><td>없음</td><td>6</td><td>1</td><td>5</td></tr>
+        </tbody>
+      </table>
+      <h3>출력</h3>
+      <pre><code>5</code></pre>
+    </section>
+
+    <section id="complexity">
+      <h2>6. 시간복잡도</h2>
+      <p>각 소는 스택에 한 번 들어가고, 많아야 한 번 제거됩니다.</p>
+      <table>
+        <thead><tr><th>작업</th><th>횟수</th><th>결과</th></tr></thead>
+        <tbody>
+          <tr><td>스택 삽입</td><td>소마다 1번</td><td>O(N)</td></tr>
+          <tr><td>스택 삭제</td><td>소마다 최대 1번</td><td>O(N)</td></tr>
+          <tr><td>전체</td><td>삽입 + 삭제</td><td>O(N)</td></tr>
+        </tbody>
+      </table>
+      <div class="tip">단조 스택은 겉으로는 while문이 있지만, 전체적으로 보면 각 원소가 한 번만 들어가고 한 번만 빠지므로 O(N)입니다.</div>
+    </section>
+
+    <section id="summary">
+      <h2>7. 핵심 정리</h2>
+      <ol class="summary-list">
+        <li>이 문제는 단조 스택 문제입니다.</li>
+        <li>스택에는 앞으로 오른쪽 소를 볼 가능성이 있는 소들만 남깁니다.</li>
+        <li>현재 소보다 작거나 같은 소는 스택에서 제거합니다.</li>
+        <li>제거 후 스택에 남은 소의 수가 현재 소를 볼 수 있는 왼쪽 소의 수입니다.</li>
+        <li>answer에는 매번 스택의 크기 top + 1을 더합니다.</li>
+        <li>정답이 커질 수 있으므로 long long을 사용합니다.</li>
+        <li>전체 시간복잡도는 O(N)입니다.</li>
+      </ol>
+    </section>
+  </main>
+
+  <footer>정올 1141번 불쾌한 날 · 단조 스택 인터렉티브 C언어 해설 자료</footer>
+
+  <script>
+    let heights = [5, 2, 4, 2, 6, 1];
+    let stack = [];
+    let index = 0;
+    let answer = 0;
+    let timer = null;
+
+    const cowRow = document.getElementById("cowRow");
+    const stackRow = document.getElementById("stackRow");
+    const idxState = document.getElementById("idxState");
+    const heightState = document.getElementById("heightState");
+    const addState = document.getElementById("addState");
+    const answerState = document.getElementById("answerState");
+    const logBox = document.getElementById("logBox");
+    const heightInput = document.getElementById("heightInput");
+
+    function addLog(text) {
+      const div = document.createElement("div");
+      div.textContent = text;
+      logBox.appendChild(div);
+      logBox.scrollTop = logBox.scrollHeight;
+    }
+
+    function render(current = -1, removedValues = []) {
+      cowRow.innerHTML = "";
+      heights.forEach((h, i) => {
+        const cow = document.createElement("div");
+        cow.className = "cow";
+        cow.style.height = `${Math.max(38, h * 16)}px`;
+        cow.textContent = h;
+        if (i === current) cow.classList.add("current");
+        if (i < index && i !== current) cow.classList.add("kept");
+        cowRow.appendChild(cow);
+      });
+
+      stackRow.innerHTML = "";
+      if (stack.length === 0) {
+        const empty = document.createElement("div");
+        empty.style.color = "#94a3b8";
+        empty.style.fontWeight = "900";
+        empty.textContent = "스택이 비어 있습니다.";
+        stackRow.appendChild(empty);
+      } else {
+        stack.forEach((v, i) => {
+          const box = document.createElement("div");
+          box.className = "stack-box" + (i === stack.length - 1 ? " top" : "");
+          box.textContent = v;
+          stackRow.appendChild(box);
+        });
+      }
+
+      idxState.textContent = `${Math.min(index, heights.length)} / ${heights.length}`;
+      answerState.textContent = answer;
+    }
+
+    function loadHeights() {
+      const values = heightInput.value.trim().split(/\s+/).map(Number).filter(v => !Number.isNaN(v));
+      if (values.length === 0) {
+        addLog("키 배열을 입력하세요.");
+        return;
+      }
+      heights = values;
+      resetSim(false);
+      addLog(`배열 적용: ${heights.join(" ")}`);
+    }
+
+    function nextStep() {
+      if (index >= heights.length) {
+        addLog(`완료! 최종 answer = ${answer}`);
+        return;
+      }
+
+      const h = heights[index];
+      heightState.textContent = h;
+      const removed = [];
+
+      while (stack.length > 0 && stack[stack.length - 1] <= h) {
+        removed.push(stack.pop());
+      }
+
+      const add = stack.length;
+      answer += add;
+      addState.textContent = add;
+
+      addLog(`${index + 1}번째 소 키 ${h}: 제거 [${removed.length ? removed.join(", ") : "없음"}], 남은 스택 크기 ${add}를 answer에 더함`);
+
+      stack.push(h);
+      index++;
+      render(index - 1, removed);
+    }
+
+    function autoRun() {
+      if (timer) {
+        clearInterval(timer);
+        timer = null;
+        addLog("자동 실행 중지");
+        return;
+      }
+      addLog("자동 실행 시작");
+      timer = setInterval(() => {
+        if (index >= heights.length) {
+          clearInterval(timer);
+          timer = null;
+          addLog(`자동 실행 완료! 최종 answer = ${answer}`);
+          return;
+        }
+        nextStep();
+      }, 900);
+    }
+
+    function resetSim(clearLog = true) {
+      if (timer) {
+        clearInterval(timer);
+        timer = null;
+      }
+      stack = [];
+      index = 0;
+      answer = 0;
+      heightState.textContent = "-";
+      addState.textContent = "0";
+      if (clearLog) logBox.innerHTML = "";
+      render();
+      addLog("초기화 완료: stack = [], answer = 0");
+    }
+
+    render();
+    addLog("시뮬레이터 시작: 다음 소 처리를 눌러 보세요.");
+  </script>
+</body>
+</html>

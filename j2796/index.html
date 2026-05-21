@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>정올 2796번 버스 노선 인터렉티브 해설</title>
+  <style>
+    * { box-sizing: border-box; scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: "Pretendard", "Noto Sans KR", Arial, sans-serif;
+      background: #f4f7fb;
+      color: #1f2937;
+      line-height: 1.75;
+    }
+    header {
+      background: linear-gradient(135deg, #7f1d1d, #ea580c, #facc15);
+      color: white;
+      text-align: center;
+      padding: 64px 22px 54px;
+    }
+    header h1 {
+      margin: 0;
+      font-size: clamp(2rem, 5vw, 3.4rem);
+      font-weight: 900;
+      line-height: 1.25;
+    }
+    header p {
+      max-width: 940px;
+      margin: 18px auto 0;
+      color: #fff7ed;
+      font-size: 1.08rem;
+    }
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid #fed7aa;
+      padding: 12px 16px;
+      overflow-x: auto;
+      white-space: nowrap;
+      box-shadow: 0 4px 18px rgba(15, 23, 42, 0.08);
+    }
+    nav a {
+      display: inline-block;
+      text-decoration: none;
+      color: #c2410c;
+      font-weight: 800;
+      margin: 4px 7px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: #fff7ed;
+      transition: 0.2s;
+    }
+    nav a:hover { background: #ea580c; color: white; }
+    main { max-width: 1200px; margin: 0 auto; padding: 30px 18px 80px; }
+    section {
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 24px;
+      padding: 32px;
+      margin: 26px 0;
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+    }
+    h2 {
+      margin-top: 0;
+      color: #9a3412;
+      font-size: 1.9rem;
+      border-left: 8px solid #f97316;
+      padding-left: 15px;
+    }
+    h3 { color: #111827; font-size: 1.35rem; margin-top: 28px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(245px, 1fr)); gap: 16px; margin-top: 18px; }
+    .card {
+      background: linear-gradient(180deg, #fff7ed, #ffffff);
+      border: 1px solid #fed7aa;
+      border-radius: 18px;
+      padding: 18px;
+      font-weight: 700;
+    }
+    .card strong { display: block; color: #ea580c; font-size: 1.22rem; margin-bottom: 8px; }
+    .note { background: #fff7ed; border-left: 6px solid #f97316; border-radius: 14px; padding: 16px 18px; margin: 18px 0; font-weight: 700; }
+    .tip { background: #ecfdf5; border-left: 6px solid #10b981; border-radius: 14px; padding: 16px 18px; margin: 18px 0; font-weight: 700; }
+    .warning { background: #fef2f2; border-left: 6px solid #ef4444; border-radius: 14px; padding: 16px 18px; margin: 18px 0; font-weight: 700; }
+    table { width: 100%; border-collapse: collapse; margin: 20px 0; border-radius: 14px; overflow: hidden; }
+    th { background: #c2410c; color: white; padding: 12px; text-align: center; }
+    td { border: 1px solid #fed7aa; padding: 12px; text-align: center; background: white; }
+    tr:nth-child(even) td { background: #fffbeb; }
+    pre {
+      background: #0f172a;
+      color: #e5e7eb;
+      padding: 20px;
+      border-radius: 18px;
+      overflow-x: auto;
+      line-height: 1.65;
+      border: 1px solid #334155;
+      font-size: 0.94rem;
+    }
+    code { font-family: "Consolas", "D2Coding", monospace; }
+    .inline-code { background: #ffedd5; color: #9a3412; padding: 2px 7px; border-radius: 7px; font-weight: 800; }
+    .simulator {
+      background: #111827;
+      color: white;
+      border-radius: 24px;
+      padding: 24px;
+      margin-top: 20px;
+      box-shadow: inset 0 0 30px rgba(0,0,0,0.25);
+    }
+    .sim-title { display: flex; justify-content: space-between; gap: 12px; align-items: center; flex-wrap: wrap; margin-bottom: 16px; }
+    .sim-title h3 { margin: 0; color: #f8fafc; }
+    .badge { display: inline-block; background: #facc15; color: #451a03; border-radius: 999px; padding: 6px 12px; font-weight: 900; font-size: 0.9rem; }
+    .controls { display: flex; flex-wrap: wrap; gap: 10px; margin: 16px 0; align-items: center; }
+    input, textarea {
+      border: 0;
+      border-radius: 12px;
+      padding: 12px 14px;
+      font-size: 1rem;
+      font-weight: 800;
+      outline: none;
+      font-family: "Consolas", "D2Coding", monospace;
+    }
+    input { width: 110px; }
+    textarea { width: min(100%, 560px); min-height: 130px; resize: vertical; }
+    button {
+      border: 0;
+      border-radius: 12px;
+      padding: 12px 16px;
+      font-weight: 900;
+      cursor: pointer;
+      background: #ea580c;
+      color: white;
+      transition: 0.18s;
+    }
+    button:hover { transform: translateY(-2px); background: #c2410c; }
+    button.green { background: #10b981; }
+    button.blue { background: #2563eb; }
+    button.gray { background: #64748b; }
+    .visual-area {
+      background: #020617;
+      border: 1px solid #334155;
+      border-radius: 18px;
+      padding: 22px;
+      overflow-x: auto;
+      min-height: 250px;
+    }
+    .road {
+      position: relative;
+      min-width: 900px;
+      height: 130px;
+      margin: 8px 0 22px;
+      border-bottom: 5px solid #475569;
+    }
+    .stop {
+      position: absolute;
+      bottom: -14px;
+      transform: translateX(-50%);
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #facc15;
+      border: 4px solid #78350f;
+      color: white;
+    }
+    .stop-label {
+      position: absolute;
+      bottom: -48px;
+      transform: translateX(-50%);
+      color: #cbd5e1;
+      font-weight: 900;
+      font-size: 0.86rem;
+    }
+    .segment {
+      position: absolute;
+      height: 16px;
+      border-radius: 999px;
+      opacity: 0.9;
+      box-shadow: 0 0 18px rgba(251, 146, 60, 0.35);
+    }
+    .segment.removed { opacity: 0.35; filter: grayscale(1); text-decoration: line-through; }
+    .segment-label {
+      position: absolute;
+      color: white;
+      font-size: 0.82rem;
+      font-weight: 900;
+      transform: translateY(-22px);
+      white-space: nowrap;
+    }
+    .state-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; margin-top: 16px; }
+    .state-card { background: #1e293b; border: 1px solid #334155; border-radius: 16px; padding: 14px; text-align: center; }
+    .state-card span { display: block; color: #fed7aa; font-size: 0.9rem; font-weight: 800; }
+    .state-card strong { display: block; margin-top: 4px; color: #f8fafc; font-size: 1.25rem; }
+    .log {
+      margin-top: 16px;
+      background: #020617;
+      border: 1px solid #334155;
+      border-radius: 16px;
+      padding: 16px;
+      height: 190px;
+      overflow-y: auto;
+      color: #ffedd5;
+      font-family: "Consolas", "D2Coding", monospace;
+      font-size: 0.92rem;
+    }
+    .mini-table {
+      max-height: 280px;
+      overflow: auto;
+      background: #020617;
+      border: 1px solid #334155;
+      border-radius: 16px;
+      margin-top: 14px;
+    }
+    .mini-table table { margin: 0; color: #111827; }
+    .mini-table td, .mini-table th { padding: 8px; font-size: 0.88rem; }
+    .marked { background: #fee2e2 !important; color: #991b1b; font-weight: 900; }
+    .alive { background: #dcfce7 !important; color: #166534; font-weight: 900; }
+    .step-box { background: #f8fafc; border: 1px dashed #94a3b8; border-radius: 18px; padding: 20px; margin: 18px 0; }
+    .summary-list li { margin: 9px 0; font-weight: 650; }
+    footer { background: #0f172a; color: white; text-align: center; padding: 32px 20px; font-weight: 700; }
+    @media (max-width: 700px) {
+      section { padding: 22px 16px; }
+      textarea { width: 100%; }
+      .road { min-width: 760px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>정올 2796번 버스 노선<br />인터렉티브 문제해설</h1>
+    <p>원형 버스 노선을 일직선 구간으로 펼치고, 정렬 후 포함되는 노선을 제거하는 과정을 직접 확인하는 수업용 HTML 자료입니다.</p>
+  </header>
+
+  <nav>
+    <a href="#problem">문제 이해</a>
+    <a href="#idea">핵심 아이디어</a>
+    <a href="#convert">구간 변환</a>
+    <a href="#simulator">시뮬레이터</a>
+    <a href="#sort">정렬 기준</a>
+    <a href="#code">정답 코드</a>
+    <a href="#explain">코드 설명</a>
+    <a href="#complexity">복잡도</a>
+    <a href="#summary">핵심 정리</a>
+  </nav>
+
+  <main>
+    <section id="problem">
+      <h2>1. 문제 이해</h2>
+      <p>정류장이 원형 도로 위에 있고, 버스 노선들이 주어집니다. 어떤 노선이 다른 노선 안에 완전히 포함된다면 그 노선은 필요 없으므로 제거합니다. 마지막에는 제거되지 않는 노선 번호를 오름차순으로 출력합니다.</p>
+      <div class="grid">
+        <div class="card"><strong>일반 노선</strong>a &lt; b이면 a에서 b까지 그대로 가는 구간입니다.</div>
+        <div class="card"><strong>순환 노선</strong>a &gt; b이면 a에서 N-1까지 간 뒤 0을 지나 b까지 갑니다.</div>
+        <div class="card"><strong>제거 조건</strong>다른 노선 안에 완전히 포함되면 제거됩니다.</div>
+      </div>
+      <div class="warning">원형 도로 문제는 시작점과 끝점만 단순 비교하면 틀립니다. 반드시 원형을 일직선으로 펼쳐서 생각해야 합니다.</div>
+    </section>
+
+    <section id="idea">
+      <h2>2. 핵심 아이디어: 원형을 일직선으로 펼치기</h2>
+      <p>정류장이 0부터 N-1까지 있다면, 같은 원을 한 번 더 이어 붙여서 생각합니다.</p>
+      <pre><code>N = 10일 때
+원래 정류장: 0 1 2 3 4 5 6 7 8 9
+복사 정류장: 10 11 12 13 14 15 16 17 18 19</code></pre>
+      <p>이렇게 하면 9에서 출발해서 4로 가는 순환 노선을 다음처럼 표현할 수 있습니다.</p>
+      <pre><code>9 → 0 → 1 → 2 → 3 → 4
+= [9, 14]</code></pre>
+      <div class="tip">원형 구간을 일직선 구간으로 바꾸면 포함 관계를 정렬과 maxEnd로 빠르게 판단할 수 있습니다.</div>
+    </section>
+
+    <section id="convert">
+      <h2>3. 구간 변환 방법</h2>
+      <h3>3.1 a &lt; b인 일반 노선</h3>
+      <p>일반 노선은 원본 구간과 복사 구간을 모두 넣습니다.</p>
+      <pre><code>[a, b]
+[a + N, b + N]</code></pre>
+      <div class="note">일반 노선의 복사본을 넣어야 순환 노선 안에 포함되는지 확인할 수 있습니다.</div>
+
+      <h3>3.2 a &gt; b인 순환 노선</h3>
+      <p>순환 노선은 끝점에 N을 더해서 하나의 긴 구간으로 만듭니다.</p>
+      <pre><code>[a, b + N]</code></pre>
+
+      <h3>3.3 왜 일반 노선을 두 번 넣는가?</h3>
+      <div class="step-box">
+        <pre><code>N = 10
+1번 노선: 0 4  → [0, 4]
+5번 노선: 9 4  → [9, 14]</code></pre>
+        <p>1번 노선은 실제로 5번 노선 안에 포함됩니다. 하지만 [0,4]와 [9,14]만 비교하면 포함 관계가 보이지 않습니다.</p>
+        <pre><code>1번 복사본: [10, 14]
+5번 노선:  [9, 14]</code></pre>
+        <p>이제 [10,14]가 [9,14] 안에 포함되는 것을 확인할 수 있습니다.</p>
+      </div>
+    </section>
+
+    <section id="simulator">
+      <h2>4. 인터렉티브 시뮬레이터</h2>
+      <p>기본 예시를 그대로 실행하거나, 직접 N과 노선을 바꿔서 확인해 보세요.</p>
+      <div class="simulator">
+        <div class="sim-title">
+          <h3>Bus Route Simulator</h3>
+          <span class="badge">정올 2796</span>
+        </div>
+        <div class="controls">
+          <label>N <input id="nInput" type="number" value="10" /></label>
+          <textarea id="routesInput">0 4
+2 6
+5 0
+7 9
+9 4</textarea>
+          <button class="green" onclick="loadRoutes()">1. 구간 변환</button>
+          <button class="blue" onclick="sortRoutes()">2. 정렬</button>
+          <button onclick="scanOne()">3. 한 단계 검사</button>
+          <button class="gray" onclick="resetSim()">초기화</button>
+        </div>
+
+        <div class="visual-area">
+          <div class="road" id="road"></div>
+          <div class="mini-table" id="routeTable"></div>
+        </div>
+
+        <div class="state-grid">
+          <div class="state-card"><span>변환 구간 수</span><strong id="cntState">0</strong></div>
+          <div class="state-card"><span>현재 검사 위치</span><strong id="idxState">0</strong></div>
+          <div class="state-card"><span>maxEnd</span><strong id="maxEndState">-1</strong></div>
+          <div class="state-card"><span>남는 노선</span><strong id="answerState">-</strong></div>
+        </div>
+        <div class="log" id="logBox"></div>
+      </div>
+    </section>
+
+    <section id="sort">
+      <h2>5. 정렬 기준과 포함 판단</h2>
+      <h3>5.1 정렬 기준</h3>
+      <pre><code>1. 시작점 s 오름차순
+2. 시작점이 같으면 끝점 e 내림차순</code></pre>
+      <p>시작점이 같을 때 긴 구간을 먼저 봐야, 짧은 구간을 포함된 노선으로 바로 처리할 수 있습니다.</p>
+      <pre><code>[2, 10]
+[2, 6]</code></pre>
+      <p>[2,10]을 먼저 봐야 [2,6]이 포함된다는 사실을 알 수 있습니다.</p>
+
+      <h3>5.2 포함 판단</h3>
+      <p>정렬된 구간을 앞에서부터 보면서 지금까지 나온 구간 중 가장 큰 끝점 maxEnd를 저장합니다.</p>
+      <pre><code>if (현재 끝점 <= maxEnd)
+    포함된 노선이므로 제거
+else
+    maxEnd 갱신</code></pre>
+    </section>
+
+    <section id="code">
+      <h2>6. 정답 C 코드</h2>
+      <pre><code>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+#define MAXM 500000
+#define MAXR 1000005
+
+typedef struct {
+    long long s;
+    long long e;
+    int id;
+} Route;
+
+Route route[MAXR];
+int removed[MAXM + 1];
+
+int compare(const void *a, const void *b) {
+    Route *x = (Route *)a;
+    Route *y = (Route *)b;
+
+    if (x-&gt;s &lt; y-&gt;s) return -1;
+    if (x-&gt;s &gt; y-&gt;s) return 1;
+
+    if (x-&gt;e &gt; y-&gt;e) return -1;
+    if (x-&gt;e &lt; y-&gt;e) return 1;
+
+    return 0;
+}
+
+int main() {
+    long long N;
+    int M;
+
+    scanf("%lld", &N);
+    scanf("%d", &M);
+
+    int cnt = 0;
+
+    for (int i = 1; i &lt;= M; i++) {
+        long long a, b;
+        scanf("%lld %lld", &a, &b);
+
+        if (a &lt; b) {
+            route[cnt].s = a;
+            route[cnt].e = b;
+            route[cnt].id = i;
+            cnt++;
+
+            route[cnt].s = a + N;
+            route[cnt].e = b + N;
+            route[cnt].id = i;
+            cnt++;
+        } else {
+            route[cnt].s = a;
+            route[cnt].e = b + N;
+            route[cnt].id = i;
+            cnt++;
+        }
+    }
+
+    qsort(route, cnt, sizeof(Route), compare);
+
+    long long maxEnd = -1;
+
+    for (int i = 0; i &lt; cnt; i++) {
+        if (route[i].e &lt;= maxEnd) {
+            removed[route[i].id] = 1;
+        } else {
+            maxEnd = route[i].e;
+        }
+    }
+
+    for (int i = 1; i &lt;= M; i++) {
+        if (!removed[i]) {
+            printf("%d ", i);
+        }
+    }
+
+    return 0;
+}</code></pre>
+    </section>
+
+    <section id="explain">
+      <h2>7. 코드 자세한 설명</h2>
+      <h3>7.1 구조체</h3>
+      <pre><code>typedef struct {
+    long long s;
+    long long e;
+    int id;
+} Route;</code></pre>
+      <table>
+        <thead><tr><th>변수</th><th>의미</th></tr></thead>
+        <tbody>
+          <tr><td>s</td><td>펼친 구간의 시작점</td></tr>
+          <tr><td>e</td><td>펼친 구간의 끝점</td></tr>
+          <tr><td>id</td><td>원래 노선 번호</td></tr>
+        </tbody>
+      </table>
+
+      <h3>7.2 일반 노선 처리</h3>
+      <pre><code>if (a &lt; b) {
+    route[cnt].s = a;
+    route[cnt].e = b;
+    route[cnt].id = i;
+    cnt++;
+
+    route[cnt].s = a + N;
+    route[cnt].e = b + N;
+    route[cnt].id = i;
+    cnt++;
+}</code></pre>
+      <p>일반 노선은 원본과 복사본을 모두 저장합니다. 그래야 순환 노선 안에 포함되는 경우를 잡을 수 있습니다.</p>
+
+      <h3>7.3 순환 노선 처리</h3>
+      <pre><code>else {
+    route[cnt].s = a;
+    route[cnt].e = b + N;
+    route[cnt].id = i;
+    cnt++;
+}</code></pre>
+      <p>a가 b보다 크면 0을 지나가는 노선입니다. 끝점에 N을 더해 일직선 구간으로 바꿉니다.</p>
+
+      <h3>7.4 qsort 비교 함수</h3>
+      <pre><code>if (x-&gt;s &lt; y-&gt;s) return -1;
+if (x-&gt;s &gt; y-&gt;s) return 1;
+
+if (x-&gt;e &gt; y-&gt;e) return -1;
+if (x-&gt;e &lt; y-&gt;e) return 1;</code></pre>
+      <p>시작점은 작은 것부터, 시작점이 같으면 끝점이 큰 것부터 정렬합니다.</p>
+
+      <h3>7.5 maxEnd로 제거 판단</h3>
+      <pre><code>if (route[i].e &lt;= maxEnd) {
+    removed[route[i].id] = 1;
+} else {
+    maxEnd = route[i].e;
+}</code></pre>
+      <p>현재 구간의 끝점이 이미 앞에서 본 큰 구간의 끝점보다 작거나 같으면, 현재 구간은 포함된 구간입니다.</p>
+    </section>
+
+    <section id="complexity">
+      <h2>8. 시간복잡도</h2>
+      <table>
+        <thead><tr><th>작업</th><th>시간복잡도</th><th>설명</th></tr></thead>
+        <tbody>
+          <tr><td>구간 변환</td><td>O(M)</td><td>노선을 한 번씩 처리</td></tr>
+          <tr><td>정렬</td><td>O(M log M)</td><td>최대 2M개 구간 정렬</td></tr>
+          <tr><td>포함 검사</td><td>O(M)</td><td>정렬된 구간을 한 번 스캔</td></tr>
+          <tr><td>전체</td><td>O(M log M)</td><td>정렬이 가장 큼</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="summary">
+      <h2>9. 핵심 정리</h2>
+      <ol class="summary-list">
+        <li>원형 도로 문제는 일직선으로 펼쳐서 생각합니다.</li>
+        <li>a &lt; b인 일반 노선은 [a,b]와 [a+N,b+N] 두 개를 저장합니다.</li>
+        <li>a &gt; b인 순환 노선은 [a,b+N]으로 저장합니다.</li>
+        <li>시작점 오름차순, 끝점 내림차순으로 정렬합니다.</li>
+        <li>maxEnd보다 현재 끝점이 작거나 같으면 포함된 노선입니다.</li>
+        <li>포함된 원래 노선 번호는 removed[id] = 1로 표시합니다.</li>
+        <li>마지막에 제거되지 않은 노선 번호를 오름차순으로 출력합니다.</li>
+        <li>전체 시간복잡도는 O(M log M)입니다.</li>
+      </ol>
+    </section>
+  </main>
+
+  <footer>정올 2796번 버스 노선 · 원형 구간 정렬 인터렉티브 C언어 해설 자료</footer>
+
+  <script>
+    let N = 10;
+    let originalRoutes = [];
+    let converted = [];
+    let sorted = false;
+    let scanIndex = 0;
+    let maxEnd = -1;
+    let removed = {};
+
+    const road = document.getElementById("road");
+    const routeTable = document.getElementById("routeTable");
+    const cntState = document.getElementById("cntState");
+    const idxState = document.getElementById("idxState");
+    const maxEndState = document.getElementById("maxEndState");
+    const answerState = document.getElementById("answerState");
+    const logBox = document.getElementById("logBox");
+
+    function addLog(text) {
+      const div = document.createElement("div");
+      div.textContent = text;
+      logBox.appendChild(div);
+      logBox.scrollTop = logBox.scrollHeight;
+    }
+
+    function parseInput() {
+      N = Number(document.getElementById("nInput").value);
+      const text = document.getElementById("routesInput").value.trim();
+      const lines = text.split(/\n+/).map(line => line.trim()).filter(Boolean);
+      originalRoutes = lines.map((line, idx) => {
+        const [a, b] = line.split(/\s+/).map(Number);
+        return { id: idx + 1, a, b };
+      }).filter(r => !Number.isNaN(r.a) && !Number.isNaN(r.b));
+    }
+
+    function loadRoutes() {
+      parseInput();
+      converted = [];
+      sorted = false;
+      scanIndex = 0;
+      maxEnd = -1;
+      removed = {};
+      logBox.innerHTML = "";
+
+      originalRoutes.forEach(r => {
+        if (r.a < r.b) {
+          converted.push({ s: r.a, e: r.b, id: r.id, type: "원본" });
+          converted.push({ s: r.a + N, e: r.b + N, id: r.id, type: "복사" });
+          addLog(`${r.id}번 ${r.a} ${r.b}: 일반 노선 → [${r.a}, ${r.b}], [${r.a + N}, ${r.b + N}]`);
+        } else {
+          converted.push({ s: r.a, e: r.b + N, id: r.id, type: "순환" });
+          addLog(`${r.id}번 ${r.a} ${r.b}: 순환 노선 → [${r.a}, ${r.b + N}]`);
+        }
+      });
+      render();
+    }
+
+    function sortRoutes() {
+      if (converted.length === 0) loadRoutes();
+      converted.sort((x, y) => {
+        if (x.s !== y.s) return x.s - y.s;
+        return y.e - x.e;
+      });
+      sorted = true;
+      scanIndex = 0;
+      maxEnd = -1;
+      removed = {};
+      addLog("정렬 완료: 시작점 오름차순, 끝점 내림차순");
+      render();
+    }
+
+    function scanOne() {
+      if (!sorted) sortRoutes();
+      if (scanIndex >= converted.length) {
+        addLog(`검사 완료! 남는 노선: ${getAliveAnswer() || "없음"}`);
+        render();
+        return;
+      }
+      const r = converted[scanIndex];
+      if (r.e <= maxEnd) {
+        removed[r.id] = true;
+        addLog(`${scanIndex + 1}번째 검사: ${r.id}번 [${r.s}, ${r.e}] → e=${r.e} <= maxEnd=${maxEnd}, 포함되므로 제거`);
+      } else {
+        addLog(`${scanIndex + 1}번째 검사: ${r.id}번 [${r.s}, ${r.e}] → e=${r.e} > maxEnd=${maxEnd}, maxEnd 갱신`);
+        maxEnd = r.e;
+      }
+      scanIndex++;
+      render();
+    }
+
+    function resetSim() {
+      converted = [];
+      sorted = false;
+      scanIndex = 0;
+      maxEnd = -1;
+      removed = {};
+      logBox.innerHTML = "";
+      addLog("초기화 완료");
+      render();
+    }
+
+    function getAliveAnswer() {
+      return originalRoutes.filter(r => !removed[r.id]).map(r => r.id).join(" ");
+    }
+
+    function renderRoad() {
+      road.innerHTML = "";
+      const maxVal = N * 2;
+      for (let i = 0; i <= maxVal; i++) {
+        const x = (i / maxVal) * 100;
+        if (i % Math.max(1, Math.floor(N / 10)) === 0 || i === N || i === maxVal) {
+          const stop = document.createElement("div");
+          stop.className = "stop";
+          stop.style.left = `${x}%`;
+          road.appendChild(stop);
+          const label = document.createElement("div");
+          label.className = "stop-label";
+          label.style.left = `${x}%`;
+          label.textContent = i;
+          road.appendChild(label);
+        }
+      }
+
+      const colors = ["#f97316", "#22c55e", "#38bdf8", "#a78bfa", "#facc15", "#fb7185", "#14b8a6"];
+      converted.forEach((r, idx) => {
+        const top = 18 + (idx % 6) * 16;
+        const left = (r.s / maxVal) * 100;
+        const width = ((r.e - r.s) / maxVal) * 100;
+        const seg = document.createElement("div");
+        seg.className = "segment" + (removed[r.id] ? " removed" : "");
+        seg.style.left = `${left}%`;
+        seg.style.top = `${top}px`;
+        seg.style.width = `${Math.max(width, 1)}%`;
+        seg.style.background = colors[(r.id - 1) % colors.length];
+        road.appendChild(seg);
+
+        const lab = document.createElement("div");
+        lab.className = "segment-label";
+        lab.style.left = `${left}%`;
+        lab.style.top = `${top}px`;
+        lab.textContent = `${r.id}번 ${r.type}`;
+        road.appendChild(lab);
+      });
+    }
+
+    function renderTable() {
+      if (converted.length === 0) {
+        routeTable.innerHTML = `<table><tr><th>안내</th></tr><tr><td>구간 변환 버튼을 눌러 주세요.</td></tr></table>`;
+        return;
+      }
+      let html = `<table><thead><tr><th>순서</th><th>노선 번호</th><th>구분</th><th>시작 s</th><th>끝 e</th><th>상태</th></tr></thead><tbody>`;
+      converted.forEach((r, idx) => {
+        let cls = "";
+        let status = "대기";
+        if (removed[r.id]) { cls = "marked"; status = "제거"; }
+        else if (idx < scanIndex) { cls = "alive"; status = "통과"; }
+        if (idx === scanIndex && sorted) status = "현재 검사";
+        html += `<tr class="${cls}"><td>${idx + 1}</td><td>${r.id}</td><td>${r.type}</td><td>${r.s}</td><td>${r.e}</td><td>${status}</td></tr>`;
+      });
+      html += `</tbody></table>`;
+      routeTable.innerHTML = html;
+    }
+
+    function render() {
+      renderRoad();
+      renderTable();
+      cntState.textContent = converted.length;
+      idxState.textContent = `${scanIndex} / ${converted.length}`;
+      maxEndState.textContent = maxEnd;
+      answerState.textContent = getAliveAnswer() || "-";
+    }
+
+    loadRoutes();
+  </script>
+</body>
+</html>
