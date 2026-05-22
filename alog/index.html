@@ -1,0 +1,1622 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>알고리즘 1장 — 시간복잡도와 기초 자료구조 | 세영코딩연구소</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;600;700&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:        #0a0c10;
+    --bg2:       #0f1117;
+    --bg3:       #161b24;
+    --bg4:       #1e2535;
+    --border:    #242c3d;
+    --cyan:      #00d4ff;
+    --green:     #00ff88;
+    --yellow:    #ffd700;
+    --orange:    #ff8c42;
+    --pink:      #ff4da6;
+    --purple:    #a855f7;
+    --text:      #e2e8f0;
+    --text2:     #8899aa;
+    --text3:     #4a5568;
+    --mono:      'JetBrains Mono', monospace;
+    --sans:      'Noto Sans KR', sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── Header ── */
+  header {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(10,12,16,.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 24px;
+  }
+  .header-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 56px;
+  }
+  .logo {
+    font-family: var(--mono); font-size: 13px; font-weight: 700;
+    color: var(--cyan); letter-spacing: 2px;
+  }
+  .logo span { color: var(--text2); font-weight: 300; }
+  .chapter-badge {
+    background: linear-gradient(135deg, var(--cyan), var(--purple));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    font-family: var(--mono); font-size: 11px; font-weight: 600;
+    letter-spacing: 3px; text-transform: uppercase;
+  }
+
+  /* ── Tab Nav ── */
+  .tab-nav {
+    background: var(--bg2);
+    border-bottom: 1px solid var(--border);
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .tab-nav::-webkit-scrollbar { display: none; }
+  .tab-list {
+    max-width: 1100px; margin: 0 auto;
+    display: flex; gap: 0; padding: 0 24px;
+    list-style: none;
+  }
+  .tab-btn {
+    background: none; border: none; cursor: pointer;
+    padding: 14px 20px;
+    font-family: var(--sans); font-size: 13px; font-weight: 500;
+    color: var(--text2);
+    white-space: nowrap;
+    border-bottom: 2px solid transparent;
+    transition: all .2s;
+    display: flex; align-items: center; gap: 7px;
+  }
+  .tab-btn:hover { color: var(--text); }
+  .tab-btn.active { color: var(--cyan); border-bottom-color: var(--cyan); }
+  .tab-icon { font-size: 16px; }
+
+  /* ── Main ── */
+  main { max-width: 1100px; margin: 0 auto; padding: 32px 24px 80px; }
+
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; animation: fadeUp .35s ease; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── Section titles ── */
+  .section-title {
+    font-size: 26px; font-weight: 900;
+    color: var(--text);
+    margin-bottom: 6px;
+    letter-spacing: -0.5px;
+  }
+  .section-subtitle {
+    font-size: 13px; color: var(--text2);
+    margin-bottom: 28px;
+    font-family: var(--mono);
+  }
+
+  /* ── Cards ── */
+  .card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 20px;
+  }
+  .card-title {
+    font-size: 15px; font-weight: 700;
+    color: var(--cyan);
+    margin-bottom: 14px;
+    font-family: var(--mono);
+    display: flex; align-items: center; gap: 8px;
+  }
+
+  /* ── Big-O Grid ── */
+  .bigo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .bigo-card {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 14px;
+    cursor: pointer;
+    transition: all .2s;
+    text-align: center;
+  }
+  .bigo-card:hover, .bigo-card.active {
+    border-color: var(--cyan);
+    background: rgba(0,212,255,.06);
+    transform: translateY(-2px);
+  }
+  .bigo-notation {
+    font-family: var(--mono); font-size: 18px; font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .bigo-name {
+    font-size: 11px; color: var(--text2); font-weight: 500;
+  }
+  .badge {
+    display: inline-block;
+    font-size: 10px; font-weight: 700;
+    padding: 2px 7px; border-radius: 20px;
+    margin-top: 6px;
+    text-transform: uppercase; letter-spacing: 1px;
+  }
+  .badge-best    { background: rgba(0,255,136,.15); color: var(--green); }
+  .badge-good    { background: rgba(0,212,255,.15); color: var(--cyan); }
+  .badge-ok      { background: rgba(255,215,0,.15);  color: var(--yellow); }
+  .badge-bad     { background: rgba(255,140,66,.15); color: var(--orange); }
+  .badge-worst   { background: rgba(255,77,166,.15); color: var(--pink); }
+
+  /* ── Canvas Chart ── */
+  #chart-canvas {
+    width: 100%; height: 320px;
+    background: var(--bg3);
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    display: block;
+  }
+  .chart-legend {
+    display: flex; flex-wrap: wrap; gap: 12px;
+    margin-top: 14px;
+  }
+  .legend-item {
+    display: flex; align-items: center; gap: 6px;
+    font-family: var(--mono); font-size: 12px; cursor: pointer;
+    opacity: .6; transition: opacity .2s;
+  }
+  .legend-item.active { opacity: 1; }
+  .legend-dot {
+    width: 12px; height: 12px; border-radius: 50%;
+  }
+
+  /* ── Complexity Table ── */
+  .complexity-table {
+    width: 100%; border-collapse: collapse;
+    font-family: var(--mono); font-size: 13px;
+  }
+  .complexity-table th {
+    background: var(--bg4);
+    color: var(--text2);
+    text-align: left; padding: 10px 14px;
+    font-size: 11px; letter-spacing: 1px; text-transform: uppercase;
+    border-bottom: 1px solid var(--border);
+  }
+  .complexity-table td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text);
+  }
+  .complexity-table tr:last-child td { border-bottom: none; }
+  .complexity-table tr:hover td { background: rgba(255,255,255,.02); }
+
+  /* ── DS Simulator ── */
+  .sim-area {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    min-height: 120px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 0;
+    overflow-x: auto;
+    margin-bottom: 16px;
+    position: relative;
+  }
+  .sim-area.vertical {
+    flex-direction: column-reverse;
+    align-items: center;
+    min-height: 200px;
+    justify-content: flex-end;
+  }
+  .sim-empty {
+    color: var(--text3); font-family: var(--mono); font-size: 13px;
+    text-align: center; width: 100%;
+  }
+
+  /* Array cell */
+  .arr-cell {
+    display: flex; flex-direction: column; align-items: center;
+    flex-shrink: 0;
+  }
+  .arr-idx {
+    font-family: var(--mono); font-size: 10px; color: var(--text3);
+    margin-bottom: 4px;
+  }
+  .arr-box {
+    width: 54px; height: 54px;
+    background: var(--bg4);
+    border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--mono); font-size: 15px; font-weight: 600;
+    color: var(--cyan);
+    position: relative;
+    transition: all .3s;
+  }
+  .arr-box.highlight { background: rgba(0,212,255,.15); border-color: var(--cyan); }
+  .arr-box.new-item  { animation: popIn .3s ease; border-color: var(--green); color: var(--green); }
+  .arr-box.remove    { animation: popOut .25s ease forwards; }
+  .arr-sep {
+    width: 0; height: 54px;
+    border-left: 1px solid var(--border);
+  }
+
+  /* Stack / Queue node */
+  .ds-node {
+    padding: 10px 22px;
+    background: var(--bg4);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-family: var(--mono); font-size: 15px; font-weight: 600;
+    color: var(--cyan);
+    transition: all .3s;
+    flex-shrink: 0;
+  }
+  .ds-node.new-item { animation: popIn .3s ease; border-color: var(--green); color: var(--green); }
+  .ds-node.remove   { animation: popOut .25s ease forwards; }
+  .ds-node.top-item { border-color: var(--yellow); color: var(--yellow); }
+  .ds-arrow {
+    color: var(--text3); font-size: 16px; padding: 0 4px; flex-shrink: 0;
+  }
+  .sim-area.vertical .ds-arrow { transform: rotate(90deg); }
+
+  /* LL node */
+  .ll-node-wrap {
+    display: flex; align-items: center; flex-shrink: 0;
+  }
+  .ll-box {
+    display: flex; flex-direction: column;
+    border: 1px solid var(--border);
+    border-radius: 6px; overflow: hidden;
+    flex-shrink: 0;
+  }
+  .ll-data {
+    background: var(--bg4);
+    padding: 8px 14px;
+    font-family: var(--mono); font-size: 14px; font-weight: 600;
+    color: var(--cyan); text-align: center;
+    border-bottom: 1px solid var(--border);
+    min-width: 50px;
+  }
+  .ll-next {
+    background: var(--bg3);
+    padding: 5px 14px;
+    font-family: var(--mono); font-size: 10px; color: var(--text3);
+    text-align: center;
+  }
+  .ll-box.new-item { animation: popIn .3s ease; border-color: var(--green); }
+  .ll-box.new-item .ll-data { color: var(--green); }
+  .ll-ptr { color: var(--cyan); font-size: 18px; padding: 0 6px; }
+  .ll-null { font-family: var(--mono); font-size: 12px; color: var(--pink); padding: 0 6px; }
+
+  /* Stack label */
+  .stack-label {
+    font-family: var(--mono); font-size: 10px; color: var(--text3);
+    text-align: center; margin-top: 4px;
+  }
+
+  /* ── Controls ── */
+  .controls {
+    display: flex; flex-wrap: wrap; gap: 10px; align-items: center;
+    margin-bottom: 16px;
+  }
+  .input-field {
+    background: var(--bg3); border: 1px solid var(--border); border-radius: 7px;
+    color: var(--text); font-family: var(--mono); font-size: 14px;
+    padding: 9px 14px; width: 100px;
+    outline: none; transition: border-color .2s;
+  }
+  .input-field:focus { border-color: var(--cyan); }
+  .input-field::placeholder { color: var(--text3); }
+
+  .idx-field { width: 70px; }
+
+  .btn {
+    background: var(--bg3); border: 1px solid var(--border);
+    border-radius: 7px; cursor: pointer;
+    color: var(--text); font-family: var(--sans); font-size: 13px; font-weight: 600;
+    padding: 9px 16px;
+    transition: all .2s; display: flex; align-items: center; gap: 6px;
+  }
+  .btn:hover { background: var(--bg4); border-color: var(--cyan); color: var(--cyan); }
+  .btn.primary { background: rgba(0,212,255,.12); border-color: var(--cyan); color: var(--cyan); }
+  .btn.danger  { background: rgba(255,77,166,.08); border-color: var(--pink); color: var(--pink); }
+  .btn.warn    { background: rgba(255,215,0,.08); border-color: var(--yellow); color: var(--yellow); }
+  .btn:disabled { opacity: .35; cursor: not-allowed; pointer-events: none; }
+
+  /* ── Log ── */
+  .log-box {
+    background: var(--bg3); border: 1px solid var(--border); border-radius: 8px;
+    padding: 12px 16px; height: 80px; overflow-y: auto;
+    font-family: var(--mono); font-size: 12px;
+    scrollbar-width: thin; scrollbar-color: var(--bg4) transparent;
+  }
+  .log-line { color: var(--text2); margin-bottom: 3px; }
+  .log-line.ok   { color: var(--green); }
+  .log-line.err  { color: var(--pink); }
+  .log-line.info { color: var(--cyan); }
+
+  /* ── Info box ── */
+  .info-box {
+    background: rgba(0,212,255,.06);
+    border: 1px solid rgba(0,212,255,.2);
+    border-radius: 8px; padding: 14px 18px;
+    font-size: 13px; color: var(--text);
+    margin-bottom: 16px;
+    line-height: 1.7;
+  }
+  .info-box strong { color: var(--cyan); }
+  .info-box code {
+    font-family: var(--mono); font-size: 12px;
+    background: var(--bg4); padding: 1px 5px; border-radius: 3px;
+    color: var(--yellow);
+  }
+
+  /* ── Code block ── */
+  .code-block {
+    background: var(--bg3); border: 1px solid var(--border);
+    border-radius: 8px; padding: 16px 18px; overflow-x: auto;
+    font-family: var(--mono); font-size: 12.5px; line-height: 1.8;
+    margin: 14px 0;
+    scrollbar-width: thin;
+  }
+  .c-kw  { color: #7dd3fc; }  /* keyword */
+  .c-fn  { color: #fbbf24; }  /* function */
+  .c-cm  { color: #6b7280; }  /* comment */
+  .c-st  { color: #86efac; }  /* string */
+  .c-nm  { color: #f9a8d4; }  /* number */
+  .c-tp  { color: #a5b4fc; }  /* type */
+
+  /* ── Complexity row in table ── */
+  .tc-o1   { color: var(--green); }
+  .tc-olog { color: var(--cyan); }
+  .tc-on   { color: var(--yellow); }
+  .tc-onl  { color: var(--orange); }
+  .tc-on2  { color: var(--pink); }
+  .tc-o2n  { color: #ff3838; }
+
+  /* ── Two col layout ── */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media(max-width:700px) { .two-col { grid-template-columns: 1fr; } }
+
+  /* ── Quiz ── */
+  .quiz-card {
+    background: var(--bg2); border: 1px solid var(--border);
+    border-radius: 12px; padding: 24px; margin-bottom: 16px;
+    transition: border-color .2s;
+  }
+  .quiz-q {
+    font-size: 15px; font-weight: 600; margin-bottom: 16px;
+    color: var(--text); line-height: 1.6;
+  }
+  .quiz-q .q-num {
+    font-family: var(--mono); color: var(--cyan); margin-right: 8px;
+  }
+  .quiz-opts { display: flex; flex-direction: column; gap: 8px; }
+  .quiz-opt {
+    background: var(--bg3); border: 1px solid var(--border);
+    border-radius: 7px; padding: 11px 16px;
+    cursor: pointer; transition: all .2s;
+    font-size: 13px; color: var(--text);
+    display: flex; align-items: center; gap: 10px;
+  }
+  .quiz-opt:hover { border-color: var(--cyan); background: rgba(0,212,255,.04); }
+  .quiz-opt.correct { border-color: var(--green); background: rgba(0,255,136,.08); color: var(--green); }
+  .quiz-opt.wrong   { border-color: var(--pink);  background: rgba(255,77,166,.08); color: var(--pink); }
+  .quiz-opt.disabled { cursor: not-allowed; }
+  .opt-mark { font-family: var(--mono); color: var(--text3); font-size: 12px; width: 20px; flex-shrink: 0; }
+  .quiz-feedback {
+    margin-top: 12px; padding: 10px 14px; border-radius: 7px;
+    font-size: 13px; line-height: 1.6; display: none;
+  }
+  .quiz-feedback.show { display: block; }
+  .quiz-feedback.ok { background: rgba(0,255,136,.06); color: var(--green); border: 1px solid rgba(0,255,136,.2); }
+  .quiz-feedback.ng { background: rgba(255,77,166,.06); color: var(--pink); border: 1px solid rgba(255,77,166,.2); }
+
+  /* Score bar */
+  .score-bar {
+    background: var(--bg3); border: 1px solid var(--border);
+    border-radius: 10px; padding: 16px 20px;
+    display: flex; align-items: center; gap: 16px;
+    margin-bottom: 20px;
+  }
+  .score-label { font-family: var(--mono); font-size: 13px; color: var(--text2); }
+  .score-val { font-family: var(--mono); font-size: 22px; font-weight: 700; color: var(--cyan); }
+  .score-track {
+    flex: 1; height: 6px; background: var(--bg4); border-radius: 3px; overflow: hidden;
+  }
+  .score-fill {
+    height: 100%; background: linear-gradient(90deg, var(--cyan), var(--green));
+    border-radius: 3px; width: 0%; transition: width .5s ease;
+  }
+
+  @keyframes popIn {
+    0%   { opacity: 0; transform: scale(.5); }
+    70%  { transform: scale(1.1); }
+    100% { opacity: 1; transform: scale(1); }
+  }
+  @keyframes popOut {
+    to { opacity: 0; transform: scale(.5); }
+  }
+
+  /* pointer labels */
+  .ptr-label {
+    font-family: var(--mono); font-size: 10px;
+    color: var(--pink); text-align: center; margin-top: 4px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="logo">세영코딩연구소 <span>/ ph.D kim</span></div>
+    <div class="chapter-badge">Algorithm · Chapter 01</div>
+  </div>
+</header>
+
+<nav class="tab-nav">
+  <ul class="tab-list" id="tabList">
+    <li><button class="tab-btn active" data-tab="bigo"><span class="tab-icon">📊</span> 시간복잡도</button></li>
+    <li><button class="tab-btn" data-tab="array"><span class="tab-icon">📦</span> 배열 (Array)</button></li>
+    <li><button class="tab-btn" data-tab="stack"><span class="tab-icon">🥞</span> 스택 (Stack)</button></li>
+    <li><button class="tab-btn" data-tab="queue"><span class="tab-icon">🚌</span> 큐 (Queue)</button></li>
+    <li><button class="tab-btn" data-tab="linkedlist"><span class="tab-icon">🔗</span> 연결 리스트</button></li>
+    <li><button class="tab-btn" data-tab="compare"><span class="tab-icon">⚖️</span> 자료구조 비교</button></li>
+    <li><button class="tab-btn" data-tab="quiz"><span class="tab-icon">🧠</span> 퀴즈</button></li>
+  </ul>
+</nav>
+
+<main>
+
+<!-- ======== TAB: 시간복잡도 ======== -->
+<section class="tab-panel active" id="tab-bigo">
+  <div class="section-title">시간복잡도 (Time Complexity)</div>
+  <div class="section-subtitle">// 알고리즘이 입력 크기 n에 따라 얼마나 많은 연산을 수행하는가</div>
+
+  <div class="info-box">
+    <strong>시간복잡도</strong>란 입력 크기 <code>n</code>이 커질수록 알고리즘 실행 시간이 어떻게 증가하는지를
+    나타내는 지표입니다. <strong>Big-O 표기법</strong>을 사용해 <em>최악의 경우(Worst Case)</em>를 기준으로 표현합니다.
+    <br>예: <code>O(n²)</code> → 입력이 2배 → 연산이 4배 증가
+  </div>
+
+  <div class="bigo-grid" id="bigoGrid"></div>
+
+  <div class="card">
+    <div class="card-title">📈 성장률 비교 그래프 <span style="color:var(--text3);font-size:11px;margin-left:8px">— 범례를 클릭해 켜고 끄세요</span></div>
+    <canvas id="chart-canvas"></canvas>
+    <div class="chart-legend" id="chartLegend"></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">📋 주요 알고리즘 복잡도 정리</div>
+    <table class="complexity-table">
+      <thead>
+        <tr>
+          <th>알고리즘</th>
+          <th>Best</th>
+          <th>Average</th>
+          <th>Worst</th>
+          <th>공간복잡도</th>
+        </tr>
+      </thead>
+      <tbody id="algoTableBody"></tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="card-title">🔍 n 값에 따른 연산 횟수 계산기</div>
+    <div class="controls">
+      <label style="font-size:13px;color:var(--text2)">n =</label>
+      <input class="input-field" id="nInput" type="number" value="100" min="1" max="1000000" style="width:120px">
+      <button class="btn primary" id="calcBtn">계산하기</button>
+    </div>
+    <div id="nCalcResult"></div>
+  </div>
+</section>
+
+<!-- ======== TAB: 배열 ======== -->
+<section class="tab-panel" id="tab-array">
+  <div class="section-title">배열 (Array)</div>
+  <div class="section-subtitle">// 연속된 메모리 공간에 같은 타입의 데이터를 순서대로 저장</div>
+
+  <div class="info-box">
+    배열은 <strong>인덱스(index)</strong>로 임의 접근이 가능한 자료구조입니다.
+    <code>arr[i]</code> 접근은 <code>O(1)</code>이지만, 중간 삽입/삭제는 <code>O(n)</code>이 걸립니다.
+    C언어에서 배열은 <code>int arr[5] = {10, 20, 30, 40, 50};</code> 형태로 선언합니다.
+  </div>
+
+  <div class="card">
+    <div class="card-title">🎮 배열 시뮬레이터 (최대 8칸)</div>
+    <div class="controls">
+      <input class="input-field" id="arrValInput" type="number" placeholder="값" style="width:80px">
+      <input class="idx-field input-field" id="arrIdxInput" type="number" placeholder="인덱스">
+      <button class="btn primary" id="arrInsertBtn">➕ 삽입</button>
+      <button class="btn warn" id="arrDeleteBtn">🗑 삭제</button>
+      <button class="btn" id="arrSearchBtn">🔍 탐색</button>
+      <button class="btn danger" id="arrClearBtn">초기화</button>
+    </div>
+    <div class="sim-area" id="arrSimArea"></div>
+    <div class="log-box" id="arrLog"></div>
+  </div>
+
+  <div class="two-col">
+    <div class="card">
+      <div class="card-title">✅ 장점</div>
+      <ul style="font-size:13px;color:var(--text2);line-height:2.2;padding-left:18px">
+        <li><code style="color:var(--green)">arr[i]</code> — <span style="color:var(--green)">O(1)</span> 임의 접근</li>
+        <li>메모리 공간이 연속적 (캐시 효율 ↑)</li>
+        <li>구현이 단순, 빠른 순차 탐색</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title">❌ 단점</div>
+      <ul style="font-size:13px;color:var(--text2);line-height:2.2;padding-left:18px">
+        <li>크기 고정 (정적 배열)</li>
+        <li>중간 삽입·삭제 — <span style="color:var(--pink)">O(n)</span> (이동 필요)</li>
+        <li>메모리 낭비 가능성</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">📝 C언어 배열 예시</div>
+    <div class="code-block" id="arrayCCode"></div>
+  </div>
+</section>
+
+<!-- ======== TAB: 스택 ======== -->
+<section class="tab-panel" id="tab-stack">
+  <div class="section-title">스택 (Stack)</div>
+  <div class="section-subtitle">// LIFO — Last In, First Out (후입선출)</div>
+
+  <div class="info-box">
+    <strong>스택</strong>은 책을 쌓는 것처럼 가장 나중에 넣은 것이 먼저 나오는 구조입니다.
+    <code>push()</code> — 맨 위에 추가, <code>pop()</code> — 맨 위 제거, <code>peek()</code> — 맨 위 확인.
+    모든 연산이 <code>O(1)</code>입니다. 활용: 함수 호출 스택, 괄호 검사, DFS, 역순 출력.
+  </div>
+
+  <div class="card">
+    <div class="card-title">🎮 스택 시뮬레이터</div>
+    <div class="controls">
+      <input class="input-field" id="stackInput" type="number" placeholder="값">
+      <button class="btn primary" id="stackPushBtn">⬆ PUSH</button>
+      <button class="btn danger" id="stackPopBtn">⬇ POP</button>
+      <button class="btn warn" id="stackPeekBtn">👁 PEEK</button>
+      <button class="btn" id="stackClearBtn">초기화</button>
+    </div>
+    <div class="sim-area vertical" id="stackSimArea">
+      <span class="sim-empty">스택이 비어있습니다</span>
+    </div>
+    <div class="log-box" id="stackLog"></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">📝 C언어 스택 구현 (배열 기반)</div>
+    <div class="code-block" id="stackCCode"></div>
+  </div>
+</section>
+
+<!-- ======== TAB: 큐 ======== -->
+<section class="tab-panel" id="tab-queue">
+  <div class="section-title">큐 (Queue)</div>
+  <div class="section-subtitle">// FIFO — First In, First Out (선입선출)</div>
+
+  <div class="info-box">
+    <strong>큐</strong>는 줄 서기처럼 먼저 들어온 것이 먼저 나오는 구조입니다.
+    <code>enqueue()</code> — 뒤에 추가, <code>dequeue()</code> — 앞에서 제거.
+    모든 연산이 <code>O(1)</code>입니다. 활용: BFS, 프린터 스풀, 프로세스 스케줄링.
+  </div>
+
+  <div class="card">
+    <div class="card-title">🎮 큐 시뮬레이터</div>
+    <div class="controls">
+      <input class="input-field" id="queueInput" type="number" placeholder="값">
+      <button class="btn primary" id="enqueueBtn">⬅ ENQUEUE</button>
+      <button class="btn danger" id="dequeueBtn">➡ DEQUEUE</button>
+      <button class="btn warn" id="queueFrontBtn">👁 FRONT</button>
+      <button class="btn" id="queueClearBtn">초기화</button>
+    </div>
+    <div style="display:flex;justify-content:space-between;font-family:var(--mono);font-size:11px;color:var(--text3);margin-bottom:6px;padding:0 4px">
+      <span>← DEQUEUE (Front)</span>
+      <span>ENQUEUE (Rear) →</span>
+    </div>
+    <div class="sim-area" id="queueSimArea">
+      <span class="sim-empty">큐가 비어있습니다</span>
+    </div>
+    <div class="log-box" id="queueLog"></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">📝 C언어 큐 구현 (원형 배열 기반)</div>
+    <div class="code-block" id="queueCCode"></div>
+  </div>
+</section>
+
+<!-- ======== TAB: 연결 리스트 ======== -->
+<section class="tab-panel" id="tab-linkedlist">
+  <div class="section-title">연결 리스트 (Linked List)</div>
+  <div class="section-subtitle">// 노드들이 포인터로 연결된 동적 자료구조</div>
+
+  <div class="info-box">
+    각 <strong>노드</strong>가 <code>data</code>와 다음 노드를 가리키는 <code>next</code> 포인터를 가집니다.
+    삽입·삭제가 <code>O(1)</code>(위치 알 때)이지만, <code>i</code>번째 접근은 <code>O(n)</code>입니다.
+    배열과 달리 <strong>동적으로 크기 변경</strong>이 가능합니다.
+  </div>
+
+  <div class="card">
+    <div class="card-title">🎮 단일 연결 리스트 시뮬레이터</div>
+    <div class="controls">
+      <input class="input-field" id="llValInput" type="number" placeholder="값">
+      <button class="btn primary" id="llAddFrontBtn">⬅ 앞에 추가</button>
+      <button class="btn primary" id="llAddBackBtn">➡ 뒤에 추가</button>
+      <button class="btn danger" id="llRemFrontBtn">❌ 앞 제거</button>
+      <button class="btn danger" id="llRemBackBtn">❌ 뒤 제거</button>
+      <button class="btn" id="llClearBtn">초기화</button>
+    </div>
+    <div class="sim-area" id="llSimArea">
+      <span class="sim-empty">리스트가 비어있습니다 (HEAD → NULL)</span>
+    </div>
+    <div class="log-box" id="llLog"></div>
+  </div>
+
+  <div class="two-col">
+    <div class="card">
+      <div class="card-title">🆚 배열 vs 연결 리스트</div>
+      <table class="complexity-table" style="font-size:12px">
+        <thead><tr><th>연산</th><th>배열</th><th>연결 리스트</th></tr></thead>
+        <tbody>
+          <tr><td>임의 접근</td><td class="tc-o1">O(1)</td><td class="tc-on">O(n)</td></tr>
+          <tr><td>앞 삽입·삭제</td><td class="tc-on">O(n)</td><td class="tc-o1">O(1)</td></tr>
+          <tr><td>뒤 삽입·삭제</td><td class="tc-o1">O(1)*</td><td class="tc-o1">O(1)*</td></tr>
+          <tr><td>중간 삽입·삭제</td><td class="tc-on">O(n)</td><td class="tc-on">O(n)</td></tr>
+          <tr><td>탐색</td><td class="tc-on">O(n)</td><td class="tc-on">O(n)</td></tr>
+          <tr><td>메모리</td><td style="color:var(--green)">연속·적음</td><td style="color:var(--orange)">비연속·많음</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card">
+      <div class="card-title">📝 노드 구조체 (C)</div>
+      <div class="code-block" id="llCCode"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ======== TAB: 자료구조 비교 ======== -->
+<section class="tab-panel" id="tab-compare">
+  <div class="section-title">자료구조 복잡도 총정리</div>
+  <div class="section-subtitle">// 상황에 맞는 자료구조를 선택하는 것이 핵심!</div>
+
+  <div class="card">
+    <div class="card-title">⚖️ 기초 자료구조 시간복잡도 비교</div>
+    <table class="complexity-table">
+      <thead>
+        <tr>
+          <th>자료구조</th>
+          <th>접근</th>
+          <th>탐색</th>
+          <th>삽입</th>
+          <th>삭제</th>
+          <th>공간</th>
+        </tr>
+      </thead>
+      <tbody id="dsCompareBody"></tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="card-title">💡 언제 어떤 자료구조를 써야 할까?</div>
+    <div id="usecase-cards"></div>
+  </div>
+</section>
+
+<!-- ======== TAB: 퀴즈 ======== -->
+<section class="tab-panel" id="tab-quiz">
+  <div class="section-title">개념 확인 퀴즈</div>
+  <div class="section-subtitle">// 1장 시간복잡도와 기초 자료구조 — 총 10문항</div>
+
+  <div class="score-bar">
+    <div class="score-label">점수</div>
+    <div class="score-val" id="scoreVal">0 / 10</div>
+    <div class="score-track"><div class="score-fill" id="scoreFill"></div></div>
+    <button class="btn" id="quizResetBtn">🔄 다시 풀기</button>
+  </div>
+
+  <div id="quizContainer"></div>
+</section>
+
+</main>
+
+<script>
+// ════════════════════════════════════════════════
+//  DATA
+// ════════════════════════════════════════════════
+
+const BIGO_DATA = [
+  { n:"O(1)",       name:"상수 시간",    badge:"best",  color:"#00ff88" },
+  { n:"O(log n)",   name:"로그 시간",    badge:"good",  color:"#00d4ff" },
+  { n:"O(n)",       name:"선형 시간",    badge:"ok",    color:"#ffd700" },
+  { n:"O(n log n)", name:"선형 로그",    badge:"bad",   color:"#ff8c42" },
+  { n:"O(n²)",      name:"이차 시간",    badge:"worst", color:"#ff4da6" },
+  { n:"O(2ⁿ)",      name:"지수 시간",    badge:"worst", color:"#ff3838" },
+];
+
+const ALGO_TABLE = [
+  ["버블 정렬",  "tc-on",  "tc-on2", "tc-on2", "tc-o1"],
+  ["선택 정렬",  "tc-on2", "tc-on2", "tc-on2", "tc-o1"],
+  ["삽입 정렬",  "tc-on",  "tc-on2", "tc-on2", "tc-o1"],
+  ["병합 정렬",  "tc-onl", "tc-onl", "tc-onl", "tc-on"],
+  ["퀵 정렬",    "tc-onl", "tc-onl", "tc-on2", "tc-olog"],
+  ["이진 탐색",  "tc-o1",  "tc-olog","tc-olog", "tc-o1"],
+  ["선형 탐색",  "tc-o1",  "tc-on",  "tc-on",  "tc-o1"],
+];
+const TC_LABELS = { "tc-o1":"O(1)", "tc-olog":"O(log n)", "tc-on":"O(n)", "tc-onl":"O(n log n)", "tc-on2":"O(n²)", "tc-o2n":"O(2ⁿ)" };
+
+const DS_COMPARE = [
+  ["배열 (Array)",        "O(1)","tc-o1",    "O(n)","tc-on",   "O(n)","tc-on",   "O(n)","tc-on",   "O(n)","tc-on"],
+  ["스택 (Stack)",        "O(n)","tc-on",    "O(n)","tc-on",   "O(1)","tc-o1",   "O(1)","tc-o1",   "O(n)","tc-on"],
+  ["큐 (Queue)",          "O(n)","tc-on",    "O(n)","tc-on",   "O(1)","tc-o1",   "O(1)","tc-o1",   "O(n)","tc-on"],
+  ["단순 연결 리스트",    "O(n)","tc-on",    "O(n)","tc-on",   "O(1)","tc-o1",   "O(1)","tc-o1",   "O(n)","tc-on"],
+  ["이중 연결 리스트",    "O(n)","tc-on",    "O(n)","tc-on",   "O(1)","tc-o1",   "O(1)","tc-o1",   "O(n)","tc-on"],
+];
+
+const USECASES = [
+  { icon:"📦", name:"배열",        when:"인덱스로 빠른 접근이 필요할 때, 크기가 고정일 때",        ex:"정수 목록, 게임 맵, DP 테이블" },
+  { icon:"🥞", name:"스택",        when:"되돌리기(Undo), 괄호 짝 맞추기, DFS 구현",                ex:"텍스트 편집기, 컴파일러 파싱" },
+  { icon:"🚌", name:"큐",          when:"순서대로 처리, BFS 구현, 버퍼 관리",                       ex:"프린터 대기열, 네트워크 패킷" },
+  { icon:"🔗", name:"연결 리스트", when:"빈번한 삽입·삭제, 크기가 동적으로 변할 때",               ex:"LRU 캐시, 인접 리스트 그래프" },
+];
+
+const QUIZ_DATA = [
+  {
+    q:"다음 중 시간복잡도가 가장 빠른(효율적인) 것은?",
+    opts:["O(n²)","O(n log n)","O(n)","O(log n)"],
+    ans:3,
+    explain:"O(log n) < O(n) < O(n log n) < O(n²) 순으로 빠릅니다. n=1024일 때 O(log n) ≈ 10번, O(n) = 1024번, O(n²) = 1,048,576번!"
+  },
+  {
+    q:"스택(Stack)의 특성으로 올바른 것은?",
+    opts:["FIFO (선입선출)","LIFO (후입선출)","임의 접근 O(1)","삽입이 O(n)"],
+    ans:1,
+    explain:"스택은 LIFO(Last In, First Out)입니다. 나중에 push한 것이 먼저 pop됩니다."
+  },
+  {
+    q:"배열에서 임의의 인덱스에 접근(arr[i])하는 시간복잡도는?",
+    opts:["O(n)","O(log n)","O(1)","O(n²)"],
+    ans:2,
+    explain:"배열은 메모리 주소 = 시작주소 + i × size로 계산되므로 인덱스 접근이 O(1)입니다."
+  },
+  {
+    q:"크기 n인 정렬된 배열에서 이진 탐색(Binary Search)의 시간복잡도는?",
+    opts:["O(1)","O(n)","O(log n)","O(n log n)"],
+    ans:2,
+    explain:"이진 탐색은 매 단계마다 탐색 범위를 절반으로 줄이므로 O(log n)입니다."
+  },
+  {
+    q:"큐(Queue)에서 원소를 추가하는 연산의 이름은?",
+    opts:["push","pop","enqueue","dequeue"],
+    ans:2,
+    explain:"큐에서 삽입은 enqueue(뒤에 추가), 삭제는 dequeue(앞에서 제거)입니다."
+  },
+  {
+    q:"연결 리스트에서 헤드(head)에 노드를 삽입하는 시간복잡도는?",
+    opts:["O(n)","O(n log n)","O(1)","O(log n)"],
+    ans:2,
+    explain:"헤드 삽입은 새 노드의 next를 현재 head로 설정하고 head를 업데이트만 하면 되므로 O(1)입니다."
+  },
+  {
+    q:"배열에서 중간에 원소를 삽입할 때 시간복잡도가 O(n)인 이유는?",
+    opts:[
+      "배열 크기를 늘려야 해서",
+      "삽입 위치 이후 원소들을 모두 한 칸씩 이동해야 해서",
+      "인덱스를 재계산해야 해서",
+      "메모리를 새로 할당해야 해서"
+    ],
+    ans:1,
+    explain:"배열 중간 삽입 시 삽입 위치 이후 모든 원소(최대 n개)를 한 칸씩 뒤로 밀어야 합니다."
+  },
+  {
+    q:"다음 중 BFS(너비 우선 탐색)에 주로 사용되는 자료구조는?",
+    opts:["스택(Stack)","큐(Queue)","배열(Array)","연결 리스트"],
+    ans:1,
+    explain:"BFS는 레벨 순서로 탐색하므로 FIFO 구조인 큐(Queue)를 사용합니다. DFS는 스택(또는 재귀)을 사용합니다."
+  },
+  {
+    q:"O(n²) 알고리즘에서 n이 10에서 100으로 10배 증가하면, 연산 수는 약 몇 배가 되나요?",
+    opts:["10배","100배","1000배","10000배"],
+    ans:1,
+    explain:"O(n²)에서 n이 10배 증가하면 n²은 10² = 100배 증가합니다."
+  },
+  {
+    q:"스택을 배열로 구현할 때, top 변수의 초기값으로 올바른 것은?",
+    opts:["0","1","-1","n-1"],
+    ans:2,
+    explain:"top = -1로 초기화하면 '빈 스택'을 나타냅니다. push 시 ++top으로 인덱스 0부터 저장합니다."
+  },
+];
+
+// ════════════════════════════════════════════════
+//  TAB NAVIGATION
+// ════════════════════════════════════════════════
+document.getElementById('tabList').addEventListener('click', function(e) {
+  const btn = e.target.closest('.tab-btn');
+  if (!btn) return;
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+  if (btn.dataset.tab === 'bigo') drawChart();
+});
+
+// ════════════════════════════════════════════════
+//  BIG-O SECTION
+// ════════════════════════════════════════════════
+function buildBigoGrid() {
+  const grid = document.getElementById('bigoGrid');
+  BIGO_DATA.forEach(function(d) {
+    const card = document.createElement('div');
+    card.className = 'bigo-card';
+    const notDiv = document.createElement('div');
+    notDiv.className = 'bigo-notation';
+    notDiv.style.color = d.color;
+    notDiv.textContent = d.n;
+    const nameDiv = document.createElement('div');
+    nameDiv.className = 'bigo-name';
+    nameDiv.textContent = d.name;
+    const badge = document.createElement('span');
+    badge.className = 'badge badge-' + d.badge;
+    const labels = { best:'최상', good:'좋음', ok:'보통', bad:'나쁨', worst:'최악' };
+    badge.textContent = labels[d.badge];
+    card.appendChild(notDiv);
+    card.appendChild(nameDiv);
+    card.appendChild(badge);
+    grid.appendChild(card);
+  });
+}
+
+function buildAlgoTable() {
+  const tbody = document.getElementById('algoTableBody');
+  ALGO_TABLE.forEach(function(row) {
+    const tr = document.createElement('tr');
+    const labels = row.slice(1).map(function(cls){ return TC_LABELS[cls] || cls; });
+    [row[0], labels[0], labels[1], labels[2], labels[3]].forEach(function(val, ci) {
+      const td = document.createElement('td');
+      td.textContent = val;
+      if (ci > 0) td.className = row[ci];
+      tr.appendChild(td);
+    });
+    tbody.appendChild(tr);
+  });
+}
+
+// Chart
+const CHART_FUNCS = [
+  { label:"O(1)",       fn: function(n){ return 1; },                    color:"#00ff88", on:true },
+  { label:"O(log n)",   fn: function(n){ return Math.log2(n); },         color:"#00d4ff", on:true },
+  { label:"O(n)",       fn: function(n){ return n; },                    color:"#ffd700", on:true },
+  { label:"O(n log n)", fn: function(n){ return n * Math.log2(n); },     color:"#ff8c42", on:true },
+  { label:"O(n²)",      fn: function(n){ return n * n; },                color:"#ff4da6", on:true },
+  { label:"O(2ⁿ)",      fn: function(n){ return Math.pow(2, n); },       color:"#ff3838", on:true },
+];
+
+function drawChart() {
+  const canvas = document.getElementById('chart-canvas');
+  const dpr = window.devicePixelRatio || 1;
+  const w = canvas.parentElement.clientWidth - 48;
+  const h = 320;
+  canvas.width  = w * dpr;
+  canvas.height = h * dpr;
+  canvas.style.width  = w + 'px';
+  canvas.style.height = h + 'px';
+  const ctx = canvas.getContext('2d');
+  ctx.scale(dpr, dpr);
+
+  const pad = { top:20, right:20, bottom:36, left:52 };
+  const cw = w - pad.left - pad.right;
+  const ch = h - pad.top  - pad.bottom;
+  const N = 20;
+  const maxY = 400;
+
+  ctx.clearRect(0, 0, w, h);
+
+  // Grid
+  ctx.strokeStyle = '#1e2535';
+  ctx.lineWidth = 1;
+  for (let i = 0; i <= 5; i++) {
+    const y = pad.top + ch - (i / 5) * ch;
+    ctx.beginPath(); ctx.moveTo(pad.left, y); ctx.lineTo(pad.left + cw, y); ctx.stroke();
+    ctx.fillStyle = '#4a5568';
+    ctx.font = '10px JetBrains Mono, monospace';
+    ctx.textAlign = 'right';
+    ctx.fillText(Math.round((i / 5) * maxY), pad.left - 6, y + 3);
+  }
+  for (let i = 0; i <= 5; i++) {
+    const x = pad.left + (i / 5) * cw;
+    ctx.beginPath(); ctx.moveTo(x, pad.top); ctx.lineTo(x, pad.top + ch); ctx.stroke();
+    ctx.textAlign = 'center'; ctx.fillStyle = '#4a5568';
+    ctx.fillText(Math.round((i / 5) * N), x, pad.top + ch + 18);
+  }
+
+  // Axes labels
+  ctx.fillStyle = '#8899aa'; ctx.textAlign = 'center';
+  ctx.fillText('입력 크기 n', pad.left + cw / 2, h - 4);
+
+  // Curves
+  CHART_FUNCS.forEach(function(f) {
+    if (!f.on) return;
+    ctx.beginPath();
+    ctx.strokeStyle = f.color;
+    ctx.lineWidth = 2;
+    ctx.shadowColor = f.color;
+    ctx.shadowBlur = 4;
+    for (let i = 1; i <= N; i++) {
+      const x = pad.left + ((i - 1) / (N - 1)) * cw;
+      const raw = f.fn(i);
+      const y = pad.top + ch - Math.min(raw / maxY, 1) * ch;
+      i === 1 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+    }
+    ctx.stroke();
+    ctx.shadowBlur = 0;
+  });
+}
+
+function buildLegend() {
+  const legend = document.getElementById('chartLegend');
+  CHART_FUNCS.forEach(function(f, i) {
+    const item = document.createElement('div');
+    item.className = 'legend-item' + (f.on ? ' active' : '');
+    const dot = document.createElement('div');
+    dot.className = 'legend-dot';
+    dot.style.background = f.color;
+    const label = document.createElement('span');
+    label.textContent = f.label;
+    item.appendChild(dot); item.appendChild(label);
+    item.addEventListener('click', function() {
+      f.on = !f.on;
+      item.classList.toggle('active', f.on);
+      drawChart();
+    });
+    legend.appendChild(item);
+  });
+}
+
+// N Calculator
+function buildNCalc() {
+  const btn = document.getElementById('calcBtn');
+  const result = document.getElementById('nCalcResult');
+  btn.addEventListener('click', function() {
+    const n = parseInt(document.getElementById('nInput').value) || 100;
+    result.innerHTML = '';
+    const table = document.createElement('table');
+    table.className = 'complexity-table';
+    const colors = ["#00ff88","#00d4ff","#ffd700","#ff8c42","#ff4da6","#ff3838"];
+    const rows = [
+      ["O(1)",       1],
+      ["O(log n)",   Math.round(Math.log2(n))],
+      ["O(n)",       n],
+      ["O(n log n)", Math.round(n * Math.log2(n))],
+      ["O(n²)",      n * n],
+      ["O(2ⁿ)",      n <= 30 ? Math.pow(2, n) : "∞ (너무 큼)"],
+    ];
+    rows.forEach(function(row, i) {
+      const tr = document.createElement('tr');
+      const td1 = document.createElement('td');
+      td1.style.color = colors[i];
+      td1.style.fontFamily = 'var(--mono)';
+      td1.textContent = row[0];
+      const td2 = document.createElement('td');
+      td2.style.color = 'var(--text)';
+      td2.style.fontFamily = 'var(--mono)';
+      td2.textContent = typeof row[1] === 'number' ? row[1].toLocaleString() : row[1];
+      tr.appendChild(td1); tr.appendChild(td2);
+      table.appendChild(tr);
+    });
+    result.appendChild(table);
+  });
+  btn.click();
+}
+
+// ════════════════════════════════════════════════
+//  ARRAY SIMULATOR
+// ════════════════════════════════════════════════
+let arrData = [];
+
+function renderArr() {
+  const area = document.getElementById('arrSimArea');
+  area.innerHTML = '';
+  if (arrData.length === 0) {
+    const e = document.createElement('span');
+    e.className = 'sim-empty';
+    e.textContent = '배열이 비어있습니다';
+    area.appendChild(e);
+    return;
+  }
+  arrData.forEach(function(item, i) {
+    const cell = document.createElement('div');
+    cell.className = 'arr-cell';
+    const idx = document.createElement('div');
+    idx.className = 'arr-idx';
+    idx.textContent = '[' + i + ']';
+    const box = document.createElement('div');
+    box.className = 'arr-box' + (item.new ? ' new-item' : '');
+    box.textContent = item.val;
+    const sep = document.createElement('div');
+    sep.className = 'arr-sep';
+    cell.appendChild(idx);
+    cell.appendChild(box);
+    area.appendChild(cell);
+    if (i < arrData.length - 1) area.appendChild(sep);
+    if (item.new) { setTimeout(function(){ item.new = false; }, 400); }
+  });
+}
+
+function arrLog(msg, type) {
+  const log = document.getElementById('arrLog');
+  const line = document.createElement('div');
+  line.className = 'log-line ' + (type || '');
+  line.textContent = '> ' + msg;
+  log.appendChild(line);
+  log.scrollTop = log.scrollHeight;
+}
+
+function initArraySim() {
+  // Pre-fill
+  [10, 25, 37, 52, 68].forEach(function(v){ arrData.push({val:v, new:false}); });
+  renderArr();
+
+  document.getElementById('arrInsertBtn').addEventListener('click', function() {
+    if (arrData.length >= 8) { arrLog('배열이 가득 찼습니다 (max 8)', 'err'); return; }
+    const val = document.getElementById('arrValInput').value;
+    const idx = document.getElementById('arrIdxInput').value;
+    if (val === '') { arrLog('값을 입력하세요', 'err'); return; }
+    const v = parseInt(val);
+    let i = idx === '' ? arrData.length : parseInt(idx);
+    if (i < 0 || i > arrData.length) { arrLog('유효하지 않은 인덱스', 'err'); return; }
+    arrData.splice(i, 0, {val:v, new:true});
+    renderArr();
+    arrLog('arr[' + i + '] = ' + v + ' 삽입 완료 (이후 원소 ' + (arrData.length - 1 - i) + '개 이동)', 'ok');
+  });
+
+  document.getElementById('arrDeleteBtn').addEventListener('click', function() {
+    const idx = document.getElementById('arrIdxInput').value;
+    if (arrData.length === 0) { arrLog('배열이 비어있습니다', 'err'); return; }
+    let i = idx === '' ? arrData.length - 1 : parseInt(idx);
+    if (i < 0 || i >= arrData.length) { arrLog('유효하지 않은 인덱스', 'err'); return; }
+    const removed = arrData[i].val;
+    arrData.splice(i, 1);
+    renderArr();
+    arrLog('arr[' + i + '] = ' + removed + ' 삭제 완료', 'ok');
+  });
+
+  document.getElementById('arrSearchBtn').addEventListener('click', function() {
+    const val = document.getElementById('arrValInput').value;
+    if (val === '') { arrLog('탐색할 값을 입력하세요', 'err'); return; }
+    const v = parseInt(val);
+    let found = -1;
+    const area = document.getElementById('arrSimArea');
+    const boxes = area.querySelectorAll('.arr-box');
+    boxes.forEach(function(b){ b.classList.remove('highlight'); });
+    for (let i = 0; i < arrData.length; i++) {
+      if (arrData[i].val === v) { found = i; break; }
+    }
+    if (found >= 0) {
+      boxes[found].classList.add('highlight');
+      arrLog('값 ' + v + ' → arr[' + found + '] 에서 발견! (' + (found+1) + '번 비교)', 'ok');
+      setTimeout(function(){ boxes[found] && boxes[found].classList.remove('highlight'); }, 1500);
+    } else {
+      arrLog('값 ' + v + ' 없음 (전체 ' + arrData.length + '번 비교)', 'err');
+    }
+  });
+
+  document.getElementById('arrClearBtn').addEventListener('click', function() {
+    arrData = [];
+    renderArr();
+    arrLog('배열 초기화', 'info');
+  });
+
+  // C code
+  setCodeHTML('arrayCCode', [
+    '<span class="c-cm">// 배열 선언 및 초기화</span>',
+    '<span class="c-tp">int</span> arr[<span class="c-nm">5</span>] = {<span class="c-nm">10</span>, <span class="c-nm">25</span>, <span class="c-nm">37</span>, <span class="c-nm">52</span>, <span class="c-nm">68</span>};',
+    '',
+    '<span class="c-cm">// 인덱스 접근 O(1)</span>',
+    '<span class="c-fn">printf</span>(<span class="c-st">"%d\\n"</span>, arr[<span class="c-nm">2</span>]);  <span class="c-cm">// 37</span>',
+    '',
+    '<span class="c-cm">// 선형 탐색 O(n)</span>',
+    '<span class="c-kw">for</span> (<span class="c-tp">int</span> i = <span class="c-nm">0</span>; i &lt; <span class="c-nm">5</span>; i++) {',
+    '    <span class="c-kw">if</span> (arr[i] == target) <span class="c-kw">return</span> i;',
+    '}',
+    '',
+    '<span class="c-cm">// 중간 삽입 O(n) — 원소 이동 필요</span>',
+    '<span class="c-kw">for</span> (<span class="c-tp">int</span> i = n - <span class="c-nm">1</span>; i &gt;= pos; i--)',
+    '    arr[i + <span class="c-nm">1</span>] = arr[i];  <span class="c-cm">// 한 칸씩 뒤로</span>',
+    'arr[pos] = newVal;',
+  ].join('\n'));
+}
+
+// ════════════════════════════════════════════════
+//  STACK SIMULATOR
+// ════════════════════════════════════════════════
+let stackData = [];
+
+function renderStack() {
+  const area = document.getElementById('stackSimArea');
+  while(area.firstChild) area.removeChild(area.firstChild);
+  if (stackData.length === 0) {
+    const e = document.createElement('span');
+    e.className = 'sim-empty';
+    e.textContent = '스택이 비어있습니다';
+    area.appendChild(e);
+    return;
+  }
+  stackData.forEach(function(item, i) {
+    const isTop = (i === stackData.length - 1);
+    const wrap = document.createElement('div');
+    wrap.style.display = 'flex';
+    wrap.style.flexDirection = 'column';
+    wrap.style.alignItems = 'center';
+    const node = document.createElement('div');
+    node.className = 'ds-node' + (item.new ? ' new-item' : '') + (isTop ? ' top-item' : '');
+    node.textContent = item.val;
+    if (item.new) setTimeout(function(){ item.new = false; }, 400);
+    wrap.appendChild(node);
+    if (isTop) {
+      const lbl = document.createElement('div');
+      lbl.className = 'stack-label';
+      lbl.textContent = '← TOP';
+      lbl.style.color = 'var(--yellow)';
+      wrap.appendChild(lbl);
+    }
+    area.appendChild(wrap);
+    if (i < stackData.length - 1) {
+      const arr = document.createElement('div');
+      arr.className = 'ds-arrow';
+      arr.textContent = '↕';
+      area.appendChild(arr);
+    }
+  });
+}
+
+function stackLog(msg, type) {
+  const log = document.getElementById('stackLog');
+  const line = document.createElement('div');
+  line.className = 'log-line ' + (type || '');
+  line.textContent = '> ' + msg;
+  log.appendChild(line);
+  log.scrollTop = log.scrollHeight;
+}
+
+function initStackSim() {
+  document.getElementById('stackPushBtn').addEventListener('click', function() {
+    if (stackData.length >= 8) { stackLog('스택이 가득 찼습니다 (Overflow!)', 'err'); return; }
+    const val = document.getElementById('stackInput').value;
+    if (val === '') { stackLog('값을 입력하세요', 'err'); return; }
+    const v = parseInt(val);
+    stackData.push({val:v, new:true});
+    renderStack();
+    stackLog('push(' + v + ') — top = ' + (stackData.length - 1), 'ok');
+  });
+  document.getElementById('stackPopBtn').addEventListener('click', function() {
+    if (stackData.length === 0) { stackLog('스택이 비어있습니다 (Underflow!)', 'err'); return; }
+    const removed = stackData.pop().val;
+    renderStack();
+    stackLog('pop() = ' + removed + ' — top = ' + (stackData.length - 1), 'ok');
+  });
+  document.getElementById('stackPeekBtn').addEventListener('click', function() {
+    if (stackData.length === 0) { stackLog('스택이 비어있습니다', 'err'); return; }
+    stackLog('peek() = ' + stackData[stackData.length - 1].val, 'info');
+  });
+  document.getElementById('stackClearBtn').addEventListener('click', function() {
+    stackData = [];
+    renderStack();
+    stackLog('스택 초기화', 'info');
+  });
+
+  setCodeHTML('stackCCode', [
+    '<span class="c-tp">int</span> stack[<span class="c-nm">MAX</span>];',
+    '<span class="c-tp">int</span> top = -<span class="c-nm">1</span>;  <span class="c-cm">// 빈 스택</span>',
+    '',
+    '<span class="c-cm">// push O(1)</span>',
+    '<span class="c-kw">void</span> <span class="c-fn">push</span>(<span class="c-tp">int</span> val) {',
+    '    <span class="c-kw">if</span> (top == MAX - <span class="c-nm">1</span>) { puts(<span class="c-st">"overflow"</span>); <span class="c-kw">return</span>; }',
+    '    stack[++top] = val;',
+    '}',
+    '',
+    '<span class="c-cm">// pop O(1)</span>',
+    '<span class="c-tp">int</span> <span class="c-fn">pop</span>() {',
+    '    <span class="c-kw">if</span> (top == -<span class="c-nm">1</span>) { puts(<span class="c-st">"underflow"</span>); <span class="c-kw">return</span> -<span class="c-nm">1</span>; }',
+    '    <span class="c-kw">return</span> stack[top--];',
+    '}',
+    '',
+    '<span class="c-cm">// peek O(1)</span>',
+    '<span class="c-tp">int</span> <span class="c-fn">peek</span>() { <span class="c-kw">return</span> stack[top]; }',
+  ].join('\n'));
+}
+
+// ════════════════════════════════════════════════
+//  QUEUE SIMULATOR
+// ════════════════════════════════════════════════
+let queueData = [];
+
+function renderQueue() {
+  const area = document.getElementById('queueSimArea');
+  while(area.firstChild) area.removeChild(area.firstChild);
+  if (queueData.length === 0) {
+    const e = document.createElement('span');
+    e.className = 'sim-empty';
+    e.textContent = '큐가 비어있습니다';
+    area.appendChild(e);
+    return;
+  }
+  queueData.forEach(function(item, i) {
+    const node = document.createElement('div');
+    node.className = 'ds-node' + (item.new ? ' new-item' : '');
+    node.textContent = item.val;
+    if (item.new) setTimeout(function(){ item.new = false; }, 400);
+    area.appendChild(node);
+    if (i < queueData.length - 1) {
+      const arr = document.createElement('div');
+      arr.className = 'ds-arrow';
+      arr.textContent = '→';
+      area.appendChild(arr);
+    }
+  });
+}
+
+function queueLog(msg, type) {
+  const log = document.getElementById('queueLog');
+  const line = document.createElement('div');
+  line.className = 'log-line ' + (type || '');
+  line.textContent = '> ' + msg;
+  log.appendChild(line);
+  log.scrollTop = log.scrollHeight;
+}
+
+function initQueueSim() {
+  document.getElementById('enqueueBtn').addEventListener('click', function() {
+    if (queueData.length >= 8) { queueLog('큐가 가득 찼습니다', 'err'); return; }
+    const val = document.getElementById('queueInput').value;
+    if (val === '') { queueLog('값을 입력하세요', 'err'); return; }
+    const v = parseInt(val);
+    queueData.push({val:v, new:true});
+    renderQueue();
+    queueLog('enqueue(' + v + ') — rear 에 추가', 'ok');
+  });
+  document.getElementById('dequeueBtn').addEventListener('click', function() {
+    if (queueData.length === 0) { queueLog('큐가 비어있습니다', 'err'); return; }
+    const removed = queueData.shift().val;
+    renderQueue();
+    queueLog('dequeue() = ' + removed + ' — front 에서 제거', 'ok');
+  });
+  document.getElementById('queueFrontBtn').addEventListener('click', function() {
+    if (queueData.length === 0) { queueLog('큐가 비어있습니다', 'err'); return; }
+    queueLog('front() = ' + queueData[0].val, 'info');
+  });
+  document.getElementById('queueClearBtn').addEventListener('click', function() {
+    queueData = [];
+    renderQueue();
+    queueLog('큐 초기화', 'info');
+  });
+
+  setCodeHTML('queueCCode', [
+    '<span class="c-tp">int</span> queue[<span class="c-nm">MAX</span>];',
+    '<span class="c-tp">int</span> front = <span class="c-nm">0</span>, rear = <span class="c-nm">0</span>;',
+    '',
+    '<span class="c-cm">// enqueue O(1)</span>',
+    '<span class="c-kw">void</span> <span class="c-fn">enqueue</span>(<span class="c-tp">int</span> val) {',
+    '    queue[rear] = val;',
+    '    rear = (rear + <span class="c-nm">1</span>) % MAX;  <span class="c-cm">// 원형 처리</span>',
+    '}',
+    '',
+    '<span class="c-cm">// dequeue O(1)</span>',
+    '<span class="c-tp">int</span> <span class="c-fn">dequeue</span>() {',
+    '    <span class="c-tp">int</span> val = queue[front];',
+    '    front = (front + <span class="c-nm">1</span>) % MAX;',
+    '    <span class="c-kw">return</span> val;',
+    '}',
+    '',
+    '<span class="c-cm">// isEmpty</span>',
+    '<span class="c-tp">int</span> <span class="c-fn">isEmpty</span>() { <span class="c-kw">return</span> front == rear; }',
+  ].join('\n'));
+}
+
+// ════════════════════════════════════════════════
+//  LINKED LIST SIMULATOR
+// ════════════════════════════════════════════════
+let llData = [];
+
+function renderLL() {
+  const area = document.getElementById('llSimArea');
+  while(area.firstChild) area.removeChild(area.firstChild);
+  if (llData.length === 0) {
+    const e = document.createElement('span');
+    e.className = 'sim-empty';
+    e.textContent = 'HEAD → NULL';
+    area.appendChild(e);
+    return;
+  }
+  // HEAD label
+  const headLbl = document.createElement('div');
+  headLbl.style.fontFamily = 'var(--mono)';
+  headLbl.style.fontSize = '11px';
+  headLbl.style.color = 'var(--pink)';
+  headLbl.style.marginRight = '4px';
+  headLbl.textContent = 'HEAD';
+  area.appendChild(headLbl);
+  const headArr = document.createElement('div');
+  headArr.className = 'll-ptr';
+  headArr.textContent = '→';
+  area.appendChild(headArr);
+
+  llData.forEach(function(item, i) {
+    const wrap = document.createElement('div');
+    wrap.className = 'll-node-wrap';
+    const box = document.createElement('div');
+    box.className = 'll-box' + (item.new ? ' new-item' : '');
+    if (item.new) setTimeout(function(){ item.new = false; }, 400);
+    const data = document.createElement('div');
+    data.className = 'll-data';
+    data.textContent = item.val;
+    const next = document.createElement('div');
+    next.className = 'll-next';
+    next.textContent = i < llData.length - 1 ? 'next●' : 'next/';
+    box.appendChild(data); box.appendChild(next);
+    wrap.appendChild(box);
+    area.appendChild(wrap);
+
+    if (i < llData.length - 1) {
+      const ptr = document.createElement('div');
+      ptr.className = 'll-ptr';
+      ptr.textContent = '→';
+      area.appendChild(ptr);
+    } else {
+      const nullLbl = document.createElement('div');
+      nullLbl.className = 'll-null';
+      nullLbl.textContent = '→ NULL';
+      area.appendChild(nullLbl);
+    }
+  });
+}
+
+function llLog(msg, type) {
+  const log = document.getElementById('llLog');
+  const line = document.createElement('div');
+  line.className = 'log-line ' + (type || '');
+  line.textContent = '> ' + msg;
+  log.appendChild(line);
+  log.scrollTop = log.scrollHeight;
+}
+
+function initLLSim() {
+  [11, 22, 33].forEach(function(v){ llData.push({val:v, new:false}); });
+  renderLL();
+
+  document.getElementById('llAddFrontBtn').addEventListener('click', function() {
+    const val = document.getElementById('llValInput').value;
+    if (val === '') { llLog('값을 입력하세요', 'err'); return; }
+    const v = parseInt(val);
+    llData.unshift({val:v, new:true});
+    renderLL();
+    llLog('앞에 ' + v + ' 삽입 — O(1): head 포인터만 변경', 'ok');
+  });
+  document.getElementById('llAddBackBtn').addEventListener('click', function() {
+    const val = document.getElementById('llValInput').value;
+    if (val === '') { llLog('값을 입력하세요', 'err'); return; }
+    const v = parseInt(val);
+    llData.push({val:v, new:true});
+    renderLL();
+    llLog('뒤에 ' + v + ' 삽입 — O(n): tail까지 순회 필요', 'ok');
+  });
+  document.getElementById('llRemFrontBtn').addEventListener('click', function() {
+    if (llData.length === 0) { llLog('리스트가 비어있습니다', 'err'); return; }
+    const removed = llData.shift().val;
+    renderLL();
+    llLog('앞에서 ' + removed + ' 제거 — O(1)', 'ok');
+  });
+  document.getElementById('llRemBackBtn').addEventListener('click', function() {
+    if (llData.length === 0) { llLog('리스트가 비어있습니다', 'err'); return; }
+    const removed = llData.pop().val;
+    renderLL();
+    llLog('뒤에서 ' + removed + ' 제거 — O(n): tail까지 순회 필요', 'ok');
+  });
+  document.getElementById('llClearBtn').addEventListener('click', function() {
+    llData = [];
+    renderLL();
+    llLog('리스트 초기화', 'info');
+  });
+
+  setCodeHTML('llCCode', [
+    '<span class="c-cm">// 노드 구조체</span>',
+    '<span class="c-kw">typedef struct</span> Node {',
+    '    <span class="c-tp">int</span> data;',
+    '    <span class="c-kw">struct</span> Node* next;',
+    '} Node;',
+    '',
+    '<span class="c-cm">// 앞에 삽입 O(1)</span>',
+    'Node* <span class="c-fn">addFront</span>(Node* head, <span class="c-tp">int</span> val) {',
+    '    Node* newNode = <span class="c-fn">malloc</span>(<span class="c-kw">sizeof</span>(Node));',
+    '    newNode->data = val;',
+    '    newNode->next = head;',
+    '    <span class="c-kw">return</span> newNode;  <span class="c-cm">// 새 head 반환</span>',
+    '}',
+  ].join('\n'));
+}
+
+// ════════════════════════════════════════════════
+//  COMPARE TAB
+// ════════════════════════════════════════════════
+function buildCompare() {
+  const tbody = document.getElementById('dsCompareBody');
+  DS_COMPARE.forEach(function(row) {
+    const tr = document.createElement('tr');
+    const td0 = document.createElement('td');
+    td0.textContent = row[0]; td0.style.fontWeight = '600';
+    tr.appendChild(td0);
+    for (let i = 1; i < row.length; i += 2) {
+      const td = document.createElement('td');
+      td.textContent = row[i];
+      td.className = row[i + 1];
+      tr.appendChild(td);
+    }
+    tbody.appendChild(tr);
+  });
+
+  const container = document.getElementById('usecase-cards');
+  USECASES.forEach(function(uc) {
+    const card = document.createElement('div');
+    card.style.cssText = 'background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:16px 18px;margin-bottom:12px;display:flex;gap:14px;align-items:flex-start';
+    const icon = document.createElement('div');
+    icon.style.cssText = 'font-size:26px;flex-shrink:0';
+    icon.textContent = uc.icon;
+    const body = document.createElement('div');
+    const name = document.createElement('div');
+    name.style.cssText = 'font-weight:700;color:var(--cyan);font-size:14px;margin-bottom:4px;font-family:var(--mono)';
+    name.textContent = uc.name;
+    const when = document.createElement('div');
+    when.style.cssText = 'font-size:13px;color:var(--text2);margin-bottom:3px;';
+    when.textContent = '🕐 ' + uc.when;
+    const ex = document.createElement('div');
+    ex.style.cssText = 'font-size:12px;color:var(--text3);font-family:var(--mono)';
+    ex.textContent = '예시: ' + uc.ex;
+    body.appendChild(name); body.appendChild(when); body.appendChild(ex);
+    card.appendChild(icon); card.appendChild(body);
+    container.appendChild(card);
+  });
+}
+
+// ════════════════════════════════════════════════
+//  QUIZ
+// ════════════════════════════════════════════════
+let quizScore = 0;
+let quizAnswered = new Array(QUIZ_DATA.length).fill(false);
+
+function buildQuiz() {
+  quizScore = 0;
+  quizAnswered.fill(false);
+  updateScore();
+  const container = document.getElementById('quizContainer');
+  container.innerHTML = '';
+
+  QUIZ_DATA.forEach(function(q, qi) {
+    const card = document.createElement('div');
+    card.className = 'quiz-card';
+    card.id = 'qcard-' + qi;
+
+    const qDiv = document.createElement('div');
+    qDiv.className = 'quiz-q';
+    const num = document.createElement('span');
+    num.className = 'q-num';
+    num.textContent = 'Q' + (qi + 1) + '.';
+    qDiv.appendChild(num);
+    qDiv.appendChild(document.createTextNode(q.q));
+
+    const optsDiv = document.createElement('div');
+    optsDiv.className = 'quiz-opts';
+    const marks = ['A','B','C','D'];
+    q.opts.forEach(function(opt, oi) {
+      const optBtn = document.createElement('div');
+      optBtn.className = 'quiz-opt';
+      optBtn.dataset.qi = qi;
+      optBtn.dataset.oi = oi;
+      const mark = document.createElement('span');
+      mark.className = 'opt-mark';
+      mark.textContent = marks[oi];
+      optBtn.appendChild(mark);
+      optBtn.appendChild(document.createTextNode(opt));
+      optBtn.addEventListener('click', function() { handleQuizAnswer(qi, oi); });
+      optsDiv.appendChild(optBtn);
+    });
+
+    const feedback = document.createElement('div');
+    feedback.className = 'quiz-feedback';
+    feedback.id = 'qfb-' + qi;
+
+    card.appendChild(qDiv);
+    card.appendChild(optsDiv);
+    card.appendChild(feedback);
+    container.appendChild(card);
+  });
+}
+
+function handleQuizAnswer(qi, oi) {
+  if (quizAnswered[qi]) return;
+  quizAnswered[qi] = true;
+  const q = QUIZ_DATA[qi];
+  const opts = document.querySelectorAll('[data-qi="' + qi + '"]');
+  opts.forEach(function(o) { o.classList.add('disabled'); });
+  opts[oi].classList.add(oi === q.ans ? 'correct' : 'wrong');
+  opts[q.ans].classList.add('correct');
+
+  const fb = document.getElementById('qfb-' + qi);
+  fb.classList.add('show');
+  if (oi === q.ans) {
+    fb.classList.add('ok');
+    fb.textContent = '✅ 정답! ' + q.explain;
+    quizScore++;
+  } else {
+    fb.classList.add('ng');
+    fb.textContent = '❌ 오답. ' + q.explain;
+  }
+  updateScore();
+}
+
+function updateScore() {
+  const answered = quizAnswered.filter(Boolean).length;
+  document.getElementById('scoreVal').textContent = quizScore + ' / ' + QUIZ_DATA.length;
+  const pct = (quizScore / QUIZ_DATA.length * 100).toFixed(0);
+  document.getElementById('scoreFill').style.width = pct + '%';
+}
+
+document.getElementById('quizResetBtn').addEventListener('click', buildQuiz);
+
+// ════════════════════════════════════════════════
+//  HELPERS
+// ════════════════════════════════════════════════
+function setCodeHTML(id, html) {
+  const el = document.getElementById(id);
+  if (el) el.innerHTML = html;
+}
+
+// ════════════════════════════════════════════════
+//  INIT
+// ════════════════════════════════════════════════
+buildBigoGrid();
+buildAlgoTable();
+buildLegend();
+buildNCalc();
+initArraySim();
+initStackSim();
+initQueueSim();
+initLLSim();
+buildCompare();
+buildQuiz();
+
+window.addEventListener('resize', function() {
+  const bigoTab = document.getElementById('tab-bigo');
+  if (bigoTab.classList.contains('active')) drawChart();
+});
+setTimeout(drawChart, 100);
+</script>
+</body>
+</html>
