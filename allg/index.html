@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>중등 정보올림피아드 — 알고리즘 완전 정복 (C 언어 버전)</title>
+<style>
+/* Windows 안전 폰트 스택 — 외부 의존 없음 */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+</style>
+<style>
+/* ── ROOT & RESET ─────────────────────────────── */
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; -webkit-box-sizing:border-box; }
+
+:root {
+  --navy:   #0a1628;
+  --navy2:  #0f2040;
+  --navy3:  #1a3258;
+  --blue:   #1e5eff;
+  --blue2:  #4a85ff;
+  --sky:    #5bb8f5;
+  --teal:   #00c9b1;
+  --gold:   #f5a623;
+  --amber:  #ffcc44;
+  --red:    #ff4757;
+  --green:  #2ed573;
+  --gray-d: #1a1e24;
+  --gray-m: #2d333f;
+  --gray-l: #eef2f7;
+  --text-w: #ffffff;
+  --text-g: #a0aec0;
+  --font-sans: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', Consolas, Monaco, monospace;
+}
+
+body {
+  background-color: var(--navy);
+  color: var(--text-w);
+  font-family: var(--font-sans);
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+/* ── LAYOUT ───────────────────────────────────── */
+.container {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* ── SIDEBAR ──────────────────────────────────── */
+.sidebar {
+  width: 280px;
+  background-color: var(--navy2);
+  border-right: 1px solid var(--navy3);
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-header {
+  padding: 24px;
+  border-bottom: 1px solid var(--navy3);
+}
+
+.sidebar-header h1 {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-w);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sidebar-header h1 span {
+  color: var(--sky);
+}
+
+.sidebar-nav {
+  flex: 1;
+  padding: 20px 12px;
+  overflow-y: auto;
+}
+
+.nav-item {
+  display: block;
+  padding: 10px 16px;
+  color: var(--text-g);
+  text-decoration: none;
+  border-radius: 6px;
+  font-size: 14px;
+  margin-bottom: 4px;
+  transition: all 0.2s ease;
+}
+
+.nav-item:hover {
+  background-color: var(--navy3);
+  color: var(--text-w);
+}
+
+.nav-item.active {
+  background-color: var(--blue);
+  color: var(--text-w);
+  font-weight: 500;
+}
+
+/* ── MAIN CONTENT ─────────────────────────────── */
+.main-content {
+  margin-left: 280px;
+  flex: 1;
+  padding: 40px 60px;
+  max-width: 1200px;
+}
+
+/* ── COMPONENTS ───────────────────────────────── */
+header {
+  margin-bottom: 48px;
+  border-bottom: 1px solid var(--navy3);
+  padding-bottom: 24px;
+}
+
+header h2 {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+header p {
+  color: var(--text-g);
+}
+
+.section-card {
+  background-color: var(--navy2);
+  border: 1px solid var(--navy3);
+  border-radius: 12px;
+  padding: 32px;
+  margin-bottom: 40px;
+}
+
+.section-card h3 {
+  font-size: 22px;
+  color: var(--sky);
+  margin-bottom: 16px;
+  border-left: 4px solid var(--blue);
+  padding-left: 12px;
+}
+
+.section-card p {
+  color: #cbd5e1;
+  margin-bottom: 24px;
+  font-size: 15px;
+}
+
+/* Code Container */
+.code-container {
+  background-color: var(--gray-d);
+  border-radius: 8px;
+  border: 1px solid var(--gray-m);
+  margin-bottom: 24px;
+  overflow: hidden;
+}
+
+.code-header {
+  background-color: var(--gray-m);
+  padding: 8px 16px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-g);
+  display: flex;
+  justify-content: space-between;
+}
+
+pre {
+  margin: 0;
+  padding: 20px;
+  overflow-x: auto;
+}
+
+code {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  color: #e2e8f0;
+}
+
+/* Quiz Styling */
+.quiz-box {
+  background-color: var(--navy3);
+  border-radius: 8px;
+  padding: 24px;
+  margin-top: 24px;
+}
+
+.quiz-question {
+  font-weight: 600;
+  margin-bottom: 16px;
+  font-size: 16px;
+}
+
+.quiz-options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.quiz-opt {
+  background-color: var(--navy2);
+  border: 1px solid var(--navy3);
+  padding: 12px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.quiz-opt:hover {
+  border-color: var(--blue2);
+}
+
+.quiz-opt input {
+  cursor: pointer;
+}
+
+.quiz-feedback {
+  margin-top: 16px;
+  padding: 12px;
+  border-radius: 6px;
+  display: none;
+  font-size: 14px;
+}
+
+.qf-correct { background-color: rgba(46, 213, 115, 0.15); border: 1px solid var(--green); color: var(--green); }
+.qf-wrong { background-color: rgba(255, 71, 87, 0.15); border: 1px solid var(--red); color: var(--red); }
+
+.btn-submit {
+  background-color: var(--blue);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 16px;
+  transition: background 0.2s;
+}
+
+.btn-submit:hover { background-color: var(--blue2); }
+
+/* Highlight Key C Tokens */
+.c-keyword { color: #ff79c6; font-weight: bold; }
+.c-type { color: #8be9fd; font-style: italic; }
+.c-comment { color: #6272a4; }
+.c-number { color: #bd93f9; }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <h1>KOI 완전정복 <span>[C언어]</span></h1>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="#ch01" class="nav-item active">Ch 01. 최댓값 알고리즘</a>
+      <a href="#ch03" class="nav-item">Ch 03. 정렬 알고리즘</a>
+      <a href="#ch04" class="nav-item">Ch 04. 탐색 알고리즘</a>
+      <a href="#ch05" class="nav-item">Ch 05. 주요 자료구조 구현</a>
+      <a href="#ch06" class="nav-item">Ch 06. 그리디 (Greedy)</a>
+      <a href="#ch07" class="nav-item">Ch 07. 동적 계획법 (DP)</a>
+    </nav>
+  </aside>
+
+  <main class="main-content">
+    <header>
+      <h2>정보올림피아드 필수 알고리즘 명세서 (C 언어)</h2>
+      <p>C 언어를 활용하여 올림피아드 현장 및 문제 풀이(PS)에서 즉시 사용할 수 있도록 최적화된 표준 코드 모음입니다.</p>
+    </header>
+
+    <section id="ch01" class="section-card">
+      <h3>Chapter 01. 최댓값 찾기</h3>
+      <p>배열 내부의 원소를 순차 탐색하며 최대 포인터를 갱신하는 기본 구조입니다. C 언어에서는 원소의 수(n)를 매개변수로 명시해 주어야 합니다.</p>
+      
+      <div class="code-container">
+        <div class="code-header"><span>max_finder.c</span><span>C99</span></div>
+        <pre><code><span class="c-keyword">#include</span> <span class="c-type">&lt;stdio.h&gt;</span>
+
+<span class="c-type">int</span> find_max(<span class="c-type">int</span> arr[], <span class="c-type">int</span> n) {
+    <span class="c-type">int</span> max_val = arr[<span class="c-number">0</span>]; <span class="c-comment">// 초기 첫 번째 원소를 최댓값으로 설정</span>
+    <span class="c-keyword">for</span> (<span class="c-type">int</span> i = <span class="c-number">1</span>; i &lt; n; i++) {
+        <span class="c-keyword">if</span> (arr[i] &gt; max_val) {
+            max_val = arr[i]; <span class="c-comment">// 더 큰 값 발견 시 갱신</span>
+        }
+    }
+    <span class="c-keyword">return</span> max_val;
+}
+
+<span class="c-type">int</span> main() {
+    <span class="c-type">int</span> scores[] = {<span class="c-number">34</span>, <span class="c-number">78</span>, <span class="c-number">12</span>, <span class="c-number">99</span>, <span class="c-number">56</span>};
+    <span class="c-type">int</span> n = <span class="c-keyword">sizeof</span>(scores) / <span class="c-keyword">sizeof</span>(scores[<span class="c-number">0</span>]);
+    printf(<span class="c-type">"최댓값: %d\n"</span>, find_max(scores, n)); <span class="c-comment">// 출력: 99</span>
+    <span class="c-keyword">return</span> <span class="c-number">0</span>;
+}</code></pre>
+      </div>
+
+      <div class="quiz-box" id="qbox-ch01">
+        <div class="quiz-question">Q1. 위 최댓값 알고리즘의 시간 복잡도는 얼마인가요?</div>
+        <div class="quiz-options">
+          <label class="quiz-opt"><input type="radio" name="q1" value="A"> O(1)</label>
+          <label class="quiz-opt"><input type="radio" name="q1" value="B"> O(log N)</label>
+          <label class="quiz-opt"><input type="radio" name="q1" value="C"> O(N)</label>
+        </div>
+        <div class="quiz-feedback" id="fb-q1"></div>
+      </div>
+    </section>
+
+    <section id="ch03" class="section-card">
+      <h3>Chapter 03. 정렬 알고리즘</h3>
+      <p>다양한 기본/고급 정렬 알고리즘의 C 언어 구현입니다. 고급 정렬인 합병, 퀵 정렬은 동적 할당 오버헤드를 막기 위해 인덱스 기반의 포인터 방식을 취합니다.</p>
+
+      <h4>1) 버블 정렬 (Bubble Sort)</h4>
+      <div class="code-container">
+        <div class="code-header"><span>bubble_sort.c</span></div>
+        <pre><code><span class="c-type">void</span> bubble_sort(<span class="c-type">int</span> arr[], <span class="c-type">int</span> n) {
+    <span class="c-keyword">for</span> (<span class="c-type">int</span> i = <span class="c-number">0</span>; i &lt; n - <span class="c-number">1</span>; i++) {
+        <span class="c-type">int</span> swapped = <span class="c-number">0</span>;
+        <span class="c-keyword">for</span> (<span class="c-type">int</span> j = <span class="c-number">0</span>; j &lt; n - i - <span class="c-number">1</span>; j++) {
+            <span class="c-keyword">if</span> (arr[j] &gt; arr[j + <span class="c-number">1</span>]) {
+                <span class="c-type">int</span> temp = arr[j];
+                arr[j] = arr[j + <span class="c-number">1</span>];
+                arr[j + <span class="c-number">1</span>] = temp;
+                swapped = <span class="c-number">1</span>;
+            }
+        }
+        <span class="c-keyword">if</span> (!swapped) <span class="c-keyword">break</span>; <span class="c-comment">// 최적화: 정렬이 이미 끝났다면 종료</span>
+    }
+}</code></pre>
+      </div>
+
+      <h4>2) 선택 정렬 (Selection Sort)</h4>
+      <div class="code-container">
+        <div class="code-header"><span>selection_sort.c</span></div>
+        <pre><code><span class="c-type">void</span> selection_sort(<span class="c-type">int</span> arr[], <span class="c-type">int</span> n) {
+    <span class="c-keyword">for</span> (<span class="c-type">int</span> i = <span class="c-number">0</span>; i &lt; n - <span class="c-number">1</span>; i++) {
+        <span class="c-type">int</span> min_idx = i;
+        <span class="c-keyword">for</span> (<span class="c-type">int</span> j = i + <span class="c-number">1</span>; j &lt; n; j++) {
+            <span class="c-keyword">if</span> (arr[j] &lt; arr[min_idx]) min_idx = j;
+        }
+        <span class="c-comment">// 교환(Swap)</span>
+        <span class="c-type">int</span> temp = arr[i];
+        arr[i] = arr[min_idx];
+        arr[min_idx] = temp;
+    }
+}</code></pre>
+      </div>
+
+      <h4>3) 합병 정렬 (Merge Sort)</h4>
+      <div class="code-container">
+        <div class="code-header"><span>merge_sort.c</span></div>
+        <pre><code><span class="c-type">int</span> sorted[<span class="c-number">100005</span>]; <span class="c-comment">// 병합을 위한 전역 임시 배열</span>
+
+<span class="c-type">void</span> merge(<span class="c-type">int</span> arr[], <span class="c-type">int</span> left, <span class="c-type">int</span> mid, <span class="c-type">int</span> right) {
+    <span class="c-type">int</span> i = left, j = mid + <span class="c-number">1</span>, k = left;
+    <span class="c-keyword">while</span> (i &lt;= mid && j &lt;= right) {
+        <span class="c-keyword">if</span> (arr[i] &lt;= arr[j]) sorted[k++] = arr[i++];
+        <span class="c-keyword">else</span> sorted[k++] = arr[j++];
+    }
+    <span class="c-keyword">while</span> (i &lt;= mid) sorted[k++] = arr[i++];
+    <span class="c-keyword">while</span> (j &lt;= right) sorted[k++] = arr[j++];
+    <span class="c-keyword">for</span> (<span class="c-type">int</span> l = left; l &lt;= right; l++) arr[l] = sorted[l];
+}
+
+<span class="c-type">void</span> merge_sort(<span class="c-type">int</span> arr[], <span class="c-type">int</span> left, <span class="c-type">int</span> right) {
+    <span class="c-keyword">if</span> (left &lt; right) {
+        <span class="c-type">int</span> mid = (left + right) / <span class="c-number">2</span>;
+        merge_sort(arr, left, mid);
+        merge_sort(arr, mid + <span class="c-number">1</span>, right);
+        merge(arr, left, mid, right);
+    }
+}</code></pre>
+      </div>
+
+      <h4>4) 퀵 정렬 (Quick Sort)</h4>
+      <div class="code-container">
+        <div class="code-header"><span>quick_sort.c</span></div>
+        <pre><code><span class="c-type">void</span> quick_sort(<span class="c-type">int</span> arr[], <span class="c-type">int</span> left, <span class="c-type">int</span> right) {
+    <span class="c-keyword">if</span> (left &gt;= right) <span class="c-keyword">return</span>;
+    <span class="c-type">int</span> pivot = arr[(left + right) / <span class="c-number">2</span>];
+    <span class="c-type">int</span> i = left, j = right;
+    
+    <span class="c-keyword">while</span> (i &lt;= j) {
+        <span class="c-keyword">while</span> (arr[i] &lt; pivot) i++;
+        <span class="c-keyword">while</span> (arr[j] &gt; pivot) j--;
+        <span class="c-keyword">if</span> (i &lt;= j) {
+            <span class="c-type">int</span> temp = arr[i]; arr[i] = arr[j]; arr[j] = temp;
+            i++; j--;
+        }
+    }
+    quick_sort(arr, left, j);
+    quick_sort(arr, i, right);
+}</code></pre>
+      </div>
+    </section>
+
+    <section id="ch04" class="section-card">
+      <h3>Chapter 04. 탐색 알고리즘</h3>
+      <p>순차 탐색, 이진 탐색 및 그래프 전수 조사를 위한 DFS와 BFS의 전형적인 C 기법군입니다. 가변 큐/리스트 라이브러리가 없으므로 정적 배열로 연결리스트와 전역 큐를 구성합니다.</p>
+
+      <h4>1) 이진 탐색 (Binary Search)</h4>
+      <div class="code-container">
+        <div class="code-header"><span>binary_search.c</span></div>
+        <pre><code><span class="c-type">int</span> binary_search(<span class="c-type">int</span> arr[], <span class="c-type">int</span> n, <span class="c-type">int</span> target) {
+    <span class="c-type">int</span> left = <span class="c-number">0</span>, right = n - <span class="c-number">1</span>;
+    <span class="c-keyword">while</span> (left &lt;= right) {
+        <span class="c-type">int</span> mid = (left + right) / <span class="c-number">2</span>;
+        <span class="c-keyword">if</span> (arr[mid] == target) <span class="c-keyword">return</span> mid;
+        <span class="c-keyword">else</span> <span class="c-keyword">if</span> (arr[mid] &lt; target) left = mid + <span class="c-number">1</span>;
+        <span class="c-keyword">else</span> right = mid - <span class="c-number">1</span>;
+    }
+    <span class="c-keyword">return</span> -<span class="c-number">1</span>;
+}</code></pre>
+      </div>
+
+      <h4>2) DFS & BFS (인접 리스트 구조 표현)</h4>
+      <div class="code-container">
+        <div class="code-header"><span>graph_search.c</span></div>
+        <pre><code><span class="c-keyword">#include</span> <span class="c-type">&lt;stdio.h&gt;</span>
+
+<span class="c-type">int</span> graph[<span class="c-number">101</span>][<span class="c-number">101</span>]; <span class="c-comment">// graph[i][j]: 노드 i의 j번째 이웃</span>
+<span class="c-type">int</span> degree[<span class="c-number">101</span>];     <span class="c-comment">// degree[i]: 노드 i에 연결된 간선 수</span>
+<span class="c-type">int</span> visited[<span class="c-number">101</span>];
+
+<span class="c-type">void</span> dfs(<span class="c-type">int</span> node) {
+    visited[node] = <span class="c-number">1</span>;
+    printf(<span class="c-type">"%d "</span>, node);
+    <span class="c-keyword">for</span> (<span class="c-type">int</span> i = <span class="c-number">0</span>; i &lt; degree[node]; i++) {
+        <span class="c-type">int</span> next = graph[node][i];
+        <span class="c-keyword">if</span> (!visited[next]) dfs(next);
+    }
+}
+
+<span class="c-type">int</span> queue[<span class="c-number">10005</span>];
+<span class="c-type">void</span> bfs(<span class="c-type">int</span> start) {
+    <span class="c-type">int</span> front = <span class="c-number">0</span>, rear = <span class="c-number">0</span>;
+    queue[rear++] = start;
+    visited[start] = <span class="c-number">1</span>;
+    
+    <span class="c-keyword">while</span> (front &lt; rear) {
+        <span class="c-type">int</span> curr = queue[front++];
+        printf(<span class="c-type">"%d "</span>, curr);
+        <span class="c-keyword">for</span> (<span class="c-type">int</span> i = <span class="c-number">0</span>; i &lt; degree[curr]; i++) {
+            <span class="c-type">int</span> next = graph[curr][i];
+            <span class="c-keyword">if</span> (!visited[next]) {
+                visited[next] = <span class="c-number">1</span>;
+                queue[rear++] = next;
+            }
+        }
+    }
+}</code></pre>
+      </div>
+    </section>
+
+    <section id="ch05" class="section-card">
+      <h3>Chapter 05. 주요 자료구조 구현</h3>
+      <p>C 언어에서 가장 흔하게 선언해서 사용하는 선형 자료구조 스택, 큐와 상호 배타적 집합을 관리하는 유니온 파인드 명세입니다.</p>
+
+      <h4>1) 스택 (Stack)</h4>
+      <div class="code-container">
+        <div class="code-header"><span>stack.c</span></div>
+        <pre><code><span class="c-type">int</span> stack[<span class="c-number">10005</span>];
+<span class="c-type">int</span> top = -<span class="c-number">1</span>;
+
+<span class="c-type">void</span> push(<span class="c-type">int</span> val) { stack[++top] = val; }
+<span class="c-type">int</span> pop() { <span class="c-keyword">return</span> stack[top--]; }
+<span class="c-type">int</span> peek() { <span class="c-keyword">return</span> stack[top]; }
+<span class="c-type">int</span> is_empty() { <span class="c-keyword">return</span> top == -<span class="c-number">1</span>; }</code></pre>
+      </div>
+
+      <h4>2) 큐 (Queue)</h4>
+      <div class="code-container">
+        <div class="code-header"><span>queue.c</span></div>
+        <pre><code><span class="c-type">int</span> q[<span class="c-number">10005</span>];
+<span class="c-type">int</span> front = <span class="c-number">0</span>, rear = <span class="c-number">0</span>;
+
+<span class="c-type">void</span> enqueue(<span class="c-type">int</span> val) { q[rear++] = val; }
+<span class="c-type">int</span> dequeue() { <span class="c-keyword">return</span> q[front++]; }
+<span class="c-type">int</span> q_empty() { <span class="c-keyword">return</span> front == rear; }</code></pre>
+      </div>
+
+      <h4>3) 유니온-파인드 (Union-Find)</h4>
+      <div class="code-container">
+        <div class="code-header"><span>union_find.c</span></div>
+        <pre><code><span class="c-type">int</span> parent[<span class="c-number">1005</span>];
+
+<span class="c-type">void</span> init_set(<span class="c-type">int</span> n) {
+    <span class="c-keyword">for</span> (<span class="c-type">int</span> i = <span class="c-number">1</span>; i &lt;= n; i++) parent[i] = i;
+}
+
+<span class="c-type">int</span> find_root(<span class="c-type">int</span> i) {
+    <span class="c-keyword">if</span> (parent[i] == i) <span class="c-keyword">return</span> i;
+    <span class="c-keyword">return</span> parent[i] = find_root(parent[i]); <span class="c-comment">// 경로 압축 (Path Compression)</span>
+}
+
+<span class="c-type">void</span> union_elements(<span class="c-type">int</span> i, <span class="c-type">int</span> j) {
+    <span class="c-type">int</span> root_i = find_root(i);
+    <span class="c-type">int</span> root_j = find_root(j);
+    <span class="c-keyword">if</span> (root_i != root_j) parent[root_i] = root_j;
+}</code></pre>
+      </div>
+    </section>
+
+    <section id="ch06" class="section-card">
+      <h3>Chapter 06. 탐욕 알고리즘 (Greedy)</h3>
+      <p>매 순간 가장 이익이 큰 선택을 영리하게 취하는 그리디 기법의 전형인 거스름돈 반환 구조식입니다.</p>
+      
+      <div class="code-container">
+        <div class="code-header"><span>coin_change.c</span></div>
+        <pre><code><span class="c-keyword">#include</span> <span class="c-type">&lt;stdio.h&gt;</span>
+
+<span class="c-type">int</span> main() {
+    <span class="c-type">int</span> coins[] = {<span class="c-number">500</span>, <span class="c-number">100</span>, <span class="c-number">50</span>, <span class="c-number">10</span>};
+    <span class="c-type">int</span> change = <span class="c-number">1260</span>;
+    <span class="c-type">int</span> total_count = <span class="c-number">0</span>;
+    <span class="c-type">int</span> num_types = <span class="c-keyword">sizeof</span>(coins) / <span class="c-keyword">sizeof</span>(coins[<span class="c-number">0</span>]);
+
+    <span class="c-keyword">for</span> (<span class="c-type">int</span> i = <span class="c-number">0</span>; i &lt; num_types; i++) {
+        total_count += (change / coins[i]);
+        change %= coins[i];
+    }
+    printf(<span class="c-type">"최소 동전 개수: %d\n"</span>, total_count); <span class="c-comment">// 출력: 5 (500원 2개, 100원 2개, 50원 1개, 10원 1개)</span>
+    <span class="c-keyword">return</span> <span class="c-number">0</span>;
+}</code></pre>
+      </div>
+    </section>
+
+    <section id="ch07" class="section-card">
+      <h3>Chapter 07. 동적 계획법 (Dynamic Programming)</h3>
+      <p>한 번 연산된 중복 부분 문제를 메모이제이션 배열에 영구 저장해 놓고 연산 단계를 크게 줄이는 피보나치 상향식(Bottom-Up) 구조입니다.</p>
+
+      <div class="code-container">
+        <div class="code-header"><span>fibonacci_dp.c</span></div>
+        <pre><code><span class="c-keyword">#include</span> <span class="c-type">&lt;stdio.h&gt;</span>
+
+<span class="c-type">long long</span> dp[<span class="c-number">91</span>]; <span class="c-comment">// 피보나치 수는 빠르게 증가하므로 long long 필수</span>
+
+<span class="c-type">long long</span> get_fibonacci(<span class="c-type">int</span> n) {
+    dp[<span class="c-number">1</span>] = <span class="c-number">1</span>;
+    dp[<span class="c-number">2</span>] = <span class="c-number">1</span>;
+    <span class="c-keyword">for</span> (<span class="c-type">int</span> i = <span class="c-number">3</span>; i &lt;= n; i++) {
+        dp[i] = dp[i - <span class="c-number">1</span>] + dp[i - <span class="c-number">2</span>];
+    }
+    <span class="c-keyword">return</span> dp[n];
+}
+
+<span class="c-type">int</span> main() {
+    <span class="c-type">int</span> n = <span class="c-number">50</span>;
+    printf(<span class="c-type">"피보나치 %d번째 값: %lld\n"</span>, n, get_fibonacci(n));
+    <span class="c-keyword">return</span> <span class="c-number">0</span>;
+}</code></pre>
+      </div>
+
+      <div class="quiz-box" id="qbox-ch07">
+        <div class="quiz-question">Q2. 위의 상향식 DP 기법을 사용한 피보나치 수 계산의 시간 복잡도는?</div>
+        <div class="quiz-options">
+          <label class="quiz-opt"><input type="radio" name="q2" value="A"> O(N)</label>
+          <label class="quiz-opt"><input type="radio" name="q2" value="B"> O(2^N)</label>
+          <label class="quiz-opt"><input type="radio" name="q2" value="C"> O(N log N)</label>
+        </div>
+        <div class="quiz-feedback" id="fb-q2"></div>
+      </div>
+
+      <div style="margin-top: 24px;">
+        <button class="btn-submit" onclick="checkAnswers()">퀴즈 채점하기</button>
+        <button class="btn-submit" onclick="resetQuiz()" style="background-color: var(--gray-m); margin-left: 8px;">초기화</button>
+      </div>
+      <div id="quizScore" style="margin-top:20px;"></div>
+    </section>
+  </main>
+</div>
+
+<script>
+// 1. Sidebar Active States on Scroll
+const sections = document.querySelectorAll('.section-card');
+const navItems = document.querySelectorAll('.nav-item');
+
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(section => {
+    const sectionTop = section.offsetTop;
+    if (pageYOffset >= sectionTop - 100) {
+      current = section.getAttribute('id');
+    }
+  });
+  navItems.forEach(item => {
+    item.classList.remove('active');
+    if (item.getAttribute('href').includes(current)) {
+      item.classList.add('active');
+    }
+  });
+});
+
+// 2. Quiz Logic
+const answers = { q1: 'C', q2: 'A' };
+const explanations = {
+  q1: '정답은 O(N)입니다. 배열의 첫 번째 원소부터 마지막 N번째 원소까지 선형 루프를 정확히 한 번 순회하므로 원소 개수 N에 비례하여 시간이 증가합니다.',
+  q2: '정답은 O(N)입니다. 재귀적 피보나치는 O(2^N)의 지수 시간이 걸리지만, 반복문 테이블을 이용하면 각 인덱스당 연산이 1번씩만 이루어지므로 선형 시간에 해결됩니다.'
+};
+
+function checkAnswers() {
+  let correct = 0;
+  let total = Object.keys(answers).length;
+
+  Object.keys(answers).forEach(qid => {
+    const selected = document.querySelector(`input[name="${qid}"]:checked`);
+    const fb = document.getElementById(`fb-${qid}`);
+    
+    if (!selected) {
+      if (fb) {
+        fb.style.display = 'block';
+        fb.className = 'quiz-feedback qf-wrong';
+        fb.textContent = '보기를 선택해 주세요!';
+      }
+      return;
+    }
+
+    const userAns = selected.value;
+    const ans = answers[qid];
+    
+    // UI Styling Option Card
+    const opts = document.querySelectorAll(`input[name="${qid}"]`);
+    opts.forEach(opt => {
+      const parentLabel = opt.parentElement;
+      parentLabel.style.borderColor = 'var(--navy3)';
+      if (opt.value === ans) parentLabel.style.borderColor = 'var(--green)';
+    });
+
+    if (userAns === ans) correct++;
+    if (fb) {
+      fb.style.display = 'block';
+      fb.className = 'quiz-feedback ' + (userAns === ans ? 'qf-correct' : 'qf-wrong');
+      fb.textContent = explanations[qid];
+    }
+  });
+
+  const scoreEl = document.getElementById('quizScore');
+  const pct     = Math.round(correct / total * 100);
+  const emoji   = pct === 100 ? '🏆' : pct >= 50 ? '👍' : '💪';
+  const msg     = pct === 100 ? '만점! C언어 알고리즘 준비 완료!' : pct >= 50 ? '훌륭합니다! 조금만 더!' : '다시 도전해보세요!';
+  
+  scoreEl.textContent = `${emoji}  ${correct}/${total} 정답 (${pct}점) — ${msg}`;
+  scoreEl.style.cssText = `font-family:var(--font-mono);font-size:15px;font-weight:600;margin-top:16px;color:${pct===100?'var(--green)':'var(--gold)'}` tactics;
+  scoreEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function resetQuiz() {
+  document.querySelectorAll('input[type=radio]').forEach(r => r.checked = false);
+  document.querySelectorAll('.quiz-opt').forEach(o => o.style.borderColor = 'var(--navy3)');
+  document.querySelectorAll('.quiz-feedback').forEach(f => f.style.display = 'none');
+  document.getElementById('quizScore').textContent = '';
+}
+</script>
+</body>
+</html>
