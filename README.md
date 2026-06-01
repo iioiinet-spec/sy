@@ -8,7 +8,11 @@ ym
 
 "알고리즘"
 all
-전체리뷰
+전체리뷰 Python
+
+allc
+전체리뷰 C
+
 allg
 전체 c코드
 
