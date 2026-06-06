@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Monotonic Stack 인터랙티브 강의자료</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:"Malgun Gothic",Arial,sans-serif;background:#f4f7fb;color:#111827;font-size:18px;line-height:1.75}header{background:linear-gradient(135deg,#0f172a,#2563eb);color:white;text-align:center;padding:34px 20px}header h1{margin:0;font-size:34px}main{max-width:1200px;margin:0 auto;padding:24px}section{background:white;border-radius:18px;padding:26px;margin:22px 0;box-shadow:0 8px 24px rgba(15,23,42,.08);border:1px solid #dbe4f0}h2{margin-top:0;color:#1e3a8a;border-left:8px solid #2563eb;padding-left:14px;font-size:28px}h3{font-size:23px}.box{background:#eff6ff;border:2px solid #bfdbfe;padding:18px;border-radius:14px;margin:16px 0}.good{background:#ecfdf5;border-color:#bbf7d0}.formula{background:#111827;color:#f9fafb;padding:16px;border-radius:12px;font-family:Consolas,monospace;white-space:pre-wrap;overflow-x:auto;font-size:17px}pre{background:#0f172a;color:#e5e7eb;padding:18px;border-radius:14px;overflow-x:auto;font-size:16px;line-height:1.55}textarea,button{font-size:17px;padding:10px;border-radius:10px;border:1px solid #94a3b8}textarea{width:100%;min-height:80px;font-family:Consolas,monospace}button{border:none;background:#2563eb;color:white;font-weight:bold;cursor:pointer;margin:6px 4px 6px 0}.smallbtn{background:#475569}table{width:100%;border-collapse:collapse;margin:16px 0;background:white}th,td{border:1px solid #cbd5e1;padding:9px;text-align:center}th{background:#dbeafe}.result{background:#f8fafc;border:1px solid #cbd5e1;padding:16px;border-radius:12px;margin-top:12px;white-space:pre-wrap;font-family:Consolas,monospace;overflow-x:auto}.step{border-left:6px solid #60a5fa;padding:14px 18px;background:#f8fafc;border-radius:12px;margin:15px 0}.array-row,.stack-row{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0}.cell{min-width:78px;padding:10px;border-radius:12px;background:#e0f2fe;border:2px solid #0284c7;text-align:center;font-family:Consolas,monospace;font-weight:bold}.idx{display:block;font-size:13px;color:#475569;font-weight:normal}.current{background:#fef3c7;border-color:#f59e0b}.popped{background:#fee2e2;border-color:#dc2626}.answered{background:#dcfce7;border-color:#16a34a}.stackcell{min-width:86px;padding:10px;border-radius:12px;background:#f8fafc;border:2px solid #64748b;text-align:center;font-family:Consolas,monospace;font-weight:bold}
+</style>
+</head>
+<body>
+<header><h1>Monotonic Stack</h1><p>오른쪽에서 처음 만나는 더 큰 수를 단계별로 이해하는 인터랙티브 강의자료</p></header>
+<main>
+<section><h2>1. Monotonic Stack이란?</h2><p>Monotonic Stack은 스택 안의 값들이 항상 한 방향으로 정리되도록 유지하는 자료구조입니다. 한국어로는 <b>단조 스택</b>이라고 합니다.</p><div class="formula">증가 스택: 작은 값 → 큰 값
+감소 스택: 큰 값 → 작은 값</div><div class="box"><p>주로 다음 문제에서 사용합니다.</p><p>1. 오른쪽에서 처음 만나는 더 큰 수<br>2. 왼쪽에서 처음 만나는 더 큰 수<br>3. 오른쪽에서 처음 만나는 더 작은 수<br>4. 탑 문제<br>5. 막대그래프 최대 직사각형</p></div></section>
+<section><h2>2. 예제 문제</h2><p>N개의 수가 주어질 때, 각 수에 대해 <b>오른쪽에 있으면서 자신보다 큰 수 중 가장 가까운 수</b>를 출력합니다. 없으면 -1을 출력합니다.</p><div class="formula">입력:
+5
+3 5 2 7 4
+
+출력:
+5 7 7 -1 -1</div><table><tr><th>위치</th><th>값</th><th>오른쪽에서 처음 만나는 더 큰 수</th></tr><tr><td>1</td><td>3</td><td>5</td></tr><tr><td>2</td><td>5</td><td>7</td></tr><tr><td>3</td><td>2</td><td>7</td></tr><tr><td>4</td><td>7</td><td>-1</td></tr><tr><td>5</td><td>4</td><td>-1</td></tr></table></section>
+<section><h2>3. 핵심 아이디어</h2><p>왼쪽에서 오른쪽으로 보면서, 아직 답을 찾지 못한 인덱스를 스택에 넣습니다.</p><div class="formula">현재 값 A[i]가 스택 top의 값보다 크다면?
+
+현재 값 A[i]는 stack[top] 위치의 정답이다.
+answer[stack[top]] = A[i]
+pop 한다.</div><div class="good box"><p>스택에 남아 있는 인덱스들은 아직 오른쪽에서 더 큰 값을 찾지 못한 값들입니다.</p></div></section>
+<section><h2>4. 인터랙티브 실험</h2><p>배열을 입력하고 한 단계씩 실행해 보세요. 노란색은 현재 보고 있는 값, 빨간색은 pop된 값, 초록색은 정답이 확정된 값입니다.</p><p><b>배열 입력</b></p><textarea id="arrInput">3 5 2 7 4</textarea><button onclick="resetSim()">초기화</button><button onclick="nextStep()">다음 단계 실행</button><button onclick="runAll()">전체 실행</button><button class="smallbtn" onclick="loadExample(1)">기본 예제</button><button class="smallbtn" onclick="loadExample(2)">내림차순 예제</button><button class="smallbtn" onclick="loadExample(3)">복합 예제</button><h3>배열과 정답 상태</h3><div id="arrayView" class="array-row"></div><h3>현재 스택</h3><div id="stackView" class="stack-row"></div><h3>단계 설명</h3><div id="logView" class="result"></div></section>
+<section><h2>5. 코드 작성 순서</h2><div class="step"><h3>1단계. 배열 선언</h3><pre><code>#define MAXN 200000
+
+int A[MAXN];
+int answer[MAXN];
+int stack[MAXN];</code></pre><p>A는 입력 배열, answer는 정답 배열, stack은 아직 답을 못 찾은 인덱스를 저장합니다.</p></div><div class="step"><h3>2단계. 입력 받기</h3><pre><code>scanf("%d", &N);
+
+for (int i = 0; i &lt; N; i++) {
+    scanf("%d", &A[i]);
+}</code></pre></div><div class="step"><h3>3단계. 정답 배열을 -1로 초기화</h3><pre><code>for (int i = 0; i &lt; N; i++) {
+    answer[i] = -1;
+}</code></pre></div><div class="step"><h3>4단계. 배열로 스택 만들기</h3><pre><code>int top = -1;
+
+stack[++top] = i;  // push
+top--;             // pop
+stack[top];        // top 확인</code></pre></div><div class="step"><h3>5단계. 핵심 while문 작성</h3><pre><code>while (top != -1 && A[stack[top]] &lt; A[i]) {
+    answer[stack[top]] = A[i];
+    top--;
+}</code></pre></div><div class="step"><h3>6단계. 현재 인덱스를 스택에 넣기</h3><pre><code>stack[++top] = i;</code></pre></div></section>
+<section><h2>6. 완성 C 코드</h2><pre><code>#include &lt;stdio.h&gt;
+
+#define MAXN 200000
+
+int A[MAXN];
+int answer[MAXN];
+int stack[MAXN];
+
+int main() {
+    int N;
+
+    scanf("%d", &N);
+
+    for (int i = 0; i &lt; N; i++) {
+        scanf("%d", &A[i]);
+    }
+
+    for (int i = 0; i &lt; N; i++) {
+        answer[i] = -1;
+    }
+
+    int top = -1;
+
+    for (int i = 0; i &lt; N; i++) {
+        while (top != -1 && A[stack[top]] &lt; A[i]) {
+            answer[stack[top]] = A[i];
+            top--;
+        }
+
+        stack[++top] = i;
+    }
+
+    for (int i = 0; i &lt; N; i++) {
+        printf("%d ", answer[i]);
+    }
+
+    return 0;
+}</code></pre></section>
+<section><h2>7. 시간복잡도</h2><p>각 인덱스는 스택에 한 번 들어가고, 한 번 나옵니다.</p><div class="formula">push 최대 N번
+pop 최대 N번
+
+전체 시간복잡도 = O(N)</div></section>
+<section><h2>8. 핵심 정리</h2><div class="formula">1. 스택에는 아직 답을 못 찾은 인덱스를 넣는다.
+2. 현재 값이 스택 top의 값보다 크면 정답을 찾은 것이다.
+3. pop하면서 answer를 채운다.
+4. 현재 인덱스를 push한다.
+5. 끝까지 남은 인덱스의 답은 -1이다.</div></section>
+</main>
+<script>
+let A=[],answer=[],stack=[],i=0,logs="",lastPopped=[];
+function loadExample(num){if(num===1){arrInput.value="3 5 2 7 4";}else if(num===2){arrInput.value="9 7 5 3 1";}else{arrInput.value="4 1 6 2 3 8 5";}resetSim();}
+function parseArray(){return arrInput.value.trim().split(/\s+/).filter(x=>x.length>0).map(Number);}
+function resetSim(){A=parseArray();answer=new Array(A.length).fill(-1);stack=[];i=0;lastPopped=[];logs="초기화 완료\n배열: "+A.join(" ")+"\nanswer: "+answer.join(" ")+"\n";draw();logView.textContent=logs;}
+function nextStep(){if(i>=A.length){logs+="\n모든 원소 처리가 끝났습니다.\n스택에 남은 인덱스들은 오른쪽에 더 큰 수가 없으므로 -1입니다.\n최종 정답: "+answer.join(" ")+"\n";logView.textContent=logs;draw();return;}lastPopped=[];logs="";logs+=(i+1)+"번째 원소 처리\n현재 값 A["+(i+1)+"] = "+A[i]+"\n\n";while(stack.length>0&&A[stack[stack.length-1]]<A[i]){const idx=stack.pop();answer[idx]=A[i];lastPopped.push(idx);logs+="A["+(idx+1)+"] = "+A[idx]+" < "+A[i]+"\n";logs+="따라서 answer["+(idx+1)+"] = "+A[i]+" 로 확정하고 pop\n\n";}stack.push(i);logs+="현재 인덱스 "+(i+1)+"을 stack에 push\n\n";logs+="현재 stack: "+stack.map(x=>(x+1)+"번("+A[x]+")").join(" ")+"\n";logs+="현재 answer: "+answer.join(" ")+"\n";i++;draw();logView.textContent=logs;}
+function runAll(){resetSim();let total="";while(i<A.length){let step="";step+=(i+1)+"번째 원소 "+A[i]+" 처리\n";while(stack.length>0&&A[stack[stack.length-1]]<A[i]){const idx=stack.pop();answer[idx]=A[i];step+="  answer["+(idx+1)+"] = "+A[i]+"\n";}stack.push(i);step+="  push "+(i+1)+"번\n";step+="  answer = "+answer.join(" ")+"\n\n";total+=step;i++;}total+="최종 정답: "+answer.join(" ")+"\n";logs=total;lastPopped=[];draw();logView.textContent=logs;}
+function draw(){let html="";for(let k=0;k<A.length;k++){let cls="cell";if(k===i&&i<A.length)cls+=" current";if(lastPopped.includes(k))cls+=" popped";if(answer[k]!==-1)cls+=" answered";html+=`<div class="${cls}"><span class="idx">${k+1}번</span>값 ${A[k]}<br>답 ${answer[k]}</div>`;}arrayView.innerHTML=html;if(stack.length===0){stackView.innerHTML="<div class='stackcell'>empty</div>";}else{let shtml="";for(let k=0;k<stack.length;k++){const idx=stack[k];shtml+=`<div class="stackcell"><span class="idx">stack[${k}]</span>${idx+1}번<br>값 ${A[idx]}</div>`;}stackView.innerHTML=shtml;}}
+resetSim();
+</script>
+</body>
+</html>
