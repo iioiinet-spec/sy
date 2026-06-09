@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>정올 1328 빌딩 - 인터랙티브 강의자료</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+    :root{
+        --bg:#f8fafc;
+        --card:#ffffff;
+        --ink:#102033;
+        --muted:#526579;
+        --line:#d8e2ee;
+        --blue:#2563eb;
+        --green:#059669;
+        --orange:#d97706;
+        --red:#dc2626;
+        --soft:#eef4ff;
+        --code:#111827;
+    }
+    *{box-sizing:border-box}
+    body{
+        margin:0;
+        font-family:"Malgun Gothic","Apple SD Gothic Neo",Arial,sans-serif;
+        background:var(--bg);
+        color:var(--ink);
+        font-size:20px;
+        line-height:1.75;
+    }
+    header{
+        background:linear-gradient(135deg,#ffffff,#eaf1ff);
+        border-bottom:5px solid var(--blue);
+        padding:34px 22px;
+    }
+    .wrap{max-width:1180px;margin:0 auto;padding:22px}
+    h1{font-size:42px;margin:0 0 10px;color:#0b1b38}
+    h2{font-size:34px;margin:34px 0 16px;border-left:10px solid var(--blue);padding-left:14px}
+    h3{font-size:26px;margin:24px 0 10px;color:#17356d}
+    .lead{font-size:23px;color:#233b57}
+    .card{
+        background:var(--card);
+        border:2px solid var(--line);
+        border-radius:18px;
+        padding:24px;
+        margin:20px 0;
+        box-shadow:0 8px 20px rgba(20,40,80,.06);
+    }
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+    @media(max-width:900px){.grid{grid-template-columns:1fr} h1{font-size:34px} body{font-size:18px}}
+    .pill{
+        display:inline-block;
+        background:#e8f2ff;
+        color:#123a7a;
+        border:1px solid #bcd3ff;
+        border-radius:999px;
+        padding:4px 12px;
+        margin:3px;
+        font-weight:700;
+    }
+    table{width:100%;border-collapse:collapse;background:#fff;margin:14px 0}
+    th,td{border:2px solid var(--line);padding:10px;text-align:center}
+    th{background:#eaf1ff;color:#0b2c69}
+    pre{
+        background:var(--code);
+        color:#f8fafc;
+        padding:18px;
+        border-radius:14px;
+        overflow:auto;
+        font-size:16px;
+        line-height:1.55;
+        border:4px solid #2b3445;
+    }
+    code{font-family:Consolas,Menlo,monospace}
+    input,textarea{
+        width:100%;
+        font-size:20px;
+        padding:12px;
+        border:2px solid var(--line);
+        border-radius:12px;
+        margin:6px 0 12px;
+        font-family:Consolas,"Malgun Gothic",monospace;
+    }
+    textarea{min-height:110px}
+    button{
+        font-size:18px;
+        padding:10px 16px;
+        border-radius:12px;
+        border:2px solid #1d4ed8;
+        background:#2563eb;
+        color:white;
+        cursor:pointer;
+        font-weight:800;
+        margin:4px;
+    }
+    button.secondary{background:#fff;color:#1d4ed8}
+    button.good{background:#059669;border-color:#047857}
+    button.warn{background:#d97706;border-color:#b45309}
+    .note{background:#ecfdf5;border-left:8px solid var(--green);padding:14px;border-radius:12px}
+    .warnbox{background:#fffbeb;border-left:8px solid var(--orange);padding:14px;border-radius:12px}
+    .result{
+        background:#fff7ed;
+        border:2px solid #fed7aa;
+        padding:14px;
+        border-radius:14px;
+        white-space:pre-wrap;
+        min-height:90px;
+        font-family:Consolas,"Malgun Gothic",monospace;
+    }
+    .city{
+        min-height:260px;
+        border:2px solid var(--line);
+        border-radius:16px;
+        background:#ffffff;
+        display:flex;
+        align-items:flex-end;
+        gap:10px;
+        padding:20px;
+        overflow-x:auto;
+    }
+    .building{
+        width:58px;
+        min-width:58px;
+        background:#bfdbfe;
+        border:3px solid #2563eb;
+        border-radius:10px 10px 0 0;
+        display:flex;
+        align-items:flex-start;
+        justify-content:center;
+        font-weight:900;
+        color:#0f172a;
+        position:relative;
+        padding-top:6px;
+    }
+    .building.current{background:#fde68a;border-color:#d97706}
+    .building.answer{background:#bbf7d0;border-color:#059669}
+    .building.removed{background:#fecaca;border-color:#dc2626}
+    .bnum{
+        position:absolute;
+        bottom:-34px;
+        left:0;
+        right:0;
+        text-align:center;
+        font-size:17px;
+        color:#334155;
+    }
+    .stackView{
+        min-height:160px;
+        border:4px solid #334155;
+        border-top:0;
+        background:#fefefe;
+        display:flex;
+        flex-direction:column-reverse;
+        align-items:center;
+        justify-content:flex-start;
+        padding:10px;
+        border-radius:0 0 18px 18px;
+    }
+    .stackItem{
+        width:92%;
+        text-align:center;
+        padding:8px;
+        margin:5px;
+        border-radius:10px;
+        background:#dbeafe;
+        border:2px solid #2563eb;
+        font-weight:900;
+    }
+    .quiz{
+        border:2px dashed #94a3b8;
+        padding:15px;
+        border-radius:14px;
+        background:#f8fafc;
+        margin-top:14px;
+    }
+    .answerBox{display:none;background:#f0fdf4;border:2px solid #86efac;padding:12px;border-radius:10px;margin-top:10px}
+    .footer{margin-top:40px;padding:30px;text-align:center;color:#4b5563}
+</style>
+</head>
+<body>
+<header>
+<div class="wrap">
+    <h1>정올 1328 빌딩</h1>
+    <p class="lead">오른쪽에 있는 더 높은 빌딩 중 가장 가까운 빌딩을 찾는 문제입니다. 핵심 알고리즘은 <b>오큰수 + 모노톤 스택</b>입니다.</p>
+    <span class="pill">스택</span>
+    <span class="pill">모노톤 스택</span>
+    <span class="pill">오큰수</span>
+    <span class="pill">O(N)</span>
+    <span class="pill">C언어</span>
+</div>
+</header>
+
+<div class="wrap">
+
+<section class="card">
+    <h2>1. 문제 이해</h2>
+    <p>N개의 빌딩이 왼쪽부터 1번, 2번, 3번, ..., N번까지 있습니다.</p>
+    <p>i번 빌딩에서 j번 빌딩을 볼 수 있으려면 다음 조건을 만족해야 합니다.</p>
+    <div class="note">
+        1. j는 i보다 오른쪽에 있어야 합니다. 즉, <b>i &lt; j</b><br>
+        2. j번 빌딩이 i번 빌딩보다 높아야 합니다. 즉, <b>H[i] &lt; H[j]</b>
+    </div>
+    <p>각 빌딩마다 오른쪽에 있는 더 높은 빌딩 중 <b>가장 가까운 번호</b>를 출력합니다.</p>
+</section>
+
+<section class="card">
+    <h2>2. 예제 설명</h2>
+    <p>예제 높이:</p>
+    <pre><code>번호: 1 2 3 4 5 6
+높이: 3 2 6 1 1 2</code></pre>
+    <table>
+        <tr><th>빌딩</th><th>높이</th><th>오른쪽에서 가장 가까운 더 높은 빌딩</th></tr>
+        <tr><td>1번</td><td>3</td><td>3번</td></tr>
+        <tr><td>2번</td><td>2</td><td>3번</td></tr>
+        <tr><td>3번</td><td>6</td><td>없음 → 0</td></tr>
+        <tr><td>4번</td><td>1</td><td>6번</td></tr>
+        <tr><td>5번</td><td>1</td><td>6번</td></tr>
+        <tr><td>6번</td><td>2</td><td>없음 → 0</td></tr>
+    </table>
+</section>
+
+<section class="card">
+    <h2>3. 왜 스택을 써야 할까?</h2>
+    <p>모든 빌딩마다 오른쪽을 끝까지 찾으면 너무 느립니다.</p>
+    <p>N이 100,000일 때 O(N²)은 시간 초과가 납니다.</p>
+    <div class="warnbox">
+        이 문제는 각 빌딩이 스택에 한 번 들어가고, 한 번만 나오게 만들면 <b>O(N)</b>에 풀 수 있습니다.
+    </div>
+</section>
+
+<section class="card">
+    <h2>4. 핵심 아이디어</h2>
+    <p>오른쪽에서 왼쪽으로 확인합니다.</p>
+    <p>현재 빌딩보다 <b>작거나 같은 빌딩</b>은 현재 빌딩이 볼 수 없습니다.</p>
+    <p>그래서 스택 맨 위에서부터 현재 빌딩보다 작거나 같은 빌딩을 제거합니다.</p>
+    <pre><code>while (스택이 비어 있지 않고, 스택 맨 위 빌딩 높이 <= 현재 빌딩 높이) {
+    pop;
+}</code></pre>
+    <p>제거가 끝난 뒤 스택 맨 위에 남아 있는 빌딩이 바로 정답입니다.</p>
+</section>
+
+<section class="card">
+    <h2>5. 인터랙티브 시뮬레이터</h2>
+    <div class="grid">
+        <div>
+            <h3>입력</h3>
+            <label>빌딩 높이들을 공백으로 입력</label>
+            <textarea id="heightInput">3 2 6 1 1 2</textarea>
+            <button class="good" onclick="prepare()">초기화 / 계산 준비</button>
+            <button onclick="step()">한 단계 진행</button>
+            <button class="secondary" onclick="runAll()">끝까지 실행</button>
+        </div>
+        <div>
+            <h3>현재 스택</h3>
+            <div class="stackView" id="stackView"></div>
+        </div>
+    </div>
+    <h3>빌딩 그림</h3>
+    <div class="city" id="city"></div>
+    <h3>진행 로그</h3>
+    <div class="result" id="simLog">초기화 / 계산 준비 버튼을 눌러보세요.</div>
+</section>
+
+<section class="card">
+    <h2>6. 직접 정답 계산기</h2>
+    <p>높이를 입력하고 정답을 바로 확인할 수 있습니다.</p>
+    <textarea id="solveInput">3 2 6 1 1 2</textarea>
+    <button class="good" onclick="solveNow()">정답 구하기</button>
+    <div class="result" id="solveResult"></div>
+</section>
+
+<section class="card">
+    <h2>7. 알고리즘 정리</h2>
+    <p>1. 빌딩 높이를 배열 H에 저장합니다.</p>
+    <p>2. 오른쪽에서 왼쪽으로 i를 이동합니다.</p>
+    <p>3. 스택에는 빌딩 번호를 저장합니다.</p>
+    <p>4. 현재 빌딩보다 작거나 같은 빌딩은 pop합니다.</p>
+    <p>5. pop이 끝난 뒤 스택이 비어 있으면 정답은 0입니다.</p>
+    <p>6. 스택이 비어 있지 않으면 스택 맨 위 번호가 정답입니다.</p>
+    <p>7. 현재 빌딩 번호를 스택에 push합니다.</p>
+</section>
+
+<section class="card">
+    <h2>8. 정답 C 코드</h2>
+<pre><code>#include &lt;stdio.h&gt;
+
+#define MAXN 100005
+
+int N;
+int H[MAXN];
+int answer[MAXN];
+
+int stack[MAXN];
+int top = -1;
+
+int main() {
+    scanf("%d", &N);
+
+    for (int i = 1; i &lt;= N; i++) {
+        scanf("%d", &H[i]);
+    }
+
+    for (int i = N; i &gt;= 1; i--) {
+        while (top != -1 && H[stack[top]] &lt;= H[i]) {
+            top--;
+        }
+
+        if (top == -1) {
+            answer[i] = 0;
+        } else {
+            answer[i] = stack[top];
+        }
+
+        stack[++top] = i;
+    }
+
+    for (int i = 1; i &lt;= N; i++) {
+        printf("%d\\n", answer[i]);
+    }
+
+    return 0;
+}</code></pre>
+</section>
+
+<section class="card">
+    <h2>9. 코드 자세한 설명</h2>
+
+    <h3>1. 배열 준비</h3>
+<pre><code>int H[MAXN];
+int answer[MAXN];
+int stack[MAXN];</code></pre>
+    <p>1. H[i]는 i번 빌딩의 높이입니다.</p>
+    <p>2. answer[i]는 i번 빌딩에서 보이는 가장 가까운 빌딩 번호입니다.</p>
+    <p>3. stack에는 후보 빌딩의 번호를 저장합니다.</p>
+
+    <h3>2. 오른쪽부터 보기</h3>
+<pre><code>for (int i = N; i &gt;= 1; i--)</code></pre>
+    <p>오른쪽에 있는 빌딩 중 가장 가까운 높은 빌딩을 찾아야 하므로 오른쪽부터 확인합니다.</p>
+
+    <h3>3. 필요 없는 빌딩 제거</h3>
+<pre><code>while (top != -1 && H[stack[top]] &lt;= H[i]) {
+    top--;
+}</code></pre>
+    <p>현재 빌딩보다 낮거나 같은 빌딩은 현재 빌딩이 볼 수 없습니다.</p>
+    <p>그래서 스택에서 제거합니다.</p>
+
+    <h3>4. 정답 저장</h3>
+<pre><code>if (top == -1) {
+    answer[i] = 0;
+} else {
+    answer[i] = stack[top];
+}</code></pre>
+    <p>스택이 비어 있으면 오른쪽에 더 높은 빌딩이 없습니다.</p>
+    <p>스택이 비어 있지 않으면 맨 위 빌딩이 가장 가까운 더 높은 빌딩입니다.</p>
+
+    <h3>5. 현재 빌딩 push</h3>
+<pre><code>stack[++top] = i;</code></pre>
+    <p>현재 빌딩도 왼쪽에 있는 빌딩들에게는 후보가 될 수 있으므로 스택에 넣습니다.</p>
+</section>
+
+<section class="card">
+    <h2>10. 미니 퀴즈</h2>
+    <div class="quiz">
+        <h3>문제 1</h3>
+        <p>이 문제는 어떤 대표 알고리즘 유형일까요?</p>
+        <button onclick="showAns('a1')">정답 보기</button>
+        <div class="answerBox" id="a1">정답: 오큰수 또는 Next Greater Element 유형입니다.</div>
+    </div>
+    <div class="quiz">
+        <h3>문제 2</h3>
+        <p>현재 빌딩보다 작거나 같은 빌딩을 pop하는 이유는 무엇일까요?</p>
+        <button onclick="showAns('a2')">정답 보기</button>
+        <div class="answerBox" id="a2">정답: 현재 빌딩이 그 빌딩들을 볼 수 없고, 왼쪽 빌딩 입장에서도 현재 빌딩이 더 가까운 후보가 되기 때문입니다.</div>
+    </div>
+    <div class="quiz">
+        <h3>문제 3</h3>
+        <p>이 풀이의 시간복잡도는 얼마일까요?</p>
+        <button onclick="showAns('a3')">정답 보기</button>
+        <div class="answerBox" id="a3">정답: O(N)입니다. 각 빌딩은 스택에 한 번 들어가고 한 번 나옵니다.</div>
+    </div>
+</section>
+
+<div class="footer">
+    세영코딩연구소 | Jungol 1328 Building Interactive Lesson
+</div>
+
+</div>
+
+<script>
+let arr = [];
+let ans = [];
+let st = [];
+let idx = 0;
+let logText = "";
+let maxH = 1;
+let lastRemoved = [];
+let lastAnswer = 0;
+
+function parseHeights(id){
+    return document.getElementById(id).value.trim().split(/\s+/).map(Number).filter(x => !isNaN(x));
+}
+
+function drawCity(current=-1, answer=-1, removed=[]){
+    const city = document.getElementById("city");
+    city.innerHTML = "";
+    maxH = Math.max(...arr, 1);
+    arr.forEach((h, k)=>{
+        const num = k + 1;
+        const div = document.createElement("div");
+        div.className = "building";
+        if(num === current) div.classList.add("current");
+        if(num === answer) div.classList.add("answer");
+        if(removed.includes(num)) div.classList.add("removed");
+        div.style.height = (60 + h / maxH * 170) + "px";
+        div.innerHTML = h + "<div class='bnum'>" + num + "번</div>";
+        city.appendChild(div);
+    });
+}
+
+function drawStack(){
+    const view = document.getElementById("stackView");
+    view.innerHTML = "";
+    st.forEach(num=>{
+        const d = document.createElement("div");
+        d.className = "stackItem";
+        d.textContent = num + "번 / 높이 " + arr[num-1];
+        view.appendChild(d);
+    });
+}
+
+function prepare(){
+    arr = parseHeights("heightInput");
+    ans = Array(arr.length + 1).fill(0);
+    st = [];
+    idx = arr.length;
+    logText = "오른쪽 끝 빌딩부터 왼쪽으로 진행합니다.\\n";
+    lastRemoved = [];
+    lastAnswer = 0;
+    drawCity();
+    drawStack();
+    document.getElementById("simLog").textContent = logText;
+}
+
+function step(){
+    if(arr.length === 0) prepare();
+    if(idx <= 0){
+        document.getElementById("simLog").textContent = logText + "\\n모든 계산이 끝났습니다.\\n정답: " + ans.slice(1).join(" ");
+        return;
+    }
+
+    let h = arr[idx-1];
+    lastRemoved = [];
+    logText += "\\n[" + idx + "번 빌딩, 높이 " + h + "] 확인\\n";
+
+    while(st.length && arr[st[st.length-1]-1] <= h){
+        let popNum = st.pop();
+        lastRemoved.push(popNum);
+        logText += "  " + popNum + "번 빌딩 높이 " + arr[popNum-1] + " <= 현재 높이 " + h + " 이므로 pop\\n";
+    }
+
+    if(st.length === 0){
+        ans[idx] = 0;
+        lastAnswer = 0;
+        logText += "  스택이 비었습니다. 정답은 0\\n";
+    }else{
+        ans[idx] = st[st.length-1];
+        lastAnswer = ans[idx];
+        logText += "  스택 맨 위 " + ans[idx] + "번이 가장 가까운 더 높은 빌딩입니다.\\n";
+    }
+
+    st.push(idx);
+    logText += "  " + idx + "번 빌딩을 push\\n";
+    logText += "  현재까지 정답: " + ans.slice(1).map(x=>x===undefined?0:x).join(" ") + "\\n";
+
+    drawCity(idx, lastAnswer, lastRemoved);
+    drawStack();
+    document.getElementById("simLog").textContent = logText;
+    idx--;
+}
+
+function runAll(){
+    if(arr.length === 0) prepare();
+    while(idx > 0) step();
+}
+
+function solveNow(){
+    const a = parseHeights("solveInput");
+    const s = [];
+    const answer = Array(a.length).fill(0);
+    let detail = "";
+    for(let i=a.length-1;i>=0;i--){
+        while(s.length && a[s[s.length-1]] <= a[i]){
+            s.pop();
+        }
+        answer[i] = s.length ? s[s.length-1] + 1 : 0;
+        s.push(i);
+    }
+    detail += "입력 높이: " + a.join(" ") + "\\n";
+    detail += "정답 번호: " + answer.join(" ") + "\\n\\n";
+    detail += "줄별 출력:\\n" + answer.join("\\n");
+    document.getElementById("solveResult").textContent = detail;
+}
+
+function showAns(id){
+    const el = document.getElementById(id);
+    el.style.display = el.style.display === "block" ? "none" : "block";
+}
+
+prepare();
+solveNow();
+</script>
+</body>
+</html>
