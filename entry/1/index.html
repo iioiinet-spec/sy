@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🐾 엔트리 펫 키우기 & 미니게임 코딩 — 인터랙티브 강의자료</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Jua&family=Gaegu:wght@400;700&family=Noto+Sans+KR:wght@400;500;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#161A3A;
+  --navy-2:#20265A;
+  --panel:#252C64;
+  --cream:#FFF7EA;
+  --coral:#FF6F6F;
+  --coral-dim:#7A3B44;
+  --mint:#4FE0C6;
+  --mint-dim:#1F5F55;
+  --gold:#FFC93C;
+  --gold-dim:#7A611C;
+  --lav:#B79CFF;
+  --lav-dim:#4A3B7A;
+  --ink:#EFEBFF;
+  --sub:#A9A6D6;
+  --line:rgba(255,255,255,0.09);
+
+  --c-start:#FF9F3F;
+  --c-flow:#3FC1FF;
+  --c-move:#4C6FFF;
+  --c-look:#B36BFF;
+  --c-judge:#5BD65B;
+  --c-data:#FF6F3F;
+  --c-sound:#FF6FAE;
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  background:
+    radial-gradient(ellipse at 15% -10%, #2A3170 0%, transparent 55%),
+    radial-gradient(ellipse at 90% 0%, #3A1F5A 0%, transparent 45%),
+    var(--navy);
+  color:var(--ink);
+  font-family:'Noto Sans KR', sans-serif;
+  line-height:1.65;
+}
+h1,h2,h3,.display{font-family:'Jua', sans-serif; font-weight:400; letter-spacing:0.5px;}
+.mono{font-family:'Space Mono', monospace;}
+::selection{background:var(--gold); color:var(--navy);}
+
+/* ---------- NAV ---------- */
+nav{
+  position:sticky; top:0; z-index:50;
+  display:flex; gap:4px; align-items:center;
+  padding:12px 20px;
+  background:rgba(22,26,58,0.85);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);
+  overflow-x:auto;
+}
+nav .brand{font-family:'Jua'; font-size:1.05rem; color:var(--gold); margin-right:14px; white-space:nowrap;}
+nav a{
+  color:var(--sub); text-decoration:none; font-size:0.85rem; font-weight:500;
+  padding:8px 12px; border-radius:20px; white-space:nowrap; transition:all .2s;
+}
+nav a:hover{background:var(--panel); color:var(--ink);}
+
+/* ---------- HERO ---------- */
+.hero{
+  max-width:1100px; margin:0 auto; padding:64px 24px 40px;
+  display:grid; grid-template-columns:1.1fr 0.9fr; gap:40px; align-items:center;
+}
+.eyebrow{
+  display:inline-flex; align-items:center; gap:8px;
+  font-family:'Space Mono'; font-size:0.72rem; letter-spacing:2px;
+  color:var(--mint); text-transform:uppercase; margin-bottom:14px;
+}
+.eyebrow::before{content:"●"; color:var(--coral); animation:blink 1.4s infinite;}
+@keyframes blink{50%{opacity:0.2;}}
+.hero h1{font-size:2.6rem; line-height:1.25; margin:0 0 14px; color:var(--ink);}
+.hero h1 span{color:var(--gold);}
+.hero p{color:var(--sub); font-size:1rem; max-width:46ch;}
+.hero-tags{display:flex; flex-wrap:wrap; gap:8px; margin-top:20px;}
+.tag{
+  font-family:'Space Mono'; font-size:0.72rem; padding:5px 10px; border-radius:8px;
+  border:1px solid var(--line); color:var(--sub);
+}
+
+/* mini hud preview in hero */
+.hud-card{
+  background:var(--panel); border:1px solid var(--line); border-radius:22px;
+  padding:22px; box-shadow:0 30px 60px -20px rgba(0,0,0,0.6);
+}
+.hud-pet{text-align:center; font-size:3.4rem; margin-bottom:6px;
+  filter:drop-shadow(0 8px 14px rgba(0,0,0,0.4));}
+.hud-bar-row{display:flex; align-items:center; gap:10px; margin:9px 0;}
+.hud-bar-row .ic{width:22px; text-align:center;}
+.hud-bar-row .label{font-size:0.72rem; color:var(--sub); width:44px;}
+.bar-track{flex:1; height:10px; border-radius:6px; background:rgba(255,255,255,0.08); overflow:hidden;}
+.bar-fill{height:100%; border-radius:6px; transition:width .5s ease;}
+.hud-bar-row .val{font-family:'Space Mono'; font-size:0.72rem; width:28px; text-align:right; color:var(--sub);}
+
+/* ---------- SECTION shell ---------- */
+section{max-width:1100px; margin:0 auto; padding:70px 24px;}
+.sec-head{margin-bottom:34px;}
+.sec-num{font-family:'Space Mono'; color:var(--sub); font-size:0.78rem; letter-spacing:2px;}
+.sec-head h2{font-size:1.9rem; margin:6px 0 8px; color:var(--ink);}
+.sec-head p{color:var(--sub); max-width:64ch; margin:0;}
+hr.div{border:none; border-top:1px solid var(--line); margin:0;}
+
+/* ---------- overview cards ---------- */
+.goal-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:10px;}
+.goal-card{
+  background:var(--panel); border:1px solid var(--line); border-radius:16px; padding:20px;
+}
+.goal-card .n{font-family:'Jua'; color:var(--gold); font-size:1.3rem;}
+.goal-card h4{margin:8px 0 6px; font-size:1rem;}
+.goal-card p{color:var(--sub); font-size:0.86rem; margin:0;}
+
+/* ---------- variable / signal chips ---------- */
+.chipwrap{display:flex; flex-wrap:wrap; gap:10px; margin-top:16px;}
+.chip{
+  display:flex; align-items:center; gap:8px;
+  padding:10px 14px; border-radius:12px; font-size:0.86rem;
+  border:1px solid var(--line);
+}
+.chip .dot{width:9px; height:9px; border-radius:50%;}
+.chip.var{background:rgba(255,201,60,0.08);}
+.chip.var .dot{background:var(--gold);}
+.chip.sig{background:rgba(79,224,198,0.08);}
+.chip.sig .dot{background:var(--mint);}
+.chip small{color:var(--sub); font-family:'Space Mono'; font-size:0.7rem;}
+
+/* ---------- object block ---------- */
+.obj{
+  background:linear-gradient(180deg, var(--panel), var(--navy-2));
+  border:1px solid var(--line); border-radius:22px; padding:26px 26px 30px; margin-bottom:26px;
+  position:relative; overflow:hidden;
+}
+.obj::before{content:""; position:absolute; top:-40px; right:-40px; width:160px; height:160px;
+  background:radial-gradient(circle, rgba(183,156,255,0.16), transparent 70%);}
+.obj-head{display:flex; align-items:center; gap:14px; margin-bottom:18px;}
+.obj-emoji{font-size:1.9rem;}
+.obj-head h3{margin:0; font-size:1.25rem;}
+.obj-head .obj-sub{color:var(--sub); font-size:0.82rem; margin-top:2px;}
+
+.blockset{background:rgba(0,0,0,0.18); border-radius:14px; padding:16px; margin:14px 0;}
+.blockset .set-title{font-family:'Space Mono'; font-size:0.72rem; color:var(--sub); margin-bottom:10px; letter-spacing:1px;}
+
+.eblock{
+  position:relative; margin:5px 0 5px 0; padding:9px 14px 9px 24px;
+  border-radius:9px; font-size:0.84rem; color:#1a1a1a; font-weight:500;
+  box-shadow:inset 0 -3px 0 rgba(0,0,0,0.18);
+}
+.eblock::before{
+  content:""; position:absolute; left:8px; top:50%; transform:translateY(-50%);
+  width:8px; height:8px; border-radius:50%; background:rgba(0,0,0,0.28);
+}
+.eblock .cat{font-family:'Space Mono'; font-size:0.65rem; opacity:0.65; margin-right:6px;}
+.eblock b{font-weight:700;}
+.eblock .rem{color:rgba(0,0,0,0.55); font-size:0.76rem; margin-left:6px;}
+.indent1{margin-left:22px;}
+.indent2{margin-left:44px;}
+.branch-label{
+  font-family:'Space Mono'; font-size:0.68rem; color:var(--sub); margin:6px 0 2px 22px;
+}
+
+.cat-start{background:var(--c-start);}
+.cat-flow{background:var(--c-flow);}
+.cat-move{background:var(--c-move); color:#fff;}
+.cat-look{background:var(--c-look); color:#fff;}
+.cat-judge{background:var(--c-judge);}
+.cat-data{background:var(--c-data); color:#fff;}
+.cat-sound{background:var(--c-sound);}
+
+.callout{
+  display:flex; gap:12px; align-items:flex-start; margin-top:16px;
+  background:rgba(255,201,60,0.07); border:1px solid rgba(255,201,60,0.25);
+  border-radius:12px; padding:14px 16px;
+}
+.callout .ic{font-size:1.2rem;}
+.callout p{margin:0; font-size:0.85rem; color:var(--ink); opacity:0.92;}
+.callout b{color:var(--gold);}
+
+/* ---------- LIVE SIM ---------- */
+.simwrap{
+  background:linear-gradient(160deg, #1C2350, #12163A);
+  border:1px solid var(--line); border-radius:24px; padding:26px;
+  display:grid; grid-template-columns:280px 1fr; gap:26px;
+}
+@media(max-width:820px){.simwrap{grid-template-columns:1fr;}}
+.sim-pet-panel{background:rgba(0,0,0,0.2); border-radius:18px; padding:20px; text-align:center;}
+.sim-pet{font-size:4.6rem; transition:transform .2s;}
+.sim-speech{
+  min-height:28px; font-size:0.82rem; color:var(--gold); font-family:'Gaegu';
+  margin:6px 0 14px;
+}
+.sim-btn{
+  width:100%; padding:11px; margin:6px 0; border:none; border-radius:12px;
+  font-family:'Noto Sans KR'; font-weight:700; font-size:0.86rem; cursor:pointer;
+  transition:transform .15s, filter .15s;
+}
+.sim-btn:active{transform:scale(0.96);}
+.sim-btn:hover{filter:brightness(1.1);}
+.sim-btn.feed{background:var(--gold); color:#3a2e05;}
+.sim-btn.wash{background:var(--mint); color:#053b32;}
+.sim-btn.play{background:var(--coral); color:#3a0808;}
+.sim-btn:disabled{opacity:0.4; cursor:not-allowed;}
+
+.sim-stage{
+  position:relative; background:radial-gradient(ellipse at 50% 0%, #263071, #0F1230 80%);
+  border-radius:18px; overflow:hidden; min-height:420px;
+}
+.stage-hud{display:flex; justify-content:space-between; padding:12px 16px; font-family:'Space Mono'; font-size:0.72rem; color:var(--sub);}
+.basket{
+  position:absolute; bottom:14px; width:64px; height:38px;
+  background:linear-gradient(180deg,#8B5A2B,#6B4423); border-radius:0 0 16px 16px;
+  border-top:5px solid #A9724A;
+  transform:translateX(-50%);
+}
+.apple{
+  position:absolute; font-size:1.6rem; transform:translate(-50%,-50%);
+  filter:drop-shadow(0 4px 6px rgba(0,0,0,0.35));
+}
+.sim-overlay{
+  position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center;
+  background:rgba(10,12,32,0.72); backdrop-filter:blur(3px); text-align:center; padding:20px;
+}
+.sim-overlay h4{font-family:'Jua'; font-size:1.4rem; margin:0 0 6px; color:var(--gold);}
+.sim-overlay p{color:var(--sub); font-size:0.86rem; margin:0 0 16px;}
+.confetti{position:absolute; top:-10px; font-size:1.1rem; animation:fall 2.4s linear forwards;}
+@keyframes fall{to{transform:translateY(440px) rotate(360deg); opacity:0;}}
+.toggle-row{display:flex; align-items:center; gap:8px; margin-top:14px; font-size:0.78rem; color:var(--sub);}
+.toggle-row input{accent-color:var(--coral);}
+
+/* ---------- MISSIONS ---------- */
+.mission{
+  border:1px solid var(--line); border-radius:18px; padding:22px; margin-bottom:18px;
+  background:var(--panel);
+  display:grid; grid-template-columns:64px 1fr; gap:16px;
+}
+.mission .mnum{
+  width:44px; height:44px; border-radius:12px; display:flex; align-items:center; justify-content:center;
+  background:rgba(183,156,255,0.15); color:var(--lav); font-family:'Space Mono'; font-weight:700;
+}
+.mission h4{margin:0 0 6px; font-size:1.02rem;}
+.mission p{margin:0 0 10px; color:var(--sub); font-size:0.86rem;}
+.mission .hint{
+  font-family:'Space Mono'; font-size:0.74rem; color:var(--mint); cursor:pointer; display:inline-block;
+}
+.mission .hintbody{
+  display:none; margin-top:10px; background:rgba(0,0,0,0.2); border-radius:10px; padding:12px 14px;
+}
+.mission.open .hintbody{display:block;}
+.diff-tag{
+  font-family:'Space Mono'; font-size:0.65rem; padding:3px 8px; border-radius:6px; margin-left:8px;
+}
+.diff-easy{background:rgba(91,214,91,0.18); color:#5BD65B;}
+.diff-mid{background:rgba(255,201,60,0.18); color:var(--gold);}
+.diff-hard{background:rgba(255,111,111,0.18); color:var(--coral);}
+
+/* ---------- QUIZ ---------- */
+.quiz-card{
+  border:1px solid var(--line); border-radius:16px; padding:20px; margin-bottom:16px; background:var(--panel);
+}
+.quiz-q{font-weight:700; margin-bottom:12px; font-size:0.95rem;}
+.quiz-opts{display:grid; gap:8px;}
+.quiz-opt{
+  text-align:left; padding:10px 14px; border-radius:10px; border:1px solid var(--line);
+  background:rgba(255,255,255,0.03); color:var(--ink); cursor:pointer; font-size:0.85rem;
+  font-family:'Noto Sans KR'; transition:all .15s;
+}
+.quiz-opt:hover{background:rgba(255,255,255,0.07);}
+.quiz-opt.correct{background:rgba(91,214,91,0.22); border-color:#5BD65B;}
+.quiz-opt.wrong{background:rgba(255,111,111,0.22); border-color:var(--coral);}
+.quiz-fb{margin-top:10px; font-size:0.82rem; color:var(--sub); display:none;}
+.quiz-fb.show{display:block;}
+
+footer{text-align:center; padding:50px 20px 70px; color:var(--sub); font-size:0.8rem;}
+footer .paw{font-size:1.4rem; margin-bottom:8px;}
+
+@media(max-width:760px){
+  .hero{grid-template-columns:1fr;}
+  .goal-grid{grid-template-columns:1fr;}
+  .mission{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="brand">🐾 엔트리 펫 키우기</span>
+  <a href="#overview">개요</a>
+  <a href="#setup">변수·신호</a>
+  <a href="#objects">오브젝트 코드</a>
+  <a href="#sim">라이브 시뮬레이터</a>
+  <a href="#missions">확장 미션</a>
+  <a href="#quiz">퀴즈</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div>
+    <div class="eyebrow">엔트리 · 신호와 변수 · 복제본 실습</div>
+    <h1>내가 만드는 <span>펫 키우기</span> &<br>사과 받기 미니게임</h1>
+    <p>친밀도·배부름·청결도·골드, 네 가지 변수로 살아 숨쉬는 펫을 만들고, 신호로 오브젝트들이 서로 대화하게 만들어봐요. 아래 시뮬레이터에서 완성된 게임을 먼저 체험한 뒤, 블록을 하나씩 뜯어보며 직접 만들어봅니다.</p>
+    <div class="hero-tags">
+      <span class="tag">#변수 6개</span>
+      <span class="tag">#신호 5개</span>
+      <span class="tag">#복제본</span>
+      <span class="tag">#조건문</span>
+      <span class="tag">#오브젝트 5개</span>
+    </div>
+  </div>
+  <div class="hud-card">
+    <div class="hud-pet">🐶</div>
+    <div class="hud-bar-row"><span class="ic">❤️</span><span class="label">친밀도</span>
+      <div class="bar-track"><div class="bar-fill" style="width:62%; background:var(--coral);"></div></div><span class="val">62</span></div>
+    <div class="hud-bar-row"><span class="ic">🍖</span><span class="label">배부름</span>
+      <div class="bar-track"><div class="bar-fill" style="width:44%; background:var(--gold);"></div></div><span class="val">44</span></div>
+    <div class="hud-bar-row"><span class="ic">🧼</span><span class="label">청결도</span>
+      <div class="bar-track"><div class="bar-fill" style="width:78%; background:var(--mint);"></div></div><span class="val">78</span></div>
+    <div class="hud-bar-row"><span class="ic">🪙</span><span class="label">골드</span>
+      <div class="bar-track"><div class="bar-fill" style="width:33%; background:var(--lav);"></div></div><span class="val">130</span></div>
+  </div>
+</div>
+
+<!-- OVERVIEW -->
+<section id="overview">
+  <div class="sec-head">
+    <div class="sec-num">00 / OVERVIEW</div>
+    <h2>이 실습에서 배우는 것</h2>
+    <p>하나의 게임을 다섯 개 오브젝트가 나눠서 만듭니다. 각 오브젝트는 독립적으로 움직이지만, <b style="color:var(--mint)">변수</b>로 상태를 공유하고 <b style="color:var(--gold)">신호</b>로 서로에게 "지금이야!"를 알려주며 협력해요.</p>
+  </div>
+  <div class="goal-grid">
+    <div class="goal-card"><div class="n">01</div><h4>변수로 상태 관리하기</h4><p>친밀도·배부름·청결도·골드처럼 시간에 따라 변하는 값을 변수에 저장하고 화면에 보여줍니다.</p></div>
+    <div class="goal-card"><div class="n">02</div><h4>신호로 오브젝트 연결하기</h4><p>버튼을 눌렀을 때 펫이 반응하도록, 서로 다른 오브젝트끼리 신호를 주고받는 구조를 익힙니다.</p></div>
+    <div class="goal-card"><div class="n">03</div><h4>복제본으로 여러 개 만들기</h4><p>사과 하나의 코드로 수십 개의 사과를 계속 만들어내고, 각자 알아서 떨어지고 사라지게 합니다.</p></div>
+  </div>
+</section>
+<hr class="div">
+
+<!-- SETUP -->
+<section id="setup">
+  <div class="sec-head">
+    <div class="sec-num">01 / SETUP</div>
+    <h2>시작 전에 — 변수 &amp; 신호 만들기</h2>
+    <p>엔트리 상단 <b>[속성]</b> 탭에서 아래 6개 변수와 5개 신호를 먼저 만들어 주세요. 실제 코드에서 계속 등장하니, 이름을 정확히 맞추는 게 중요해요.</p>
+  </div>
+  <div class="chipwrap">
+    <div class="chip var"><span class="dot"></span>친밀도 <small>0~100, 펫이 나를 좋아하는 정도</small></div>
+    <div class="chip var"><span class="dot"></span>배부름 <small>먹이를 줄수록 증가</small></div>
+    <div class="chip var"><span class="dot"></span>청결도 <small>씻길수록 증가</small></div>
+    <div class="chip var"><span class="dot"></span>골드 <small>먹이·아이템 구매에 쓰는 재화</small></div>
+    <div class="chip var"><span class="dot"></span>미니게임 점수 <small>사과를 받을 때마다 +1</small></div>
+    <div class="chip var"><span class="dot"></span>남은 시간 <small>미니게임 카운트다운</small></div>
+  </div>
+  <div class="chipwrap">
+    <div class="chip sig"><span class="dot"></span>먹이주기</div>
+    <div class="chip sig"><span class="dot"></span>씻기기</div>
+    <div class="chip sig"><span class="dot"></span>미니게임 시작</div>
+    <div class="chip sig"><span class="dot"></span>미니게임 종료</div>
+    <div class="chip sig"><span class="dot"></span>결과창 띄우기</div>
+  </div>
+  <div class="callout">
+    <div class="ic">💡</div>
+    <p><b>변수</b>는 "지금 값이 얼마인가"를 저장하는 상자이고, <b>신호</b>는 "지금 이 일이 일어났어!"라는 방송이에요. 배부름은 변수라서 숫자를 저장하지만, 먹이주기는 신호라서 값이 없고 그냥 신호만 보내는 것에 주목하세요.</p>
+  </div>
+</section>
+<hr class="div">
+
+<!-- OBJECTS -->
+<section id="objects">
+  <div class="sec-head">
+    <div class="sec-num">02 / OBJECTS</div>
+    <h2>오브젝트별 블록 가이드</h2>
+    <p>블록 색은 실제 엔트리 팔레트 색과 맞췄어요. <span style="color:var(--c-start)">■시작</span> <span style="color:var(--c-flow)">■흐름</span> <span style="color:var(--c-move)">■움직임</span> <span style="color:var(--c-look)">■생김새</span> <span style="color:var(--c-judge)">■판단</span> <span style="color:var(--c-data)">■자료</span> <span style="color:var(--c-sound)">■소리</span></p>
+  </div>
+
+  <!-- OBJ 1 -->
+  <div class="obj">
+    <div class="obj-head"><div class="obj-emoji">🐶</div>
+      <div><h3>1. 메인 펫 오브젝트</h3><div class="obj-sub">모든 상태 변수의 주인 — 시간에 따라 배고파지고 더러워짐</div></div></div>
+
+    <div class="blockset">
+      <div class="set-title">블록 1 · 기본 수치 관리</div>
+      <div class="eblock cat-start"><span class="cat">시작</span>장면이 시작되었을 때</div>
+      <div class="eblock cat-data indent1"><span class="cat">자료</span>친밀도를 <b>50</b>으로 정하기</div>
+      <div class="eblock cat-data indent1"><span class="cat">자료</span>배부름을 <b>50</b>으로 정하기</div>
+      <div class="eblock cat-data indent1"><span class="cat">자료</span>청결도를 <b>50</b>으로 정하기</div>
+      <div class="eblock cat-data indent1"><span class="cat">자료</span>골드를 <b>100</b>으로 정하기</div>
+      <div class="eblock cat-flow indent1"><span class="cat">흐름</span>계속 반복하기</div>
+      <div class="eblock cat-flow indent2"><span class="cat">흐름</span>10초 기다리기</div>
+      <div class="eblock cat-data indent2"><span class="cat">자료</span>배부름에 <b>-5</b>만큼 더하기</div>
+      <div class="eblock cat-data indent2"><span class="cat">자료</span>청결도에 <b>-5</b>만큼 더하기</div>
+    </div>
+
+    <div class="blockset">
+      <div class="set-title">블록 2 · 먹이 및 씻기 반응</div>
+      <div class="eblock cat-start"><span class="cat">시작</span>먹이주기 신호를 받았을 때</div>
+      <div class="eblock cat-data indent1"><span class="cat">자료</span>배부름에 <b>+20</b>만큼 더하기</div>
+      <div class="eblock cat-look indent1"><span class="cat">생김새</span>"냠냠! 맛있어!"를 2초 동안 말하기</div>
+      <div class="eblock cat-start" style="margin-top:10px;"><span class="cat">시작</span>씻기기 신호를 받았을 때</div>
+      <div class="eblock cat-data indent1"><span class="cat">자료</span>청결도에 <b>+30</b>만큼 더하기</div>
+      <div class="eblock cat-look indent1"><span class="cat">생김새</span>"개운하다!"를 2초 동안 말하기</div>
+    </div>
+
+    <div class="blockset">
+      <div class="set-title">블록 3 · 미니게임 끝난 후 반응</div>
+      <div class="eblock cat-start"><span class="cat">시작</span>결과창 띄우기 신호를 받았을 때</div>
+      <div class="eblock cat-judge indent1"><span class="cat">판단</span>만약 &lt; 미니게임 점수 &gt; 9 &gt; 이라면</div>
+      <div class="branch-label">[참]</div>
+      <div class="eblock cat-look indent2"><span class="cat">생김새</span>"우와! 음식을 정말 많이 먹었어!"를 2초 동안 말하기</div>
+      <div class="branch-label">[거짓]</div>
+      <div class="eblock cat-look indent2"><span class="cat">생김새</span>"다음엔 더 잘해줘..."를 2초 동안 말하기</div>
+    </div>
+
+    <div class="callout"><div class="ic">⏱️</div>
+      <p><b>계속 반복하기 + N초 기다리기</b> 조합은 "일정 시간마다 자동으로 실행"을 만드는 기본 패턴이에요. 배부름·청결도가 저절로 줄어드는 이유가 바로 이 블록입니다.</p></div>
+  </div>
+
+  <!-- OBJ 2 -->
+  <div class="obj">
+    <div class="obj-head"><div class="obj-emoji">🍗</div>
+      <div><h3>2. 먹이주기 버튼 오브젝트</h3><div class="obj-sub">클릭하면 골드를 쓰고 펫에게 신호를 보냄</div></div></div>
+    <div class="blockset">
+      <div class="eblock cat-start"><span class="cat">시작</span>오브젝트를 클릭했을 때</div>
+      <div class="eblock cat-judge indent1"><span class="cat">판단</span>만약 &lt; 골드 &gt; 9 &gt; 이라면</div>
+      <div class="branch-label">[참]</div>
+      <div class="eblock cat-data indent2"><span class="cat">자료</span>골드에 <b>-10</b>만큼 더하기</div>
+      <div class="eblock cat-start indent2"><span class="cat">시작</span>먹이주기 신호 보내기</div>
+      <div class="branch-label">[거짓]</div>
+      <div class="eblock cat-look indent2"><span class="cat">생김새</span>"골드가 부족합니다!"를 1초 동안 말하기</div>
+    </div>
+    <div class="callout"><div class="ic">🔗</div>
+      <p>이 버튼은 <b>배부름 변수를 직접 건드리지 않습니다.</b> 대신 "먹이주기 신호"만 보내고, 실제 값 변경은 펫 오브젝트가 담당해요. 이렇게 역할을 나누면 나중에 펫의 반응만 따로 수정하기 쉬워집니다.</p></div>
+  </div>
+
+  <!-- OBJ 3 -->
+  <div class="obj">
+    <div class="obj-head"><div class="obj-emoji">🧺</div>
+      <div><h3>3. 미니게임 바구니 (플레이어) 오브젝트</h3><div class="obj-sub">마우스를 따라 움직이며 20초 타이머를 관리</div></div></div>
+    <div class="blockset">
+      <div class="set-title">블록 1 · 위치 이동 및 타이머 관리</div>
+      <div class="eblock cat-start"><span class="cat">시작</span>미니게임 시작 신호를 받았을 때</div>
+      <div class="eblock cat-look indent1"><span class="cat">생김새</span>모양 보이기</div>
+      <div class="eblock cat-data indent1"><span class="cat">자료</span>미니게임 점수를 <b>0</b>으로 정하기</div>
+      <div class="eblock cat-data indent1"><span class="cat">자료</span>남은 시간을 <b>20</b>으로 정하기</div>
+      <div class="eblock cat-flow indent1"><span class="cat">흐름</span>남은 시간 번 반복하기</div>
+      <div class="eblock cat-move indent2"><span class="cat">움직임</span>x: 마우스의 x 위치 y: -120 위치로 이동하기</div>
+      <div class="eblock cat-flow indent2"><span class="cat">흐름</span>1초 기다리기</div>
+      <div class="eblock cat-data indent2"><span class="cat">자료</span>남은 시간에 <b>-1</b>만큼 더하기</div>
+      <div class="eblock cat-data indent1"><span class="cat">자료</span>골드에 (미니게임 점수 × 10)만큼 더하기</div>
+      <div class="eblock cat-start indent1"><span class="cat">시작</span>미니게임 종료 신호 보내기</div>
+      <div class="eblock cat-look indent1"><span class="cat">생김새</span>모양 숨기기</div>
+    </div>
+    <div class="callout"><div class="ic">⚠️</div>
+      <p><b>"남은 시간 번 반복하기"</b>는 변수 값(20)을 반복 횟수로 그대로 쓰는 트릭이에요. 반복 안에서 남은 시간을 직접 -1 하고 있으므로, 화면의 카운트다운 숫자와 실제 반복 횟수가 항상 같게 유지됩니다.</p></div>
+  </div>
+
+  <!-- OBJ 4 -->
+  <div class="obj">
+    <div class="obj-head"><div class="obj-emoji">🍎</div>
+      <div><h3>4. 사과 (떨어지는 아이템) 오브젝트</h3><div class="obj-sub">복제본을 계속 만들어 여러 개가 동시에 떨어지게 함</div></div></div>
+    <div class="blockset">
+      <div class="set-title">블록 1 · 복제본 생성</div>
+      <div class="eblock cat-start"><span class="cat">시작</span>장면이 시작되었을 때</div>
+      <div class="eblock cat-look indent1"><span class="cat">생김새</span>모양 숨기기</div>
+      <div class="eblock cat-start" style="margin-top:8px;"><span class="cat">시작</span>미니게임 시작 신호를 받았을 때</div>
+      <div class="eblock cat-flow indent1"><span class="cat">흐름</span>계속 반복하기</div>
+      <div class="eblock cat-flow indent2"><span class="cat">흐름</span>0.5~1.5초 사이 무작위 수 초 기다리기</div>
+      <div class="eblock cat-flow indent2"><span class="cat">흐름</span>자신 및 자신의 복제본 만들기</div>
+      <div class="eblock cat-start" style="margin-top:8px;"><span class="cat">시작</span>미니게임 종료 신호를 받았을 때</div>
+      <div class="eblock cat-flow indent1"><span class="cat">흐름</span>이 각각의 복제본 삭제하기</div>
+    </div>
+    <div class="blockset">
+      <div class="set-title">블록 2 · 복제본 낙하 및 충돌 감지</div>
+      <div class="eblock cat-flow"><span class="cat">흐름</span>복제본이 생겼을 때</div>
+      <div class="eblock cat-move indent1"><span class="cat">움직임</span>x: -200~200 무작위 y: 150 위치로 이동하기</div>
+      <div class="eblock cat-look indent1"><span class="cat">생김새</span>모양 보이기</div>
+      <div class="eblock cat-flow indent1"><span class="cat">흐름</span>계속 반복하기</div>
+      <div class="eblock cat-move indent2"><span class="cat">움직임</span>y좌표를 <b>-5</b>만큼 바꾸기</div>
+      <div class="eblock cat-judge indent2"><span class="cat">판단</span>만약 &lt; 바구니에 닿았는가? &gt; 이라면</div>
+      <div class="eblock cat-data indent2" style="margin-left:66px;"><span class="cat">자료</span>미니게임 점수에 <b>+1</b></div>
+      <div class="eblock cat-flow indent2" style="margin-left:66px;"><span class="cat">흐름</span>이 복제본 삭제하기</div>
+      <div class="eblock cat-judge indent2"><span class="cat">판단</span>만약 &lt; y좌표 &lt; -150 &gt; 이라면</div>
+      <div class="eblock cat-flow indent2" style="margin-left:66px;"><span class="cat">흐름</span>이 복제본 삭제하기</div>
+    </div>
+    <div class="callout"><div class="ic">🧬</div>
+      <p><b>복제본</b>은 "붕어빵 틀" 같은 존재예요. 원본 오브젝트 하나의 코드로 똑같은 사과를 계속 찍어내고, 각 복제본은 독립적으로 자기만의 위치·속도를 가지고 떨어집니다. 화면 아래로 사라지거나 바구니에 닿으면 <b>반드시 삭제</b>해야 복제본이 무한히 쌓이지 않아요.</p></div>
+  </div>
+
+  <!-- OBJ 5 -->
+  <div class="obj">
+    <div class="obj-head"><div class="obj-emoji">🎉</div>
+      <div><h3>5. 폭죽 파티클 (축하 연출) 오브젝트</h3><div class="obj-sub">고득점 시에만 등장하는 보상 연출</div></div></div>
+    <div class="blockset">
+      <div class="eblock cat-start"><span class="cat">시작</span>장면이 시작되었을 때</div>
+      <div class="eblock cat-look indent1"><span class="cat">생김새</span>모양 숨기기</div>
+      <div class="eblock cat-start" style="margin-top:8px;"><span class="cat">시작</span>미니게임 종료 신호를 받았을 때</div>
+      <div class="eblock cat-judge indent1"><span class="cat">판단</span>만약 &lt; 미니게임 점수 &gt; 9 &gt; 이라면</div>
+      <div class="eblock cat-sound indent2"><span class="cat">소리</span>"폭죽 소리" 재생하기</div>
+      <div class="eblock cat-start indent2"><span class="cat">시작</span>결과창 띄우기 신호 보내기</div>
+      <div class="eblock cat-flow indent2"><span class="cat">흐름</span>20번 반복하기</div>
+      <div class="eblock cat-move indent2" style="margin-left:66px;"><span class="cat">움직임</span>x:0 y:0 위치로 이동하기</div>
+      <div class="eblock cat-flow indent2" style="margin-left:66px;"><span class="cat">흐름</span>자신 및 자신의 복제본 만들기</div>
+      <div class="eblock cat-flow" style="margin-top:8px;"><span class="cat">흐름</span>복제본이 생겼을 때</div>
+      <div class="eblock cat-look indent1"><span class="cat">생김새</span>모양 보이기</div>
+      <div class="eblock cat-move indent1"><span class="cat">움직임</span>이동 방향을 0~360 무작위 수로 정하기</div>
+      <div class="eblock cat-flow indent1"><span class="cat">흐름</span>10번 반복하기</div>
+      <div class="eblock cat-move indent2"><span class="cat">움직임</span>이동 방향으로 <b>15</b>만큼 움직이기</div>
+      <div class="eblock cat-look indent2"><span class="cat">생김새</span>투명도 효과를 <b>10</b>만큼 주기</div>
+      <div class="eblock cat-flow indent1"><span class="cat">흐름</span>이 복제본 삭제하기</div>
+    </div>
+    <div class="callout"><div class="ic">✨</div>
+      <p>점수 조건(9 초과)을 통과했을 때만 "결과창 띄우기" 신호가 나갑니다. 즉 <b>펫의 칭찬 대사(오브젝트 1)</b>도, <b>폭죽 연출(오브젝트 5)</b>도 같은 조건을 각자 한 번씩 검사하는 구조예요 — 신호 하나가 여러 오브젝트를 동시에 깨울 수 있다는 걸 보여줍니다.</p></div>
+  </div>
+</section>
+<hr class="div">
+
+<!-- LIVE SIM -->
+<section id="sim">
+  <div class="sec-head">
+    <div class="sec-num">03 / TRY IT</div>
+    <h2>라이브 시뮬레이터</h2>
+    <p>지금까지 본 블록들이 실제로 어떻게 동작하는지 먼저 체험해보세요. 데모에서는 이해를 돕기 위해 배부름·청결도 감소 주기를 10초 대신 <b>3초</b>로 빠르게 돌립니다.</p>
+  </div>
+
+  <div class="simwrap">
+    <div class="sim-pet-panel">
+      <div class="sim-pet" id="simPetEmoji">🐶</div>
+      <div class="sim-speech" id="simSpeech">&nbsp;</div>
+
+      <div class="hud-bar-row"><span class="ic">❤️</span><span class="label">친밀도</span>
+        <div class="bar-track"><div class="bar-fill" id="barLike" style="width:50%; background:var(--coral);"></div></div><span class="val" id="valLike">50</span></div>
+      <div class="hud-bar-row"><span class="ic">🍖</span><span class="label">배부름</span>
+        <div class="bar-track"><div class="bar-fill" id="barFull" style="width:50%; background:var(--gold);"></div></div><span class="val" id="valFull">50</span></div>
+      <div class="hud-bar-row"><span class="ic">🧼</span><span class="label">청결도</span>
+        <div class="bar-track"><div class="bar-fill" id="barClean" style="width:50%; background:var(--mint);"></div></div><span class="val" id="valClean">50</span></div>
+      <div class="hud-bar-row"><span class="ic">🪙</span><span class="label">골드</span>
+        <div class="bar-track"><div class="bar-fill" id="barGold" style="width:33%; background:var(--lav);"></div></div><span class="val" id="valGold">100</span></div>
+
+      <div style="margin-top:16px;">
+        <button class="sim-btn feed" id="btnFeed">🍗 먹이주기 (골드 -10)</button>
+        <button class="sim-btn wash" id="btnWash">🧼 씻기기</button>
+        <button class="sim-btn play" id="btnPlay">🎮 미니게임 시작</button>
+      </div>
+      <label class="toggle-row"><input type="checkbox" id="chkBad"> 확장 미션 체험: 썩은 사과 등장시키기</label>
+    </div>
+
+    <div class="sim-stage" id="simStage">
+      <div class="stage-hud"><span id="stageScore">점수: -</span><span id="stageTime">남은 시간: -</span></div>
+      <div class="sim-overlay" id="simIdle">
+        <h4>🧺 미니게임 대기 중</h4>
+        <p>왼쪽의 "미니게임 시작" 버튼을 누르면 사과가 떨어지기 시작해요.<br>바구니는 마우스를 따라 움직입니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<hr class="div">
+
+<!-- MISSIONS -->
+<section id="missions">
+  <div class="sec-head">
+    <div class="sec-num">04 / MISSIONS</div>
+    <h2>추가할 부분 — 확장 미션</h2>
+    <p>기본 게임이 완성됐다면, 아래 미션을 하나씩 도전하며 블록을 스스로 확장해보세요. 힌트를 누르면 필요한 블록 아이디어가 나와요.</p>
+  </div>
+
+  <div class="mission" onclick="this.classList.toggle('open')">
+    <div class="mnum">01</div>
+    <div>
+      <h4>썩은 사과 오브젝트 추가하기 <span class="diff-tag diff-easy">쉬움</span></h4>
+      <p>사과 오브젝트를 복제해서 색이 다른 "썩은 사과"를 만들고, 바구니에 닿으면 점수가 아니라 <b>친밀도</b>가 줄어들게 해보세요.</p>
+      <span class="hint">▸ 힌트 보기</span>
+      <div class="hintbody mono" style="font-size:0.78rem;">
+        복제본이 생겼을 때 → 계속 반복하기 → y좌표 -5만큼 바꾸기 →<br>
+        만약 &lt;바구니에 닿았는가?&gt; 이라면 → 친밀도에 -10만큼 더하기 → "윽, 상했어!" 말하기 → 이 복제본 삭제하기
+      </div>
+    </div>
+  </div>
+
+  <div class="mission" onclick="this.classList.toggle('open')">
+    <div class="mnum">02</div>
+    <div>
+      <h4>난이도 상승 만들기 <span class="diff-tag diff-mid">보통</span></h4>
+      <p>남은 시간이 줄어들수록 사과가 떨어지는 간격이 점점 짧아지도록 만들어보세요. 처음엔 여유롭다가 후반에는 정신없이 쏟아지게요.</p>
+      <span class="hint">▸ 힌트 보기</span>
+      <div class="hintbody mono" style="font-size:0.78rem;">
+        "0.5~1.5초 사이 무작위 수 기다리기" 대신, 남은 시간이 클 때는 넓은 범위(1~2초), 남은 시간이 작을 때는 좁은 범위(0.2~0.5초)를 쓰도록<br>
+        만약 &lt;남은 시간 &gt; 10&gt; 판단문으로 두 가지 기다리기 블록을 나눠보세요.
+      </div>
+    </div>
+  </div>
+
+  <div class="mission" onclick="this.classList.toggle('open')">
+    <div class="mnum">03</div>
+    <div>
+      <h4>상점 오브젝트 만들기 <span class="diff-tag diff-mid">보통</span></h4>
+      <p>골드로 살 수 있는 "미니게임 시간 연장권"을 만들어보세요. 클릭하면 골드 30을 쓰고, 다음 미니게임의 시작 시간이 20이 아니라 25가 됩니다.</p>
+      <span class="hint">▸ 힌트 보기</span>
+      <div class="hintbody mono" style="font-size:0.78rem;">
+        새 변수 "시간연장"을 만들고 기본값 0으로 설정 →<br>
+        상점 클릭 시: 만약 &lt;골드 &gt; 29&gt; → 골드 -30, 시간연장을 5로 정하기 →<br>
+        바구니 오브젝트의 "남은 시간을 20으로 정하기"를 "20 + 시간연장으로 정하기"로 수정
+      </div>
+    </div>
+  </div>
+
+  <div class="mission" onclick="this.classList.toggle('open')">
+    <div class="mnum">04</div>
+    <div>
+      <h4>레벨업 시스템 <span class="diff-tag diff-hard">도전</span></h4>
+      <p>친밀도가 100이 되면 "레벨"이라는 새 변수가 +1 되고, 친밀도는 다시 0으로 초기화되도록 만들어보세요. 레벨마다 펫의 대사가 달라지면 더 좋아요.</p>
+      <span class="hint">▸ 힌트 보기</span>
+      <div class="hintbody mono" style="font-size:0.78rem;">
+        새 변수 "레벨"을 만들고 시작 시 1로 정하기 →<br>
+        먹이주기·씻기기 신호 블록 끝에 "만약 &lt;친밀도 &gt; 99&gt; 이라면" 판단 추가 →<br>
+        레벨에 +1 더하기, 친밀도를 0으로 정하기, "레벨업!" 2초 동안 말하기
+      </div>
+    </div>
+  </div>
+</section>
+<hr class="div">
+
+<!-- QUIZ -->
+<section id="quiz">
+  <div class="sec-head">
+    <div class="sec-num">05 / QUIZ</div>
+    <h2>개념 확인 퀴즈</h2>
+    <p>각 문제를 눌러 정답을 확인해보세요.</p>
+  </div>
+  <div id="quizList"></div>
+</section>
+
+<footer>
+  <div class="paw">🐾</div>
+  엔트리 펫 키우기 &amp; 미니게임 코딩 실습 가이드
+</footer>
+
+<script>
+/* ================= SIMULATOR ================= */
+(function(){
+  const state = { like:50, full:50, clean:50, gold:100 };
+  const els = {
+    like:{bar:document.getElementById('barLike'), val:document.getElementById('valLike')},
+    full:{bar:document.getElementById('barFull'), val:document.getElementById('valFull')},
+    clean:{bar:document.getElementById('barClean'), val:document.getElementById('valClean')},
+    gold:{bar:document.getElementById('barGold'), val:document.getElementById('valGold')},
+  };
+  const speech = document.getElementById('simSpeech');
+  const petEmoji = document.getElementById('simPetEmoji');
+
+  function clamp(n){return Math.max(0, Math.min(100, n));}
+  function render(){
+    els.like.bar.style.width = clamp(state.like)+'%'; els.like.val.textContent = Math.round(clamp(state.like));
+    els.full.bar.style.width = clamp(state.full)+'%'; els.full.val.textContent = Math.round(clamp(state.full));
+    els.clean.bar.style.width = clamp(state.clean)+'%'; els.clean.val.textContent = Math.round(clamp(state.clean));
+    els.gold.bar.style.width = Math.min(100, state.gold/2)+'%'; els.gold.val.textContent = state.gold;
+    petEmoji.style.opacity = state.full < 15 || state.clean < 15 ? 0.55 : 1;
+  }
+  let sayTimer=null;
+  function say(text, ms){
+    speech.textContent = text;
+    clearTimeout(sayTimer);
+    sayTimer = setTimeout(()=>{speech.textContent='\u00A0';}, ms||1800);
+  }
+  render();
+
+  // decay loop (10s -> sped up to 3s for demo)
+  setInterval(()=>{
+    state.full = clamp(state.full-5);
+    state.clean = clamp(state.clean-5);
+    render();
+  }, 3000);
+
+  document.getElementById('btnFeed').onclick = ()=>{
+    if(state.gold>9){ state.gold-=10; state.full=clamp(state.full+20); say('냠냠! 맛있어!', 1600); }
+    else { say('골드가 부족합니다!', 1200); }
+    render();
+  };
+  document.getElementById('btnWash').onclick = ()=>{
+    state.clean = clamp(state.clean+30); say('개운하다!', 1600); render();
+  };
+
+  /* ---- minigame ---- */
+  const stage = document.getElementById('simStage');
+  const idleOverlay = document.getElementById('simIdle');
+  const stageScore = document.getElementById('stageScore');
+  const stageTime = document.getElementById('stageTime');
+  const playBtn = document.getElementById('btnPlay');
+  const badChk = document.getElementById('chkBad');
+  let basket=null, items=[], score=0, timeLeft=20, running=false, spawnTimeout=null, mouseX=140, tickInterval=null;
+
+  stage.addEventListener('mousemove', (e)=>{
+    const rect = stage.getBoundingClientRect();
+    mouseX = e.clientX - rect.left;
+    if(basket) basket.style.left = Math.max(30, Math.min(rect.width-30, mouseX))+'px';
+  });
+
+  function stageW(){ return stage.getBoundingClientRect().width; }
+  function stageH(){ return stage.getBoundingClientRect().height; }
+
+  function startGame(){
+    if(running) return;
+    running = true;
+    score = 0; timeLeft = 20;
+    idleOverlay.style.display='none';
+    playBtn.disabled = true;
+
+    basket = document.createElement('div');
+    basket.className='basket';
+    basket.style.left = Math.max(30, Math.min(stageW()-30, mouseX))+'px';
+    stage.appendChild(basket);
+
+    stageScore.textContent = '점수: 0';
+    stageTime.textContent = '남은 시간: 20';
+
+    tickInterval = setInterval(()=>{
+      timeLeft -= 1;
+      stageTime.textContent = '남은 시간: '+timeLeft;
+      if(timeLeft<=0) endGame();
+    }, 1000);
+
+    scheduleSpawn();
+    requestAnimationFrame(loop);
+  }
+
+  function scheduleSpawn(){
+    if(!running) return;
+    const delay = 500 + Math.random()*700; // sped-up spawn for demo responsiveness
+    spawnTimeout = setTimeout(()=>{
+      spawnApple();
+      scheduleSpawn();
+    }, delay);
+  }
+
+  function spawnApple(){
+    const isBad = badChk.checked && Math.random() < 0.3;
+    const el = document.createElement('div');
+    el.className='apple';
+    el.textContent = isBad ? '🍏' : '🍎';
+    const x = 30 + Math.random()*(stageW()-60);
+    el.style.left = x+'px';
+    el.style.top = '10px';
+    stage.appendChild(el);
+    items.push({el:el, x:x, y:10, bad:isBad, speed:1.6+Math.random()*1.4});
+  }
+
+  function loop(){
+    if(!running) return;
+    const bH = stageH();
+    const bx = basket ? parseFloat(basket.style.left) : 0;
+    for(let i=items.length-1;i>=0;i--){
+      const it = items[i];
+      it.y += it.speed;
+      it.el.style.top = it.y+'px';
+      if(Math.abs(it.y-(bH-32)) < 16 && Math.abs(it.x-bx) < 34){
+        if(it.bad){ score = Math.max(0, score-1); say('윽, 상했어!', 900); }
+        else { score += 1; }
+        stageScore.textContent = '점수: '+score;
+        it.el.remove(); items.splice(i,1); continue;
+      }
+      if(it.y > bH+10){ it.el.remove(); items.splice(i,1); }
+    }
+    requestAnimationFrame(loop);
+  }
+
+  function endGame(){
+    running = false;
+    clearInterval(tickInterval);
+    clearTimeout(spawnTimeout);
+    items.forEach(it=>it.el.remove()); items=[];
+    if(basket){ basket.remove(); basket=null; }
+    state.gold += score*10;
+    render();
+    playBtn.disabled = false;
+
+    const result = document.createElement('div');
+    result.className='sim-overlay';
+    result.innerHTML = '<h4>'+(score>9? '🎉 결과창':'📋 결과창')+'</h4>' +
+      '<p>미니게임 점수: <b style="color:var(--gold)">'+score+'</b> · 획득 골드: '+ (score*10) +'</p>' +
+      '<p>'+(score>9 ? '우와! 음식을 정말 많이 먹었어!' : '다음엔 더 잘해줘...') +'</p>' +
+      '<button class="sim-btn play" style="width:auto; padding:9px 22px;" id="closeResult">닫기</button>';
+    stage.appendChild(result);
+
+    if(score>9){
+      for(let i=0;i<20;i++){
+        const c = document.createElement('div');
+        c.className='confetti';
+        c.textContent = ['🎉','✨','🎊','⭐'][Math.floor(Math.random()*4)];
+        c.style.left = Math.random()*stageW()+'px';
+        c.style.animationDelay = (Math.random()*0.5)+'s';
+        stage.appendChild(c);
+        setTimeout(()=>c.remove(), 3000);
+      }
+    }
+    document.getElementById('closeResult').onclick = ()=>{
+      result.remove();
+      idleOverlay.style.display='flex';
+    };
+  }
+
+  playBtn.onclick = startGame;
+})();
+
+/* ================= QUIZ ================= */
+const QUIZ = [
+  {
+    q: '"먹이주기"는 변수일까요, 신호일까요?',
+    opts: ['변수 — 숫자 값을 저장한다', '신호 — 특정 순간에 방송되는 이벤트다'],
+    correct: 1,
+    fb: '먹이주기는 값을 저장하지 않고, "지금 먹이를 줬어!"라는 사건만 알려주는 신호예요. 실제 숫자 변경(배부름 +20)은 신호를 받은 펫 오브젝트가 처리합니다.'
+  },
+  {
+    q: '사과 오브젝트에서 "이 복제본 삭제하기"를 빼먹으면 어떤 문제가 생길까요?',
+    opts: ['아무 문제 없다', '삭제되지 않은 복제본이 계속 쌓여 게임이 점점 느려진다'],
+    correct: 1,
+    fb: '복제본은 자동으로 사라지지 않아요. 바구니에 닿거나 화면 밖으로 나가는 순간 직접 삭제해줘야 메모리와 속도 문제가 생기지 않습니다.'
+  },
+  {
+    q: '배부름과 청결도가 저절로 줄어드는 이유는 어떤 블록 조합 때문인가요?',
+    opts: ['만약 ~ 이라면 (판단 블록)', '계속 반복하기 + N초 기다리기 (흐름 블록)'],
+    correct: 1,
+    fb: '"계속 반복하기" 안에 "10초 기다리기"를 넣으면 10초마다 한 번씩 아래 블록이 실행돼요. 이게 시간에 따라 자동으로 값이 바뀌는 핵심 패턴입니다.'
+  },
+  {
+    q: '미니게임 점수가 9보다 클 때만 실행되는 것이 아닌 것은?',
+    opts: ['폭죽 파티클의 소리 재생과 복제본 생성', '바구니 오브젝트가 마우스를 따라다니는 것'],
+    correct: 1,
+    fb: '바구니가 마우스를 따라다니는 동작은 미니게임이 시작되면 점수와 상관없이 항상 실행돼요. 점수 조건은 결과창·폭죽 연출에만 걸려 있습니다.'
+  },
+];
+
+const quizList = document.getElementById('quizList');
+QUIZ.forEach((item, idx)=>{
+  const card = document.createElement('div');
+  card.className='quiz-card';
+  const optsHtml = item.opts.map((o,i)=>'<button class="quiz-opt" data-i="'+i+'">'+o+'</button>').join('');
+  card.innerHTML = '<div class="quiz-q">Q'+(idx+1)+'. '+item.q+'</div><div class="quiz-opts">'+optsHtml+'</div><div class="quiz-fb"></div>';
+  quizList.appendChild(card);
+
+  card.querySelectorAll('.quiz-opt').forEach(btn=>{
+    btn.onclick = ()=>{
+      const chosen = parseInt(btn.dataset.i);
+      card.querySelectorAll('.quiz-opt').forEach(b=>b.disabled=true);
+      if(chosen === item.correct){ btn.classList.add('correct'); }
+      else {
+        btn.classList.add('wrong');
+        card.querySelectorAll('.quiz-opt')[item.correct].classList.add('correct');
+      }
+      const fb = card.querySelector('.quiz-fb');
+      fb.textContent = item.fb;
+      fb.classList.add('show');
+    };
+  });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>엔트리(Entry) 코딩 기초 강좌 시리즈</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #ff6b8b;
+            --primary-light: #ff8e9e;
+            --primary-dark: #e04868;
+            --bg-gradient: linear-gradient(135deg, #fff0f5 0%, #ffe4e8 100%);
+            --card-bg: rgba(255, 255, 255, 0.9);
+            --text-main: #333333;
+            --text-sub: #666666;
+            --shadow: 0 10px 25px rgba(255, 107, 139, 0.15);
+            --border-radius: 20px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background: var(--bg-gradient);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px 20px;
+            background: #ffffff;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            border: 2px solid #ffccd5;
+        }
+
+        .badge {
+            display: inline-block;
+            background-color: #ffe6eb;
+            color: var(--primary-dark);
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        h1 {
+            color: var(--primary-dark);
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+            word-break: keep-all;
+        }
+
+        p.subtitle {
+            color: var(--text-sub);
+            font-size: 1.05rem;
+            word-break: keep-all;
+        }
+
+        .card-list {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 22px 28px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            text-decoration: none;
+            color: var(--text-main);
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            border: 1px solid #fff;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 6px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 30px rgba(255, 107, 139, 0.25);
+            background: #ffffff;
+        }
+
+        .card:hover::before {
+            width: 10px;
+        }
+
+        .card-info {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .num {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+            box-shadow: 0 4px 10px rgba(255, 107, 139, 0.3);
+        }
+
+        .title-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #2c2c2c;
+            margin-bottom: 4px;
+        }
+
+        .card-code {
+            font-size: 0.85rem;
+            color: #999;
+            font-family: monospace;
+        }
+
+        .btn-icon {
+            color: var(--primary);
+            font-size: 1.4rem;
+            font-weight: bold;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover .btn-icon {
+            transform: translateX(5px);
+        }
+
+        footer {
+            margin-top: 50px;
+            text-align: center;
+            color: var(--text-sub);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 1.75rem;
+            }
+            .card {
+                padding: 18px 20px;
+            }
+            .card-title {
+                font-size: 1rem;
+            }
+            .num {
+                width: 36px;
+                height: 36px;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <span class="badge">Entry Coding Tutorial</span>
+            <h1>엔트리 기본 문법 7강좌</h1>
+            <p class="subtitle">체계적으로 배우는 엔트리 블록 코딩 기초부터 파이썬 변환까지!</p>
+        </header>
+
+        <div class="card-list">
+            <a href="http://iioiinet-spec.github.io/sy/entry/1" class="card" target="_blank">
+                <div class="card-info">
+                    <div class="num">1</div>
+                    <div class="title-group">
+                        <span class="card-title">엔트리 펫 키우기 게임 가이드</span>
+                        <span class="card-code">entry_pet_game_guide</span>
+                    </div>
+                </div>
+                <div class="btn-icon">➔</div>
+            </a>
+
+            <a href="http://iioiinet-spec.github.io/sy/entry/2" class="card" target="_blank">
+                <div class="card-info">
+                    <div class="num">2</div>
+                    <div class="title-group">
+                        <span class="card-title">리스트와 상점 시스템 가이드</span>
+                        <span class="card-code">entry_list_shop_guide</span>
+                    </div>
+                </div>
+                <div class="btn-icon">➔</div>
+            </a>
+
+            <a href="http://iioiinet-spec.github.io/sy/entry/3" class="card" target="_blank">
+                <div class="card-info">
+                    <div class="num">3</div>
+                    <div class="title-group">
+                        <span class="card-title">함수 활용 가이드</span>
+                        <span class="card-code">entry_function_guide</span>
+                    </div>
+                </div>
+                <div class="btn-icon">➔</div>
+            </a>
+
+            <a href="http://iioiinet-spec.github.io/sy/entry/4" class="card" target="_blank">
+                <div class="card-info">
+                    <div class="num">4</div>
+                    <div class="title-group">
+                        <span class="card-title">클라우드 저장 가이드</span>
+                        <span class="card-code">entry_cloud_save_guide</span>
+                    </div>
+                </div>
+                <div class="btn-icon">➔</div>
+            </a>
+
+            <a href="http://iioiinet-spec.github.io/sy/entry/5" class="card" target="_blank">
+                <div class="card-info">
+                    <div class="num">5</div>
+                    <div class="title-group">
+                        <span class="card-title">장면 전환 가이드</span>
+                        <span class="card-code">entry_scene_transition_guide</span>
+                    </div>
+                </div>
+                <div class="btn-icon">➔</div>
+            </a>
+
+            <a href="http://iioiinet-spec.github.io/sy/entry/6" class="card" target="_blank">
+                <div class="card-info">
+                    <div class="num">6</div>
+                    <div class="title-group">
+                        <span class="card-title">파이썬 모드 전환 가이드</span>
+                        <span class="card-code">entry_python_transition_guide</span>
+                    </div>
+                </div>
+                <div class="btn-icon">➔</div>
+            </a>
+
+            <a href="http://iioiinet-spec.github.io/sy/entry/7" class="card" target="_blank">
+                <div class="card-info">
+                    <div class="num">7</div>
+                    <div class="title-group">
+                        <span class="card-title">파이널 프로젝트 종합 가이드</span>
+                        <span class="card-code">entry_final_project_guide</span>
+                    </div>
+                </div>
+                <div class="btn-icon">➔</div>
+            </a>
+        </div>
+
+        <footer>
+            <p>© Seyoung Coding Institute. All rights reserved.</p>
+        </footer>
+    </div>
+
+</body>
+</html>
