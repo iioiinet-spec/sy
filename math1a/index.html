@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>초등 수학 심화 · 토론으로 푸는 문제 10 — 교사용 답지</title>
+<style>
+:root{ --ink:#1a1a1a; --sub:#555; --line:#c8c8c8; --soft:#f2f4f8;
+       --ans:#b91c1c; --tip:#0f766e; --acc:#1d4ed8; }
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#e9edf3;color:var(--ink);
+  font-family:'Pretendard','Malgun Gothic','맑은 고딕',system-ui,sans-serif;
+  line-height:1.58;font-size:13.6px;padding:24px 12px}
+.page{width:210mm;min-height:297mm;margin:0 auto 18px;background:#fff;
+  padding:13mm 13mm 12mm;box-shadow:0 3px 14px rgba(0,0,0,.16);position:relative}
+
+.head{border-bottom:3px double var(--ink);padding-bottom:8px;margin-bottom:12px}
+.head .row{display:flex;align-items:flex-end;gap:12px}
+.head h1{font-size:20px;font-weight:800;letter-spacing:-.6px}
+.head h1 em{font-style:normal;background:var(--ans);color:#fff;font-size:12px;
+  padding:2px 9px;border-radius:3px;margin-left:8px;vertical-align:middle}
+.head .sub{font-size:12px;color:var(--sub);margin-top:2px}
+.head .meta{margin-left:auto;font-size:11.5px;color:var(--sub);text-align:right;line-height:1.55}
+
+.item{margin-bottom:8px;break-inside:avoid;page-break-inside:avoid;
+  border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.qh{display:flex;align-items:center;gap:8px;background:var(--soft);
+  padding:5px 11px;border-bottom:1px solid var(--line)}
+.no{background:var(--ink);color:#fff;font-weight:800;font-size:12px;padding:1px 8px;border-radius:3px}
+.tt{font-weight:800;font-size:13.8px}
+.lv{margin-left:auto;font-size:10.5px;color:var(--sub)}
+.bd{padding:7px 11px}
+.ansline{background:#fff1f1;border-left:4px solid var(--ans);border-radius:4px;
+  padding:5px 10px;margin-bottom:5px;font-size:13.2px}
+.ansline b{color:var(--ans)}
+.sec{font-size:12.5px;margin:4px 0;line-height:1.55}
+.sec .lb{display:inline-block;background:var(--acc);color:#fff;font-size:10.5px;
+  font-weight:800;padding:1px 7px;border-radius:3px;margin-right:6px;vertical-align:1px}
+.sec .lb.t{background:var(--tip)}
+.sec .lb.m{background:#b45309}
+.steps{background:#f7f9fc;border:1px solid #e2e7f0;border-radius:4px;
+  padding:5px 10px;margin:4px 0;font-size:11.8px;
+  font-family:'D2Coding','Consolas',monospace;white-space:pre-wrap;line-height:1.6}
+.mis{background:#fffbea;border:1px dashed #d8b06a;border-radius:4px;
+  padding:5px 10px;margin-top:4px;font-size:11.8px;color:#5c4708;line-height:1.5}
+.mis b{color:#a4700f}
+table.g{width:100%;border-collapse:collapse;font-size:11.8px;margin:4px 0}
+table.g th{background:#eef2f8;border:1px solid var(--line);padding:3px 6px;font-weight:800}
+table.g td{border:1px solid var(--line);padding:3px 6px;text-align:center;
+  font-family:'D2Coding','Consolas',monospace}
+
+.foot{position:absolute;left:14mm;right:14mm;bottom:7mm;border-top:1px solid var(--line);
+  padding-top:4px;display:flex;font-size:10.5px;color:var(--sub)}
+.foot .r{margin-left:auto}
+
+.bar{width:210mm;margin:0 auto 12px;display:flex;gap:8px;align-items:center;flex-wrap:wrap;
+  background:#fff;border-radius:9px;padding:10px 14px;box-shadow:0 2px 8px rgba(0,0,0,.1)}
+.bar .t{font-weight:800;font-size:14px}
+.btn{background:#b91c1c;color:#fff;border:none;padding:8px 15px;border-radius:7px;
+  cursor:pointer;font-size:13.5px;font-weight:700;font-family:inherit}
+.hint{font-size:12.5px;color:#555}
+
+@media print{
+  @page{size:A4;margin:0}
+  body{background:#fff;padding:0}
+  .page{margin:0;box-shadow:none;page-break-after:always}
+  .page:last-child{page-break-after:auto}
+  .bar{display:none}
+}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <span class="t">📕 토론으로 푸는 심화 문제 10 <b>[2단계]</b> — 교사용 답지 · 지도 자료</span>
+  <button class="btn" onclick="window.print()">🖨 인쇄 / PDF 저장</button>
+  <span class="hint">학생용과 별도 파일입니다. <b>배부 전 확인</b>하세요.</span>
+</div>
+
+<!-- ====== 1쪽 ====== -->
+<div class="page">
+  <div class="head">
+    <div class="row">
+      <div><h1>토론으로 푸는 수학 — 심화 문제 10 <span style="font-size:11.5px;background:#1d4ed8;color:#fff;padding:1px 7px;border-radius:3px;vertical-align:2px">2단계</span><em>교사용</em></h1>
+        <div class="sub">정답 · 풀이 · 토론 유도 방법 · 학생이 자주 하는 오답</div></div>
+      <div class="meta">초등 4~6학년 심화<br>1 / 5 쪽</div>
+    </div>
+  </div>
+
+  <div class="item" style="border-color:var(--tip)">
+    <div class="qh" style="background:#effaf7"><span class="tt" style="color:var(--tip)">수업 운영 안내 — 2단계</span></div>
+    <div class="bd">
+      <div class="sec"><span class="lb t">이번 세트의 축</span>1단계가 “세어 보기·따져 보기”였다면 2단계는 <b>“작은 경우로 줄여 규칙을 찾고, 그것을 일반화하기”</b>가 핵심입니다. 1·5·8번이 대표적입니다.</div>
+      <div class="sec"><span class="lb t">핵심 지도</span>학생이 막히면 정답 대신 <b>“숫자를 줄여서 해 볼까?”</b>라고만 말해 주세요. 10칸 계단은 3칸부터, 3×3×3은 2×2×2부터 시작하면 스스로 길을 찾습니다.</div>
+      <div class="sec"><span class="lb t">추천 조합</span>1·9번(논리 판정) / 2·3·6번(수 다루기) / 5·8번(규칙 발견) / 4·7·10번(관계 파악)</div>
+      <table class="g">
+        <tr><th>문항</th><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td><td>10</td></tr>
+        <tr><th>난이도</th><td>★★</td><td>★★★</td><td>★★</td><td>★★★</td><td>★★</td><td>★★</td><td>★★</td><td>★★</td><td>★★★</td><td>★★★</td></tr>
+        <tr><th>권장</th><td>4학년~</td><td>6학년</td><td>4학년~</td><td>5학년~</td><td>5학년~</td><td>4학년~</td><td>5학년~</td><td>4학년~</td><td>5학년~</td><td>5학년~</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="qh"><span class="no">1</span><span class="tt">한 번에 그릴 수 있을까?</span><span class="lv">한붓그리기 · ★★</span></div>
+    <div class="bd">
+      <div class="ansline"><b>정답</b> (1) <b>(가) 집 모양만 가능</b> &nbsp;·&nbsp; (2) <b>아래 두 꼭짓점 중 하나</b>에서 시작 &nbsp;·&nbsp; (3) <b>홀수점의 개수</b>로 판정</div>
+      <div class="steps">각 점에 모인 선의 개수(차수)를 센다.
+(가) 집 :  아래 왼쪽 3, 아래 오른쪽 3, 위 왼쪽 4, 위 오른쪽 4, 꼭대기 2
+        → 홀수점 2개  ⇒ 그릴 수 있다 (홀수점에서 출발해 다른 홀수점에서 끝남)
+(나) 사각형+대각선 : 네 꼭짓점 모두 3   → 홀수점 4개  ⇒ 불가능
+(다) 원+지름 4개 : 원 위 8점이 모두 3   → 홀수점 8개  ⇒ 불가능
+                (가운데 점은 8이라 짝수)</div>
+      <div class="sec"><span class="lb">판정 규칙</span><b>홀수점 0개</b> → 어디서 시작해도 되고 출발점으로 돌아옴. <b>홀수점 2개</b> → 그 두 점 중 하나에서 출발해 나머지 하나에서 끝남. <b>그 외</b> → 불가능.</div>
+      <div class="sec"><span class="lb">왜 그런가</span>지나가는 점은 <b>들어온 선 1개 + 나가는 선 1개</b>가 짝을 이루므로 차수가 짝수입니다. 짝이 맞지 않는(홀수) 점은 <b>출발점이나 도착점</b>일 수밖에 없고, 출발점과 도착점은 최대 2개뿐입니다.</div>
+      <div class="mis"><b>자주 하는 오답</b> 여러 번 시도해 보고 “안 되니까 불가능”이라고 결론. — 시도로는 <b>증명이 안 된다</b>는 점을 짚고, 차수를 세어 <b>미리</b> 판정하게 하세요. (다)는 선이 많아 시도만으로는 포기하기 쉽습니다.</div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="qh"><span class="no">2</span><span class="tt">추 4개로 40kg까지</span><span class="lv">수의 표현 · ★★★</span></div>
+    <div class="bd">
+      <div class="ansline"><b>정답</b> (1) <b>가능</b> &nbsp;·&nbsp; (2) <b>1kg, 3kg, 9kg, 27kg</b> (3배씩!)</div>
+      <div class="steps">추를 반대쪽에 올리면 '빼기'가 된다. 그래서 추 하나가 세 가지 역할을 한다.
+   +1(물건 반대쪽에 올림)  /  0(안 씀)  /  −1(물건과 같은 쪽에 올림)
+예)  2kg = 3 − 1        5kg = 9 − 3 − 1      7kg = 9 + 1 − 3
+    11kg = 9 + 3 − 1    20kg = 27 − 9 + 3 − 1   40kg = 1 + 3 + 9 + 27
+1 + 3 + 9 + 27 = 40  → 1부터 40까지 <b>빠짐없이</b> 모두 만들 수 있다.</div>
+      <div class="sec"><span class="lb m">왜 3배씩인가</span>추 하나가 <b>세 가지</b> 상태를 가지므로 4개면 3 × 3 × 3 × 3 = <b>81가지</b>. 이 중 0을 빼고 양수·음수가 절반씩이니 <b>40가지</b>가 남습니다. 딱 1~40과 개수가 맞습니다.</div>
+      <div class="sec"><span class="lb t">토론 유도</span>먼저 <b>추 2개로 1~4kg</b>을 재게 해 보세요(1과 3). 성공하면 “다음 추는 몇 kg이어야 할까?”로 자연스럽게 9가 나옵니다.</div>
+      <div class="mis"><b>자주 하는 오답</b> 1, 2, 4, 8 (한쪽에만 올리는 생각). 15kg까지만 가능합니다. — <b>반대쪽에도 올릴 수 있다</b>는 조건을 놓친 것이므로 예시(2kg = 3 − 1)를 다시 보여 주세요.</div>
+    </div>
+  </div>
+
+  <div class="foot"><span>토론으로 푸는 수학 [2단계] — 교사용 답지</span><span class="r">1 / 5</span></div>
+</div>
+
+<!-- ====== 2쪽 ====== -->
+<div class="page">
+  <div class="head">
+    <div class="row">
+      <div><h1>토론으로 푸는 수학 — 심화 문제 10 <span style="font-size:11.5px;background:#1d4ed8;color:#fff;padding:1px 7px;border-radius:3px;vertical-align:2px">2단계</span><em>교사용</em></h1>
+        <div class="sub">정답 · 풀이 · 토론 유도 방법 · 학생이 자주 하는 오답</div></div>
+      <div class="meta">초등 4~6학년 심화<br>2 / 5 쪽</div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="qh"><span class="no">3</span><span class="tt">숫자 네 개로 24 만들기</span><span class="lv">사칙연산 · ★★</span></div>
+    <div class="bd">
+      <div class="ansline"><b>정답 예시</b> (가) <b>(7 − 8 ÷ 8) × 4</b> &nbsp;·&nbsp; (나) <b>6 ÷ (1 − 3 ÷ 4)</b> &nbsp;·&nbsp; (다) <b>8 ÷ (3 − 8 ÷ 3)</b></div>
+      <div class="steps">(가) 8 ÷ 8 = 1,  7 − 1 = 6,  6 × 4 = 24
+(나) 3 ÷ 4 = 0.75,  1 − 0.75 = 0.25,  6 ÷ 0.25 = 24     ← 0.25로 나누면 4배!
+(다) 8 ÷ 3 = 2.666…,  3 − 2.666… = 0.333…,  8 ÷ 0.333… = 24</div>
+      <div class="sec"><span class="lb">요령</span>24 = <b>3×8 = 4×6 = 12×2</b>. 먼저 어느 곱셈으로 갈지 정하고 <b>나머지 두 수로 그 짝을 만들 수 있는지</b> 확인하면 훨씬 빠릅니다. (가)는 “4 × 6”을 목표로 잡은 것입니다.</div>
+      <div class="sec"><span class="lb m">난도의 비밀</span>(나)와 (다)는 <b>분수로 나누기</b>가 반드시 필요합니다. 학생들은 대개 +, −, ×만 시도하다 막힙니다. “<b>1보다 작은 수로 나누면 커진다</b>”는 감각이 열쇠입니다.</div>
+      <div class="mis"><b>지도 팁</b> (다)는 6학년에게도 어렵습니다. 못 찾아도 괜찮으니 <b>“나누면 오히려 커질 때가 있다”</b>는 발견만 해도 성공으로 인정해 주세요.</div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="qh"><span class="no">4</span><span class="tt">시계 바늘이 겹치는 순간</span><span class="lv">규칙과 속도 · ★★★</span></div>
+    <div class="bd">
+      <div class="ansline"><b>정답</b> (1) <b>11번</b> (12번이 아님!) &nbsp;·&nbsp; (2) <b>1시 5</b><sup>5</sup>⁄<sub>11</sub><b>분</b> (약 1시 5분 27초)</div>
+      <div class="steps">분침은 1시간에 한 바퀴, 시침은 1시간에 1/12바퀴를 돈다.
+→ 분침이 시침보다 1시간에 11/12 바퀴만큼 더 간다.
+→ 12시간이면 11바퀴를 더 앞선다  ⇒ 따라잡는 횟수 = <b>11번</b>
+겹치는 간격 : 12시간 ÷ 11 = 65와 5/11 분 = 약 65분 27초
+   12시 정각 → 1시 5와 5/11분 → 2시 10과 10/11분 → …</div>
+      <div class="sec"><span class="lb">11시대의 비밀</span>11시 다음 겹침은 <b>12시 정각</b>입니다. 즉 11시대에는 <b>따로 겹치는 순간이 없습니다.</b> 그래서 12번이 아니라 11번입니다.</div>
+      <div class="sec"><span class="lb t">토론 유도</span>실제 시계 그림을 주고 <b>1시대, 2시대 …로 표를 만들게</b> 하세요. 11시대에서 “어? 없네?”가 나오는 순간이 이 문제의 절정입니다.</div>
+      <div class="mis"><b>자주 하는 오답</b> ① 12번 ② 1시 5분(정확히 5분이 아님). — 시침도 <b>같이 움직인다</b>는 점을 놓친 것입니다. 분침이 5분 위치에 왔을 때 시침은 이미 조금 더 갔음을 그림으로 보여 주세요.</div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="qh"><span class="no">5</span><span class="tt">계단 오르는 방법</span><span class="lv">경우의 수 · ★★</span></div>
+    <div class="bd">
+      <div class="ansline"><b>정답</b> (1) <b>1, 2, 3, 5, 8</b> &nbsp;·&nbsp; (2) <b>89가지</b></div>
+      <table class="g">
+        <tr><th>계단</th><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td><td>10</td></tr>
+        <tr><th>방법 수</th><td>1</td><td>2</td><td>3</td><td>5</td><td>8</td><td>13</td><td>21</td><td>34</td><td>55</td><td><b>89</b></td></tr>
+      </table>
+      <div class="sec"><span class="lb">규칙</span><b>앞의 두 수를 더하면 다음 수</b>가 됩니다(피보나치). 3 + 5 = 8, 5 + 8 = 13, …</div>
+      <div class="sec"><span class="lb">왜 그런가</span>10칸에 도착하는 <b>마지막 한 걸음</b>은 둘 중 하나입니다. ① 9칸에서 1칸 올라옴 ② 8칸에서 2칸 올라옴. 서로 겹치지 않으므로 <b>(9칸 방법 수) + (8칸 방법 수)</b>가 됩니다.</div>
+      <div class="sec"><span class="lb m">확장</span>1칸·2칸·<b>3칸</b>까지 가능하면 앞의 <b>세 수</b>를 더합니다. 10칸이면 <b>274가지</b>.</div>
+      <div class="mis"><b>자주 하는 오답</b> 10칸을 직접 다 나열하려다 포기. — <b>4칸까지만</b> 손으로 세게 하고 “5칸을 세지 말고 맞혀 볼래?”라고 물으면 규칙을 스스로 찾습니다.</div>
+    </div>
+  </div>
+
+  <div class="foot"><span>토론으로 푸는 수학 [2단계] — 교사용 답지</span><span class="r">2 / 5</span></div>
+</div>
+
+<!-- ====== 3쪽 ====== -->
+<div class="page">
+  <div class="head">
+    <div class="row">
+      <div><h1>토론으로 푸는 수학 — 심화 문제 10 <span style="font-size:11.5px;background:#1d4ed8;color:#fff;padding:1px 7px;border-radius:3px;vertical-align:2px">2단계</span><em>교사용</em></h1>
+        <div class="sub">정답 · 풀이 · 토론 유도 방법 · 학생이 자주 하는 오답</div></div>
+      <div class="meta">초등 4~6학년 심화<br>3 / 5 쪽</div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="qh"><span class="no">6</span><span class="tt">거스름돈은 최소 몇 개?</span><span class="lv">전략과 반례 · ★★</span></div>
+    <div class="bd">
+      <div class="ansline"><b>정답</b> (1) <b>8개</b> (500원 3, 100원 2, 10원 3) &nbsp;·&nbsp; (2) <b>항상 최선은 아니다</b></div>
+      <div class="steps">1730원  →  500 × 3 = 1500  (남은 230)
+              100 × 2 =  200  (남은  30)
+               50 × 0         (30 < 50)
+               10 × 3 =   30  (남은   0)
+        합계 3 + 2 + 0 + 3 = <b>8개</b>   ← 우리나라 동전에서는 이 방법이 최선</div>
+      <div class="sec"><span class="lb m">반례 (토론거리 답)</span>동전이 <b>1원, 3원, 4원</b>뿐인 나라에서 <b>6원</b>을 거슬러 준다면<br>
+        · 큰 것부터 : 4 + 1 + 1 → <b>3개</b> &nbsp;&nbsp; · 실제 최소 : 3 + 3 → <b>2개</b><br>
+        즉 “큰 것부터”가 <b>항상</b> 최선은 아닙니다.</div>
+      <div class="sec"><span class="lb t">토론 유도</span>“왜 우리나라 동전에서는 잘 통할까?”까지 물어보세요. 500, 100, 50, 10처럼 <b>큰 단위가 작은 단위의 배수</b>로 이루어져 있기 때문입니다.</div>
+      <div class="mis"><b>자주 하는 오답</b> (2)에서 “항상 최선”이라고 단정. — 반례 하나면 뒤집힌다는 <b>수학적 사고의 기본</b>을 짚어 주기 좋은 지점입니다.</div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="qh"><span class="no">7</span><span class="tt">아버지와 아들의 나이</span><span class="lv">관계 추론 · ★★</span></div>
+    <div class="bd">
+      <div class="ansline"><b>정답</b> (1) 아들 <b>12살</b>, 아버지 <b>36살</b> &nbsp;·&nbsp; (2) <b>36년 뒤</b> (아들 48살, 아버지 72살)</div>
+      <div class="steps">[나이 차를 이용한 풀이]
+지금 아버지는 아들의 3배 → 나이 차는 아들 나이의 <b>2배</b>
+12년 뒤 아버지는 아들의 2배 → 나이 차는 그때 아들 나이의 <b>1배</b>
+나이 차는 <b>변하지 않으므로</b>  (지금 아들) × 2 = (12년 뒤 아들) × 1
+   → (지금 아들) × 2 = (지금 아들) + 12   →  지금 아들 = <b>12살</b>
+[검산] 36 = 12 × 3 ✓   12년 뒤 48 = 24 × 2 ✓   나이 차는 늘 24살</div>
+      <div class="sec"><span class="lb">(2) 풀이</span>1.5배가 되려면 나이 차 24살이 그때 아들 나이의 <b>0.5배</b>여야 하므로 아들은 <b>48살</b>. 지금 12살이므로 <b>36년 뒤</b>입니다.</div>
+      <div class="sec"><span class="lb t">토론 유도</span>“아버지와 아들의 나이 차는 시간이 지나면 <b>커질까, 줄어들까, 그대로일까?</b>”를 먼저 묻습니다. 의외로 “줄어든다”고 답하는 학생이 있습니다.</div>
+      <div class="mis"><b>자주 하는 오답</b> 12년 뒤 “아버지만” 12살을 더함. — 두 사람 <b>모두</b> 나이를 먹는다는 당연한 사실을 표로 정리하게 하면 해결됩니다.</div>
+    </div>
+  </div>
+
+  <div class="foot"><span>토론으로 푸는 수학 [2단계] — 교사용 답지</span><span class="r">3 / 5</span></div>
+</div>
+
+<!-- ====== 4쪽 ====== -->
+<div class="page">
+  <div class="head">
+    <div class="row">
+      <div><h1>토론으로 푸는 수학 — 심화 문제 10 <span style="font-size:11.5px;background:#1d4ed8;color:#fff;padding:1px 7px;border-radius:3px;vertical-align:2px">2단계</span><em>교사용</em></h1>
+        <div class="sub">정답 · 풀이 · 토론 유도 방법 · 학생이 자주 하는 오답</div></div>
+      <div class="meta">초등 4~6학년 심화<br>4 / 5 쪽</div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="qh"><span class="no">8</span><span class="tt">페인트 칠한 정육면체</span><span class="lv">공간 감각 · ★★</span></div>
+    <div class="bd">
+      <div class="ansline"><b>정답</b> 3면 <b>8개</b> · 2면 <b>12개</b> · 1면 <b>6개</b> · 0면 <b>1개</b> &nbsp;(합 27개 ✓)</div>
+      <table class="g">
+        <tr><th>칠해진 면</th><th>어디에 있었나</th><th>3×3×3</th><th>4×4×4</th><th>n×n×n</th></tr>
+        <tr><td><b>3면</b></td><td style="text-align:left">꼭짓점</td><td>8</td><td>8</td><td>8 (항상)</td></tr>
+        <tr><td><b>2면</b></td><td style="text-align:left">모서리 (꼭짓점 제외)</td><td>12</td><td>24</td><td>12 × (n−2)</td></tr>
+        <tr><td><b>1면</b></td><td style="text-align:left">면의 안쪽</td><td>6</td><td>24</td><td>6 × (n−2)²</td></tr>
+        <tr><td><b>0면</b></td><td style="text-align:left">속에 숨음</td><td>1</td><td>8</td><td>(n−2)³</td></tr>
+      </table>
+      <div class="sec"><span class="lb">핵심</span>정육면체는 꼭짓점 <b>8개</b>, 모서리 <b>12개</b>, 면 <b>6개</b>입니다. 이 숫자가 그대로 답에 나타납니다. 3면은 꼭짓점 수와 같고, 2면은 모서리마다 1개(3×3×3의 경우)씩입니다.</div>
+      <div class="sec"><span class="lb t">토론 유도</span><b>2×2×2</b>부터 시켜 보세요(전부 3면, 8개). 그다음 3×3×3으로 넘어가면 “가운데가 생긴다”는 것을 발견합니다.</div>
+      <div class="mis"><b>자주 하는 오답</b> 0면을 <b>0개</b>라고 답함(속에 숨은 나무를 잊음). — 4번 문제(사물함)와 같은 “보이지 않는 것 세기”입니다. 합이 27이 되는지 <b>검산</b>하게 하면 스스로 찾습니다.</div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="qh"><span class="no">9</span><span class="tt">누가 참말을 하고 있을까</span><span class="lv">논리 추론 · ★★★</span></div>
+    <div class="bd">
+      <div class="ansline"><b>정답</b> 민수 <b>거짓말족</b> · 지혜 <b>참말족</b> · 현우 <b>거짓말족</b></div>
+      <div class="steps">[가정하고 따져 보기]  민수가 참말족이라고 하자.
+  → 민수의 말이 참 → 지혜는 거짓말족
+  → 지혜의 말은 거짓 → 현우는 참말족
+  → 현우의 말이 참 → "민수와 지혜는 둘 다 거짓말족"
+  → 그런데 민수는 참말족이라고 가정했다.  ⇒ <b>모순!</b>
+따라서 민수는 <b>거짓말족</b>이다.
+  → 민수의 말은 거짓 → 지혜는 <b>참말족</b>
+  → 지혜의 말은 참 → 현우는 <b>거짓말족</b>
+[검산] 현우(거짓말족)의 말 "민수와 지혜 둘 다 거짓말족" → 지혜가 참말족이므로 이 말은 거짓 ✓</div>
+      <div class="sec"><span class="lb t">토론 유도</span>이 방법이 <b>귀류법</b>(가정하고 모순을 찾는 방법)입니다. 이름을 알려 주기보다 <b>“한쪽이라고 쳐 보고 말이 되는지 확인한다”</b>는 절차 자체를 익히게 하세요.</div>
+      <div class="sec"><span class="lb m">토론거리 답</span>“나는 거짓말족이야”는 <b>아무도 말할 수 없습니다.</b> 참말족이면 참만 말해야 하는데 그 말은 자기가 거짓말족이라는 거짓말이 되고, 거짓말족이면 거짓만 말해야 하는데 그 말이 사실이 되어 버립니다. 어느 쪽도 성립하지 않습니다.</div>
+      <div class="mis"><b>자주 하는 오답</b> 세 사람의 말을 <b>동시에</b> 보려다 혼란. — “한 사람만 정하면 나머지가 줄줄이 정해진다”는 점을 짚어 주고, <b>표를 그려</b> 두 경우(민수가 참말족 / 거짓말족)를 각각 따라가게 하세요.</div>
+    </div>
+  </div>
+
+  <div class="foot"><span>토론으로 푸는 수학 [2단계] — 교사용 답지</span><span class="r">4 / 5</span></div>
+</div>
+
+<!-- ====== 5쪽 ====== -->
+<div class="page">
+  <div class="head">
+    <div class="row">
+      <div><h1>토론으로 푸는 수학 — 심화 문제 10 <span style="font-size:11.5px;background:#1d4ed8;color:#fff;padding:1px 7px;border-radius:3px;vertical-align:2px">2단계</span><em>교사용</em></h1>
+        <div class="sub">정답 · 풀이 · 토론 유도 방법 · 학생이 자주 하는 오답</div></div>
+      <div class="meta">초등 4~6학년 심화<br>5 / 5 쪽</div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="qh"><span class="no">10</span><span class="tt">우물은 어디에 팔까?</span><span class="lv">최적 위치 · ★★★</span></div>
+    <div class="bd">
+      <div class="ansline"><b>정답</b> (1) <b>9의 자리(‘다’ 집)</b>, 거리의 합 <b>27</b> &nbsp;·&nbsp; (2) <b>5와 9 사이 어디든</b> (합은 16으로 같음)</div>
+      <div class="steps">위치 :  2    5    9    14    20      (평균은 10, 가운데 값은 9)
+우물을 9에 두면  7 + 4 + 0 + 5 + 11 = <b>27</b>
+우물을 10에 두면 8 + 5 + 1 + 4 + 10 = 28
+우물을 11에 두면 9 + 6 + 2 + 3 +  9 = 29
+→ <b>평균(10)이 아니라 가운데 값(9)</b>이 정답!</div>
+      <div class="sec"><span class="lb">왜 가운데 값인가</span>우물을 오른쪽으로 1만큼 옮기면 <b>왼쪽 집들은 1씩 멀어지고, 오른쪽 집들은 1씩 가까워집니다.</b> 그러므로 <b>왼쪽 집 수와 오른쪽 집 수가 같아질 때</b>까지 옮기는 것이 이득이고, 그 지점이 바로 가운데 값입니다.</div>
+      <div class="sec"><span class="lb m">(2) 집이 짝수 채일 때</span>2, 5, 9, 14에서는 <b>5와 9 사이 어디에 두어도</b> 합이 16으로 같습니다. 가운데 <b>두 집 사이 구간 전체</b>가 답이 됩니다.</div>
+      <div class="mis"><b>자주 하는 오답</b> 평균 10 (또는 “양 끝의 한가운데”인 11). — 두 값을 직접 계산해 <b>27 vs 28</b>을 비교하게 하면 즉시 납득합니다. “평균이 항상 답은 아니다”가 이 문제의 교훈입니다.</div>
+    </div>
+  </div>
+
+  <div class="item" style="border-color:var(--tip)">
+    <div class="qh" style="background:#effaf7"><span class="tt" style="color:var(--tip)">평가 기준 및 1단계와의 연결</span></div>
+    <div class="bd">
+      <table class="g">
+        <tr><th style="width:20%">영역</th><th>상</th><th>중</th><th>하</th></tr>
+        <tr><td><b>규칙 발견</b></td><td style="text-align:left">작은 경우로 줄여 규칙을 찾고 일반화함</td><td style="text-align:left">규칙을 찾아 답을 구함</td><td style="text-align:left">일일이 세어 답만 구함</td></tr>
+        <tr><td><b>논리적 추론</b></td><td style="text-align:left">가정하고 모순을 찾아 결론지음</td><td style="text-align:left">근거를 들어 설명함</td><td style="text-align:left">직관으로만 답함</td></tr>
+        <tr><td><b>검증 태도</b></td><td style="text-align:left">반례를 찾거나 검산으로 확인함</td><td style="text-align:left">답을 한 번 확인함</td><td style="text-align:left">확인하지 않음</td></tr>
+      </table>
+      <div class="sec" style="margin-top:5px"><span class="lb t">1단계와의 연결</span>8번(페인트)은 1단계 4번(사물함)과 같은 <b>“보이지 않는 것 세기”</b>, 6번(거스름돈)은 1단계 3번(다리 건너기)과 같은 <b>“당연해 보이는 방법이 최선인지 의심하기”</b>입니다. 두 세트를 이어서 지도하면 효과가 큽니다.</div>
+      <div class="sec"><span class="lb m">가장 중요한 한마디</span>“<b>막히면 숫자를 줄여 보세요.</b>” — 1, 5, 8번은 이 한마디로 대부분의 학생이 스스로 길을 찾습니다.</div>
+    </div>
+  </div>
+
+  <div class="foot"><span>토론으로 푸는 수학 [2단계] — 교사용 답지</span><span class="r">5 / 5</span></div>
+</div>
+
+</body>
+</html>
