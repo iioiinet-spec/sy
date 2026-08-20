@@ -1,0 +1,338 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>중등 올림피아드 필즈수학 스타일 20문제 - 학생용</title>
+<style>
+:root{
+  --ink:#171717; --muted:#5b6472; --line:#d9dde5; --paper:#fff;
+  --accent:#9c2f67; --accent2:#f9e7f0; --soft:#f7f8fb; --ok:#0a6b45;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:#eef1f5; color:var(--ink);
+  font-family:"Noto Sans KR","Malgun Gothic","Apple SD Gothic Neo",sans-serif;
+  font-size:17px; line-height:1.72;
+}
+.sheet{
+  width:min(980px, calc(100% - 28px)); margin:28px auto;
+  background:var(--paper); box-shadow:0 10px 40px rgba(0,0,0,.10);
+  border-radius:18px; overflow:hidden;
+}
+header{
+  padding:40px 48px 26px; border-bottom:3px solid var(--accent);
+  background:linear-gradient(135deg,#fff 0%,#fff7fb 100%);
+}
+h1{font-size:31px; line-height:1.25; margin:0 0 10px}
+.subtitle{color:var(--muted); font-weight:700}
+.meta{
+  margin-top:20px; display:grid; grid-template-columns:1.2fr .8fr .8fr;
+  gap:10px; font-size:15px;
+}
+.meta div{border:1px solid var(--line); padding:10px 12px; border-radius:9px;background:#fff}
+main{padding:28px 48px 42px}
+.guide{
+  border:1px solid #e7b9cf; background:#fff8fb; padding:18px 20px;
+  border-radius:12px; margin:0 0 24px;
+}
+.domain{
+  display:inline-block; font-size:13px; font-weight:800; color:#7d174b;
+  background:var(--accent2); padding:3px 9px; border-radius:999px; margin-bottom:7px;
+}
+.problem{
+  padding:22px 0 24px; border-bottom:1px solid var(--line);
+  break-inside:avoid;
+}
+.problem h2{font-size:21px;margin:0 0 9px}
+.problem p{margin:7px 0}
+.answer-line{
+  margin-top:16px; min-height:46px; border-bottom:1.5px solid #777;
+  color:#777; font-size:14px; padding-top:18px;
+}
+.work-space{
+  height:92px; margin-top:12px;
+  background:repeating-linear-gradient(to bottom, transparent 0, transparent 29px, #edf0f4 30px);
+}
+.diagram{display:flex;justify-content:center;margin:14px auto}
+.diagram svg{max-width:100%;height:auto}
+.page-break{break-before:page}
+.toolbar{
+  position:sticky; top:0; z-index:10; padding:9px 14px; background:#20242b;
+  display:flex; gap:8px; justify-content:center; flex-wrap:wrap;
+}
+button{
+  border:0; border-radius:8px; padding:9px 14px; font-weight:800; cursor:pointer;
+}
+.print{background:#fff;color:#111}.size{background:#f3dce8;color:#6d1944}
+footer{
+  text-align:center; padding:24px; border-top:1px solid var(--line);
+  font-weight:800; color:#5b3347;
+}
+.scorebox{
+  display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-top:18px;
+}
+.scorebox div{padding:10px;border:1px solid var(--line);text-align:center;border-radius:8px}
+@media(max-width:700px){
+  body{font-size:16px}.sheet{width:100%;margin:0;border-radius:0}
+  header,main{padding-left:20px;padding-right:20px}.meta{grid-template-columns:1fr}
+}
+@media print{
+  @page{size:A4; margin:12mm 13mm 14mm}
+  body{background:#fff;font-size:11.5pt;line-height:1.52}
+  .toolbar{display:none!important}.sheet{width:auto;margin:0;box-shadow:none;border-radius:0}
+  header{padding:0 0 12mm;background:#fff}.meta{margin-top:10px}
+  main{padding:0}.problem{padding:7mm 0 7mm}
+  h1{font-size:22pt}.problem h2{font-size:14.5pt}
+  footer{padding:8mm 0 0}.work-space{height:42mm}
+  a{color:inherit;text-decoration:none}
+}
+</style>
+</head>
+<body>
+<div class="toolbar">
+  <button class="print" onclick="window.print()">🖨 인쇄 / PDF 저장</button>
+  <button class="size" onclick="changeSize(1)">글자 크게</button>
+  <button class="size" onclick="changeSize(-1)">글자 작게</button>
+</div>
+<div class="sheet">
+<header>
+  <h1>중등 수학 올림피아드 사고력 문제 20선</h1>
+  <div class="subtitle">필즈수학식 6대 사고영역 × 중등 경시·올림피아드 문제해결</div>
+  <div class="meta">
+    <div>이름: ____________________</div>
+    <div>권장 시간: 120분</div>
+    <div>총 20문제</div>
+  </div>
+</header>
+<main>
+  <div class="guide">
+    <b>학생 안내</b><br>
+    계산만 하지 말고, 왜 그런지 설명하는 습관을 기릅니다. 특히 6, 16, 17, 18, 19, 20번은 답뿐 아니라 이유나 전략을 풀이란에 적으세요.
+    문제는 공개된 사고력·경시대회 유형을 분석해 새로 구성한 유사·변형 창작 문제이며, 특정 기출문제를 그대로 복제하지 않았습니다.
+  </div>
+  
+<section class="problem">
+  <div class="domain">수와 연산 · 숫자 세기</div>
+  <h2>1. 문제</h2>
+  <p>1부터 2026까지의 모든 자연수를 차례로 쓸 때, 숫자 <b>2</b>는 모두 몇 번 나타나는가?</p>
+  
+  <div class="answer-line">답: ______________________________________________</div>
+  <div class="work-space"></div>
+</section>
+
+<section class="problem">
+  <div class="domain">수와 연산 · 나머지</div>
+  <h2>2. 문제</h2>
+  <p>어떤 자연수 N을 5, 6, 7, 8, 9로 나누면 나머지가 각각 4, 5, 6, 7, 8이다. 이러한 자연수 N 중 가장 작은 것은?</p>
+  
+  <div class="answer-line">답: ______________________________________________</div>
+  <div class="work-space"></div>
+</section>
+
+<section class="problem">
+  <div class="domain">수와 연산 · 약수</div>
+  <h2>3. 문제</h2>
+  <p>약수의 개수가 정확히 18개인 가장 작은 자연수를 구하여라.</p>
+  
+  <div class="answer-line">답: ______________________________________________</div>
+  <div class="work-space"></div>
+</section>
+
+<section class="problem">
+  <div class="domain">수와 연산 · 숫자카드</div>
+  <h2>4. 문제</h2>
+  <p>두 자리 자연수 <b>AB</b>에서 십의 자리 A와 일의 자리 B를 뒤집은 수를 <b>BA</b>라 하자. AB − BA = 36이고 AB가 7의 배수일 때, AB를 구하여라.</p>
+  
+  <div class="answer-line">답: ______________________________________________</div>
+  <div class="work-space"></div>
+</section>
+
+<section class="problem">
+  <div class="domain">문자와 식 · 규칙적 분수</div>
+  <h2>5. 문제</h2>
+  <p>다음 합이 <b>49/50</b>이 되도록 하는 자연수 n을 구하여라.<br><b>1/(1·2) + 1/(2·3) + 1/(3·4) + ··· + 1/(n(n+1))</b></p>
+  
+  <div class="answer-line">답: ______________________________________________</div>
+  <div class="work-space"></div>
+</section>
+
+<section class="problem">
+  <div class="domain">수와 연산 · 마방진</div>
+  <h2>6. 문제</h2>
+  <p>1부터 9까지의 수를 한 번씩 사용하여 3×3 마방진을 만들었다. 가로, 세로, 두 대각선의 합이 모두 같을 때, 가운데 칸에 반드시 들어가는 수를 구하고 이유를 설명하여라.</p>
+  
+  <div class="answer-line">답: ______________________________________________</div>
+  <div class="work-space"></div>
+</section>
+
+<section class="problem">
+  <div class="domain">도형 · 직사각형</div>
+  <h2>7. 문제</h2>
+  <p>어떤 직사각형의 둘레는 34cm이고 대각선의 길이는 13cm이다. 이 직사각형의 넓이를 구하여라.</p>
+  <div class="diagram"><svg viewBox="0 0 360 190" width="360" aria-label="직사각형 그림">
+<rect x="45" y="35" width="265" height="120" fill="none" stroke="#222" stroke-width="3"/>
+<line x1="45" y1="155" x2="310" y2="35" stroke="#9c2f67" stroke-width="3"/>
+<text x="164" y="88" font-size="18" fill="#7d174b">13 cm</text>
+<text x="102" y="178" font-size="15">perimeter = 34 cm</text>
+</svg></div>
+  <div class="answer-line">답: ______________________________________________</div>
+  <div class="work-space"></div>
+</section>
+
+<section class="problem">
+  <div class="domain">도형 · 다각형</div>
+  <h2>8. 문제</h2>
+  <p>어떤 볼록다각형의 모든 대각선의 개수가 35개이다. 이 다각형은 몇 각형인가?</p>
+  
+  <div class="answer-line">답: ______________________________________________</div>
+  <div class="work-space"></div>
+</section>
+
+<section class="problem">
+  <div class="domain">도형 · 넓이</div>
+  <h2>9. 문제</h2>
+  <p>한 변의 길이가 12cm인 정사각형 ABCD가 있다. 각 꼭짓점에서 시계방향으로 다음 변의 중점까지 선분을 그었다. 네 선분이 둘러싸는 가운데 사각형의 넓이를 구하여라.</p>
+  <div class="diagram"><svg viewBox="0 0 320 320" width="300" aria-label="정사각형과 중점 연결 그림">
+<rect x="40" y="40" width="240" height="240" fill="none" stroke="#222" stroke-width="3"/>
+<line x1="40" y1="280" x2="280" y2="160" stroke="#9c2f67" stroke-width="3"/>
+<line x1="280" y1="280" x2="160" y2="40" stroke="#9c2f67" stroke-width="3"/>
+<line x1="280" y1="40" x2="40" y2="160" stroke="#9c2f67" stroke-width="3"/>
+<line x1="40" y1="40" x2="160" y2="280" stroke="#9c2f67" stroke-width="3"/>
+<text x="25" y="300" font-size="16">A</text><text x="286" y="300" font-size="16">B</text>
+<text x="286" y="35" font-size="16">C</text><text x="23" y="35" font-size="16">D</text>
+<text x="135" y="310" font-size="16">12 cm</text>
+</svg></div>
+  <div class="answer-line">답: ______________________________________________</div>
+  <div class="work-space"></div>
+</section>
+
+<section class="problem">
+  <div class="domain">측정 · 입체도형</div>
+  <h2>10. 문제</h2>
+  <p>한 변의 길이가 같은 작은 정육면체 64개를 4×4×4 모양의 큰 정육면체로 쌓은 뒤, 큰 정육면체의 겉면 전체를 칠했다. 정확히 <b>두 면만</b> 색칠된 작은 정육면체는 몇 개인가?</p>
+  
+  <div class="answer-line">답: ______________________________________________</div>
+  <div class="work-space"></div>
+</section>
+
+<section class="problem">
+  <div class="domain">경우의 수 · 배수</div>
+  <h2>11. 문제</h2>
+  <p>숫자 1, 2, 3, 4, 5 중 서로 다른 네 숫자를 골라 네 자리 자연수를 만든다. 이 중 6의 배수는 모두 몇 개인가?</p>
+  
+  <div class="answer-line">답: ______________________________________________</div>
+  <div class="work-space"></div>
+</section>
+
+<section class="problem">
+  <div class="domain">경우의 수 · 최단경로</div>
+  <h2>12. 문제</h2>
+  <p>격자점 (0,0)에서 (5,5)까지 오른쪽 또는 위쪽으로 한 칸씩만 이동한다. 점 (2,2)는 지나갈 수 없다. 가능한 최단 경로는 모두 몇 개인가?</p>
+  <div class="diagram"><svg viewBox="0 0 330 330" width="300" aria-label="6 by 6 격자">
+<g stroke="#bbb" stroke-width="1">
+<line x1="30" y1="30" x2="30" y2="280"/><line x1="80" y1="30" x2="80" y2="280"/><line x1="130" y1="30" x2="130" y2="280"/><line x1="180" y1="30" x2="180" y2="280"/><line x1="230" y1="30" x2="230" y2="280"/><line x1="280" y1="30" x2="280" y2="280"/><line x1="30" y1="30" x2="280" y2="30"/><line x1="30" y1="80" x2="280" y2="80"/><line x1="30" y1="130" x2="280" y2="130"/><line x1="30" y1="180" x2="280" y2="180"/><line x1="30" y1="230" x2="280" y2="230"/><line x1="30" y1="280" x2="280" y2="280"/>
+</g>
+<circle cx="130" cy="180" r="8" fill="#9c2f67"/><text x="140" y="180" font-size="14">(2,2) 금지</text>
+<text x="15" y="300" font-size="14">(0,0)</text><text x="270" y="25" font-size="14">(5,5)</text>
+</svg></div>
+  <div class="answer-line">답: ______________________________________________</div>
+  <div class="work-space"></div>
+</section>
+
+<section class="problem">
+  <div class="domain">경우의 수 · 선택</div>
+  <h2>13. 문제</h2>
+  <p>집합 {1,2,3,4,5,6,7,8,9,10}에서 서로 연속한 두 수가 함께 선택되지 않도록 4개의 수를 고르는 방법은 모두 몇 가지인가?</p>
+  
+  <div class="answer-line">답: ______________________________________________</div>
+  <div class="work-space"></div>
+</section>
+
+<section class="problem">
+  <div class="domain">경우의 수 · 원순열</div>
+  <h2>14. 문제</h2>
+  <p>서로 다른 학생 A, B, C, D, E, F가 원탁에 둘러앉는다. A와 B가 서로 이웃하지 않게 앉는 방법은 모두 몇 가지인가? 회전하여 같은 배치는 같은 것으로 본다.</p>
+  
+  <div class="answer-line">답: ______________________________________________</div>
+  <div class="work-space"></div>
+</section>
+
+<section class="problem">
+  <div class="domain">경우의 수 · 확률</div>
+  <h2>15. 문제</h2>
+  <p>서로 구별되는 공정한 주사위 3개를 동시에 던질 때, 세 눈의 합이 10일 확률을 구하여라. 기약분수로 나타내어라.</p>
+  
+  <div class="answer-line">답: ______________________________________________</div>
+  <div class="work-space"></div>
+</section>
+
+<section class="problem">
+  <div class="domain">논리 · 비둘기집 원리</div>
+  <h2>16. 문제</h2>
+  <p>1부터 20까지의 자연수 중 서로 다른 수를 몇 개 이상 고르면, 선택한 수들 중 합이 21인 두 수가 반드시 존재하는가? 그 최소 개수를 구하고 이유를 설명하여라.</p>
+  
+  <div class="answer-line">답: ______________________________________________</div>
+  <div class="work-space"></div>
+</section>
+
+<section class="problem">
+  <div class="domain">논리 · 불변량</div>
+  <h2>17. 문제</h2>
+  <p>8×8 체스판의 서로 마주 보는 두 모서리 칸을 제거했다. 남은 62칸을 1×2 도미노 31개로 빈틈없이 덮을 수 있는가? 가능/불가능을 판단하고 이유를 설명하여라.</p>
+  <div class="diagram"><svg viewBox="0 0 280 280" width="250" aria-label="모서리 두 칸이 제거된 체스판">
+<rect x="20" y="20" width="240" height="240" fill="#fff" stroke="#111" stroke-width="2"/>
+<rect x="20" y="20" width="30" height="30" fill="#fff" stroke="#999" stroke-width=".5"/><rect x="50" y="20" width="30" height="30" fill="#ddd" stroke="#999" stroke-width=".5"/><rect x="80" y="20" width="30" height="30" fill="#fff" stroke="#999" stroke-width=".5"/><rect x="110" y="20" width="30" height="30" fill="#ddd" stroke="#999" stroke-width=".5"/><rect x="140" y="20" width="30" height="30" fill="#fff" stroke="#999" stroke-width=".5"/><rect x="170" y="20" width="30" height="30" fill="#ddd" stroke="#999" stroke-width=".5"/><rect x="200" y="20" width="30" height="30" fill="#fff" stroke="#999" stroke-width=".5"/><rect x="230" y="20" width="30" height="30" fill="#ddd" stroke="#999" stroke-width=".5"/><rect x="20" y="50" width="30" height="30" fill="#ddd" stroke="#999" stroke-width=".5"/><rect x="50" y="50" width="30" height="30" fill="#fff" stroke="#999" stroke-width=".5"/><rect x="80" y="50" width="30" height="30" fill="#ddd" stroke="#999" stroke-width=".5"/><rect x="110" y="50" width="30" height="30" fill="#fff" stroke="#999" stroke-width=".5"/><rect x="140" y="50" width="30" height="30" fill="#ddd" stroke="#999" stroke-width=".5"/><rect x="170" y="50" width="30" height="30" fill="#fff" stroke="#999" stroke-width=".5"/><rect x="200" y="50" width="30" height="30" fill="#ddd" stroke="#999" stroke-width=".5"/><rect x="230" y="50" width="30" height="30" fill="#fff" stroke="#999" stroke-width=".5"/><rect x="20" y="80" width="30" height="30" fill="#fff" stroke="#999" stroke-width=".5"/><rect x="50" y="80" width="30" height="30" fill="#ddd" stroke="#999" stroke-width=".5"/><rect x="80" y="80" width="30" height="30" fill="#fff" stroke="#999" stroke-width=".5"/><rect x="110" y="80" width="30" height="30" fill="#ddd" stroke="#999" stroke-width=".5"/><rect x="140" y="80" width="30" height="30" fill="#fff" stroke="#999" stroke-width=".5"/><rect x="170" y="80" width="30" height="30" fill="#ddd" stroke="#999" stroke-width=".5"/><rect x="200" y="80" width="30" height="30" fill="#fff" stroke="#999" stroke-width=".5"/><rect x="230" y="80" width="30" height="30" fill="#ddd" stroke="#999" stroke-width=".5"/><rect x="20" y="110" width="30" height="30" fill="#ddd" stroke="#999" stroke-width=".5"/><rect x="50" y="110" width="30" height="30" fill="#fff" stroke="#999" stroke-width=".5"/><rect x="80" y="110" width="30" height="30" fill="#ddd" stroke="#999" stroke-width=".5"/><rect x="110" y="110" width="30" height="30" fill="#fff" stroke="#999" stroke-width=".5"/><rect x="140" y="110" width="30" height="30" fill="#ddd" stroke="#999" stroke-width=".5"/><rect x="170" y="110" width="30" height="30" fill="#fff" stroke="#999" stroke-width=".5"/><rect x="200" y="110" width="30" height="30" fill="#ddd" stroke="#999" stroke-width=".5"/><rect x="230" y="110" width="30" height="30" fill="#fff" stroke="#999" stroke-width=".5"/><rect x="20" y="140" width="30" height="30" fill="#fff" stroke="#999" stroke-width=".5"/><rect x="50" y="140" width="30" height="30" fill="#ddd" stroke="#999" stroke-width=".5"/><rect x="80" y="140" width="30" height="30" fill="#fff" stroke="#999" stroke-width=".5"/><rect x="110" y="140" width="30" height="30" fill="#ddd" stroke="#999" stroke-width=".5"/><rect x="140" y="140" width="30" height="30" fill="#fff" stroke="#999" stroke-width=".5"/><rect x="170" y="140" width="30" height="30" fill="#ddd" stroke="#999" stroke-width=".5"/><rect x="200" y="140" width="30" height="30" fill="#fff" stroke="#999" stroke-width=".5"/><rect x="230" y="140" width="30" height="30" fill="#ddd" stroke="#999" stroke-width=".5"/><rect x="20" y="170" width="30" height="30" fill="#ddd" stroke="#999" stroke-width=".5"/><rect x="50" y="170" width="30" height="30" fill="#fff" stroke="#999" stroke-width=".5"/><rect x="80" y="170" width="30" height="30" fill="#ddd" stroke="#999" stroke-width=".5"/><rect x="110" y="170" width="30" height="30" fill="#fff" stroke="#999" stroke-width=".5"/><rect x="140" y="170" width="30" height="30" fill="#ddd" stroke="#999" stroke-width=".5"/><rect x="170" y="170" width="30" height="30" fill="#fff" stroke="#999" stroke-width=".5"/><rect x="200" y="170" width="30" height="30" fill="#ddd" stroke="#999" stroke-width=".5"/><rect x="230" y="170" width="30" height="30" fill="#fff" stroke="#999" stroke-width=".5"/><rect x="20" y="200" width="30" height="30" fill="#fff" stroke="#999" stroke-width=".5"/><rect x="50" y="200" width="30" height="30" fill="#ddd" stroke="#999" stroke-width=".5"/><rect x="80" y="200" width="30" height="30" fill="#fff" stroke="#999" stroke-width=".5"/><rect x="110" y="200" width="30" height="30" fill="#ddd" stroke="#999" stroke-width=".5"/><rect x="140" y="200" width="30" height="30" fill="#fff" stroke="#999" stroke-width=".5"/><rect x="170" y="200" width="30" height="30" fill="#ddd" stroke="#999" stroke-width=".5"/><rect x="200" y="200" width="30" height="30" fill="#fff" stroke="#999" stroke-width=".5"/><rect x="230" y="200" width="30" height="30" fill="#ddd" stroke="#999" stroke-width=".5"/><rect x="20" y="230" width="30" height="30" fill="#ddd" stroke="#999" stroke-width=".5"/><rect x="50" y="230" width="30" height="30" fill="#fff" stroke="#999" stroke-width=".5"/><rect x="80" y="230" width="30" height="30" fill="#ddd" stroke="#999" stroke-width=".5"/><rect x="110" y="230" width="30" height="30" fill="#fff" stroke="#999" stroke-width=".5"/><rect x="140" y="230" width="30" height="30" fill="#ddd" stroke="#999" stroke-width=".5"/><rect x="170" y="230" width="30" height="30" fill="#fff" stroke="#999" stroke-width=".5"/><rect x="200" y="230" width="30" height="30" fill="#ddd" stroke="#999" stroke-width=".5"/><rect x="230" y="230" width="30" height="30" fill="#fff" stroke="#999" stroke-width=".5"/>
+<rect x="20" y="20" width="30" height="30" fill="#9c2f67"/>
+<rect x="230" y="230" width="30" height="30" fill="#9c2f67"/>
+</svg></div>
+  <div class="answer-line">답: ______________________________________________</div>
+  <div class="work-space"></div>
+</section>
+
+<section class="problem">
+  <div class="domain">논리 · 정보와 전략</div>
+  <h2>18. 문제</h2>
+  <p>겉모양이 같은 동전 9개 중 정확히 1개만 다른 동전보다 무겁다. 양팔저울만 사용하여 무거운 동전을 반드시 찾아내려면 최소 몇 번의 저울질이 필요한가? 방법도 설명하여라.</p>
+  
+  <div class="answer-line">답: ______________________________________________</div>
+  <div class="work-space"></div>
+</section>
+
+<section class="problem">
+  <div class="domain">규칙과 함수 · 게임전략</div>
+  <h2>19. 문제</h2>
+  <p>돌이 31개 있다. 두 사람이 번갈아 돌을 1개, 2개, 3개, 4개 중 원하는 만큼 가져간다. 마지막 돌을 가져가는 사람이 이긴다. 두 사람 모두 최선으로 플레이한다면 선공과 후공 중 누가 이기는가? 이기는 전략을 설명하여라.</p>
+  
+  <div class="answer-line">답: ______________________________________________</div>
+  <div class="work-space"></div>
+</section>
+
+<section class="problem">
+  <div class="domain">논리 · 그래프</div>
+  <h2>20. 문제</h2>
+  <p>로봇 6대가 있다. 임의의 두 로봇 사이에는 통신이 되거나, 되지 않거나 둘 중 하나이다. 반드시 다음 둘 중 하나가 존재함을 증명하여라.<br>① 서로 두 대씩 모두 통신되는 로봇 3대<br>② 서로 두 대씩 모두 통신되지 않는 로봇 3대</p>
+  
+  <div class="answer-line">답: ______________________________________________</div>
+  <div class="work-space"></div>
+</section>
+
+  <div class="scorebox">
+    <div>정답 수<br><b>____ / 20</b></div>
+    <div>수와 식<br><b>____</b></div>
+    <div>도형·측정<br><b>____</b></div>
+    <div>조합·논리<br><b>____</b></div>
+  </div>
+</main>
+<footer>-세영코딩연구소- &nbsp;&nbsp;&nbsp; ph.D KIM</footer>
+</div>
+<script>
+let base=17;
+function changeSize(d){
+  base=Math.max(14,Math.min(23,base+d));
+  document.body.style.fontSize=base+"px";
+}
+</script>
+</body>
+</html>

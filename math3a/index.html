@@ -1,0 +1,377 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>중등 올림피아드 필즈수학 스타일 20문제 - 교사용 정답과 해설</title>
+<style>
+:root{
+  --ink:#171717; --muted:#5b6472; --line:#d9dde5; --paper:#fff;
+  --accent:#9c2f67; --accent2:#f9e7f0; --soft:#f7f8fb; --ok:#0a6b45;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:#eef1f5; color:var(--ink);
+  font-family:"Noto Sans KR","Malgun Gothic","Apple SD Gothic Neo",sans-serif;
+  font-size:17px; line-height:1.72;
+}
+.sheet{
+  width:min(980px, calc(100% - 28px)); margin:28px auto;
+  background:var(--paper); box-shadow:0 10px 40px rgba(0,0,0,.10);
+  border-radius:18px; overflow:hidden;
+}
+header{
+  padding:40px 48px 26px; border-bottom:3px solid var(--accent);
+  background:linear-gradient(135deg,#fff 0%,#fff7fb 100%);
+}
+h1{font-size:31px; line-height:1.25; margin:0 0 10px}
+.subtitle{color:var(--muted); font-weight:700}
+.meta{
+  margin-top:20px; display:grid; grid-template-columns:1.2fr .8fr .8fr;
+  gap:10px; font-size:15px;
+}
+.meta div{border:1px solid var(--line); padding:10px 12px; border-radius:9px;background:#fff}
+main{padding:28px 48px 42px}
+.guide{
+  border:1px solid #e7b9cf; background:#fff8fb; padding:18px 20px;
+  border-radius:12px; margin:0 0 24px;
+}
+.domain{
+  display:inline-block; font-size:13px; font-weight:800; color:#7d174b;
+  background:var(--accent2); padding:3px 9px; border-radius:999px; margin-bottom:7px;
+}
+.problem{
+  padding:22px 0 24px; border-bottom:1px solid var(--line);
+  break-inside:avoid;
+}
+.problem h2{font-size:21px;margin:0 0 9px}
+.problem p{margin:7px 0}
+.answer-line{
+  margin-top:16px; min-height:46px; border-bottom:1.5px solid #777;
+  color:#777; font-size:14px; padding-top:18px;
+}
+.work-space{
+  height:92px; margin-top:12px;
+  background:repeating-linear-gradient(to bottom, transparent 0, transparent 29px, #edf0f4 30px);
+}
+.diagram{display:flex;justify-content:center;margin:14px auto}
+.diagram svg{max-width:100%;height:auto}
+.page-break{break-before:page}
+.toolbar{
+  position:sticky; top:0; z-index:10; padding:9px 14px; background:#20242b;
+  display:flex; gap:8px; justify-content:center; flex-wrap:wrap;
+}
+button{
+  border:0; border-radius:8px; padding:9px 14px; font-weight:800; cursor:pointer;
+}
+.print{background:#fff;color:#111}.size{background:#f3dce8;color:#6d1944}
+footer{
+  text-align:center; padding:24px; border-top:1px solid var(--line);
+  font-weight:800; color:#5b3347;
+}
+.scorebox{
+  display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-top:18px;
+}
+.scorebox div{padding:10px;border:1px solid var(--line);text-align:center;border-radius:8px}
+@media(max-width:700px){
+  body{font-size:16px}.sheet{width:100%;margin:0;border-radius:0}
+  header,main{padding-left:20px;padding-right:20px}.meta{grid-template-columns:1fr}
+}
+@media print{
+  @page{size:A4; margin:12mm 13mm 14mm}
+  body{background:#fff;font-size:11.5pt;line-height:1.52}
+  .toolbar{display:none!important}.sheet{width:auto;margin:0;box-shadow:none;border-radius:0}
+  header{padding:0 0 12mm;background:#fff}.meta{margin-top:10px}
+  main{padding:0}.problem{padding:7mm 0 7mm}
+  h1{font-size:22pt}.problem h2{font-size:14.5pt}
+  footer{padding:8mm 0 0}.work-space{height:42mm}
+  a{color:inherit;text-decoration:none}
+}
+
+.answer-summary{width:100%;border-collapse:collapse;margin:18px 0 28px;font-size:14px}
+.answer-summary th,.answer-summary td{border:1px solid #cfd4dc;padding:8px;text-align:center}
+.answer-summary th{background:#f6e5ee}
+.solution{
+  border:1px solid #d9dde5;border-radius:13px;padding:20px;margin:0 0 20px;
+  break-inside:avoid;
+}
+.solution h2{margin:0 0 8px;font-size:21px}
+.ans{font-weight:900;color:#7d174b;font-size:18px}
+.idea{background:#fff7fb;border-left:5px solid #9c2f67;padding:10px 12px;margin:12px 0}
+.steps{margin:10px 0}
+.teach{background:#f5f7fa;padding:10px 12px;border-radius:8px;color:#404854;margin-top:12px}
+.toggle{background:#9c2f67;color:white;margin-left:6px}
+@media print{
+  .solution{border:0;border-bottom:1px solid #bbb;border-radius:0;padding:6mm 0;margin:0}
+  .answer-summary{font-size:9.5pt}
+  .solution h2{font-size:14.5pt}
+}
+</style>
+</head>
+<body>
+<div class="toolbar">
+  <button class="print" onclick="window.print()">🖨 인쇄 / PDF 저장</button>
+  <button class="size" onclick="changeSize(1)">글자 크게</button>
+  <button class="size" onclick="changeSize(-1)">글자 작게</button>
+  <button class="toggle" onclick="toggleTips()">지도 포인트 숨기기/보기</button>
+</div>
+<div class="sheet">
+<header>
+  <h1>중등 수학 올림피아드 사고력 문제 20선</h1>
+  <div class="subtitle">교사용 정답 · 상세 해설 · 지도 포인트</div>
+  <div class="meta">
+    <div>구성: 6대 사고영역 통합</div>
+    <div>권장 시험: 120분</div>
+    <div>난도: 중등 심화~올림피아드</div>
+  </div>
+</header>
+<main>
+  <div class="guide">
+    <b>교사용 활용법</b><br>
+    1~5번은 수와 식의 구조화, 6~10번은 도형·측정, 11~15번은 경우의 수·확률,
+    16~20번은 비둘기집·불변량·정보·게임전략·그래프 논리로 배치했습니다.
+    특정 상용 교재나 기출문제를 복제하지 않고, 공개된 사고력 수학 및 중등 경시 유형을 참고해 새로 만든 변형 문제입니다.
+  </div>
+
+  <h2>정답 한눈에 보기</h2>
+  <table class="answer-summary">
+    <thead><tr><th>번호</th><th>정답</th><th>번호</th><th>정답</th></tr></thead>
+    <tbody><tr><td>1</td><td>637</td><td>11</td><td>12개</td></tr><tr><td>2</td><td>2519</td><td>12</td><td>132개</td></tr><tr><td>3</td><td>180</td><td>13</td><td>35가지</td></tr><tr><td>4</td><td>84</td><td>14</td><td>72가지</td></tr><tr><td>5</td><td>49</td><td>15</td><td>1/8</td></tr><tr><td>6</td><td>5</td><td>16</td><td>11개</td></tr><tr><td>7</td><td>60㎠</td><td>17</td><td>불가능</td></tr><tr><td>8</td><td>10각형</td><td>18</td><td>2번</td></tr><tr><td>9</td><td>144/5 ㎠</td><td>19</td><td>선공 승리</td></tr><tr><td>10</td><td>24개</td><td>20</td><td>항상 존재</td></tr></tbody>
+  </table>
+
+  <div class="page-break"></div>
+  
+<section class="solution">
+  <div class="domain">수와 연산 · 숫자 세기</div>
+  <h2>1. 1부터 2026까지의 모든 자연수를 차례로 쓸 때, 숫자 <b>2</b>는 모두 몇 번 나타나는가?</h2>
+  <div class="ans">정답: 637</div>
+  <div class="idea"><b>핵심 아이디어</b> — 자릿값별로 숫자 2의 등장 횟수를 세고 마지막 2000~2026 구간을 보정한다.</div>
+  <div class="steps"><b>단계별 풀이</b><br>1부터 1999까지를 먼저 생각하자. 0000부터 1999까지 네 자리로 맞추어 보면 일의 자리, 십의 자리, 백의 자리에서는 각각 200번씩 2가 나온다. 천의 자리는 2000 미만이므로 2가 나오지 않는다. 앞의 0은 실제 표기에는 없지만 2의 개수에는 영향을 주지 않으므로 1~1999에서 2는 600번 나온다.<br><br>
+2000~2026에서는 천의 자리의 2가 27번 나온다. 또한 2000~2026의 뒤 세 자리 000~026에서 숫자 2는 10의 자리에서 020~026의 7번, 일의 자리에서 002,012,022의 3번, 그리고 022의 십의 자리 2는 이미 앞의 7번에 포함되어 있다. 백의 자리에는 없다. 따라서 추가로 27+7+3=37번이다.<br><br>
+따라서 전체는 <b>600+37=637번</b>이다.</div>
+  <div class="teach"><b>지도 포인트</b> — 큰 범위를 한 번에 세기보다 0을 채운 고정 자릿수 모델로 바꾸는 전략을 익히게 한다.</div>
+</section>
+
+<section class="solution">
+  <div class="domain">수와 연산 · 나머지</div>
+  <h2>2. 어떤 자연수 N을 5, 6, 7, 8, 9로 나누면 나머지가 각각 4, 5, 6, 7, 8이다. 이러한 자연수 N 중 가장 작은 것은?</h2>
+  <div class="ans">정답: 2519</div>
+  <div class="idea"><b>핵심 아이디어</b> — 각 나머지가 ‘나누는 수보다 1 작은 값’이라는 공통 구조를 찾는다.</div>
+  <div class="steps"><b>단계별 풀이</b><br>조건은 N≡−1 (mod 5), N≡−1 (mod 6), …, N≡−1 (mod 9)와 같다. 따라서 N+1은 5,6,7,8,9의 공배수이다.<br><br>
+최소공배수는 2³×3²×5×7=2520이다. 그러므로 가장 작은 N은 <b>2520−1=2519</b>이다.</div>
+  <div class="teach"><b>지도 포인트</b> — 여러 나머지 조건을 각각 처리하지 않고 ‘N+1’ 하나로 통합하는 관찰을 강조한다.</div>
+</section>
+
+<section class="solution">
+  <div class="domain">수와 연산 · 약수</div>
+  <h2>3. 약수의 개수가 정확히 18개인 가장 작은 자연수를 구하여라.</h2>
+  <div class="ans">정답: 180</div>
+  <div class="idea"><b>핵심 아이디어</b> — 약수 개수 공식과 지수의 곱을 이용해 가능한 소인수 지수 형태를 비교한다.</div>
+  <div class="steps"><b>단계별 풀이</b><br>N=p₁^a p₂^b …이면 약수의 개수는 (a+1)(b+1)…이다. 18을 만드는 지수 형태는 대표적으로 17, 8·1, 5·2, 2·2·1이다.<br><br>
+가장 작은 수를 만들려면 큰 지수를 작은 소수에 배치한다.<br>
+2^17은 매우 크고, 2^8·3=768, 2^5·3²=288, 2²·3²·5=180이다.<br>
+따라서 최소값은 <b>180</b>이다. 실제로 180=2²·3²·5이므로 약수 개수는 3·3·2=18개이다.</div>
+  <div class="teach"><b>지도 포인트</b> — ‘약수의 개수 → 지수의 곱’으로 역설계하는 전형적인 올림피아드 수론 사고를 훈련한다.</div>
+</section>
+
+<section class="solution">
+  <div class="domain">수와 연산 · 숫자카드</div>
+  <h2>4. 두 자리 자연수 <b>AB</b>에서 십의 자리 A와 일의 자리 B를 뒤집은 수를 <b>BA</b>라 하자. AB − BA = 36이고 AB가 7의 배수일 때, AB를 구하여라.</h2>
+  <div class="ans">정답: 84</div>
+  <div class="idea"><b>핵심 아이디어</b> — 뒤집은 두 자리 수의 차를 식으로 단순화한다.</div>
+  <div class="steps"><b>단계별 풀이</b><br>AB=10A+B, BA=10B+A이므로 AB−BA=9(A−B)=36이다. 따라서 A−B=4.<br><br>
+가능한 두 자리 수는 51, 62, 73, 84, 95이다. 이 중 7의 배수는 <b>84</b>뿐이다.</div>
+  <div class="teach"><b>지도 포인트</b> — 문자화가 계산량을 크게 줄인다는 점을 보여준다.</div>
+</section>
+
+<section class="solution">
+  <div class="domain">문자와 식 · 규칙적 분수</div>
+  <h2>5. 다음 합이 \(\frac{49}{50}\)이 되도록 하는 자연수 n을 구하여라.<br><b>1/(1·2) + 1/(2·3) + 1/(3·4) + ··· + 1/(n(n+1))</b></h2>
+  <div class="ans">정답: 49</div>
+  <div class="idea"><b>핵심 아이디어</b> — 부분분수 형태로 바꾸어 연속 항이 소거되는 구조를 찾는다.</div>
+  <div class="steps"><b>단계별 풀이</b><br>1/[k(k+1)] = 1/k − 1/(k+1)이다.<br><br>
+따라서 합은 (1−1/2)+(1/2−1/3)+…+(1/n−1/(n+1)) = 1−1/(n+1)=n/(n+1).<br>
+n/(n+1)=49/50이므로 50n=49n+49, 따라서 <b>n=49</b>이다.</div>
+  <div class="teach"><b>지도 포인트</b> — 망원합(telescoping)의 핵심인 ‘중간항 소거’를 눈으로 확인하게 한다.</div>
+</section>
+
+<section class="solution">
+  <div class="domain">수와 연산 · 마방진</div>
+  <h2>6. 1부터 9까지의 수를 한 번씩 사용하여 3×3 마방진을 만들었다. 가로, 세로, 두 대각선의 합이 모두 같을 때, 가운데 칸에 반드시 들어가는 수를 구하고 이유를 설명하여라.</h2>
+  <div class="ans">정답: 5</div>
+  <div class="idea"><b>핵심 아이디어</b> — 마방진의 전체 합과 가운데를 지나는 네 쌍의 관계를 이용한다.</div>
+  <div class="steps"><b>단계별 풀이</b><br>1부터 9까지의 합은 45이므로 세 행의 합이 같다면 한 행의 합은 45÷3=15이다.<br><br>
+가운데 수를 c라 하자. 가운데를 사이에 둔 서로 마주 보는 두 칸의 합은 항상 15−c이다. 이런 쌍이 4개이므로 바깥 8칸의 합은 4(15−c)=60−4c이다.<br>
+한편 바깥 8칸의 합은 전체 합에서 가운데를 뺀 45−c이다.<br>
+60−4c=45−c → 15=3c → <b>c=5</b>.</div>
+  <div class="teach"><b>지도 포인트</b> — 실제로 배열을 만들지 않고 구조만으로 반드시 정해지는 값을 증명하게 한다.</div>
+</section>
+
+<section class="solution">
+  <div class="domain">도형 · 직사각형</div>
+  <h2>7. 어떤 직사각형의 둘레는 34cm이고 대각선의 길이는 13cm이다. 이 직사각형의 넓이를 구하여라.</h2>
+  <div class="ans">정답: 60㎠</div>
+  <div class="idea"><b>핵심 아이디어</b> — (가로+세로)²과 피타고라스 관계를 결합한다.</div>
+  <div class="steps"><b>단계별 풀이</b><br>가로를 a, 세로를 b라 하면 둘레가 34이므로 a+b=17이다. 대각선이 13이므로 a²+b²=169이다.<br><br>
+(a+b)²=a²+2ab+b²이므로 17²=169+2ab. 따라서 289−169=2ab, ab=60이다.<br>
+직사각형의 넓이는 <b>60㎠</b>이다.</div>
+  <div class="teach"><b>지도 포인트</b> — 직접 변의 길이를 구하지 않고 넓이 ab를 바로 구하는 효율적인 식 변형을 강조한다.</div>
+</section>
+
+<section class="solution">
+  <div class="domain">도형 · 다각형</div>
+  <h2>8. 어떤 볼록다각형의 모든 대각선의 개수가 35개이다. 이 다각형은 몇 각형인가?</h2>
+  <div class="ans">정답: 10각형</div>
+  <div class="idea"><b>핵심 아이디어</b> — n각형의 대각선 개수 공식을 유도하거나 적용한다.</div>
+  <div class="steps"><b>단계별 풀이</b><br>n개의 꼭짓점에서 한 꼭짓점은 자기 자신과 양옆 두 꼭짓점을 제외한 n−3개 꼭짓점과 대각선을 만든다. 이를 모든 꼭짓점에서 세면 n(n−3)개지만 각 대각선을 두 번 셌으므로 대각선 수는 n(n−3)/2이다.<br><br>
+n(n−3)/2=35 → n²−3n−70=0 → (n−10)(n+7)=0. 양수 해는 <b>n=10</b>이다.</div>
+  <div class="teach"><b>지도 포인트</b> — 공식을 외우기보다 왜 2로 나누는지 중복계수 관점에서 설명시킨다.</div>
+</section>
+
+<section class="solution">
+  <div class="domain">도형 · 넓이</div>
+  <h2>9. 한 변의 길이가 12cm인 정사각형 ABCD가 있다. 각 꼭짓점에서 시계방향으로 다음 변의 중점까지 선분을 그었다. 네 선분이 둘러싸는 가운데 사각형의 넓이를 구하여라.</h2>
+  <div class="ans">정답: 144/5 ㎠</div>
+  <div class="idea"><b>핵심 아이디어</b> — 좌표를 놓아 네 선분의 교점을 구하고 대칭성을 이용한다.</div>
+  <div class="steps"><b>단계별 풀이</b><br>A(0,0), B(12,0), C(12,12), D(0,12)로 두자. A에서 BC의 중점 (12,6)으로 가는 직선은 y=x/2이다. B에서 CD의 중점 (6,12)으로 가는 직선은 y=−2x+24이다.<br><br>
+두 직선의 교점은 x/2=−2x+24에서 x=48/5, y=24/5이다. 90° 회전대칭으로 다음 교점은 (36/5,48/5)이다.<br>
+두 인접 교점 사이 벡터는 (−12/5,24/5)이므로 한 변 길이의 제곱은 (12/5)²+(24/5)²=720/25=144/5이다. 가운데 도형은 회전대칭인 정사각형이므로 넓이도 한 변 길이의 제곱과 같아 <b>144/5 ㎠</b>이다.</div>
+  <div class="teach"><b>지도 포인트</b> — 좌표기하를 쓰지 않은 닮음 풀이도 가능하다. 한 문제를 두 방식으로 풀게 해도 좋다.</div>
+</section>
+
+<section class="solution">
+  <div class="domain">측정 · 입체도형</div>
+  <h2>10. 한 변의 길이가 같은 작은 정육면체 64개를 4×4×4 모양의 큰 정육면체로 쌓은 뒤, 큰 정육면체의 겉면 전체를 칠했다. 정확히 <b>두 면만</b> 색칠된 작은 정육면체는 몇 개인가?</h2>
+  <div class="ans">정답: 24개</div>
+  <div class="idea"><b>핵심 아이디어</b> — 두 면만 칠해진 조각은 모서리에 있으되 꼭짓점은 아닌 조각이다.</div>
+  <div class="steps"><b>단계별 풀이</b><br>큰 정육면체에는 모서리가 12개 있다. 4×4×4이므로 각 모서리에는 작은 정육면체가 4개 놓인다. 양끝의 꼭짓점 조각 2개는 세 면이 칠해지므로 제외한다.<br><br>
+따라서 모서리 하나당 4−2=2개, 전체는 12×2=<b>24개</b>이다.</div>
+  <div class="teach"><b>지도 포인트</b> — 면·모서리·꼭짓점에 따른 칠해진 면 수 분류를 시각적으로 정리한다.</div>
+</section>
+
+<section class="solution">
+  <div class="domain">경우의 수 · 배수</div>
+  <h2>11. 숫자 1, 2, 3, 4, 5 중 서로 다른 네 숫자를 골라 네 자리 자연수를 만든다. 이 중 6의 배수는 모두 몇 개인가?</h2>
+  <div class="ans">정답: 12개</div>
+  <div class="idea"><b>핵심 아이디어</b> — 6의 배수 조건을 2의 배수와 3의 배수 조건으로 분해한다.</div>
+  <div class="steps"><b>단계별 풀이</b><br>네 자리 수가 6의 배수이려면 짝수이면서 각 자리 숫자 합이 3의 배수여야 한다.<br><br>
+1+2+3+4+5=15이다. 네 숫자를 고른다는 것은 하나를 뺀다는 뜻이다. 남은 네 숫자의 합이 3의 배수가 되려면 뺀 숫자도 3의 배수여야 하므로 3을 빼야 한다. 사용할 숫자는 {1,2,4,5}.<br>
+일의 자리는 2 또는 4로 2가지, 나머지 세 자리는 3!=6가지이다. 따라서 <b>2×6=12개</b>이다.</div>
+  <div class="teach"><b>지도 포인트</b> — 배수판정법과 경우의 수를 결합하는 문제다. 전부 나열하지 않게 지도한다.</div>
+</section>
+
+<section class="solution">
+  <div class="domain">경우의 수 · 최단경로</div>
+  <h2>12. 격자점 (0,0)에서 (5,5)까지 오른쪽 또는 위쪽으로 한 칸씩만 이동한다. 점 (2,2)는 지나갈 수 없다. 가능한 최단 경로는 모두 몇 개인가?</h2>
+  <div class="ans">정답: 132개</div>
+  <div class="idea"><b>핵심 아이디어</b> — 전체 최단 경로에서 금지점을 지나는 경로를 뺀다.</div>
+  <div class="steps"><b>단계별 풀이</b><br>(0,0)에서 (5,5)까지는 오른쪽 5번, 위 5번을 배열하므로 전체 최단 경로는 C(10,5)=252개이다.<br><br>
+(2,2)를 지나는 경로는 (0,0)→(2,2)가 C(4,2)=6개, (2,2)→(5,5)가 C(6,3)=20개이므로 6×20=120개이다.<br>
+따라서 금지점을 피하는 경로는 252−120=<b>132개</b>이다.</div>
+  <div class="teach"><b>지도 포인트</b> — ‘전체−나쁜 경우’의 보완계수 전략을 강조한다.</div>
+</section>
+
+<section class="solution">
+  <div class="domain">경우의 수 · 선택</div>
+  <h2>13. 집합 {1,2,3,4,5,6,7,8,9,10}에서 서로 연속한 두 수가 함께 선택되지 않도록 4개의 수를 고르는 방법은 모두 몇 가지인가?</h2>
+  <div class="ans">정답: 35가지</div>
+  <div class="idea"><b>핵심 아이디어</b> — 선택 간격을 하나씩 미리 확보하는 치환을 사용한다.</div>
+  <div class="steps"><b>단계별 풀이</b><br>고른 수를 a₁<a₂<a₃<a₄라 하자. 연속한 수가 없으므로 a₂≥a₁+2, a₃≥a₂+2, a₄≥a₃+2이다.<br><br>
+b₁=a₁, b₂=a₂−1, b₃=a₃−2, b₄=a₄−3으로 놓으면 1≤b₁<b₂<b₃<b₄≤7이 된다. 즉 1~7에서 4개를 고르는 것과 일대일 대응이다.<br>
+따라서 C(7,4)=<b>35가지</b>이다.</div>
+  <div class="teach"><b>지도 포인트</b> — ‘서로 붙지 않게 선택’ 문제를 일반 조합으로 바꾸는 간격 압축 기법을 익힌다.</div>
+</section>
+
+<section class="solution">
+  <div class="domain">경우의 수 · 원순열</div>
+  <h2>14. 서로 다른 학생 A, B, C, D, E, F가 원탁에 둘러앉는다. A와 B가 서로 이웃하지 않게 앉는 방법은 모두 몇 가지인가? 회전하여 같은 배치는 같은 것으로 본다.</h2>
+  <div class="ans">정답: 72가지</div>
+  <div class="idea"><b>핵심 아이디어</b> — 전체 원순열에서 A와 B가 붙는 경우를 뺀다.</div>
+  <div class="steps"><b>단계별 풀이</b><br>6명이 원탁에 앉는 전체 방법은 (6−1)!=120가지이다.<br><br>
+A와 B를 하나의 묶음으로 보면 [AB], C, D, E, F의 5개 대상을 원탁에 배치하는 방법은 (5−1)!=24가지이다. 묶음 내부 순서는 AB, BA의 2가지이므로 서로 이웃하는 경우는 24×2=48가지이다.<br>
+따라서 이웃하지 않는 경우는 120−48=<b>72가지</b>이다.</div>
+  <div class="teach"><b>지도 포인트</b> — 원순열에서 회전 중복을 없애는 이유와 ‘블록 묶기’를 함께 복습한다.</div>
+</section>
+
+<section class="solution">
+  <div class="domain">경우의 수 · 확률</div>
+  <h2>15. 서로 구별되는 공정한 주사위 3개를 동시에 던질 때, 세 눈의 합이 10일 확률을 구하여라. 기약분수로 나타내어라.</h2>
+  <div class="ans">정답: 1/8</div>
+  <div class="idea"><b>핵심 아이디어</b> — 합이 10인 순서 있는 세 눈의 경우를 포함배제로 센다.</div>
+  <div class="steps"><b>단계별 풀이</b><br>각 주사위 눈을 x,y,z라 하면 x+y+z=10, 1≤x,y,z≤6이다. X=x−1, Y=y−1, Z=z−1로 두면 X+Y+Z=7, 0≤X,Y,Z≤5이다.<br><br>
+상한을 무시한 음이 아닌 해는 C(9,2)=36개이다. X≥6인 경우 X'=X−6으로 두면 X'+Y+Z=1이므로 C(3,2)=3개이고, Y와 Z도 각각 3개다. 두 변수가 동시에 6 이상일 수는 없다.<br>
+따라서 유효한 경우는 36−9=27개. 전체 경우 6³=216이므로 확률은 27/216=<b>1/8</b>이다.</div>
+  <div class="teach"><b>지도 포인트</b> — 직접 표를 만들어 27개를 확인하는 방법과 별·막대+포함배제 방법을 비교할 수 있다.</div>
+</section>
+
+<section class="solution">
+  <div class="domain">논리 · 비둘기집 원리</div>
+  <h2>16. 1부터 20까지의 자연수 중 서로 다른 수를 몇 개 이상 고르면, 선택한 수들 중 합이 21인 두 수가 반드시 존재하는가? 그 최소 개수를 구하고 이유를 설명하여라.</h2>
+  <div class="ans">정답: 11개</div>
+  <div class="idea"><b>핵심 아이디어</b> — 합이 21이 되는 수들을 10개의 쌍으로 묶고 비둘기집 원리를 적용한다.</div>
+  <div class="steps"><b>단계별 풀이</b><br>1~20을 (1,20),(2,19),…,(10,11)의 10쌍으로 나눈다. 11개의 서로 다른 수를 고르면 10개의 쌍 중 적어도 한 쌍에서는 두 수를 모두 고르게 된다. 그 두 수의 합은 21이다.<br><br>
+또 10개만 골라서는 보장이 안 된다. 예를 들어 {1,2,…,10}을 고르면 합이 21인 두 수가 없다. 따라서 최소는 <b>11개</b>이다.</div>
+  <div class="teach"><b>지도 포인트</b> — ‘충분함’뿐 아니라 ‘최소’임을 보이려면 바로 아래 값에서 반례를 제시해야 함을 강조한다.</div>
+</section>
+
+<section class="solution">
+  <div class="domain">논리 · 불변량</div>
+  <h2>17. 8×8 체스판의 서로 마주 보는 두 모서리 칸을 제거했다. 남은 62칸을 1×2 도미노 31개로 빈틈없이 덮을 수 있는가? 가능/불가능을 판단하고 이유를 설명하여라.</h2>
+  <div class="ans">정답: 불가능</div>
+  <div class="idea"><b>핵심 아이디어</b> — 체스판의 흑백 색 개수라는 불변량을 사용한다.</div>
+  <div class="steps"><b>단계별 풀이</b><br>8×8 체스판은 흑 32칸, 백 32칸이다. 서로 마주 보는 두 모서리는 같은 색이다. 같은 색 두 칸을 제거하면 한 색은 30칸, 다른 색은 32칸이 남는다.<br><br>
+1×2 도미노는 가로든 세로든 항상 흑 1칸과 백 1칸을 덮는다. 31개의 도미노가 덮는 두 색의 칸 수는 반드시 같아야 하는데 남은 칸은 30대32이므로 <b>불가능</b>하다.</div>
+  <div class="teach"><b>지도 포인트</b> — 겉보기 배치 탐색보다 ‘절대로 변하지 않는 양’을 찾는 불변량 사고의 대표 예다.</div>
+</section>
+
+<section class="solution">
+  <div class="domain">논리 · 정보와 전략</div>
+  <h2>18. 겉모양이 같은 동전 9개 중 정확히 1개만 다른 동전보다 무겁다. 양팔저울만 사용하여 무거운 동전을 반드시 찾아내려면 최소 몇 번의 저울질이 필요한가? 방법도 설명하여라.</h2>
+  <div class="ans">정답: 2번</div>
+  <div class="idea"><b>핵심 아이디어</b> — 한 번의 저울질이 만드는 3가지 결과와 3등분 전략을 이용한다.</div>
+  <div class="steps"><b>단계별 풀이</b><br>최소성부터 보자. 저울질 한 번의 결과는 왼쪽이 무거움, 균형, 오른쪽이 무거움의 3가지뿐이므로 9개의 후보를 한 번만에 반드시 구별할 수 없다. 따라서 최소 2번 이상 필요하다.<br><br>
+실제로 2번이면 가능하다. 동전을 3개씩 A,B,C 세 그룹으로 나누고 A와 B를 잰다. 균형이면 C에, 한쪽이 무거우면 그 무거운 그룹에 가짜가 있다. 이제 후보 3개 중 1개와 1개를 잰다. 균형이면 남은 1개, 아니면 무거운 쪽이 정답이다. 따라서 최소는 <b>2번</b>이다.</div>
+  <div class="teach"><b>지도 포인트</b> — 전략 제시뿐 아니라 정보량 관점의 하한 증명을 붙여 ‘최소’를 완성한다.</div>
+</section>
+
+<section class="solution">
+  <div class="domain">규칙과 함수 · 게임전략</div>
+  <h2>19. 돌이 31개 있다. 두 사람이 번갈아 돌을 1개, 2개, 3개, 4개 중 원하는 만큼 가져간다. 마지막 돌을 가져가는 사람이 이긴다. 두 사람 모두 최선으로 플레이한다면 선공과 후공 중 누가 이기는가? 이기는 전략을 설명하여라.</h2>
+  <div class="ans">정답: 선공 승리</div>
+  <div class="idea"><b>핵심 아이디어</b> — 상대와 한 묶음으로 항상 5개씩 가져가도록 불변 전략을 만든다.</div>
+  <div class="steps"><b>단계별 풀이</b><br>선공이 처음에 1개를 가져가 30개를 남긴다. 그 다음부터 상대가 k개(1≤k≤4)를 가져가면 선공은 5−k개를 가져간다. 그러면 두 사람의 한 묶음 턴마다 정확히 5개가 줄어든다.<br><br>
+30은 5의 배수이므로 이 대응을 계속하면 마지막 묶음에서도 선공이 마지막 돌을 가져간다. 따라서 <b>선공 승리</b>이며 핵심은 처음 1개, 이후 상대와 합쳐 5개가 되도록 가져가는 것이다.</div>
+  <div class="teach"><b>지도 포인트</b> — 게임을 상태표로만 풀지 않고 ‘상대의 수에 대한 보완수’를 만드는 전략을 익힌다.</div>
+</section>
+
+<section class="solution">
+  <div class="domain">논리 · 그래프</div>
+  <h2>20. 로봇 6대가 있다. 임의의 두 로봇 사이에는 통신이 되거나, 되지 않거나 둘 중 하나이다. 반드시 다음 둘 중 하나가 존재함을 증명하여라.<br>① 서로 두 대씩 모두 통신되는 로봇 3대<br>② 서로 두 대씩 모두 통신되지 않는 로봇 3대</h2>
+  <div class="ans">정답: 항상 존재</div>
+  <div class="idea"><b>핵심 아이디어</b> — 한 로봇을 기준으로 나머지 5대 중 적어도 3대와의 관계가 같은 것을 이용한다.</div>
+  <div class="steps"><b>단계별 풀이</b><br>로봇 R 하나를 고른다. 나머지 5대와 R의 관계는 ‘통신됨/안 됨’ 두 종류뿐이므로 비둘기집 원리에 의해 적어도 3대는 R과 같은 관계를 가진다.<br><br>
+그 3대를 X,Y,Z라 하자.<br>
+① R과 X,Y,Z가 모두 통신된다면, X,Y,Z 중 서로 통신되는 한 쌍이 있으면 그 쌍과 R이 서로 모두 통신되는 3대를 이룬다. 그런 쌍이 하나도 없으면 X,Y,Z가 서로 모두 통신되지 않는 3대다.<br>
+② R과 X,Y,Z가 모두 통신되지 않는다면, X,Y,Z 중 서로 통신되지 않는 한 쌍이 있으면 그 쌍과 R이 서로 모두 통신되지 않는 3대를 이룬다. 그런 쌍이 하나도 없으면 X,Y,Z가 서로 모두 통신되는 3대다.<br><br>
+따라서 두 경우 중 하나는 반드시 존재한다.</div>
+  <div class="teach"><b>지도 포인트</b> — 중등 그래프론과 램지 사고의 입문 문제다. 꼭짓점·간선 색칠 그림으로 다시 설명하면 효과적이다.</div>
+</section>
+
+</main>
+<footer>-세영코딩연구소- &nbsp;&nbsp;&nbsp; ph.D KIM</footer>
+</div>
+<script>
+let base=17;
+function changeSize(d){
+  base=Math.max(14,Math.min(23,base+d));
+  document.body.style.fontSize=base+"px";
+}
+function toggleTips(){
+  document.querySelectorAll(".teach").forEach(el=>{
+    el.style.display = el.style.display==="none" ? "block" : "none";
+  });
+}
+</script>
+</body>
+</html>
