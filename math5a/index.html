@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="ko">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>중등 올림피아드 필즈수학 스타일 2세트 - 교사용 정답 해설</title><style>
+:root{
+ --ink:#1b1b1f;--muted:#5f6570;--line:#d8dce4;--pink:#a72f69;
+ --pink2:#fff1f7;--soft:#f7f8fb;--paper:#fff;--nav:#25262b;
+}
+*{box-sizing:border-box}
+body{
+ margin:0;background:#edf0f4;color:var(--ink);
+ font-family:"Malgun Gothic","Noto Sans KR","Apple SD Gothic Neo",sans-serif;
+ font-size:17px;line-height:1.72;
+}
+.toolbar{
+ position:sticky;top:0;z-index:20;background:var(--nav);padding:9px;
+ display:flex;justify-content:center;gap:8px;flex-wrap:wrap;
+}
+.toolbar button{border:0;border-radius:8px;padding:9px 14px;font-weight:800;cursor:pointer}
+.print{background:#fff}.pinkbtn{background:#f7dbe8;color:#711c48}
+.sheet{
+ width:min(980px,calc(100% - 28px));margin:28px auto;background:#fff;
+ border-radius:18px;overflow:hidden;box-shadow:0 12px 42px rgba(0,0,0,.10);
+}
+header{padding:38px 48px 25px;background:linear-gradient(135deg,#fff,#fff5fa);border-bottom:3px solid var(--pink)}
+h1{font-size:31px;line-height:1.3;margin:0 0 8px}
+.sub{font-weight:800;color:#6d4157}
+.meta{display:grid;grid-template-columns:1.2fr .8fr .8fr;gap:9px;margin-top:18px}
+.meta div{border:1px solid var(--line);padding:9px 11px;border-radius:8px;background:white;font-size:14px}
+main{padding:28px 48px 40px}
+.notice{padding:16px 18px;border:1px solid #e9b9cf;background:#fff8fb;border-radius:11px;margin-bottom:22px}
+.problem{padding:22px 0 25px;border-bottom:1px solid var(--line);break-inside:avoid}
+.badge{display:inline-block;background:#f8dfeb;color:#7b1c4b;font-size:13px;font-weight:900;padding:3px 9px;border-radius:999px}
+.problem h2,.solution h2{font-size:21px;margin:7px 0 9px}
+.problem p{margin:7px 0}
+.math{font-family:Georgia,"Times New Roman",serif;font-size:1.06em}
+.answerline{border-bottom:1.5px solid #777;margin-top:15px;padding-top:17px;color:#777;font-size:14px}
+.workspace{
+ height:95px;margin-top:8px;
+ background:repeating-linear-gradient(to bottom,transparent 0,transparent 30px,#eceff3 31px);
+}
+.diagram{display:flex;justify-content:center;margin:15px 0}
+.diagram svg{max-width:100%;height:auto}
+footer{text-align:center;border-top:1px solid var(--line);padding:23px;font-weight:900;color:#60354b}
+.solution{border:1px solid var(--line);border-radius:12px;padding:20px;margin:0 0 20px;break-inside:avoid}
+.ans{font-size:18px;color:#7c174b;font-weight:900;margin:7px 0}
+.idea{background:#fff4f9;border-left:5px solid var(--pink);padding:10px 12px;margin:10px 0}
+.steps{margin:10px 0}
+.teach{background:#f5f7fa;padding:10px 12px;border-radius:8px;color:#444b55}
+.answer-table{width:100%;border-collapse:collapse;margin:15px 0 28px;font-size:14px}
+.answer-table th,.answer-table td{border:1px solid #cfd4dc;padding:8px;text-align:center}
+.answer-table th{background:#f8e5ee}
+.pagebreak{break-before:page}
+.level{font-weight:800;color:#555}
+@media(max-width:700px){
+ body{font-size:16px}.sheet{width:100%;margin:0;border-radius:0}
+ header,main{padding-left:20px;padding-right:20px}.meta{grid-template-columns:1fr}
+}
+@media print{
+ @page{size:A4;margin:12mm 13mm 14mm}
+ body{background:#fff;font-size:11.2pt;line-height:1.5}
+ .toolbar{display:none!important}.sheet{width:auto;margin:0;box-shadow:none;border-radius:0}
+ header{padding:0 0 9mm;background:#fff}main{padding:0}
+ h1{font-size:21pt}.problem{padding:6mm 0 7mm}.problem h2,.solution h2{font-size:14pt}
+ .workspace{height:34mm}.solution{border:0;border-bottom:1px solid #bbb;border-radius:0;padding:6mm 0;margin:0}
+ footer{padding:8mm 0 0}.answer-table{font-size:9.5pt}
+}
+</style></head>
+<body>
+<div class="toolbar">
+ <button class="print" onclick="window.print()">🖨 인쇄 / PDF 저장</button>
+ <button class="pinkbtn" onclick="resizeText(1)">글자 크게</button>
+ <button class="pinkbtn" onclick="resizeText(-1)">글자 작게</button>
+ <button class="pinkbtn" onclick="toggleTips()">지도 포인트 숨기기/보기</button>
+</div>
+<div class="sheet">
+<header>
+ <h1>중등 수학 올림피아드 사고력 문제 20선 · 2세트</h1>
+ <div class="sub">교사용 정답 · 상세 해설 · 수업 지도 포인트</div>
+ <div class="meta"><div>유형: 수론·대수·기하·조합·논리</div><div>권장 시험: 120분</div><div>난도: 중등 심화~올림피아드</div></div>
+</header>
+<main>
+ <div class="notice"><b>교사용 구성</b><br>
+ 앞부분은 계산을 구조화하는 문제, 중반은 기하·조합, 후반은 비둘기집·불변량·정보이론적 저울·게임전략·그래프 증명으로 구성했습니다.
+ 기존 1세트와 핵심 소재가 최대한 겹치지 않도록 새로 구성했습니다.</div>
+ <h2>정답 한눈에 보기</h2>
+ <table class="answer-table"><thead><tr><th>번호</th><th>정답</th><th>번호</th><th>정답</th></tr></thead>
+ <tbody><tr><td>1</td><td>49</td><td>11</td><td>960가지</td></tr><tr><td>2</td><td>72</td><td>12</td><td>108개</td></tr><tr><td>3</td><td>945</td><td>13</td><td>56가지</td></tr><tr><td>4</td><td>4개</td><td>14</td><td>4/9</td></tr><tr><td>5</td><td>123</td><td>15</td><td>18가지</td></tr><tr><td>6</td><td>30°</td><td>16</td><td>16개</td></tr><tr><td>7</td><td>D=(3,7), 넓이 28</td><td>17</td><td>불가능</td></tr><tr><td>8</td><td>√37</td><td>18</td><td>3번</td></tr><tr><td>9</td><td>54개</td><td>19</td><td>선공 승리</td></tr><tr><td>10</td><td>3시 16과 4/11분 (약 3시 16분 21.82초)</td><td>20</td><td>반드시 존재</td></tr></tbody></table>
+ <div class="pagebreak"></div>
+ 
+<section class="solution">
+ <span class="badge">수와 연산 · 나머지 주기</span>
+ <h2>1. 7<sup>2026</sup>의 마지막 두 자리 숫자를 구하여라.</h2>
+ <div class="ans">정답: 49</div>
+ <div class="idea"><b>핵심 아이디어</b> — 100으로 나눈 나머지의 주기를 찾는다.</div>
+ <div class="steps"><b>단계별 해설</b><br>7의 거듭제곱을 100으로 나눈 나머지는 7,49,43,1,…처럼 4개마다 반복된다. 실제로 7⁴=2401≡1 (mod 100)이다. 2026=4×506+2이므로 7²⁰²⁶≡7²≡49 (mod 100). 따라서 마지막 두 자리는 <b>49</b>이다.</div>
+ <div class="teach"><b>지도 포인트</b> — 거듭제곱 자체를 계산하지 않고 작은 법(mod)에서 주기를 찾는 연습.</div>
+</section>
+<section class="solution">
+ <span class="badge">수와 연산 · 약수</span>
+ <h2>2. 18의 배수이면서 약수의 개수가 정확히 12개인 가장 작은 자연수를 구하여라.</h2>
+ <div class="ans">정답: 72</div>
+ <div class="idea"><b>핵심 아이디어</b> — 약수의 개수 공식을 이용해 후보를 역설계한다.</div>
+ <div class="steps"><b>단계별 해설</b><br>18=2·3²의 배수여야 한다. 72=2³·3²이므로 18의 배수이고 약수 개수는 (3+1)(2+1)=12개이다. 72보다 작은 18의 배수는 18,36,54이며 약수 개수는 각각 6,9,8개이다. 따라서 최소는 <b>72</b>이다.</div>
+ <div class="teach"><b>지도 포인트</b> — 최솟값 문제에서는 정답 조건 확인뿐 아니라 더 작은 후보 배제까지 하게 한다.</div>
+</section>
+<section class="solution">
+ <span class="badge">수와 연산 · 숫자 추론</span>
+ <h2>3. 세 자리 자연수 N의 백의 자리와 일의 자리를 서로 바꾼 수를 R이라 하자. N − R = 396이고, N의 각 자리 숫자의 합은 18이며, N은 7의 배수이다. N을 구하여라.</h2>
+ <div class="ans">정답: 945</div>
+ <div class="idea"><b>핵심 아이디어</b> — 자리수 식으로 차 조건을 단순화한 뒤 가능한 숫자를 좁힌다.</div>
+ <div class="steps"><b>단계별 해설</b><br>N=100a+10b+c라 하면 R=100c+10b+a이다. N−R=99(a−c)=396이므로 a−c=4. 또 a+b+c=18이므로 (c+4)+b+c=18, 즉 b+2c=14이다. 자리숫자 조건을 만족하는 후보는 783, 864, 945이고 이 중 7의 배수는 945뿐이다. 따라서 <b>N=945</b>.</div>
+ <div class="teach"><b>지도 포인트</b> — 숫자 퍼즐을 무작정 대입하지 말고 자릿값 식으로 바꾸도록 지도.</div>
+</section>
+<section class="solution">
+ <span class="badge">수와 연산 · 정수해</span>
+ <h2>4. 자연수 x, y가 <span class='math'>1/x + 1/y = 1/6</span>을 만족하고 x &lt; y일 때, 순서쌍 (x,y)는 모두 몇 개인가?</h2>
+ <div class="ans">정답: 4개</div>
+ <div class="idea"><b>핵심 아이디어</b> — 분모를 없앤 뒤 인수분해하여 약수쌍 문제로 바꾼다.</div>
+ <div class="steps"><b>단계별 해설</b><br>1/x+1/y=1/6에서 6x+6y=xy. 정리하면 xy−6x−6y=0이고 양변에 36을 더해 (x−6)(y−6)=36을 얻는다. x<y이므로 양의 약수쌍에서 x−6<y−6이다. 36의 약수쌍은 (1,36),(2,18),(3,12),(4,9),(6,6). 마지막은 x=y이므로 제외하여 <b>4개</b>이다.</div>
+ <div class="teach"><b>지도 포인트</b> — 디오판토스 방정식을 인수분해 가능한 형태로 만드는 대표 기법.</div>
+</section>
+<section class="solution">
+ <span class="badge">문자와 식 · 대칭식</span>
+ <h2>5. 양수 x가 <span class='math'>x + 1/x = 3</span>을 만족한다. <span class='math'>x<sup>5</sup> + 1/x<sup>5</sup></span>의 값을 구하여라.</h2>
+ <div class="ans">정답: 123</div>
+ <div class="idea"><b>핵심 아이디어</b> — Sₙ=xⁿ+x⁻ⁿ의 점화식을 만든다.</div>
+ <div class="steps"><b>단계별 해설</b><br>S₁=3이다. (x+1/x)(xⁿ+1/xⁿ)=xⁿ⁺¹+xⁿ⁻¹+x⁻ⁿ⁺¹+x⁻ⁿ⁻¹이므로 Sₙ₊₁=3Sₙ−Sₙ₋₁. S₀=2에서 S₂=7, S₃=18, S₄=47, S₅=123. 따라서 답은 <b>123</b>이다.</div>
+ <div class="teach"><b>지도 포인트</b> — 대칭식은 x를 직접 구하는 것보다 점화 관계를 이용하는 편이 훨씬 간단함을 보여준다.</div>
+</section>
+<section class="solution">
+ <span class="badge">도형 · 각도 추론</span>
+ <h2>6. 삼각형 ABC에서 ∠A=80°, ∠B=50°이다. 변 BC 위의 점 D가 AD=BD를 만족할 때 ∠DAC의 크기를 구하여라.</h2>
+ <div class="ans">정답: 30°</div>
+ <div class="idea"><b>핵심 아이디어</b> — AD=BD에서 이등변삼각형의 밑각을 찾는다.</div>
+ <div class="steps"><b>단계별 해설</b><br>D가 BC 위에 있으므로 ∠ABD=∠ABC=50°. AD=BD이므로 삼각형 ABD에서 ∠BAD=∠ABD=50°. 전체 ∠BAC=80°이므로 ∠DAC=80°−50°=<b>30°</b>.</div>
+ <div class="teach"><b>지도 포인트</b> — 조건 하나가 어떤 삼각형을 이등변으로 만드는지 먼저 표시하게 한다.</div>
+</section>
+<section class="solution">
+ <span class="badge">도형 · 좌표기하</span>
+ <h2>7. 평행사변형 ABCD에서 A(1,2), B(7,3), C(9,8)이다. 점 D의 좌표와 평행사변형 ABCD의 넓이를 각각 구하여라.</h2>
+ <div class="ans">정답: D=(3,7), 넓이 28</div>
+ <div class="idea"><b>핵심 아이디어</b> — 평행사변형의 벡터와 행렬식 넓이를 이용한다.</div>
+ <div class="steps"><b>단계별 해설</b><br>평행사변형에서 A+C=B+D이므로 D=A+C−B=(1,2)+(9,8)−(7,3)=(3,7). 두 변 벡터는 AB=(6,1), AD=(2,5). 넓이는 |6·5−1·2|=<b>28</b>. 따라서 <b>D=(3,7), 넓이 28</b>이다.</div>
+ <div class="teach"><b>지도 포인트</b> — 좌표에서는 점보다 벡터 관계를 먼저 세우는 습관을 들인다.</div>
+</section>
+<section class="solution">
+ <span class="badge">도형 · 거리 관계</span>
+ <h2>8. 한 변의 길이가 10인 정사각형 ABCD 내부에 점 P가 있다. PA=√13, PB=√37, PC=√61일 때 PD를 구하여라.</h2>
+ <div class="ans">정답: √37</div>
+ <div class="idea"><b>핵심 아이디어</b> — 정사각형 내부점의 거리 제곱 관계를 사용한다.</div>
+ <div class="steps"><b>단계별 해설</b><br>정사각형에서는 임의의 점 P에 대해 PA²+PC²=PB²+PD²가 성립한다(좌표를 두고 전개하면 바로 확인 가능). 따라서 13+61=37+PD², PD²=37, 양의 거리이므로 <b>PD=√37</b>.</div>
+ <div class="teach"><b>지도 포인트</b> — 공식을 외우기보다 좌표 (0,0),(10,0),(10,10),(0,10), P=(u,v)로 직접 증명하게 해도 좋다.</div>
+</section>
+<section class="solution">
+ <span class="badge">측정 · 정육면체</span>
+ <h2>9. 125개의 작은 정육면체를 5×5×5의 큰 정육면체로 쌓은 뒤 큰 정육면체의 겉면 전체를 칠했다. 정확히 한 면만 색칠된 작은 정육면체는 몇 개인가?</h2>
+ <div class="ans">정답: 54개</div>
+ <div class="idea"><b>핵심 아이디어</b> — 한 면만 칠해진 조각은 각 면의 가장자리 바깥쪽을 제외한 내부에 있다.</div>
+ <div class="steps"><b>단계별 해설</b><br>큰 정육면체 한 면은 5×5이다. 정확히 한 면만 칠해지려면 모서리에 닿지 않아야 하므로 한 면당 (5−2)²=9개. 면은 6개이므로 6×9=<b>54개</b>이다.</div>
+ <div class="teach"><b>지도 포인트</b> — 0·1·2·3면 칠해진 조각을 위치별로 분류하면 입체 감각 훈련에 좋다.</div>
+</section>
+<section class="solution">
+ <span class="badge">측정 · 시계</span>
+ <h2>10. 오후 3시 정각 이후 처음으로 시침과 분침이 정확히 겹치는 것은 3시 몇 분 몇 초인가? 초는 분수로 나타내어도 된다.</h2>
+ <div class="ans">정답: 3시 16과 4/11분 (약 3시 16분 21.82초)</div>
+ <div class="idea"><b>핵심 아이디어</b> — 분침과 시침의 상대속도를 이용한다.</div>
+ <div class="steps"><b>단계별 해설</b><br>3시 정각에 시침은 분침보다 90° 앞서 있다. 분침은 분당 6°, 시침은 분당 0.5° 움직이므로 상대속도는 5.5°/분이다. 따라잡는 시간은 90÷5.5=180/11=16과 4/11분. 4/11분은 240/11초≈21.82초이므로 <b>3시 16분 21.82초</b> 정도이다.</div>
+ <div class="teach"><b>지도 포인트</b> — 시침도 계속 움직인다는 점을 빠뜨리지 않게 한다.</div>
+</section>
+<section class="solution">
+ <span class="badge">경우의 수 · 제한 순열</span>
+ <h2>11. 서로 다른 학생 A,B,C,D,E,F,G가 일렬로 선다. C와 D는 반드시 서로 이웃하고, A와 B는 서로 이웃하지 않아야 한다. 가능한 줄서기 방법은 모두 몇 가지인가?</h2>
+ <div class="ans">정답: 960가지</div>
+ <div class="idea"><b>핵심 아이디어</b> — 먼저 C,D를 묶고 A,B가 붙는 나쁜 경우를 뺀다.</div>
+ <div class="steps"><b>단계별 해설</b><br>C,D를 하나의 블록으로 보면 6개 대상을 배열하는 6!가지, 블록 내부 순서 2가지이므로 2·6!=1440. 이 중 A,B도 붙는 경우는 AB블록과 CD블록, 나머지 3명으로 5개 대상을 배열하고 두 블록 내부 순서를 정하므로 5!·2·2=480. 따라서 1440−480=<b>960가지</b>.</div>
+ <div class="teach"><b>지도 포인트</b> — ‘전체−금지 경우’와 블록 묶기를 함께 사용하는 문제.</div>
+</section>
+<section class="solution">
+ <span class="badge">경우의 수 · 격자경로</span>
+ <h2>12. (0,0)에서 (6,4)까지 오른쪽 또는 위쪽으로만 한 칸씩 이동한다. 두 점 A=(2,2), B=(4,2) 중 <b>정확히 하나만</b> 지나가는 최단 경로는 모두 몇 개인가?</h2>
+ <div class="ans">정답: 108개</div>
+ <div class="idea"><b>핵심 아이디어</b> — A를 지나는 경로, B를 지나는 경로, 둘 다 지나는 경로를 센다.</div>
+ <div class="steps"><b>단계별 해설</b><br>A를 지나는 경로: C(4,2)·C(6,2)=6·15=90. B를 지나는 경로: C(6,2)·C(4,2)=15·6=90. A와 B를 모두 지나는 경로는 C(4,2)·1·C(4,2)=36. 정확히 하나만 지나려면 (90−36)+(90−36)=<b>108개</b>이다.</div>
+ <div class="teach"><b>지도 포인트</b> — ‘적어도 하나’와 ‘정확히 하나’의 포함배제 차이를 구분하게 한다.</div>
+</section>
+<section class="solution">
+ <span class="badge">경우의 수 · 간격 선택</span>
+ <h2>13. 집합 {1,2,…,12}에서 서로 연속한 두 수가 함께 선택되지 않도록 5개의 수를 고르는 방법은 모두 몇 가지인가?</h2>
+ <div class="ans">정답: 56가지</div>
+ <div class="idea"><b>핵심 아이디어</b> — 선택 사이의 최소 간격 1칸을 압축한다.</div>
+ <div class="steps"><b>단계별 해설</b><br>a₁<a₂<a₃<a₄<a₅를 선택하고 연속 금지이므로 aᵢ₊₁≥aᵢ+2. b₁=a₁, b₂=a₂−1, …, b₅=a₅−4로 바꾸면 1≤b₁<…<b₅≤8. 따라서 1~8에서 5개를 고르는 것과 같아 C(8,5)=<b>56가지</b>이다.</div>
+ <div class="teach"><b>지도 포인트</b> — 간격 조건이 있는 조합을 일반 조합으로 바꾸는 치환 기법.</div>
+</section>
+<section class="solution">
+ <span class="badge">확률 · 홀짝</span>
+ <h2>14. 1부터 10까지 적힌 카드 10장 중 서로 다른 카드 2장을 동시에 뽑는다. 두 카드에 적힌 수의 합이 짝수일 확률을 기약분수로 구하여라.</h2>
+ <div class="ans">정답: 4/9</div>
+ <div class="idea"><b>핵심 아이디어</b> — 합이 짝수이려면 두 수의 홀짝이 같아야 한다.</div>
+ <div class="steps"><b>단계별 해설</b><br>1~10에는 홀수 5개, 짝수 5개가 있다. 유리한 경우는 홀수 2장 또는 짝수 2장: C(5,2)+C(5,2)=20. 전체는 C(10,2)=45. 따라서 확률은 20/45=<b>4/9</b>이다.</div>
+ <div class="teach"><b>지도 포인트</b> — 순서 없는 동시 선택에서는 조합으로 세는 것이 자연스럽다.</div>
+</section>
+<section class="solution">
+ <span class="badge">경우의 수 · 색칠</span>
+ <h2>15. 정사각형의 네 꼭짓점을 빨강, 파랑, 초록의 세 색 중 하나로 칠한다. 변으로 연결된 두 꼭짓점은 반드시 서로 다른 색이어야 한다. 꼭짓점의 위치는 고정되어 있을 때 가능한 색칠 방법은 모두 몇 가지인가?</h2>
+ <div class="ans">정답: 18가지</div>
+ <div class="idea"><b>핵심 아이디어</b> — 첫 세 꼭짓점의 관계를 두 경우로 분류한다.</div>
+ <div class="steps"><b>단계별 해설</b><br>첫 꼭짓점 A는 3색 중 3가지, 이웃 B는 2가지. C는 B와 달라야 한다. C=A인 경우 D는 A와 C 둘 다와 달라야 하므로 2가지. C≠A인 경우 C는 세 번째 색으로 정해지고 D는 A와 C 모두와 달라야 하므로 B색 1가지. 따라서 A,B 한 선택마다 3가지이고 전체는 3·2·3=<b>18가지</b>.</div>
+ <div class="teach"><b>지도 포인트</b> — 그래프의 올바른 색칠(proper coloring)을 중등 수준에서 자연스럽게 접하는 문제.</div>
+</section>
+<section class="solution">
+ <span class="badge">논리 · 비둘기집 원리</span>
+ <h2>16. 1부터 30까지의 자연수 중 서로 다른 수를 몇 개 이상 고르면, 선택한 두 수 중 하나가 다른 하나의 약수가 되는 두 수가 반드시 존재하는가? 그 최소 개수를 구하여라.</h2>
+ <div class="ans">정답: 16개</div>
+ <div class="idea"><b>핵심 아이디어</b> — 각 수를 ‘홀수 부분 × 2의 거듭제곱’으로 분류한다.</div>
+ <div class="steps"><b>단계별 해설</b><br>1~30의 모든 수는 n=m·2ᵏ 꼴로 유일하게 쓸 수 있고 m은 홀수이다. 가능한 홀수 m은 1,3,5,…,29의 15개. 16개를 고르면 비둘기집 원리에 의해 같은 홀수 부분 m을 갖는 두 수 m·2ᵃ, m·2ᵇ가 존재한다. a<b라 하면 앞 수가 뒤 수를 나눈다. 한편 16~30의 15개만 고르면 어느 수도 다른 수를 나누지 않으므로 15개로는 보장할 수 없다. 따라서 최소는 <b>16개</b>.</div>
+ <div class="teach"><b>지도 포인트</b> — ‘최소’ 문제는 보장 증명과 1개 적은 반례를 모두 제시해야 완성된다.</div>
+</section>
+<section class="solution">
+ <span class="badge">논리 · 불변량</span>
+ <h2>17. 동전 25개가 모두 앞면을 보이고 있다. 한 번의 조작에서 서로 다른 동전 정확히 2개를 골라 각각 뒤집는다. 여러 번 조작하여 정확히 1개의 동전만 뒷면이 되게 할 수 있는가? 이유를 설명하여라.</h2>
+ <div class="ans">정답: 불가능</div>
+ <div class="idea"><b>핵심 아이디어</b> — 뒷면 동전 개수의 홀짝을 불변량으로 본다.</div>
+ <div class="steps"><b>단계별 해설</b><br>처음 뒷면은 0개로 짝수이다. 두 동전을 뒤집으면 뒷면 개수는 +2, 0, −2 중 하나만큼 변한다. 따라서 뒷면 개수의 홀짝은 언제나 짝수로 유지된다. 정확히 1개는 홀수이므로 <b>불가능</b>하다.</div>
+ <div class="teach"><b>지도 포인트</b> — 상태를 전부 추적하지 않고 변하지 않는 성질 하나를 찾는 불변량 사고.</div>
+</section>
+<section class="solution">
+ <span class="badge">논리 · 정보와 저울</span>
+ <h2>18. 겉모양이 같은 동전 27개 중 정확히 1개만 다른 동전보다 무겁다. 양팔저울만 사용하여 무거운 동전을 반드시 찾아내는 데 필요한 최소 저울질 횟수를 구하고 전략을 설명하여라.</h2>
+ <div class="ans">정답: 3번</div>
+ <div class="idea"><b>핵심 아이디어</b> — 저울 한 번의 세 결과에 맞춰 후보를 3등분한다.</div>
+ <div class="steps"><b>단계별 해설</b><br>저울질 한 번은 왼쪽 무거움/균형/오른쪽 무거움의 3가지 결과만 준다. 2번이면 최대 3²=9가지 상황만 구별하므로 27개 후보를 모두 구별할 수 없다. 따라서 최소 3번 이상이다. 실제로 27개를 9개씩 나눠 두 그룹을 재면 후보가 9개로 줄고, 다시 3개씩, 마지막으로 1개씩 비교하면 찾을 수 있다. 따라서 최소 <b>3번</b>.</div>
+ <div class="teach"><b>지도 포인트</b> — 가능 전략뿐 아니라 정보량으로 ‘2번은 불가능’이라는 하한도 증명하게 한다.</div>
+</section>
+<section class="solution">
+ <span class="badge">규칙과 함수 · 게임전략</span>
+ <h2>19. 돌 23개가 있다. 두 사람이 번갈아 1개, 2개 또는 5개의 돌을 가져가며 마지막 돌을 가져간 사람이 이긴다. 두 사람이 모두 최선으로 플레이할 때 선공과 후공 중 누가 이기는가? 필승 전략을 설명하여라.</h2>
+ <div class="ans">정답: 선공 승리</div>
+ <div class="idea"><b>핵심 아이디어</b> — 3의 배수 개수를 상대에게 넘기는 전략을 찾는다.</div>
+ <div class="steps"><b>단계별 해설</b><br>0,3,6,9,…은 현재 차례의 사람이 불리한 상태이다. 23은 3으로 나눈 나머지가 2이므로 선공이 처음 2개를 가져가 21개를 만든다. 이후 상대가 1개를 가져가면 2개, 2개를 가져가면 1개, 5개를 가져가면 1개를 가져가서 다시 3의 배수만 남긴다(상대와 자신의 한 쌍의 행동에서 각각 3개 또는 6개가 줄어든다). 이 전략으로 선공이 마지막 돌을 가져가므로 <b>선공 승리</b>.</div>
+ <div class="teach"><b>지도 포인트</b> — 승패표를 몇 칸 작성한 뒤 패배 상태의 규칙을 발견하게 하면 좋다.</div>
+</section>
+<section class="solution">
+ <span class="badge">논리 · 그래프와 비둘기집</span>
+ <h2>20. 어떤 모임에 학생 12명이 있다. ‘서로 안다’는 관계는 상호적이다. 이 모임에서는 반드시 서로 같은 수의 다른 학생을 알고 있는 두 학생이 존재함을 증명하여라.</h2>
+ <div class="ans">정답: 반드시 존재</div>
+ <div class="idea"><b>핵심 아이디어</b> — 각 학생이 아는 사람 수를 ‘차수’로 보고 비둘기집 원리를 적용한다.</div>
+ <div class="steps"><b>단계별 해설</b><br>한 학생이 알 수 있는 다른 학생 수는 0명부터 11명까지이다. 겉으로는 12개의 값이 가능해 보이지만 ‘0명을 아는 학생’과 ‘11명을 아는 학생’은 동시에 존재할 수 없다. 11명을 아는 학생은 모든 학생을 알고 있으므로 0명을 아는 학생도 그 학생을 알게 되어 모순이기 때문이다. 따라서 실제로 동시에 나타날 수 있는 서로 다른 ‘아는 사람 수’는 최대 11종류뿐이다. 학생은 12명이므로 비둘기집 원리에 의해 같은 수의 사람을 아는 두 학생이 반드시 존재한다.</div>
+ <div class="teach"><b>지도 포인트</b> — 그래프의 차수 개념을 공식 없이도 이해할 수 있는 좋은 입문 증명 문제.</div>
+</section>
+</main>
+<footer>-세영코딩연구소- &nbsp;&nbsp;&nbsp; ph.D KIM</footer>
+</div>
+<script>
+let fs=17;
+function resizeText(d){fs=Math.max(14,Math.min(23,fs+d));document.body.style.fontSize=fs+"px";}
+function toggleTips(){document.querySelectorAll(".teach").forEach(e=>e.style.display=e.style.display==="none"?"block":"none");}
+</script>
+</body></html>
