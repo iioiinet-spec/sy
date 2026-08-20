@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>중학 수학 심화 [2단계] · 토론으로 푸는 문제 10 (학생용)</title>
+<style>
+:root{ --ink:#1a1a1a; --sub:#555; --line:#c8c8c8; --soft:#f2f4f8; --accent:#1d4ed8; }
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#e9edf3;color:var(--ink);
+  font-family:'Pretendard','Malgun Gothic','맑은 고딕',system-ui,sans-serif;
+  line-height:1.62;font-size:14.5px;padding:24px 12px}
+.page{width:210mm;min-height:297mm;margin:0 auto 18px;background:#fff;
+  padding:14mm 14mm 13mm;box-shadow:0 3px 14px rgba(0,0,0,.16);position:relative}
+
+/* 머리글 */
+.head{border-bottom:3px double var(--ink);padding-bottom:7px;margin-bottom:10px}
+.head .row{display:flex;align-items:flex-end;gap:12px}
+.head h1{font-size:19.5px;font-weight:800;letter-spacing:-.6px}
+.head .sub{font-size:12.5px;color:var(--sub);margin-top:2px}
+.head .meta{margin-left:auto;font-size:12px;color:var(--sub);text-align:right;line-height:1.6}
+.namebox{display:flex;gap:8px;margin-top:6px;font-size:12px}
+.namebox span{border:1px solid var(--line);border-radius:4px;padding:3px 10px}
+.namebox .fill{flex:1}
+
+/* 안내 */
+.notice{background:var(--soft);border:1px solid var(--line);border-radius:6px;
+  padding:7px 12px;font-size:11.8px;color:#333;margin-bottom:10px;line-height:1.55}
+.notice b{color:var(--accent)}
+
+/* 문항 */
+.item{margin-bottom:9px;break-inside:avoid;page-break-inside:avoid}
+.qhead{display:flex;align-items:baseline;gap:8px;margin-bottom:5px}
+.no{background:var(--ink);color:#fff;font-weight:800;font-size:12.5px;
+  padding:1px 9px;border-radius:3px;flex:0 0 auto}
+.title{font-weight:800;font-size:14.8px}
+.tagz{margin-left:auto;font-size:11px;color:var(--sub);border:1px solid var(--line);
+  border-radius:10px;padding:1px 9px;flex:0 0 auto}
+.body{font-size:13.6px;padding-left:2px}
+.body p{margin:3px 0}
+.ask{margin-top:5px;padding-left:9px;border-left:3px solid var(--accent)}
+.ask div{margin:2px 0;font-size:13.5px}
+.ask b{color:var(--accent)}
+.data{background:var(--soft);border:1px solid var(--line);border-radius:5px;
+  padding:6px 11px;margin:5px 0;font-size:12.8px;
+  font-family:'D2Coding','Consolas',monospace}
+.talk{margin-top:5px;font-size:12px;color:#444;background:#fffaf0;
+  border:1px dashed #d8b06a;border-radius:5px;padding:5px 10px;line-height:1.5}
+.talk b{color:#a4700f}
+.ans{border:1px solid var(--line);border-radius:5px;margin-top:6px;
+  background:repeating-linear-gradient(#fff 0 25px,#eceff5 25px 26px)}
+.ans.h1{height:52px}.ans.h2{height:78px}.ans.h3{height:104px}
+figure{margin:7px 0;text-align:center}
+figure svg{max-width:100%;height:auto}
+figcaption{font-size:11.5px;color:var(--sub);margin-top:3px}
+
+.foot{position:absolute;left:15mm;right:15mm;bottom:8mm;
+  border-top:1px solid var(--line);padding-top:5px;
+  display:flex;font-size:11px;color:var(--sub)}
+.foot .r{margin-left:auto}
+
+/* 화면 전용 도구 */
+.bar{width:210mm;margin:0 auto 12px;display:flex;gap:8px;align-items:center;flex-wrap:wrap;
+  background:#fff;border-radius:9px;padding:10px 14px;box-shadow:0 2px 8px rgba(0,0,0,.1)}
+.bar .t{font-weight:800;font-size:14px}
+.btn{background:#1d4ed8;color:#fff;border:none;padding:8px 15px;border-radius:7px;
+  cursor:pointer;font-size:13.5px;font-weight:700;font-family:inherit}
+.btn.g{background:#374151}
+.hint{font-size:12.5px;color:#555}
+
+@media print{
+  @page{size:A4;margin:0}
+  body{background:#fff;padding:0}
+  .page{margin:0;box-shadow:none;page-break-after:always}
+  .page:last-child{page-break-after:auto}
+  .bar{display:none}
+  .ans{background:repeating-linear-gradient(#fff 0 25px,#e6e9ef 25px 26px)}
+}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <span class="t">📄 토론으로 푸는 심화 문제 10 <b>[중등 2단계]</b> — 학생용</span>
+  <button class="btn" onclick="window.print()">🖨 인쇄 / PDF 저장</button>
+  <span class="hint">인쇄 설정에서 <b>용지 A4 · 배율 100% · 여백 없음</b>으로 두면 쪽에 딱 맞습니다.</span>
+</div>
+
+<!-- ====== 1쪽 ====== -->
+<div class="page">
+  <div class="head">
+    <div class="row">
+      <div>
+        <h1>토론으로 푸는 수학 — 심화 문제 10 <span style="font-size:13px;background:#0f766e;color:#fff;padding:1px 8px;border-radius:3px;vertical-align:2px">중등 2단계</span></h1>
+        <div class="sub">중학교 1~3학년 · 수와 연산 · 방정식 · 도형 · 통계</div>
+      </div>
+      <div class="meta">모둠 활동 40분 + 발표 20분<br>1 / 5 쪽</div>
+    </div>
+    <div class="namebox">
+      <span class="fill">모둠 이름</span><span class="fill">학년 · 반</span><span class="fill">이름</span><span>날짜　　　.　　.</span>
+    </div>
+  </div>
+  <div class="notice">
+    <b>이렇게 풀어 보세요.</b> ① 혼자 5분 생각 → ② 모둠에서 접근 방법 공유 → ③ 근거를 들어 토론 → ④ 검산과 설명.
+    이번 세트의 열쇠는 <b>“직접 계산하지 말고 구조를 보라”</b>입니다.
+    큰 수를 만나면 <b>식으로 바꿔</b> 보고, 복잡한 도형은 <b>이미 아는 도형으로 나누어</b> 보세요.
+  </div>
+
+  <!-- 1 -->
+  <div class="item">
+    <div class="qhead"><span class="no">1</span><span class="title">0.999… 는 1보다 작을까</span><span class="tagz">순환소수</span></div>
+    <div class="body">
+      <p>“0.999…는 1에 <b>아주 가깝지만 1은 아니다</b>”라고 생각하는 사람이 많습니다. 정말 그럴까요?</p>
+      <div class="ask">
+        <div><b>(1)</b> <b class="mono">x = 0.999…</b> 라 두고 <b class="mono">10x − x</b> 를 계산해 보세요. 무엇을 알 수 있나요?</div>
+        <div><b>(2)</b> 같은 방법으로 <b class="mono">0.2454545…</b> 를 분수로 나타내세요.</div>
+        <div><b>(3)</b> <b class="mono">1/8</b> 은 유한소수인데 <b class="mono">1/12</b> 는 순환소수입니다. 무엇이 이 차이를 만들까요?</div>
+      </div>
+      <div class="talk"><b>토론거리</b> — “<b class="mono">1/3 = 0.333…</b> 이고 양변에 3을 곱하면 <b class="mono">1 = 0.999…</b>”라는 설명도 있습니다. 이 설명은 (1)의 방법과 같은 이야기일까요, 다른 이야기일까요?</div>
+      <div class="ans h3"></div>
+    </div>
+  </div>
+
+  <!-- 2 -->
+  <div class="item">
+    <div class="qhead"><span class="no">2</span><span class="title">곱해서 제곱수 만들기</span><span class="tagz">소인수분해</span></div>
+    <div class="body">
+      <p>어떤 자연수에 적당한 수를 곱하면 <b>제곱수</b>(어떤 자연수의 제곱)가 됩니다.
+      예를 들어 <b class="mono">8 × 2 = 16 = 4²</b> 입니다.</p>
+      <div class="ask">
+        <div><b>(1)</b> <b class="mono">60</b> 에 곱해서 제곱수를 만들 수 있는 <b>가장 작은 자연수</b>를 구하세요.</div>
+        <div><b>(2)</b> <b class="mono">252</b> 는 어떤가요?</div>
+        <div><b>(3)</b> 어떤 수가 제곱수가 되는 조건을 <b>소인수분해</b>로 설명해 보세요.</div>
+      </div>
+      <div class="talk"><b>토론거리</b> — 제곱수의 <b>약수의 개수</b>를 세어 보세요. 1, 4, 9, 16, 25… 무엇이 다른가요? 소인수의 <b>지수</b>와 어떤 관계가 있을까요?</div>
+      <div class="ans h3"></div>
+    </div>
+  </div>
+
+  <div class="foot"><span>토론으로 푸는 수학 — 심화 문제 10 [중등 2단계]</span><span class="r">1 / 5</span></div>
+</div>
+
+<!-- ====== 2쪽 ====== -->
+<div class="page">
+  <div class="head">
+    <div class="row">
+      <div>
+        <h1>토론으로 푸는 수학 — 심화 문제 10 <span style="font-size:13px;background:#0f766e;color:#fff;padding:1px 8px;border-radius:3px;vertical-align:2px">중등 2단계</span></h1>
+        <div class="sub">중학교 1~3학년 · 수와 연산 · 방정식 · 도형 · 통계</div>
+      </div>
+      <div class="meta">모둠 이름 ______________<br>2 / 5 쪽</div>
+    </div>
+  </div>
+
+  <!-- 3 -->
+  <div class="item">
+    <div class="qhead"><span class="no">3</span><span class="title">소금물 섞기</span><span class="tagz">일차방정식</span></div>
+    <div class="body">
+      <p>농도가 <b>8%</b>인 소금물 <b>200g</b>이 있습니다.</p>
+      <div class="ask">
+        <div><b>(1)</b> 여기에 <b>물만</b> 몇 g 넣으면 농도가 <b>5%</b>가 될까요?</div>
+        <div><b>(2)</b> 이번에는 <b>8% 소금물</b>과 <b>3% 소금물</b>을 섞어 <b>5% 소금물 300g</b>을 만들려고 합니다. 각각 몇 g씩 필요할까요?</div>
+      </div>
+      <div class="talk"><b>토론거리</b> — 물을 넣어도 <b>소금의 양은 변하지 않습니다.</b> 이 사실을 식의 어디에 쓰면 될까요?
+      또 (2)에서 5%는 3%와 8%의 <b>한가운데(5.5%)가 아닙니다.</b> 그렇다면 어느 쪽 소금물이 더 많이 들어갈까요?</div>
+      <div class="ans h3"></div>
+    </div>
+  </div>
+
+  <!-- 4 -->
+  <div class="item">
+    <div class="qhead"><span class="no">4</span><span class="title">어느 요금제가 유리할까</span><span class="tagz">일차부등식</span></div>
+    <div class="body">
+      <p>두 통신 요금제가 있습니다.</p>
+      <div class="data">A 요금제 : 기본요금 10,000원 + 1분당 50원
+B 요금제 : 기본요금  5,000원 + 1분당 100원</div>
+      <div class="ask">
+        <div><b>(1)</b> 통화 시간이 <b>몇 분을 넘으면</b> A가 더 유리해질까요? 부등식을 세워 구하세요.</div>
+        <div><b>(2)</b> 정확히 <b>100분</b>일 때는 어떤가요?</div>
+        <div><b>(3)</b> 두 요금제의 요금을 <b>그래프</b>로 그리면 어떤 모양일까요? 답이 그래프의 어디에 나타나나요?</div>
+      </div>
+      <div class="talk"><b>토론거리</b> — 부등식의 답이 <b class="mono">t &gt; 100</b> 으로 나왔습니다. 그런데 “101분부터”라고 답해야 할까요, “100분 초과”라고 답해야 할까요? 통화 시간이 <b>정수인지 아닌지</b>에 따라 달라집니다.</div>
+      <div class="ans h2"></div>
+    </div>
+  </div>
+
+  <div class="foot"><span>토론으로 푸는 수학 — 심화 문제 10 [중등 2단계]</span><span class="r">2 / 5</span></div>
+</div>
+
+<!-- ====== 3쪽 ====== -->
+<div class="page">
+  <div class="head">
+    <div class="row">
+      <div>
+        <h1>토론으로 푸는 수학 — 심화 문제 10 <span style="font-size:13px;background:#0f766e;color:#fff;padding:1px 8px;border-radius:3px;vertical-align:2px">중등 2단계</span></h1>
+        <div class="sub">중학교 1~3학년 · 수와 연산 · 방정식 · 도형 · 통계</div>
+      </div>
+      <div class="meta">모둠 이름 ______________<br>3 / 5 쪽</div>
+    </div>
+  </div>
+
+  <!-- 5 -->
+  <div class="item">
+    <div class="qhead"><span class="no">5</span><span class="title">별 모양의 다섯 각</span><span class="tagz">각의 성질</span></div>
+    <div class="body">
+      <p>오른쪽처럼 다섯 개의 뾰족한 끝을 가진 <b>별 모양</b>을 그렸습니다. 뾰족한 다섯 각을
+      <b class="mono">∠a, ∠b, ∠c, ∠d, ∠e</b> 라 합시다.</p>
+      <figure>
+        <svg viewBox="0 0 150 100" xmlns="http://www.w3.org/2000/svg" style="max-width:170px">
+          <polygon points="75,8 108,92 22,38 128,38 42,92" fill="none" stroke="#333" stroke-width="1.7" stroke-linejoin="round"/>
+          <g fill="#c026d3" font-size="10.5" font-family="monospace" font-weight="bold">
+            <text x="75" y="6" text-anchor="middle">a</text>
+            <text x="132" y="38">b</text>
+            <text x="112" y="99">c</text>
+            <text x="38" y="99">d</text>
+            <text x="10" y="38">e</text>
+          </g>
+        </svg>
+      </figure>
+      <div class="ask">
+        <div><b>(1)</b> 다섯 각의 <b>합</b>은 몇 도일까요?</div>
+        <div><b>(2)</b> 별이 <b>찌그러져도</b> 그 합은 변하지 않습니다. 왜 그럴까요?</div>
+      </div>
+      <div class="talk"><b>토론거리</b> — 삼각형 하나를 골라 <b>외각의 성질</b>(한 외각 = 이웃하지 않은 두 내각의 합)을 써 보세요.
+      별의 각들을 가운데 오각형이나 삼각형으로 <b>모아 옮길</b> 수 있을까요?</div>
+      <div class="ans h3"></div>
+    </div>
+  </div>
+
+  <!-- 6 -->
+  <div class="item">
+    <div class="qhead"><span class="no">6</span><span class="title">원 안의 직각삼각형</span><span class="tagz">원주각 · 피타고라스</span></div>
+    <div class="body">
+      <p>지름이 <b>10cm</b>인 원이 있습니다. 지름 AB를 한 변으로 하고, 원 위의 점 C를 나머지 꼭짓점으로 하는
+      삼각형 ABC를 만들었습니다. 이때 <b class="mono">AC = 6cm</b> 입니다.</p>
+      <figure>
+        <svg viewBox="0 0 150 92" xmlns="http://www.w3.org/2000/svg" style="max-width:175px">
+          <circle cx="70" cy="46" r="38" fill="none" stroke="#333" stroke-width="1.6"/>
+          <polygon points="32,46 108,46 55,11" fill="rgba(37,99,235,.12)" stroke="#2563eb" stroke-width="1.7"/>
+          <path d="M55 11 L60 20 L51 24" fill="none" stroke="#c026d3" stroke-width="1.4"/>
+          <circle cx="70" cy="46" r="2" fill="#333"/>
+          <g fill="#333" font-size="10" font-family="monospace">
+            <text x="24" y="50">A</text><text x="111" y="50">B</text><text x="52" y="9">C</text>
+            <text x="38" y="26">6</text><text x="70" y="58" text-anchor="middle">10</text>
+          </g>
+        </svg>
+      </figure>
+      <div class="ask">
+        <div><b>(1)</b> <b class="mono">∠C</b> 의 크기는 몇 도일까요? 왜 그런가요?</div>
+        <div><b>(2)</b> <b class="mono">BC</b> 의 길이와 삼각형 ABC의 <b>넓이</b>를 구하세요.</div>
+        <div><b>(3)</b> 점 C를 원 위에서 움직이면 넓이는 어떻게 변할까요? <b>최대 넓이</b>는 얼마인가요?</div>
+      </div>
+      <div class="talk"><b>토론거리</b> — 점 C가 어디에 있든 <b class="mono">∠C</b> 는 변하지 않습니다. 그런데 넓이는 변합니다. 무엇이 넓이를 결정하나요?</div>
+      <div class="ans h3"></div>
+    </div>
+  </div>
+
+  <div class="foot"><span>토론으로 푸는 수학 — 심화 문제 10 [중등 2단계]</span><span class="r">3 / 5</span></div>
+</div>
+
+<!-- ====== 4쪽 ====== -->
+<div class="page">
+  <div class="head">
+    <div class="row">
+      <div>
+        <h1>토론으로 푸는 수학 — 심화 문제 10 <span style="font-size:13px;background:#0f766e;color:#fff;padding:1px 8px;border-radius:3px;vertical-align:2px">중등 2단계</span></h1>
+        <div class="sub">중학교 1~3학년 · 수와 연산 · 방정식 · 도형 · 통계</div>
+      </div>
+      <div class="meta">모둠 이름 ______________<br>4 / 5 쪽</div>
+    </div>
+  </div>
+
+  <!-- 7 -->
+  <div class="item">
+    <div class="qhead"><span class="no">7</span><span class="title">지름길로 가는 방법의 수</span><span class="tagz">경우의 수</span></div>
+    <div class="body">
+      <p>바둑판 모양의 길에서 집 P에서 학교 Q까지 <b>가장 짧은 길</b>로 가려고 합니다.
+      (오른쪽 또는 위쪽으로만 이동)</p>
+      <figure>
+        <svg viewBox="0 0 160 84" xmlns="http://www.w3.org/2000/svg" style="max-width:250px">
+          <g stroke="#c3cfe4" stroke-width="1.2">
+            <path d="M18 72h112 M18 54h112 M18 36h112 M18 18h112"/>
+            <path d="M18 18v54 M46 18v54 M74 18v54 M102 18v54 M130 18v54"/>
+          </g>
+          <circle cx="18" cy="72" r="3.4" fill="#2563eb"/><circle cx="130" cy="18" r="3.4" fill="#059669"/>
+          <circle cx="74" cy="54" r="4" fill="none" stroke="#dc2626" stroke-width="2"/>
+          <path d="M70 50l8 8M78 50l-8 8" stroke="#dc2626" stroke-width="1.8"/>
+          <g fill="#333" font-size="9.5" font-family="monospace">
+            <text x="8" y="80">P</text><text x="134" y="16">Q</text><text x="66" y="70">R</text>
+          </g>
+        </svg>
+      </figure>
+      <div class="ask">
+        <div><b>(1)</b> P에서 Q까지 가는 <b>최단 경로</b>는 모두 몇 가지일까요?</div>
+        <div><b>(2)</b> 지점 <b>R</b>이 공사 중이라 지날 수 없습니다. 이때는 몇 가지일까요?</div>
+      </div>
+      <div class="talk"><b>토론거리</b> — (2)를 풀 때 <b>“R을 지나지 않는 경로를 직접 세는 것”</b>과 <b>“전체에서 R을 지나는 경로를 빼는 것”</b> 중 어느 쪽이 쉬울까요? 왜 그럴까요?</div>
+      <div class="ans h2"></div>
+    </div>
+  </div>
+
+  <!-- 8 -->
+  <div class="item">
+    <div class="qhead"><span class="no">8</span><span class="title">평균이 거짓말을 할 때</span><span class="tagz">대푯값</span></div>
+    <div class="body">
+      <p>어느 동아리 10명의 하루 용돈을 조사했더니 다음과 같았습니다. (단위: 천 원)</p>
+      <div class="data">2　3　3　4　5　5　5　6　7　80</div>
+      <div class="ask">
+        <div><b>(1)</b> <b>평균 · 중앙값 · 최빈값</b>을 각각 구하세요.</div>
+        <div><b>(2)</b> 이 동아리를 대표하는 값으로 <b>무엇이 가장 적절</b>할까요? 이유를 들어 설명하세요.</div>
+        <div><b>(3)</b> 마지막 사람의 값 80이 <b>기록 실수</b>여서 실제로는 8이었습니다. 세 대푯값은 각각 어떻게 바뀌나요?</div>
+      </div>
+      <div class="talk"><b>토론거리</b> — 평균 12천 원인데 <b>10명 중 9명이 평균보다 적게</b> 씁니다. 이런 일이 왜 생길까요?
+      뉴스에서 “평균 연봉”이 실제 체감과 다른 이유도 같은 이치입니다.</div>
+      <div class="ans h3"></div>
+    </div>
+  </div>
+
+  <div class="foot"><span>토론으로 푸는 수학 — 심화 문제 10 [중등 2단계]</span><span class="r">4 / 5</span></div>
+</div>
+
+<!-- ====== 5쪽 ====== -->
+<div class="page">
+  <div class="head">
+    <div class="row">
+      <div>
+        <h1>토론으로 푸는 수학 — 심화 문제 10 <span style="font-size:13px;background:#0f766e;color:#fff;padding:1px 8px;border-radius:3px;vertical-align:2px">중등 2단계</span></h1>
+        <div class="sub">중학교 1~3학년 · 수와 연산 · 방정식 · 도형 · 통계</div>
+      </div>
+      <div class="meta">모둠 이름 ______________<br>5 / 5 쪽</div>
+    </div>
+  </div>
+
+  <!-- 9 -->
+  <div class="item">
+    <div class="qhead"><span class="no">9</span><span class="title">계산하지 않고 계산하기</span><span class="tagz">곱셈 공식</span></div>
+    <div class="body">
+      <p>다음을 <b>필산이나 계산기 없이</b> 구해 보세요. 곱셈 공식을 이용하면 암산으로도 가능합니다.</p>
+      <div class="ask">
+        <div><b>(1)</b> <b class="mono">101 × 99</b> 　　<b>(2)</b> <b class="mono">2024² − 2023²</b></div>
+        <div><b>(3)</b> <b class="mono">1×2×3×4 + 1 = 25 = 5²</b> 입니다. <b class="mono">2×3×4×5 + 1</b>, <b class="mono">3×4×5×6 + 1</b> 도 확인해 보세요.</div>
+        <div><b>(4)</b> (3)에서 발견한 규칙이 <b>항상</b> 성립할까요? <b class="mono">n(n+1)(n+2)(n+3) + 1</b> 을 정리해 확인해 보세요.</div>
+      </div>
+      <div class="talk"><b>토론거리</b> — (4)에서 <b class="mono">n(n+3)</b> 과 <b class="mono">(n+1)(n+2)</b> 를 각각 먼저 계산해 보세요. 두 결과가 어떻게 닮았나요? 그것을 <b class="mono">A</b> 로 놓으면 어떻게 될까요?</div>
+      <div class="ans h3"></div>
+    </div>
+  </div>
+
+  <!-- 10 -->
+  <div class="item">
+    <div class="qhead"><span class="no">10</span><span class="title">닮음비와 부피비</span><span class="tagz">닮음</span></div>
+    <div class="body">
+      <p>키가 <b>1.6m</b>인 사람의 그림자가 <b>2m</b>일 때, 같은 시각 나무의 그림자는 <b>15m</b>였습니다.</p>
+      <div class="ask">
+        <div><b>(1)</b> 나무의 높이를 구하세요.</div>
+        <div><b>(2)</b> 어떤 조형물의 <b>1 : 4 축소 모형</b>의 부피가 <b>250cm³</b> 입니다. 실물의 부피는 몇 L일까요?</div>
+        <div><b>(3)</b> 모형의 겉면을 칠하는 데 페인트가 20g 들었다면, 실물에는 대략 얼마가 필요할까요?</div>
+      </div>
+      <div class="talk"><b>토론거리</b> — 길이가 4배가 되면 부피는 <b>4배가 아니라 64배</b>입니다. 왜 그럴까요?
+      이 사실로 <b>“개미만 한 코끼리는 왜 없는가”</b>도 설명할 수 있습니다. 몸무게(부피)와 다리 굵기(단면적)가 각각 몇 배씩 늘어나는지 비교해 보세요.</div>
+      <div class="ans h3"></div>
+    </div>
+  </div>
+
+  <div class="notice" style="margin-top:10px">
+    <b>오늘의 정리.</b> 오늘 푼 문제 중 <b>“계산하지 않고 답을 알아낸”</b> 문제는 몇 번이었나요?
+    모둠에서 하나를 골라, 그 문제에서 <b>무엇을 보았기에</b> 계산을 건너뛸 수 있었는지 이야기해 보세요.
+  </div>
+
+  <div class="foot"><span>토론으로 푸는 수학 — 심화 문제 10 [중등 2단계]</span><span class="r">5 / 5</span></div>
+</div>
+
+</body>
+</html>
