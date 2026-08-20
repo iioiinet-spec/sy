@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>중학 수학 심화 · 토론으로 푸는 문제 10 — 교사용 답지</title>
+<style>
+:root{ --ink:#1a1a1a; --sub:#555; --line:#c8c8c8; --soft:#f2f4f8;
+       --ans:#b91c1c; --tip:#0f766e; --acc:#1d4ed8; }
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#e9edf3;color:var(--ink);
+  font-family:'Pretendard','Malgun Gothic','맑은 고딕',system-ui,sans-serif;
+  line-height:1.58;font-size:13.6px;padding:24px 12px}
+.page{width:210mm;min-height:297mm;margin:0 auto 18px;background:#fff;
+  padding:13mm 13mm 12mm;box-shadow:0 3px 14px rgba(0,0,0,.16);position:relative}
+
+.head{border-bottom:3px double var(--ink);padding-bottom:8px;margin-bottom:12px}
+.head .row{display:flex;align-items:flex-end;gap:12px}
+.head h1{font-size:20px;font-weight:800;letter-spacing:-.6px}
+.head h1 em{font-style:normal;background:var(--ans);color:#fff;font-size:12px;
+  padding:2px 9px;border-radius:3px;margin-left:8px;vertical-align:middle}
+.head .sub{font-size:12px;color:var(--sub);margin-top:2px}
+.head .meta{margin-left:auto;font-size:11.5px;color:var(--sub);text-align:right;line-height:1.55}
+
+.item{margin-bottom:8px;break-inside:avoid;page-break-inside:avoid;
+  border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.qh{display:flex;align-items:center;gap:8px;background:var(--soft);
+  padding:5px 11px;border-bottom:1px solid var(--line)}
+.no{background:var(--ink);color:#fff;font-weight:800;font-size:12px;padding:1px 8px;border-radius:3px}
+.tt{font-weight:800;font-size:13.8px}
+.lv{margin-left:auto;font-size:10.5px;color:var(--sub)}
+.bd{padding:7px 11px}
+.ansline{background:#fff1f1;border-left:4px solid var(--ans);border-radius:4px;
+  padding:5px 10px;margin-bottom:5px;font-size:13.2px}
+.ansline b{color:var(--ans)}
+.sec{font-size:12.5px;margin:4px 0;line-height:1.55}
+.sec .lb{display:inline-block;background:var(--acc);color:#fff;font-size:10.5px;
+  font-weight:800;padding:1px 7px;border-radius:3px;margin-right:6px;vertical-align:1px}
+.sec .lb.t{background:var(--tip)}
+.sec .lb.m{background:#b45309}
+.steps{background:#f7f9fc;border:1px solid #e2e7f0;border-radius:4px;
+  padding:5px 10px;margin:4px 0;font-size:11.8px;
+  font-family:'D2Coding','Consolas',monospace;white-space:pre-wrap;line-height:1.6}
+.mis{background:#fffbea;border:1px dashed #d8b06a;border-radius:4px;
+  padding:5px 10px;margin-top:4px;font-size:11.8px;color:#5c4708;line-height:1.5}
+.mis b{color:#a4700f}
+table.g{width:100%;border-collapse:collapse;font-size:11.8px;margin:4px 0}
+table.g th{background:#eef2f8;border:1px solid var(--line);padding:3px 6px;font-weight:800}
+table.g td{border:1px solid var(--line);padding:3px 6px;text-align:center;
+  font-family:'D2Coding','Consolas',monospace}
+
+.foot{position:absolute;left:14mm;right:14mm;bottom:7mm;border-top:1px solid var(--line);
+  padding-top:4px;display:flex;font-size:10.5px;color:var(--sub)}
+.foot .r{margin-left:auto}
+
+.bar{width:210mm;margin:0 auto 12px;display:flex;gap:8px;align-items:center;flex-wrap:wrap;
+  background:#fff;border-radius:9px;padding:10px 14px;box-shadow:0 2px 8px rgba(0,0,0,.1)}
+.bar .t{font-weight:800;font-size:14px}
+.btn{background:#b91c1c;color:#fff;border:none;padding:8px 15px;border-radius:7px;
+  cursor:pointer;font-size:13.5px;font-weight:700;font-family:inherit}
+.hint{font-size:12.5px;color:#555}
+
+@media print{
+  @page{size:A4;margin:0}
+  body{background:#fff;padding:0}
+  .page{margin:0;box-shadow:none;page-break-after:always}
+  .page:last-child{page-break-after:auto}
+  .bar{display:none}
+}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <span class="t">📕 토론으로 푸는 심화 문제 10 <b>[중등]</b> — 교사용 답지 · 지도 자료</span>
+  <button class="btn" onclick="window.print()">🖨 인쇄 / PDF 저장</button>
+  <span class="hint">학생용과 별도 파일입니다. <b>배부 전 확인</b>하세요.</span>
+</div>
+
+<!-- ====== 1쪽 ====== -->
+<div class="page">
+  <div class="head">
+    <div class="row">
+      <div><h1>토론으로 푸는 수학 — 심화 문제 10 <span style="font-size:11.5px;background:#7c3aed;color:#fff;padding:1px 7px;border-radius:3px;vertical-align:2px">중등</span><em>교사용</em></h1>
+        <div class="sub">정답 · 풀이 · 토론 유도 방법 · 학생이 자주 하는 오답</div></div>
+      <div class="meta">중학교 1~3학년 심화<br>1 / 6 쪽</div>
+    </div>
+  </div>
+
+  <div class="item" style="border-color:var(--tip)">
+    <div class="qh" style="background:#effaf7"><span class="tt" style="color:var(--tip)">수업 운영 안내 — 중등</span></div>
+    <div class="bd">
+      <div class="sec"><span class="lb t">이번 세트의 축</span><b>“왜 그렇게 되는가”를 식으로 설명하기</b>입니다. 초등 세트가 규칙 발견에 머물렀다면, 여기서는 <b>문자와 식으로 일반화</b>하고 <b>증명</b>까지 나아갑니다.</div>
+      <div class="sec"><span class="lb t">핵심 지도</span>답을 맞힌 학생에게는 반드시 <b>“그런데 왜 그렇게 되지?”</b>를 되물으세요. 1·2·9번은 답보다 <b>설명의 완결성</b>이 평가 대상입니다.</div>
+      <div class="sec"><span class="lb t">단원 연결</span>1번 무리수(중3) · 2번 정수의 성질(중1) · 3번 피타고라스(중2) · 4번 이차함수(중3) · 5번 부채꼴과 제곱근(중1·중3) · 6·8번 확률(중2) · 7번 일차함수(중2) · 9번 문자와 식(중1) · 10번 닮음과 넓이비(중2)</div>
+      <table class="g">
+        <tr><th>문항</th><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td><td>10</td></tr>
+        <tr><th>난이도</th><td>★★★</td><td>★★★</td><td>★★</td><td>★★</td><td>★★★</td><td>★★★</td><td>★</td><td>★★</td><td>★★</td><td>★★</td></tr>
+        <tr><th>권장</th><td>중3</td><td>중1~</td><td>중2~</td><td>중3</td><td>중3</td><td>중2~</td><td>중2~</td><td>중2~</td><td>중1~</td><td>중2~</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="qh"><span class="no">1</span><span class="tt">√2 는 정말 분수가 아닐까</span><span class="lv">무리수 · ★★★</span></div>
+    <div class="bd">
+      <div class="ansline"><b>정답</b> 기약분수라는 가정에 <b>모순</b>이 생기므로, √2 는 분수로 나타낼 수 없다 (무리수)</div>
+      <div class="steps">√2 = p/q  (p, q는 서로소인 자연수)라 가정하자.
+양변 제곱 :  2 = p²/q²   →   <b>p² = 2q²</b>
+(1) p²이 짝수 → p도 짝수.   ※ p가 홀수면 p²도 홀수이므로.
+(2) p = 2k 로 두면  (2k)² = 2q²  →  4k² = 2q²  →  <b>q² = 2k²</b>
+    같은 이유로 q²이 짝수 → q도 짝수.
+(3) p와 q가 <b>둘 다 짝수</b> → 2로 약분된다.
+    그런데 처음에 <b>서로소(기약분수)</b>라고 했으므로 <b>모순!</b>
+⇒ 가정이 틀렸다. √2 는 분수로 나타낼 수 없다.</div>
+      <div class="sec"><span class="lb m">토론거리 답</span>√4 로 같은 시도를 하면 p² = 4q² → p = 2q 가 되어 <b>모순이 생기지 않습니다.</b> p/q = 2 라는 멀쩡한 분수가 나오지요. 즉 <b>모순이 나지 않는다는 것 자체가 “유리수”라는 증거</b>입니다.</div>
+      <div class="sec"><span class="lb t">토론 유도</span>“p²이 짝수면 왜 p도 짝수인가?”에서 학생들이 자주 막힙니다. <b>홀수 × 홀수 = 홀수</b>임을 먼저 확인시키세요.</div>
+      <div class="mis"><b>자주 하는 오답</b> ① 계산기로 1.41421…를 보여 주며 “안 끝나니까 무리수”라고 함 → <b>관찰은 증명이 아닙니다.</b> ② 서로소 조건을 빠뜨려 모순을 못 찾음. 이 조건이 증명의 <b>심장</b>임을 강조하세요.</div>
+    </div>
+  </div>
+
+  <div class="foot"><span>토론으로 푸는 수학 [중등] — 교사용 답지</span><span class="r">1 / 6</span></div>
+</div>
+
+<!-- ====== 2쪽 ====== -->
+<div class="page">
+  <div class="head">
+    <div class="row">
+      <div><h1>토론으로 푸는 수학 — 심화 문제 10 <span style="font-size:11.5px;background:#7c3aed;color:#fff;padding:1px 7px;border-radius:3px;vertical-align:2px">중등</span><em>교사용</em></h1>
+        <div class="sub">정답 · 풀이 · 토론 유도 방법 · 학생이 자주 하는 오답</div></div>
+      <div class="meta">중학교 1~3학년 심화<br>2 / 6 쪽</div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="qh"><span class="no">2</span><span class="tt">연속한 자연수의 합</span><span class="lv">수의 성질 · ★★★</span></div>
+    <div class="bd">
+      <div class="ansline"><b>정답</b> (1) <b>5가지</b> &nbsp;·&nbsp; (2) 64는 <b>불가능</b> — 2의 거듭제곱이기 때문</div>
+      <div class="steps">45 = 22+23 = 14+15+16 = 7+8+9+10+11 = 5+6+7+8+9+10 = 1+2+…+9
+첫 수 a, 개수 k 일 때   합 = ka + k(k−1)/2 = N
+양변 2배 :  <b>2N = k(2a + k − 1)</b>
+여기서 k 와 (2a+k−1) 는 <b>하나가 홀수면 다른 하나는 짝수</b>이다.
+ (k가 짝수면 2a+k−1은 홀수, k가 홀수면 2a+k−1은 짝수)
+⇒ 2N 은 반드시 <b>홀수 인수</b>를 갖는다.
+64의 경우 : 2N = 128 = 2⁷  → 1 말고는 홀수 인수가 없다  ⇒ <b>불가능</b>
+(k=1은 자기 자신 하나이므로 '연속한 합'으로 치지 않음)</div>
+      <div class="sec"><span class="lb">규칙</span>N의 <b>1을 제외한 홀수 약수의 개수</b>가 곧 표현 가능한 가짓수입니다. 45 = 3²×5 의 홀수 약수는 1,3,5,9,15,45 → 1을 빼면 <b>5가지</b> ✓</div>
+      <div class="sec"><span class="lb t">토론 유도</span>먼저 1~20을 나눠 조사시키고 <b>“안 되는 수”</b>를 모으게 하세요. 1, 2, 4, 8, 16이 나오면 학생들이 스스로 “2의 거듭제곱!”을 발견합니다.</div>
+      <div class="mis"><b>자주 하는 오답</b> 45에서 2~3가지만 찾고 멈춤. — <b>k(개수)를 1부터 차례로</b> 넣어 보는 체계적 탐색을 안내하세요.</div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="qh"><span class="no">3</span><span class="tt">종이를 접었더니</span><span class="lv">피타고라스 · ★★</span></div>
+    <div class="bd">
+      <div class="ansline"><b>정답</b> (1) 접으면 <b>대응점까지 거리가 같아</b>지므로 &nbsp;·&nbsp; (2) 넓이 <b>75/4 = 18.75 cm²</b></div>
+      <div class="steps">(1) 접는다는 것은 접는 선을 대칭축으로 <b>D와 B를 포갠다</b>는 뜻이다.
+    접는 선 위의 모든 점은 D까지와 B까지의 거리가 같으므로,
+    접는 선은 곧 선분 BD의 <b>수직이등분선</b>이다.
+(2) 접는 선이 변 AD와 만나는 점을 E라 하자.  ED = EB = x 라 두면 AE = 8 − x.
+    직각삼각형 ABE 에서 (∠A = 90°)
+        AB² + AE² = BE²
+        6² + (8 − x)² = x²
+        36 + 64 − 16x + x² = x²
+        100 = 16x        →  <b>x = 25/4 = 6.25</b>
+    겹쳐진 삼각형은 밑변 BE(= x), 높이 AB(= 6)인 삼각형이므로
+        넓이 = (1/2) × 25/4 × 6 = <b>75/4 = 18.75 cm²</b></div>
+      <div class="sec"><span class="lb">검산</span>AE = 8 − 6.25 = 1.75,  6² + 1.75² = 36 + 3.0625 = 39.0625 = 6.25² ✓</div>
+      <div class="mis"><b>자주 하는 오답</b> 겹친 부분을 <b>대각선 BD로 자른 절반</b>(넓이 24)으로 착각. — 실제로 접으면 <b>이등변삼각형</b>이 되지 절반이 되지 않습니다. 종이를 직접 접어 보게 하는 것이 가장 확실합니다.</div>
+    </div>
+  </div>
+
+  <div class="foot"><span>토론으로 푸는 수학 [중등] — 교사용 답지</span><span class="r">2 / 6</span></div>
+</div>
+
+<!-- ====== 3쪽 ====== -->
+<div class="page">
+  <div class="head">
+    <div class="row">
+      <div><h1>토론으로 푸는 수학 — 심화 문제 10 <span style="font-size:11.5px;background:#7c3aed;color:#fff;padding:1px 7px;border-radius:3px;vertical-align:2px">중등</span><em>교사용</em></h1>
+        <div class="sub">정답 · 풀이 · 토론 유도 방법 · 학생이 자주 하는 오답</div></div>
+      <div class="meta">중학교 1~3학년 심화<br>3 / 6 쪽</div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="qh"><span class="no">4</span><span class="tt">울타리로 넓이를 최대로</span><span class="lv">이차함수 · ★★</span></div>
+    <div class="bd">
+      <div class="ansline"><b>정답</b> (1) <b>S = x(40 − 2x)</b> &nbsp;·&nbsp; (2) x = <b>10m</b>, 최대 넓이 <b>200 m²</b> &nbsp;·&nbsp; (3) <b>100 m²</b> (10×10 정사각형)</div>
+      <div class="steps">담장과 수직인 두 변이 각각 x,  담장과 평행한 변이 40 − 2x
+   S = x(40 − 2x) = −2x² + 40x = <b>−2(x − 10)² + 200</b>
+   → x = 10 일 때 최댓값 <b>200</b>   (이때 가로 = 40 − 20 = 20m)
+   즉 가로 : 세로 = 20 : 10 = <b>2 : 1</b>  ← 정사각형이 아니다!
+(3) 담장을 못 쓰면 둘레가 40이므로 가로+세로 = 20
+   S = x(20 − x) = −(x − 10)² + 100  → x = 10, 최대 <b>100</b> (정사각형)</div>
+      <div class="sec"><span class="lb m">왜 차이가 나나</span>담장을 쓰면 <b>한 변의 비용이 공짜</b>이므로 그 방향으로 더 길게 만드는 것이 이득입니다. 그래서 담장과 평행한 변이 두 배가 됩니다.</div>
+      <div class="sec"><span class="lb t">토론 유도</span>x = 5, 10, 15를 대입해 <b>표를 만들게</b> 한 뒤 그래프를 그리게 하세요. 위로 볼록한 포물선의 꼭짓점이 답임을 눈으로 확인합니다.</div>
+      <div class="mis"><b>자주 하는 오답</b> “넓이가 최대면 무조건 정사각형”이라고 답함(100 m²). — 조건이 <b>둘레 일정</b>일 때만 성립하는 성질임을 짚어 주세요.</div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="qh"><span class="no">5</span><span class="tt">두 사분원이 겹친 부분</span><span class="lv">부채꼴 · ★★★</span></div>
+    <div class="bd">
+      <div class="ansline"><b>정답</b> (1) 아래 변에서 <b>2√3 cm</b> ≈ 3.46cm &nbsp;·&nbsp; (2) <b>16π/3 − 4√3</b> ≈ <b>9.83 cm²</b></div>
+      <div class="steps">(1) 두 중심을 A(왼쪽 아래), B(오른쪽 아래), 교점을 P라 하자.
+    PA = PB = 4,  AB = 4  →  삼각형 PAB 는 한 변이 4인 <b>정삼각형</b>!
+    따라서 P의 높이 = 정삼각형의 높이 = (√3/2)×4 = <b>2√3</b>
+(2) 겹친 부분 = 부채꼴 A-PB + 부채꼴 B-PA − 정삼각형 PAB
+    정삼각형이므로 두 부채꼴의 중심각은 모두 <b>60°</b>
+       부채꼴 하나 = π×4² × 60/360 = 8π/3
+       정삼각형 = (√3/4) × 4² = 4√3
+    겹친 부분 = 2 × (8π/3) − 4√3 = <b>16π/3 − 4√3</b> ≈ 16.755 − 6.928 = <b>9.83</b></div>
+      <div class="sec"><span class="lb">왜 빼는가</span>두 부채꼴을 <b>그냥 더하면</b> 가운데 정삼각형 부분이 <b>두 번</b> 세어집니다. 그래서 한 번 빼 줍니다. (포함–배제)</div>
+      <div class="sec"><span class="lb t">토론 유도</span>“두 반지름과 중심 사이 거리가 모두 4”라는 점에서 <b>정삼각형</b>을 발견하는 것이 이 문제의 전부입니다. 먼저 <b>PA, PB, AB의 길이를 각각 적어 보게</b> 하세요.</div>
+      <div class="mis"><b>자주 하는 오답</b> “2 × 사분원 − 정사각형 = 8π − 16”. — 두 사분원의 합집합이 정사각형 전체를 <b>덮지 못합니다</b>(위쪽 가운데가 빔). 점 (2cm, 4cm)가 두 원 <b>모두의 밖</b>임을 확인시키면 바로 납득합니다.</div>
+    </div>
+  </div>
+
+  <div class="foot"><span>토론으로 푸는 수학 [중등] — 교사용 답지</span><span class="r">3 / 6</span></div>
+</div>
+
+<!-- ====== 4쪽 ====== -->
+<div class="page">
+  <div class="head">
+    <div class="row">
+      <div><h1>토론으로 푸는 수학 — 심화 문제 10 <span style="font-size:11.5px;background:#7c3aed;color:#fff;padding:1px 7px;border-radius:3px;vertical-align:2px">중등</span><em>교사용</em></h1>
+        <div class="sub">정답 · 풀이 · 토론 유도 방법 · 학생이 자주 하는 오답</div></div>
+      <div class="meta">중학교 1~3학년 심화<br>4 / 6 쪽</div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="qh"><span class="no">6</span><span class="tt">같은 생일인 사람이 있을까</span><span class="lv">확률 · ★★★</span></div>
+    <div class="bd">
+      <div class="ansline"><b>정답</b> 약 <b>50.7 %</b> — 절반이 넘는다</div>
+      <div class="steps">직접 세면 경우가 너무 많으므로 <b>여사건</b>(모두 다른 생일)을 먼저 구한다.
+   P(모두 다름) = (365/365) × (364/365) × (363/365) × … × (343/365)
+                = 약 0.4927
+   P(적어도 두 명 같음) = 1 − 0.4927 = <b>0.5073 → 약 50.7%</b>
+사람 수별 확률 :  10명 11.7% / 20명 41.1% / <b>23명 50.7%</b> / 30명 70.6% / 50명 97.0%</div>
+      <div class="sec"><span class="lb m">직관이 어긋나는 이유</span>“나와 생일이 같은 사람”을 떠올리면 22번만 비교하는 셈입니다. 그러나 실제로는 <b>아무 두 사람끼리</b> 비교하므로 <b>23 × 22 ÷ 2 = 253가지</b> 짝이 생깁니다. 253번의 기회라면 50%도 이상하지 않습니다.</div>
+      <div class="sec"><span class="lb t">토론 유도</span>먼저 <b>예상값을 손들어 투표</b>하게 한 뒤 계산 결과를 공개하세요. 교실 인원으로 <b>실제 조사</b>를 해 보는 것도 효과적입니다(30명 학급이면 70% 확률로 성공).</div>
+      <div class="mis"><b>자주 하는 오답</b> 23/365 ≈ 6% 라고 답함. — 이것은 “<b>특정한 하루</b>에 생일인 사람이 있을 확률”에 가까운 계산입니다. 문제와 무엇이 다른지 비교해 주세요.</div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="qh"><span class="no">7</span><span class="tt">두 사람은 언제 만날까</span><span class="lv">일차함수 · ★</span></div>
+    <div class="bd">
+      <div class="ansline"><b>정답</b> (1) <b>1시간 뒤 4km 지점</b> &nbsp;·&nbsp; (2) y = 4x 와 y = −8x + 12 의 교점 (1, 4) &nbsp;·&nbsp; (3) <b>3시간 뒤 24km 지점</b></div>
+      <div class="steps">(1)(2) A의 위치 : y = 4x      B의 위치 : y = 12 − 8x  (마주 봄)
+     4x = 12 − 8x  →  12x = 12  →  x = 1 (시간),  y = 4 (km)
+     ※ 거리 12km를 서로 다가가는 속력의 합 (4+8=12)로 나눈 것과 같다.
+(3) B가 같은 방향(멀어지는 쪽)으로 가면 두 그래프는 평행하지 않고 A가 더 느리므로
+     A는 B를 <b>따라잡을 수 없다.</b>
+     반대로 B가 A를 뒤쫓는 상황(B가 0km 쪽에서 출발)이라면
+     12 ÷ (8 − 4) = <b>3시간</b> 뒤,  8 × 3 = <b>24km</b> 지점에서 만난다.</div>
+      <div class="sec"><span class="lb t">토론 유도</span>“만난다 = 그래프가 <b>교차한다</b>”는 대응을 말로 설명하게 하세요. 기울기의 <b>부호</b>가 마주 봄/같은 방향을 결정한다는 점도 짚어 줍니다.</div>
+      <div class="mis"><b>자주 하는 오답</b> 속력을 <b>빼서</b> 12÷4 = 3시간이라 답함. — 마주 볼 때는 <b>더하고</b>, 쫓아갈 때는 <b>뺀다</b>는 것을 그래프로 구분시키세요.</div>
+    </div>
+  </div>
+
+  <div class="foot"><span>토론으로 푸는 수학 [중등] — 교사용 답지</span><span class="r">4 / 6</span></div>
+</div>
+
+<!-- ====== 5쪽 ====== -->
+<div class="page">
+  <div class="head">
+    <div class="row">
+      <div><h1>토론으로 푸는 수학 — 심화 문제 10 <span style="font-size:11.5px;background:#7c3aed;color:#fff;padding:1px 7px;border-radius:3px;vertical-align:2px">중등</span><em>교사용</em></h1>
+        <div class="sub">정답 · 풀이 · 토론 유도 방법 · 학생이 자주 하는 오답</div></div>
+      <div class="meta">중학교 1~3학년 심화<br>5 / 6 쪽</div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="qh"><span class="no">8</span><span class="tt">바꾸는 것이 유리할까</span><span class="lv">조건부 상황 · ★★</span></div>
+    <div class="bd">
+      <div class="ansline"><b>정답</b> (1) <b>1/3</b> &nbsp;·&nbsp; (2) 유지 <b>1/3</b>, 바꿈 <b>2/3</b> → <b>바꾸는 것이 두 배 유리</b></div>
+      <div class="steps">처음 고른 문이 정답일 확률은 <b>1/3</b>, 나머지 두 문에 있을 확률은 <b>2/3</b>.
+사회자가 문을 열어도 <b>처음 선택의 확률 1/3은 변하지 않는다.</b>
+(사회자는 정답을 알고 있어서 <b>반드시 염소 문</b>을 열기 때문)
+따라서 나머지 2/3이 <b>남은 문 하나에 그대로 몰린다.</b>
+
+세 경우로 확인 (처음에 1번 문을 골랐다고 하자)
+   자동차가 1번 : 바꾸면 실패
+   자동차가 2번 : 사회자는 3번을 염 → 바꾸면 <b>성공</b>
+   자동차가 3번 : 사회자는 2번을 염 → 바꾸면 <b>성공</b>
+   ⇒ 바꿔서 성공하는 경우가 <b>3가지 중 2가지</b></div>
+      <div class="sec"><span class="lb m">토론거리 답</span>문이 <b>100개</b>이고 사회자가 98개를 열어 주면, 바꿀 때 성공 확률은 <b>99/100</b>입니다. 처음에 정답을 찍었을 확률이 1%뿐이었기 때문이지요. 숫자를 키우면 직관이 바로잡힙니다.</div>
+      <div class="sec"><span class="lb t">토론 유도</span>카드 3장으로 <b>실제 20회 실험</b>을 시켜 보세요. 바꾸기 전략이 대략 <b>13~14회</b> 성공하는 것을 눈으로 보면 논쟁이 정리됩니다.</div>
+      <div class="mis"><b>자주 하는 오답</b> “문이 2개 남았으니 반반(1/2)”. — <b>사회자가 정답을 알고 골라서 열었다</b>는 조건이 핵심입니다. 만약 사회자도 모르고 우연히 열었다면 그때는 정말 1/2이 됩니다.</div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="qh"><span class="no">9</span><span class="tt">3의 배수 판정은 왜 통할까</span><span class="lv">문자와 식 · ★★</span></div>
+    <div class="bd">
+      <div class="ansline"><b>정답</b> (1) 아래 식 &nbsp;·&nbsp; (2) 9는 <b>통함</b>, 7은 <b>통하지 않음</b> &nbsp;·&nbsp; (3) <b>3의 배수이다</b></div>
+      <div class="steps">(1) 세 자리 수 = 100a + 10b + c
+        = (99a + 9b) + (a + b + c)
+        = <b>3(33a + 3b)</b> + (a + b + c)
+    앞부분은 항상 3의 배수이므로, 전체가 3의 배수인지는
+    <b>(a+b+c)가 3의 배수인지</b>에만 달려 있다.
+(2) 99와 9는 <b>9의 배수</b>이기도 하므로 같은 논리가 9에서도 성립한다.
+    그러나 99는 7의 배수가 아니므로 7에서는 성립하지 않는다. (예: 16 → 1+6=7이지만 16은 7의 배수가 아님)
+(3) 1234…4950 의 자리 숫자를 모두 더하면 결국 1+2+…+50 을 더한 것과
+    3으로 나눈 나머지가 같다. (10, 100, … 을 곱해도 나머지는 그대로이므로)
+        1+2+…+50 = 50×51/2 = <b>1275</b>,  1275 ÷ 3 = 425  ⇒ <b>3의 배수</b></div>
+      <div class="sec"><span class="lb t">토론 유도</span>“왜 하필 99와 9인가?”를 물어보세요. <b>10 − 1 = 9, 100 − 1 = 99</b> 처럼 10의 거듭제곱에서 1을 뺀 수가 항상 9의 배수라는 점이 열쇠입니다.</div>
+      <div class="mis"><b>자주 하는 오답</b> (3)에서 실제로 긴 수를 쓰고 나누려 함. — <b>자리 숫자의 합만 보면 된다</b>는 (1)의 결론을 그대로 적용하는 것이 문제의 의도입니다.</div>
+    </div>
+  </div>
+
+  <div class="foot"><span>토론으로 푸는 수학 [중등] — 교사용 답지</span><span class="r">5 / 6</span></div>
+</div>
+
+<!-- ====== 6쪽 ====== -->
+<div class="page">
+  <div class="head">
+    <div class="row">
+      <div><h1>토론으로 푸는 수학 — 심화 문제 10 <span style="font-size:11.5px;background:#7c3aed;color:#fff;padding:1px 7px;border-radius:3px;vertical-align:2px">중등</span><em>교사용</em></h1>
+        <div class="sub">정답 · 풀이 · 토론 유도 방법 · 학생이 자주 하는 오답</div></div>
+      <div class="meta">중학교 1~3학년 심화<br>6 / 6 쪽</div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="qh"><span class="no">10</span><span class="tt">넓이는 몇 분의 몇일까</span><span class="lv">넓이비 · ★★</span></div>
+    <div class="bd">
+      <div class="ansline"><b>정답</b> (1) <b>2/3</b> &nbsp;·&nbsp; (2) <b>2/9</b></div>
+      <div class="steps">핵심 : <b>높이가 같은 두 삼각형의 넓이비 = 밑변의 비</b>
+(1) △ABD 와 △ABC 는 꼭짓점 A에서 내린 <b>높이가 같다.</b>
+    밑변이 BD : BC = 2 : 3 이므로
+        △ABD = (2/3) △ABC
+(2) 이번엔 △ADE 와 △ADB 를 비교한다. 꼭짓점 D에서 내린 <b>높이가 같다.</b>
+    밑변이 AE : AB = 1 : 3 이므로
+        △ADE = (1/3) △ABD = (1/3) × (2/3) △ABC = <b>(2/9) △ABC</b>
+[검산] 좌표로 확인 : A(0,0), B(6,0), C(0,6) → △ABC = 18
+       D는 BD:DC = 2:1 이므로 (2,4),  E는 AE:EB = 1:2 이므로 (2,0)
+       △ADE = 4,  4/18 = <b>2/9</b> ✓</div>
+      <div class="sec"><span class="lb t">토론 유도</span>“어느 두 삼각형을 <b>먼저</b> 비교할지”가 관건입니다. △ADE와 △ABC를 <b>바로</b> 비교하려 하면 막힙니다. <b>중간 다리(△ABD)</b>를 놓는 발상을 이끌어 주세요.</div>
+      <div class="mis"><b>자주 하는 오답</b> (2/3) × (1/3) 대신 <b>비끼리 더하거나</b>(2/3 + 1/3 = 1) 잘못 곱함. — 두 단계가 <b>연달아</b> 적용된다는 점을 그림에 화살표로 표시해 주면 좋습니다.</div>
+    </div>
+  </div>
+
+  <div class="item" style="border-color:var(--tip)">
+    <div class="qh" style="background:#effaf7"><span class="tt" style="color:var(--tip)">평가 기준 및 세트 간 연결</span></div>
+    <div class="bd">
+      <table class="g">
+        <tr><th style="width:20%">영역</th><th>상</th><th>중</th><th>하</th></tr>
+        <tr><td><b>일반화</b></td><td style="text-align:left">문자와 식으로 일반화하여 설명함</td><td style="text-align:left">구체적 수로 규칙을 확인함</td><td style="text-align:left">답만 구함</td></tr>
+        <tr><td><b>증명 태도</b></td><td style="text-align:left">가정–모순 구조를 정확히 씀</td><td style="text-align:left">근거를 들어 설명함</td><td style="text-align:left">관찰을 증명으로 여김</td></tr>
+        <tr><td><b>검증</b></td><td style="text-align:left">반례를 찾거나 다른 방법으로 검산함</td><td style="text-align:left">답을 한 번 확인함</td><td style="text-align:left">확인하지 않음</td></tr>
+      </table>
+      <div class="sec" style="margin-top:5px"><span class="lb t">초등 세트와의 연결</span>6·8번(직관과 확률의 충돌)은 초등 2단계 6번(거스름돈 반례)의 심화이고, 2·9번(수의 성질을 식으로 증명)은 초등 1단계 4번(사물함, 약수의 개수)을 문자로 다시 쓴 것입니다.</div>
+      <div class="sec"><span class="lb m">가장 중요한 한마디</span>“<b>맞았는데, 왜 그렇게 되지?</b>” — 중등 세트는 답이 아니라 <b>설명</b>이 목표입니다. 특히 1·2·5·9번은 설명을 못 하면 절반만 푼 것입니다.</div>
+    </div>
+  </div>
+
+  <div class="foot"><span>토론으로 푸는 수학 [중등] — 교사용 답지</span><span class="r">6 / 6</span></div>
+</div>
+
+</body>
+</html>

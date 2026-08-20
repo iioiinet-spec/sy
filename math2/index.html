@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>중학 수학 심화 · 토론으로 푸는 문제 10 (학생용)</title>
+<style>
+:root{ --ink:#1a1a1a; --sub:#555; --line:#c8c8c8; --soft:#f2f4f8; --accent:#1d4ed8; }
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#e9edf3;color:var(--ink);
+  font-family:'Pretendard','Malgun Gothic','맑은 고딕',system-ui,sans-serif;
+  line-height:1.62;font-size:14.5px;padding:24px 12px}
+.page{width:210mm;min-height:297mm;margin:0 auto 18px;background:#fff;
+  padding:14mm 14mm 13mm;box-shadow:0 3px 14px rgba(0,0,0,.16);position:relative}
+
+/* 머리글 */
+.head{border-bottom:3px double var(--ink);padding-bottom:7px;margin-bottom:10px}
+.head .row{display:flex;align-items:flex-end;gap:12px}
+.head h1{font-size:19.5px;font-weight:800;letter-spacing:-.6px}
+.head .sub{font-size:12.5px;color:var(--sub);margin-top:2px}
+.head .meta{margin-left:auto;font-size:12px;color:var(--sub);text-align:right;line-height:1.6}
+.namebox{display:flex;gap:8px;margin-top:6px;font-size:12px}
+.namebox span{border:1px solid var(--line);border-radius:4px;padding:3px 10px}
+.namebox .fill{flex:1}
+
+/* 안내 */
+.notice{background:var(--soft);border:1px solid var(--line);border-radius:6px;
+  padding:7px 12px;font-size:11.8px;color:#333;margin-bottom:10px;line-height:1.55}
+.notice b{color:var(--accent)}
+
+/* 문항 */
+.item{margin-bottom:9px;break-inside:avoid;page-break-inside:avoid}
+.qhead{display:flex;align-items:baseline;gap:8px;margin-bottom:5px}
+.no{background:var(--ink);color:#fff;font-weight:800;font-size:12.5px;
+  padding:1px 9px;border-radius:3px;flex:0 0 auto}
+.title{font-weight:800;font-size:14.8px}
+.tagz{margin-left:auto;font-size:11px;color:var(--sub);border:1px solid var(--line);
+  border-radius:10px;padding:1px 9px;flex:0 0 auto}
+.body{font-size:13.6px;padding-left:2px}
+.body p{margin:3px 0}
+.ask{margin-top:5px;padding-left:9px;border-left:3px solid var(--accent)}
+.ask div{margin:2px 0;font-size:13.5px}
+.ask b{color:var(--accent)}
+.data{background:var(--soft);border:1px solid var(--line);border-radius:5px;
+  padding:6px 11px;margin:5px 0;font-size:12.8px;
+  font-family:'D2Coding','Consolas',monospace}
+.talk{margin-top:5px;font-size:12px;color:#444;background:#fffaf0;
+  border:1px dashed #d8b06a;border-radius:5px;padding:5px 10px;line-height:1.5}
+.talk b{color:#a4700f}
+.ans{border:1px solid var(--line);border-radius:5px;margin-top:6px;
+  background:repeating-linear-gradient(#fff 0 25px,#eceff5 25px 26px)}
+.ans.h1{height:52px}.ans.h2{height:78px}.ans.h3{height:104px}
+figure{margin:7px 0;text-align:center}
+figure svg{max-width:100%;height:auto}
+figcaption{font-size:11.5px;color:var(--sub);margin-top:3px}
+
+.foot{position:absolute;left:15mm;right:15mm;bottom:8mm;
+  border-top:1px solid var(--line);padding-top:5px;
+  display:flex;font-size:11px;color:var(--sub)}
+.foot .r{margin-left:auto}
+
+/* 화면 전용 도구 */
+.bar{width:210mm;margin:0 auto 12px;display:flex;gap:8px;align-items:center;flex-wrap:wrap;
+  background:#fff;border-radius:9px;padding:10px 14px;box-shadow:0 2px 8px rgba(0,0,0,.1)}
+.bar .t{font-weight:800;font-size:14px}
+.btn{background:#1d4ed8;color:#fff;border:none;padding:8px 15px;border-radius:7px;
+  cursor:pointer;font-size:13.5px;font-weight:700;font-family:inherit}
+.btn.g{background:#374151}
+.hint{font-size:12.5px;color:#555}
+
+@media print{
+  @page{size:A4;margin:0}
+  body{background:#fff;padding:0}
+  .page{margin:0;box-shadow:none;page-break-after:always}
+  .page:last-child{page-break-after:auto}
+  .bar{display:none}
+  .ans{background:repeating-linear-gradient(#fff 0 25px,#e6e9ef 25px 26px)}
+}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <span class="t">📄 토론으로 푸는 심화 문제 10 <b>[중등]</b> — 학생용</span>
+  <button class="btn" onclick="window.print()">🖨 인쇄 / PDF 저장</button>
+  <span class="hint">인쇄 설정에서 <b>용지 A4 · 배율 100% · 여백 없음</b>으로 두면 쪽에 딱 맞습니다.</span>
+</div>
+
+<!-- ====== 1쪽 ====== -->
+<div class="page">
+  <div class="head">
+    <div class="row">
+      <div>
+        <h1>토론으로 푸는 수학 — 심화 문제 10 <span style="font-size:13px;background:#7c3aed;color:#fff;padding:1px 8px;border-radius:3px;vertical-align:2px">중등</span></h1>
+        <div class="sub">중학교 1~3학년 · 수의 성질 · 함수 · 도형 · 확률</div>
+      </div>
+      <div class="meta">모둠 활동 40분 + 발표 20분<br>1 / 5 쪽</div>
+    </div>
+    <div class="namebox">
+      <span class="fill">모둠 이름</span><span class="fill">학년 · 반</span><span class="fill">이름</span><span>날짜　　　.　　.</span>
+    </div>
+  </div>
+  <div class="notice">
+    <b>이렇게 풀어 보세요.</b> ① 먼저 <b>혼자서</b> 5분 생각합니다. ② 모둠에서 각자의 접근을 이야기합니다.
+    ③ 답이 갈리면 <b>어느 쪽이 맞는지 따지기 전에</b> 서로의 근거를 듣습니다.
+    ④ 답을 구한 뒤에는 반드시 <b>검산하고, 왜 그렇게 되는지 설명</b>해 보세요. 설명하지 못하면 아직 푼 것이 아닙니다.
+  </div>
+
+  <!-- 1 -->
+  <div class="item">
+    <div class="qhead"><span class="no">1</span><span class="title">√2 는 정말 분수가 아닐까</span><span class="tagz">무리수 · 귀류법</span></div>
+    <div class="body">
+      <p>√2 를 분수로 나타낼 수 있다고 <b>가정</b>해 봅시다. 즉 더 이상 약분되지 않는 기약분수
+      <b class="mono">√2 = p / q</b> 로 쓸 수 있다고 하겠습니다. (p, q는 자연수)</p>
+      <div class="ask">
+        <div><b>(1)</b> 양변을 제곱하여 <b class="mono">p² = 2q²</b> 를 얻었습니다. 여기서 <b>p가 짝수</b>임을 설명해 보세요.</div>
+        <div><b>(2)</b> p = 2k 로 놓고 대입하면 <b>q도 짝수</b>가 됩니다. 확인해 보세요.</div>
+        <div><b>(3)</b> p와 q가 모두 짝수라면 무엇이 이상한가요? 결론은?</div>
+      </div>
+      <div class="talk"><b>토론거리</b> — 같은 방법으로 <b>√4 도 무리수</b>임을 증명할 수 있을까요? 시도해 보면 어디에서 막힙니다. <b>어디에서, 왜</b> 막히는지가 이 증명의 핵심입니다.</div>
+      <div class="ans h3"></div>
+    </div>
+  </div>
+
+  <!-- 2 -->
+  <div class="item">
+    <div class="qhead"><span class="no">2</span><span class="title">연속한 자연수의 합</span><span class="tagz">수의 성질</span></div>
+    <div class="body">
+      <p>어떤 수는 <b>연속한 자연수의 합</b>으로 나타낼 수 있습니다.</p>
+      <div class="data">15 = 7+8 = 4+5+6 = 1+2+3+4+5　　(3가지)</div>
+      <div class="ask">
+        <div><b>(1)</b> <b>45</b>를 연속한 자연수의 합으로 나타내는 방법을 <b>모두</b> 찾아보세요.</div>
+        <div><b>(2)</b> <b>64</b>는 어떤가요? 한 가지도 찾을 수 없다면, <b>왜 불가능한지</b> 설명해 보세요.</div>
+      </div>
+      <div class="talk"><b>토론거리</b> — 첫 수를 a, 개수를 k라 하면 합은 <b class="mono">k × a + k(k−1)/2</b> 입니다. 이 식을 정리하면 <b class="mono">2N = k(2a + k − 1)</b>. 두 괄호 중 하나는 홀수, 하나는 짝수임을 확인해 보세요. 무엇을 알 수 있나요?</div>
+      <div class="ans h3"></div>
+    </div>
+  </div>
+
+  <div class="foot"><span>토론으로 푸는 수학 — 심화 문제 10 [중등]</span><span class="r">1 / 5</span></div>
+</div>
+
+<!-- ====== 2쪽 ====== -->
+<div class="page">
+  <div class="head">
+    <div class="row">
+      <div>
+        <h1>토론으로 푸는 수학 — 심화 문제 10 <span style="font-size:13px;background:#7c3aed;color:#fff;padding:1px 8px;border-radius:3px;vertical-align:2px">중등</span></h1>
+        <div class="sub">중학교 1~3학년 · 수의 성질 · 함수 · 도형 · 확률</div>
+      </div>
+      <div class="meta">모둠 이름 ______________<br>2 / 5 쪽</div>
+    </div>
+  </div>
+
+  <!-- 3 -->
+  <div class="item">
+    <div class="qhead"><span class="no">3</span><span class="title">종이를 접었더니</span><span class="tagz">피타고라스 정리</span></div>
+    <div class="body">
+      <p>가로 8cm, 세로 6cm인 직사각형 종이 ABCD가 있습니다.
+      꼭짓점 <b>D가 꼭짓점 B에 정확히 겹치도록</b> 한 번 접었습니다.</p>
+      <figure>
+        <svg viewBox="0 0 306 106" xmlns="http://www.w3.org/2000/svg" style="max-width:300px">
+          <g stroke="#333" stroke-width="1.7" fill="none">
+            <rect x="20" y="16" width="112" height="72"/>
+            <path d="M20 88 L132 16" stroke="#c026d3" stroke-dasharray="5 4"/>
+          </g>
+          <g fill="#555" font-size="10" font-family="monospace">
+            <text x="12" y="14">A</text><text x="135" y="14">D</text>
+            <text x="12" y="98">B</text><text x="135" y="98">C</text>
+            <text x="76" y="12" text-anchor="middle">8</text>
+            <text x="140" y="55">6</text>
+            <text x="76" y="102" text-anchor="middle">대각선 BD (점선)</text>
+          </g>
+          <g stroke="#bbb" stroke-width="1.4" fill="none">
+            <rect x="186" y="16" width="112" height="72" stroke-dasharray="3 3"/>
+          </g>
+          <path d="M186 88 L298 88 L298 34 Z" fill="rgba(192,38,211,.22)" stroke="#c026d3" stroke-width="1.7"/>
+          <g fill="#555" font-size="10" font-family="monospace">
+            <text x="242" y="102" text-anchor="middle">접었을 때 겹쳐진 삼각형</text>
+          </g>
+        </svg>
+      </figure>
+      <div class="ask">
+        <div><b>(1)</b> 접는 선은 선분 BD의 <b>수직이등분선</b>입니다. 왜 그럴까요?</div>
+        <div><b>(2)</b> 접었을 때 <b>겹쳐진 삼각형의 넓이</b>를 구하세요.</div>
+      </div>
+      <div class="talk"><b>토론거리</b> — 겹쳐진 삼각형은 <b>이등변삼각형</b>입니다. 같은 길이인 두 변을 x라 두고, 직각삼각형 하나에 <b>피타고라스 정리</b>를 쓰면 x에 대한 식이 나옵니다. 어느 삼각형을 골라야 할까요?</div>
+      <div class="ans h3"></div>
+    </div>
+  </div>
+
+  <!-- 4 -->
+  <div class="item">
+    <div class="qhead"><span class="no">4</span><span class="title">울타리로 넓이를 최대로</span><span class="tagz">이차함수</span></div>
+    <div class="body">
+      <p>길이 <b>40m</b>인 울타리로 직사각형 모양의 밭을 만들려고 합니다.
+      그런데 밭의 <b>한 변은 이미 있는 담장</b>을 그대로 쓸 수 있어서 울타리를 치지 않아도 됩니다.</p>
+      <div class="ask">
+        <div><b>(1)</b> 담장과 평행하지 않은 변의 길이를 x라 할 때, 넓이 S를 x의 식으로 나타내세요.</div>
+        <div><b>(2)</b> 넓이가 최대가 되는 x와 그때의 <b>최대 넓이</b>를 구하세요.</div>
+        <div><b>(3)</b> 담장을 쓰지 못한다면 최대 넓이는 얼마일까요?</div>
+      </div>
+      <div class="talk"><b>토론거리</b> — 담장을 쓸 때는 정사각형이 답이 <b>아닙니다.</b> 담장을 못 쓸 때는 정사각형이 답입니다. 왜 이런 차이가 생길까요?</div>
+      <div class="ans h3"></div>
+    </div>
+  </div>
+
+  <div class="foot"><span>토론으로 푸는 수학 — 심화 문제 10 [중등]</span><span class="r">2 / 5</span></div>
+</div>
+
+<!-- ====== 3쪽 ====== -->
+<div class="page">
+  <div class="head">
+    <div class="row">
+      <div>
+        <h1>토론으로 푸는 수학 — 심화 문제 10 <span style="font-size:13px;background:#7c3aed;color:#fff;padding:1px 8px;border-radius:3px;vertical-align:2px">중등</span></h1>
+        <div class="sub">중학교 1~3학년 · 수의 성질 · 함수 · 도형 · 확률</div>
+      </div>
+      <div class="meta">모둠 이름 ______________<br>3 / 5 쪽</div>
+    </div>
+  </div>
+
+  <!-- 5 -->
+  <div class="item">
+    <div class="qhead"><span class="no">5</span><span class="title">두 사분원이 겹친 부분</span><span class="tagz">부채꼴 · 무리수</span></div>
+    <div class="body">
+      <p>한 변의 길이가 <b>4cm</b>인 정사각형에서, <b>아래쪽 두 꼭짓점</b>을 각각 중심으로 하고
+      반지름이 <b>4cm</b>인 사분원 두 개를 그렸습니다.</p>
+      <figure>
+        <svg viewBox="0 0 130 112" xmlns="http://www.w3.org/2000/svg" style="max-width:160px">
+          <path d="M18 96 L102 96 A 84 84 0 0 0 60 23.3 A 84 84 0 0 0 18 96 Z"
+                fill="rgba(192,38,211,.24)" stroke="none"/>
+          <rect x="18" y="12" width="84" height="84" fill="none" stroke="#333" stroke-width="1.7"/>
+          <path d="M102 96 A 84 84 0 0 0 18 12" fill="none" stroke="#2563eb" stroke-width="1.7"/>
+          <path d="M18 96 A 84 84 0 0 1 102 12" fill="none" stroke="#059669" stroke-width="1.7"/>
+          <circle cx="60" cy="23.3" r="2.6" fill="#c026d3"/>
+          <circle cx="18" cy="96" r="2.4" fill="#333"/><circle cx="102" cy="96" r="2.4" fill="#333"/>
+          <text x="60" y="108" font-size="9.5" fill="#555" text-anchor="middle" font-family="monospace">한 변 4cm</text>
+        </svg>
+      </figure>
+      <div class="ask">
+        <div><b>(1)</b> 두 사분원의 <b>교점</b>이 아래 변에서 얼마나 떨어져 있는지 구하세요.</div>
+        <div><b>(2)</b> 두 사분원이 <b>겹친 부분(색칠한 부분)</b>의 넓이를 구하세요.</div>
+      </div>
+      <div class="talk"><b>토론거리</b> — 겹친 부분을 <b>부채꼴 두 개의 합</b>으로 보면 어떤 부분이 <b>두 번</b> 세어질까요? 그 부분은 무슨 도형인가요? 중심각이 몇 도인지 먼저 구해 보세요.</div>
+      <div class="ans h3"></div>
+    </div>
+  </div>
+
+  <!-- 6 -->
+  <div class="item">
+    <div class="qhead"><span class="no">6</span><span class="title">같은 생일인 사람이 있을까</span><span class="tagz">확률 · 여사건</span></div>
+    <div class="body">
+      <p>한 반에 <b>23명</b>이 있습니다. 이 중 <b>생일이 같은 사람이 적어도 두 명</b> 있을 확률은 얼마일까요?
+      (1년은 365일, 모든 날의 확률은 같다고 봅니다.)</p>
+      <div class="ask">
+        <div><b>(1)</b> 먼저 <b>모두의 생일이 서로 다를</b> 확률을 식으로 나타내 보세요.</div>
+        <div><b>(2)</b> 23명일 때의 값을 어림해 보고, 몇 %인지 예상해 보세요.</div>
+      </div>
+      <div class="talk"><b>토론거리</b> — 대부분 “23명이면 아주 낮을 것”이라고 예상합니다. 실제로는 <b>50%가 넘습니다.</b>
+      직관이 왜 어긋날까요? “나와 생일이 같은 사람”이 아니라 <b>“누구든 두 사람끼리”</b>라는 점, 그리고 23명에서 만들어지는 <b>짝의 개수</b>를 세어 보세요.</div>
+      <div class="ans h3"></div>
+    </div>
+  </div>
+
+  <div class="foot"><span>토론으로 푸는 수학 — 심화 문제 10 [중등]</span><span class="r">3 / 5</span></div>
+</div>
+
+<!-- ====== 4쪽 ====== -->
+<div class="page">
+  <div class="head">
+    <div class="row">
+      <div>
+        <h1>토론으로 푸는 수학 — 심화 문제 10 <span style="font-size:13px;background:#7c3aed;color:#fff;padding:1px 8px;border-radius:3px;vertical-align:2px">중등</span></h1>
+        <div class="sub">중학교 1~3학년 · 수의 성질 · 함수 · 도형 · 확률</div>
+      </div>
+      <div class="meta">모둠 이름 ______________<br>4 / 5 쪽</div>
+    </div>
+  </div>
+
+  <!-- 7 -->
+  <div class="item">
+    <div class="qhead"><span class="no">7</span><span class="title">두 사람은 언제 만날까</span><span class="tagz">일차함수</span></div>
+    <div class="body">
+      <p>직선 도로 위에서 A는 <b>0km 지점</b>에서 시속 <b>4km</b>로, B는 <b>12km 지점</b>에서 시속 <b>8km</b>로
+      동시에 출발합니다.</p>
+      <div class="ask">
+        <div><b>(1)</b> 두 사람이 <b>마주 보고</b> 출발할 때, 몇 시간 뒤 어디에서 만날까요?</div>
+        <div><b>(2)</b> 두 사람의 위치를 시간 x에 대한 <b>일차함수</b>로 나타내고, <b>그래프의 교점</b>으로 확인하세요.</div>
+        <div><b>(3)</b> B가 A와 <b>같은 방향</b>으로 (0km 쪽에서 멀어지는 쪽으로) 갈 때는 어떻게 될까요?</div>
+      </div>
+      <div class="talk"><b>토론거리</b> — “만난다”는 것은 그래프에서 무엇을 뜻할까요? (3)에서 <b>A가 B를 따라잡을 수 있는지</b>도 그래프로 설명해 보세요.</div>
+      <div class="ans h2"></div>
+    </div>
+  </div>
+
+  <!-- 8 -->
+  <div class="item">
+    <div class="qhead"><span class="no">8</span><span class="title">바꾸는 것이 유리할까</span><span class="tagz">조건부 상황</span></div>
+    <div class="body">
+      <p>문이 <b>3개</b> 있습니다. 하나 뒤에는 자동차가, 나머지 둘 뒤에는 염소가 있습니다.
+      당신이 문 하나를 고르면, <b>정답을 알고 있는</b> 사회자가 남은 두 문 중
+      <b>염소가 있는 문 하나</b>를 반드시 열어 보여 줍니다. 그리고 묻습니다.
+      <b>“선택을 바꾸시겠습니까?”</b></p>
+      <div class="ask">
+        <div><b>(1)</b> 처음 고른 문에 자동차가 있을 확률은 얼마인가요?</div>
+        <div><b>(2)</b> 바꾸는 것과 유지하는 것 중 <b>어느 쪽이 유리</b>한가요? 각각의 확률을 구하세요.</div>
+      </div>
+      <div class="talk"><b>토론거리</b> — 많은 사람이 “문이 2개 남았으니 반반”이라고 답합니다. 그런데 사회자는 <b>아무 문이나 연 것이 아닙니다.</b>
+      문이 <b>100개</b>이고 사회자가 <b>98개</b>를 열어 준다면 어떨까요? 이렇게 바꿔 생각하면 무엇이 보이나요?</div>
+      <div class="ans h3"></div>
+    </div>
+  </div>
+
+  <div class="foot"><span>토론으로 푸는 수학 — 심화 문제 10 [중등]</span><span class="r">4 / 5</span></div>
+</div>
+
+<!-- ====== 5쪽 ====== -->
+<div class="page">
+  <div class="head">
+    <div class="row">
+      <div>
+        <h1>토론으로 푸는 수학 — 심화 문제 10 <span style="font-size:13px;background:#7c3aed;color:#fff;padding:1px 8px;border-radius:3px;vertical-align:2px">중등</span></h1>
+        <div class="sub">중학교 1~3학년 · 수의 성질 · 함수 · 도형 · 확률</div>
+      </div>
+      <div class="meta">모둠 이름 ______________<br>5 / 5 쪽</div>
+    </div>
+  </div>
+
+  <!-- 9 -->
+  <div class="item">
+    <div class="qhead"><span class="no">9</span><span class="title">3의 배수 판정은 왜 통할까</span><span class="tagz">정수의 성질</span></div>
+    <div class="body">
+      <p>“각 자리 숫자의 합이 3의 배수이면 그 수는 3의 배수이다.” 초등학교 때부터 써 온 이 방법이
+      <b>왜 성립하는지</b> 생각해 봅시다.</p>
+      <div class="data">예) 4287 → 4+2+8+7 = 21 → 3의 배수 → 4287도 3의 배수 (4287 ÷ 3 = 1429)</div>
+      <div class="ask">
+        <div><b>(1)</b> 세 자리 수를 <b class="mono">100a + 10b + c</b> 로 놓고, <b class="mono">99a + 9b</b> 를 이용해 이유를 설명하세요.</div>
+        <div><b>(2)</b> 같은 방법이 <b>9</b>에서도 통할까요? <b>7</b>에서는 어떨까요?</div>
+        <div><b>(3)</b> 1부터 50까지 이어 쓴 수 <b class="mono">1234…4950</b> 은 3의 배수일까요?</div>
+      </div>
+      <div class="talk"><b>토론거리</b> — (3)을 직접 나눠 보지 않고 판단할 수 있을까요? 이어 쓴 수의 <b>자리 숫자 합</b>은 결국 <b>1+2+…+50</b> 과 3으로 나눈 나머지가 같습니다. 왜 그럴까요?</div>
+      <div class="ans h3"></div>
+    </div>
+  </div>
+
+  <!-- 10 -->
+  <div class="item">
+    <div class="qhead"><span class="no">10</span><span class="title">넓이는 몇 분의 몇일까</span><span class="tagz">닮음 · 넓이비</span></div>
+    <div class="body">
+      <p>삼각형 ABC에서 변 BC 위의 점 D는 <b class="mono">BD : DC = 2 : 1</b>,
+      변 AB 위의 점 E는 <b class="mono">AE : EB = 1 : 2</b> 를 만족합니다.</p>
+      <figure>
+        <svg viewBox="0 0 150 96" xmlns="http://www.w3.org/2000/svg" style="max-width:180px">
+          <polygon points="16,84 130,84 30,10" fill="rgba(37,99,235,.08)" stroke="#333" stroke-width="1.7"/>
+          <polygon points="30,10 92,84 21,59" fill="rgba(192,38,211,.22)" stroke="#c026d3" stroke-width="1.6"/>
+          <circle cx="92" cy="84" r="2.6" fill="#c026d3"/><circle cx="21" cy="59" r="2.6" fill="#c026d3"/>
+          <g fill="#333" font-size="10" font-family="monospace">
+            <text x="27" y="8">A</text><text x="8" y="90">B</text><text x="133" y="90">C</text>
+            <text x="90" y="95">D</text><text x="6" y="60">E</text>
+          </g>
+        </svg>
+      </figure>
+      <div class="ask">
+        <div><b>(1)</b> 삼각형 <b>ABD</b>의 넓이는 삼각형 ABC의 몇 분의 몇인가요?</div>
+        <div><b>(2)</b> 색칠한 삼각형 <b>ADE</b>의 넓이는 삼각형 ABC의 몇 분의 몇인가요?</div>
+      </div>
+      <div class="talk"><b>토론거리</b> — 높이가 같은 두 삼각형의 넓이비는 <b>밑변의 비</b>와 같습니다.
+      이 사실을 <b>두 번</b> 쓰면 답이 나옵니다. 어떤 순서로 써야 할까요?</div>
+      <div class="ans h2"></div>
+    </div>
+  </div>
+
+  <div class="notice" style="margin-top:10px">
+    <b>발표할 때.</b> “우리 모둠은 ___라고 생각했는데, ___를 확인해 보니 ___였습니다.”처럼
+    <b>생각이 바뀐 지점</b>을 말해 주세요. 특히 <b>직관과 계산이 어긋난 문제</b>(6번, 8번)는 왜 어긋났는지가 핵심입니다.
+  </div>
+
+  <div class="foot"><span>토론으로 푸는 수학 — 심화 문제 10 [중등]</span><span class="r">5 / 5</span></div>
+</div>
+
+</body>
+</html>
