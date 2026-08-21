@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>중등 수학경시 빈출 유형 20 (학생용)</title>
+<style>
+:root{ --ink:#1a1a1a; --sub:#555; --line:#c8c8c8; --soft:#f2f4f8; --accent:#1d4ed8; }
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#e9edf3;color:var(--ink);
+  font-family:'Pretendard','Malgun Gothic','맑은 고딕',system-ui,sans-serif;
+  line-height:1.62;font-size:14.5px;padding:24px 12px}
+.page{width:210mm;min-height:297mm;margin:0 auto 18px;background:#fff;
+  padding:14mm 14mm 13mm;box-shadow:0 3px 14px rgba(0,0,0,.16);position:relative}
+
+/* 머리글 */
+.head{border-bottom:3px double var(--ink);padding-bottom:7px;margin-bottom:10px}
+.head .row{display:flex;align-items:flex-end;gap:12px}
+.head h1{font-size:19.5px;font-weight:800;letter-spacing:-.6px}
+.head .sub{font-size:12.5px;color:var(--sub);margin-top:2px}
+.head .meta{margin-left:auto;font-size:12px;color:var(--sub);text-align:right;line-height:1.6}
+.namebox{display:flex;gap:8px;margin-top:6px;font-size:12px}
+.namebox span{border:1px solid var(--line);border-radius:4px;padding:3px 10px}
+.namebox .fill{flex:1}
+
+/* 안내 */
+.notice{background:var(--soft);border:1px solid var(--line);border-radius:6px;
+  padding:7px 12px;font-size:11.8px;color:#333;margin-bottom:10px;line-height:1.55}
+.notice b{color:var(--accent)}
+
+/* 문항 */
+.item{margin-bottom:9px;break-inside:avoid;page-break-inside:avoid}
+.qhead{display:flex;align-items:baseline;gap:8px;margin-bottom:5px}
+.no{background:var(--ink);color:#fff;font-weight:800;font-size:12.5px;
+  padding:1px 9px;border-radius:3px;flex:0 0 auto}
+.title{font-weight:800;font-size:14.8px}
+.tagz{margin-left:auto;font-size:11px;color:var(--sub);border:1px solid var(--line);
+  border-radius:10px;padding:1px 9px;flex:0 0 auto}
+.body{font-size:13.6px;padding-left:2px}
+.body p{margin:3px 0}
+.ask{margin-top:5px;padding-left:9px;border-left:3px solid var(--accent)}
+.ask div{margin:2px 0;font-size:13.5px}
+.ask b{color:var(--accent)}
+.data{background:var(--soft);border:1px solid var(--line);border-radius:5px;
+  padding:6px 11px;margin:5px 0;font-size:12.8px;
+  font-family:'D2Coding','Consolas',monospace}
+.talk{margin-top:5px;font-size:12px;color:#444;background:#fffaf0;
+  border:1px dashed #d8b06a;border-radius:5px;padding:5px 10px;line-height:1.5}
+.talk b{color:#a4700f}
+.ans{border:1px solid var(--line);border-radius:5px;margin-top:6px;
+  background:repeating-linear-gradient(#fff 0 25px,#eceff5 25px 26px)}
+.ans.h1{height:52px}.ans.h2{height:78px}.ans.h3{height:104px}
+figure{margin:7px 0;text-align:center}
+figure svg{max-width:100%;height:auto}
+figcaption{font-size:11.5px;color:var(--sub);margin-top:3px}
+
+.foot{position:absolute;left:15mm;right:15mm;bottom:8mm;
+  border-top:1px solid var(--line);padding-top:5px;
+  display:flex;font-size:11px;color:var(--sub)}
+.foot .r{margin-left:auto}
+
+/* 화면 전용 도구 */
+.bar{width:210mm;margin:0 auto 12px;display:flex;gap:8px;align-items:center;flex-wrap:wrap;
+  background:#fff;border-radius:9px;padding:10px 14px;box-shadow:0 2px 8px rgba(0,0,0,.1)}
+.bar .t{font-weight:800;font-size:14px}
+.btn{background:#1d4ed8;color:#fff;border:none;padding:8px 15px;border-radius:7px;
+  cursor:pointer;font-size:13.5px;font-weight:700;font-family:inherit}
+.btn.g{background:#374151}
+.hint{font-size:12.5px;color:#555}
+
+@media print{
+  @page{size:A4;margin:0}
+  body{background:#fff;padding:0}
+  .page{margin:0;box-shadow:none;page-break-after:always}
+  .page:last-child{page-break-after:auto}
+  .bar{display:none}
+  .ans{background:repeating-linear-gradient(#fff 0 25px,#e6e9ef 25px 26px)}
+}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <span class="t">📄 중등 수학경시 <b>빈출 유형 20</b> — 학생용</span>
+  <button class="btn" onclick="window.print()">🖨 인쇄 / PDF 저장</button>
+  <span class="hint">인쇄 설정에서 <b>용지 A4 · 배율 100% · 여백 없음</b>으로 두면 쪽에 딱 맞습니다.</span>
+</div>
+
+<!-- ====== 1쪽 ====== -->
+<div class="page">
+  <div class="head">
+    <div class="row">
+      <div>
+        <h1>중등 수학경시 <span style="font-size:13px;background:#b45309;color:#fff;padding:1px 8px;border-radius:3px;vertical-align:2px">빈출 유형 20</span></h1>
+        <div class="sub">정수 · 대수 · 기하 · 조합 — KMO 중등부 1차 대비</div>
+      </div>
+      <div class="meta">주관식 20문항 · 답은 모두 정수<br>1 / 6 쪽</div>
+    </div>
+    <div class="namebox">
+      <span class="fill">학교</span><span class="fill">학년 · 반</span><span class="fill">이름</span><span>날짜　　　.　　.</span>
+    </div>
+  </div>
+  <div class="notice">
+    <b>이 문제지에 대하여.</b> 한국수학올림피아드(KMO) 중등부 1차는 <b>주관식 20문항 · 100점 만점</b>이고,
+    <b>정수 · 대수 · 기하 · 조합</b> 네 영역에서 각 5문항씩 고르게 출제되는 것이 추세입니다.
+    그중에서도 중등부는 <b>나누어떨어짐(정수론)</b>의 비중과 활용도가 가장 높습니다.
+    아래 <b>A세트(빈출 유형 10)</b>는 그 대표 유형을, <b>B세트(유사 문제 10)</b>는 같은 도구를 쓰는 연습 문제를 담았습니다.
+    <br><b>모든 답은 정수</b>입니다. 계산기 없이, <b>구조를 보고</b> 풀어 보세요.
+  </div>
+
+  <div class="card" style="background:#fff8ee;border:1px solid #e5c9a0;border-radius:10px;padding:9px 14px;margin-bottom:11px">
+    <b style="color:#b45309">A세트 · 빈출 유형 10</b>　<span style="font-size:13px;color:#555">정수 5 · 대수 2 · 기하 2 · 조합 1 — 실제 출제 비중에 맞춘 구성입니다.</span>
+  </div>
+
+  <div class="item">
+    <div class="qhead"><span class="no">A1</span><span class="title">약수가 15개인 가장 작은 수</span><span class="tagz">정수 · 약수의 개수</span></div>
+    <div class="body">
+      <p>자연수 <b class="mono">N</b> 의 약수가 <b>정확히 15개</b>입니다. 이러한 N 중에서 <b>가장 작은 수</b>를 구하시오.</p>
+      <div class="talk"><b>생각의 실마리</b> — <b class="mono">N = p<sup>a</sup> q<sup>b</sup> …</b> 로 소인수분해했을 때 약수의 개수는 <b class="mono">(a+1)(b+1)…</b> 입니다.
+      15를 두 수의 곱으로 쪼개는 방법은 몇 가지인가요? 그리고 <b>큰 지수를 작은 소수에</b> 주어야 할까요, 큰 소수에 주어야 할까요?</div>
+      <div class="ans h2"></div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="qhead"><span class="no">A2</span><span class="title">거듭제곱의 나머지</span><span class="tagz">정수 · 합동</span></div>
+    <div class="body">
+      <p><b class="mono">3<sup>2024</sup></b> 을 <b>7</b>로 나눈 나머지를 구하시오.</p>
+      <div class="talk"><b>생각의 실마리</b> — <b class="mono">3<sup>1</sup>, 3<sup>2</sup>, 3<sup>3</sup>, …</b> 을 7로 나눈 나머지를 차례로 적어 보세요.
+      어느 순간 <b>같은 값이 다시 나타납니다.</b> 그 <b>주기</b>를 찾으면 2024를 직접 계산할 필요가 없습니다.</div>
+      <div class="ans h2"></div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="qhead"><span class="no">A3</span><span class="title">자릿수 세기</span><span class="tagz">정수 · 10의 거듭제곱</span></div>
+    <div class="body">
+      <p><b class="mono">5<sup>100</sup> × 2<sup>97</sup></b> 은 몇 자리 수인지 구하시오.</p>
+      <div class="talk"><b>생각의 실마리</b> — 2와 5는 만나면 <b>10</b>이 됩니다. 짝을 최대한 지어 <b class="mono">10<sup>k</sup></b> 를 만들고,
+      남는 것이 무엇인지 보세요. <b class="mono">125 × 10<sup>97</sup></b> 같은 꼴이 되면 자릿수는 바로 보입니다.</div>
+      <div class="ans h2"></div>
+    </div>
+  </div>
+
+  <div class="foot"><span>중등 수학경시 빈출 유형 20</span><span class="r">1 / 6</span></div>
+</div>
+
+<!-- ====== 2쪽 ====== -->
+<div class="page">
+  <div class="head">
+    <div class="row">
+      <div>
+        <h1>중등 수학경시 <span style="font-size:13px;background:#b45309;color:#fff;padding:1px 8px;border-radius:3px;vertical-align:2px">빈출 유형 20</span></h1>
+        <div class="sub">정수 · 대수 · 기하 · 조합 — KMO 중등부 1차 대비</div>
+      </div>
+      <div class="meta">이름 ______________<br>2 / 6 쪽</div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="qhead"><span class="no">A4</span><span class="title">최대공약수와 최소공배수</span><span class="tagz">정수 · GCD·LCM</span></div>
+    <div class="body">
+      <p>두 자연수 <b class="mono">a, b</b> 에 대하여 최대공약수가 <b>12</b>, 최소공배수가 <b>720</b> 입니다.
+      이러한 순서쌍 <b class="mono">(a, b)</b> 중 <b class="mono">a &lt; b</b> 인 것은 모두 몇 개인지 구하시오.</p>
+      <div class="talk"><b>생각의 실마리</b> — <b class="mono">a = 12m, b = 12n</b> 으로 놓으면 m과 n은 <b>서로소</b>입니다.
+      그리고 <b class="mono">(최대공약수) × (최소공배수) = ab</b> 이므로 <b class="mono">mn</b> 의 값이 정해집니다. 그 값을 서로소인 두 수의 곱으로 쪼개면 됩니다.</div>
+      <div class="ans h2"></div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="qhead"><span class="no">A5</span><span class="title">부정방정식의 자연수해</span><span class="tagz">정수 · 부정방정식</span></div>
+    <div class="body">
+      <p><b class="mono">3x + 5y = 100</b> 을 만족하는 <b>자연수</b> 순서쌍 <b class="mono">(x, y)</b> 에 대하여,
+      <b class="mono">xy</b> 의 <b>최댓값</b>을 구하시오.</p>
+      <div class="talk"><b>생각의 실마리</b> — <b class="mono">3x = 100 − 5y</b> 에서 우변이 3의 배수여야 합니다. 이 조건으로 y의 후보가 크게 줄어듭니다.
+      또 합이 일정한 두 수의 곱은 <b>두 수가 가까울수록 큽니다.</b></div>
+      <div class="ans h2"></div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="qhead"><span class="no">A6</span><span class="title">대칭식의 값</span><span class="tagz">대수 · 곱셈 공식</span></div>
+    <div class="body">
+      <p><b class="mono">x + 1/x = 3</b> 일 때, <b class="mono">x<sup>3</sup> + 1/x<sup>3</sup></b> 의 값을 구하시오.</p>
+      <div class="talk"><b>생각의 실마리</b> — x를 직접 구하려 하면 무리수가 나와 복잡합니다.
+      <b class="mono">(x + 1/x)<sup>3</sup></b> 을 전개해 보세요. <b class="mono">x<sup>3</sup> + 1/x<sup>3</sup></b> 말고 <b>무엇이 더 나오나요?</b>
+      그것이 다시 <b class="mono">x + 1/x</b> 로 표현된다는 점이 열쇠입니다.</div>
+      <div class="ans h2"></div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="qhead"><span class="no">A7</span><span class="title">조건이 붙은 식의 값</span><span class="tagz">대수 · 인수분해</span></div>
+    <div class="body">
+      <p><b class="mono">a + b + c = 0</b> 이고 <b class="mono">abc ≠ 0</b> 일 때,
+      <b class="mono">(a<sup>3</sup> + b<sup>3</sup> + c<sup>3</sup>) ÷ (abc)</b> 의 값을 구하시오.</p>
+      <div class="talk"><b>생각의 실마리</b> — <b class="mono">a<sup>3</sup>+b<sup>3</sup>+c<sup>3</sup> − 3abc</b> 는 유명한 인수분해 공식이 있습니다.
+      그 인수 중 하나가 <b class="mono">a+b+c</b> 라는 점을 이용하세요. 값을 대입해 <b>확인</b>도 꼭 해 보세요.</div>
+      <div class="ans h2"></div>
+    </div>
+  </div>
+
+  <div class="foot"><span>중등 수학경시 빈출 유형 20</span><span class="r">2 / 6</span></div>
+</div>
+
+<!-- ====== 3쪽 ====== -->
+<div class="page">
+  <div class="head">
+    <div class="row">
+      <div>
+        <h1>중등 수학경시 <span style="font-size:13px;background:#b45309;color:#fff;padding:1px 8px;border-radius:3px;vertical-align:2px">빈출 유형 20</span></h1>
+        <div class="sub">정수 · 대수 · 기하 · 조합 — KMO 중등부 1차 대비</div>
+      </div>
+      <div class="meta">이름 ______________<br>3 / 6 쪽</div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="qhead"><span class="no">A8</span><span class="title">직각삼각형의 내접원</span><span class="tagz">기하 · 피타고라스</span></div>
+    <div class="body">
+      <p>세 변의 길이가 각각 <b>9, 12, 15</b> 인 직각삼각형에 내접하는 원의 <b>반지름</b>을 구하시오.</p>
+      <div class="talk"><b>생각의 실마리</b> — 두 가지 길이 있습니다.
+      ① 삼각형의 넓이를 <b>두 가지 방법</b>으로 나타내기 — <b class="mono">(넓이) = r × (둘레의 절반)</b>.
+      ② 직각삼각형에서는 <b class="mono">r = (a + b − c) / 2</b> (c는 빗변). 두 방법의 답이 같은지 확인해 보세요.</div>
+      <div class="ans h2"></div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="qhead"><span class="no">A9</span><span class="title">삼각형 넓이의 비</span><span class="tagz">기하 · 넓이비</span></div>
+    <div class="body">
+      <p>삼각형 ABC의 넓이가 <b>90</b> 입니다. 변 BC 위의 점 D는 <b class="mono">BD : DC = 1 : 2</b>,
+      변 AB 위의 점 E는 <b class="mono">AE : EB = 2 : 1</b> 을 만족합니다. 삼각형 ADE의 넓이를 구하시오.</p>
+      <div class="talk"><b>생각의 실마리</b> — <b>높이가 같은 두 삼각형의 넓이비 = 밑변의 비</b>. 이 사실을 <b>두 번</b> 씁니다.
+      △ADE를 △ABC와 <b>바로</b> 비교하려 하면 막힙니다. <b>중간 다리</b>가 될 삼각형을 하나 놓아 보세요.</div>
+      <div class="ans h2"></div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="qhead"><span class="no">A10</span><span class="title">반드시 존재하는 두 수</span><span class="tagz">조합 · 비둘기집</span></div>
+    <div class="body">
+      <p>1부터 100까지의 자연수 중에서 서로 다른 <b class="mono">n</b> 개를 뽑을 때,
+      뽑은 수 중에 <b>한 수가 다른 수의 배수</b>가 되는 두 수가 <b>반드시</b> 존재하도록 하는
+      <b class="mono">n</b> 의 <b>최솟값</b>을 구하시오.</p>
+      <div class="talk"><b>생각의 실마리</b> — 모든 자연수는 <b class="mono">(홀수) × 2<sup>k</sup></b> 꼴로 <b>단 하나</b>로 쓸 수 있습니다.
+      1~100의 홀수는 몇 개인가요? 그 홀수를 <b>서랍</b>이라 생각하면 무엇이 보이나요?
+      그리고 <b>반례</b>(그만큼 뽑아도 배수 쌍이 없는 경우)도 하나 찾아보세요.</div>
+      <div class="ans h2"></div>
+    </div>
+  </div>
+
+  <div class="foot"><span>중등 수학경시 빈출 유형 20</span><span class="r">3 / 6</span></div>
+</div>
+
+<!-- ====== 4쪽 ====== -->
+<div class="page">
+  <div class="head">
+    <div class="row">
+      <div>
+        <h1>중등 수학경시 <span style="font-size:13px;background:#b45309;color:#fff;padding:1px 8px;border-radius:3px;vertical-align:2px">빈출 유형 20</span></h1>
+        <div class="sub">정수 · 대수 · 기하 · 조합 — KMO 중등부 1차 대비</div>
+      </div>
+      <div class="meta">이름 ______________<br>4 / 6 쪽</div>
+    </div>
+  </div>
+
+  <div class="card" style="background:#eef5ff;border:1px solid #b8cdf0;border-radius:10px;padding:9px 14px;margin-bottom:11px">
+    <b style="color:#1d4ed8">B세트 · 유사 문제 10</b>　<span style="font-size:13px;color:#555">A세트와 <b>같은 번호는 같은 도구</b>를 씁니다. A를 먼저 푼 뒤 도전하세요.</span>
+  </div>
+
+  <div class="item">
+    <div class="qhead"><span class="no">B1</span><span class="title">약수가 20개인 가장 작은 수</span><span class="tagz">정수 · 약수의 개수</span></div>
+    <div class="body">
+      <p>약수가 <b>정확히 20개</b>인 자연수 중 <b>가장 작은 수</b>를 구하시오.</p>
+      <div class="talk"><b>연습 포인트</b> — 20을 <b class="mono">(a+1)(b+1)(c+1)…</b> 꼴로 쪼개는 방법을 <b>빠짐없이</b> 나열하세요.
+      20 = 20 = 10×2 = 5×4 = 5×2×2 = … 각각에 대해 2, 3, 5를 어떻게 배정할지 비교합니다.</div>
+      <div class="ans h2"></div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="qhead"><span class="no">B2</span><span class="title">거듭제곱의 끝자리</span><span class="tagz">정수 · 합동</span></div>
+    <div class="body">
+      <p><b class="mono">2<sup>2025</sup></b> 의 <b>일의 자리 숫자</b>를 구하시오.
+      또 <b class="mono">2<sup>2025</sup></b> 을 <b>5</b>로 나눈 나머지도 구하시오.</p>
+      <div class="talk"><b>연습 포인트</b> — 일의 자리는 <b>10으로 나눈 나머지</b>와 같습니다. 주기를 찾아 2025를 그 주기로 나눈 나머지를 보세요.
+      나머지가 <b>0일 때</b> 주기의 <b>몇 번째</b>를 골라야 하는지 특히 주의해야 합니다.</div>
+      <div class="ans h2"></div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="qhead"><span class="no">B3</span><span class="title">자릿수 세기</span><span class="tagz">정수 · 10의 거듭제곱</span></div>
+    <div class="body">
+      <p><b class="mono">8<sup>25</sup> × 5<sup>70</sup></b> 은 몇 자리 수인지 구하시오.</p>
+      <div class="talk"><b>연습 포인트</b> — 먼저 밑을 <b>2와 5로 통일</b>하세요. <b class="mono">8 = 2<sup>3</sup></b> 입니다.
+      2와 5의 지수 중 <b>작은 쪽만큼</b> 짝을 지을 수 있습니다.</div>
+      <div class="ans h2"></div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="qhead"><span class="no">B4</span><span class="title">최대공약수와 최소공배수</span><span class="tagz">정수 · GCD·LCM</span></div>
+    <div class="body">
+      <p>두 자연수의 최대공약수가 <b>8</b>, 최소공배수가 <b>480</b> 입니다.
+      이러한 두 수의 쌍 중에서 <b>두 수의 차가 가장 작은</b> 쌍을 찾아, 그 <b>두 수의 합</b>을 구하시오.</p>
+      <div class="talk"><b>연습 포인트</b> — A4와 똑같이 <b class="mono">a = 8m, b = 8n</b> (m, n 서로소)로 놓습니다.
+      차가 가장 작으려면 m과 n이 <b>서로 가까워야</b> 합니다.</div>
+      <div class="ans h2"></div>
+    </div>
+  </div>
+
+  <div class="foot"><span>중등 수학경시 빈출 유형 20</span><span class="r">4 / 6</span></div>
+</div>
+
+<!-- ====== 5쪽 ====== -->
+<div class="page">
+  <div class="head">
+    <div class="row">
+      <div>
+        <h1>중등 수학경시 <span style="font-size:13px;background:#b45309;color:#fff;padding:1px 8px;border-radius:3px;vertical-align:2px">빈출 유형 20</span></h1>
+        <div class="sub">정수 · 대수 · 기하 · 조합 — KMO 중등부 1차 대비</div>
+      </div>
+      <div class="meta">이름 ______________<br>5 / 6 쪽</div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="qhead"><span class="no">B5</span><span class="title">부정방정식의 자연수해</span><span class="tagz">정수 · 부정방정식</span></div>
+    <div class="body">
+      <p><b class="mono">7x + 4y = 100</b> 을 만족하는 <b>자연수</b> 순서쌍 <b class="mono">(x, y)</b> 는 모두 몇 개인지 구하시오.
+      또 그중 <b class="mono">x + y</b> 가 <b>최소</b>인 값을 구하시오.</p>
+      <div class="talk"><b>연습 포인트</b> — <b class="mono">4y = 100 − 7x</b> 에서 우변이 4의 배수가 되려면 <b class="mono">7x</b> 가 4로 나누어떨어져야 합니다.
+      7과 4는 서로소이므로 <b class="mono">x</b> 자체가 4의 배수여야 하지요.</div>
+      <div class="ans h2"></div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="qhead"><span class="no">B6</span><span class="title">대칭식의 값</span><span class="tagz">대수 · 곱셈 공식</span></div>
+    <div class="body">
+      <p><b class="mono">x − 1/x = 2</b> 일 때, <b class="mono">x<sup>2</sup> + 1/x<sup>2</sup></b> 과
+      <b class="mono">x<sup>3</sup> − 1/x<sup>3</sup></b> 의 값을 각각 구하시오.</p>
+      <div class="talk"><b>연습 포인트</b> — A6은 <b>합</b>이었지만 이번엔 <b>차</b>입니다.
+      <b class="mono">(x − 1/x)<sup>2</sup></b> 을 전개하면 가운데 항의 <b>부호</b>가 A6과 어떻게 달라지는지 확인하세요.</div>
+      <div class="ans h2"></div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="qhead"><span class="no">B7</span><span class="title">조건이 붙은 식의 값</span><span class="tagz">대수 · 곱셈 공식</span></div>
+    <div class="body">
+      <p><b class="mono">a + b + c = 0</b> 이고 <b class="mono">ab + bc + ca ≠ 0</b> 일 때,
+      <b class="mono">(a<sup>2</sup> + b<sup>2</sup> + c<sup>2</sup>) ÷ (ab + bc + ca)</b> 의 값을 구하시오.</p>
+      <div class="talk"><b>연습 포인트</b> — <b class="mono">(a+b+c)<sup>2</sup></b> 을 전개하면 <b class="mono">a<sup>2</sup>+b<sup>2</sup>+c<sup>2</sup></b> 과
+      <b class="mono">ab+bc+ca</b> 가 <b>동시에</b> 나옵니다. 좌변이 0이라는 점을 쓰세요.</div>
+      <div class="ans h2"></div>
+    </div>
+  </div>
+
+  <div class="foot"><span>중등 수학경시 빈출 유형 20</span><span class="r">5 / 6</span></div>
+</div>
+
+<!-- ====== 6쪽 ====== -->
+<div class="page">
+  <div class="head">
+    <div class="row">
+      <div>
+        <h1>중등 수학경시 <span style="font-size:13px;background:#b45309;color:#fff;padding:1px 8px;border-radius:3px;vertical-align:2px">빈출 유형 20</span></h1>
+        <div class="sub">정수 · 대수 · 기하 · 조합 — KMO 중등부 1차 대비</div>
+      </div>
+      <div class="meta">이름 ______________<br>6 / 6 쪽</div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="qhead"><span class="no">B8</span><span class="title">내접원 반지름이 정해진 삼각형</span><span class="tagz">기하 · 피타고라스</span></div>
+    <div class="body">
+      <p>세 변의 길이가 모두 <b>자연수</b>인 직각삼각형의 내접원 반지름이 <b>4</b> 입니다.
+      이러한 삼각형 중 <b>둘레가 가장 짧은</b> 것의 둘레를 구하시오.</p>
+      <div class="talk"><b>연습 포인트</b> — A8의 공식 <b class="mono">r = (a + b − c) / 2</b> 를 거꾸로 씁니다.
+      <b class="mono">a + b − c = 8</b> 이면서 <b class="mono">a<sup>2</sup> + b<sup>2</sup> = c<sup>2</sup></b> 인 자연수를 찾으면 됩니다.
+      잘 알려진 직각삼각형(3-4-5, 5-12-13 등)의 <b>배수</b>부터 확인해 보세요.</div>
+      <div class="ans h2"></div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="qhead"><span class="no">B9</span><span class="title">삼각형 넓이의 비</span><span class="tagz">기하 · 넓이비</span></div>
+    <div class="body">
+      <p>삼각형 ABC의 넓이가 <b>120</b> 입니다. 변 BC 위의 점 D는 <b class="mono">BD : DC = 2 : 3</b>,
+      변 AB 위의 점 E는 <b class="mono">AE : EB = 1 : 3</b> 을 만족합니다. 삼각형 ADE의 넓이를 구하시오.</p>
+      <div class="talk"><b>연습 포인트</b> — A9에서 찾은 방법을 그대로 적용하면 됩니다.
+      두 비를 <b>곱하는지 더하는지</b>만 정확히 하세요.</div>
+      <div class="ans h2"></div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="qhead"><span class="no">B10</span><span class="title">반드시 존재하는 두 수</span><span class="tagz">조합 · 비둘기집</span></div>
+    <div class="body">
+      <p>1부터 100까지의 자연수 중에서 서로 다른 <b class="mono">n</b> 개를 뽑을 때,
+      뽑은 수 중에 <b>서로소인 두 수</b>가 <b>반드시</b> 존재하도록 하는 <b class="mono">n</b> 의 <b>최솟값</b>을 구하시오.</p>
+      <div class="talk"><b>연습 포인트</b> — A10과 <b>서랍이 다릅니다.</b>
+      <b class="mono">(1,2), (3,4), (5,6), …, (99,100)</b> 처럼 묶어 보세요. <b>연속한 두 자연수</b>는 항상 서로소입니다.
+      반례로 <b>짝수만</b> 뽑는 경우를 생각해 보세요.</div>
+      <div class="ans h2"></div>
+    </div>
+  </div>
+
+  <div class="notice" style="margin-top:10px">
+    <b>정리.</b> A세트와 B세트의 같은 번호는 <b>같은 도구</b>를 씁니다.
+    A를 풀고 나서 B가 막혔다면, A에서 무엇을 썼는지 다시 떠올려 보세요.
+    <b>“어떤 도구를 꺼내야 하는가”</b>를 아는 것이 경시 대비의 핵심입니다.
+  </div>
+
+  <div class="foot"><span>중등 수학경시 빈출 유형 20</span><span class="r">6 / 6</span></div>
+</div>
+
+</body>
+</html>
