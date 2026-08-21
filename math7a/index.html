@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>중등 수학경시 빈출 유형 20 [2세트] — 교사용 답지</title>
+<style>
+:root{ --ink:#1a1a1a; --sub:#555; --line:#c8c8c8; --soft:#f2f4f8;
+       --ans:#b91c1c; --tip:#0f766e; --acc:#1d4ed8; }
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#e9edf3;color:var(--ink);
+  font-family:'Pretendard','Malgun Gothic','맑은 고딕',system-ui,sans-serif;
+  line-height:1.58;font-size:13.6px;padding:24px 12px}
+.page{width:210mm;min-height:297mm;margin:0 auto 18px;background:#fff;
+  padding:13mm 13mm 12mm;box-shadow:0 3px 14px rgba(0,0,0,.16);position:relative}
+
+.head{border-bottom:3px double var(--ink);padding-bottom:8px;margin-bottom:12px}
+.head .row{display:flex;align-items:flex-end;gap:12px}
+.head h1{font-size:20px;font-weight:800;letter-spacing:-.6px}
+.head h1 em{font-style:normal;background:var(--ans);color:#fff;font-size:12px;
+  padding:2px 9px;border-radius:3px;margin-left:8px;vertical-align:middle}
+.head .sub{font-size:12px;color:var(--sub);margin-top:2px}
+.head .meta{margin-left:auto;font-size:11.5px;color:var(--sub);text-align:right;line-height:1.55}
+
+.item{margin-bottom:8px;break-inside:avoid;page-break-inside:avoid;
+  border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.qh{display:flex;align-items:center;gap:8px;background:var(--soft);
+  padding:5px 11px;border-bottom:1px solid var(--line)}
+.no{background:var(--ink);color:#fff;font-weight:800;font-size:12px;padding:1px 8px;border-radius:3px}
+.tt{font-weight:800;font-size:13.8px}
+.lv{margin-left:auto;font-size:10.5px;color:var(--sub)}
+.bd{padding:7px 11px}
+.ansline{background:#fff1f1;border-left:4px solid var(--ans);border-radius:4px;
+  padding:5px 10px;margin-bottom:5px;font-size:13.2px}
+.ansline b{color:var(--ans)}
+.sec{font-size:12.5px;margin:4px 0;line-height:1.55}
+.sec .lb{display:inline-block;background:var(--acc);color:#fff;font-size:10.5px;
+  font-weight:800;padding:1px 7px;border-radius:3px;margin-right:6px;vertical-align:1px}
+.sec .lb.t{background:var(--tip)}
+.sec .lb.m{background:#b45309}
+.steps{background:#f7f9fc;border:1px solid #e2e7f0;border-radius:4px;
+  padding:5px 10px;margin:4px 0;font-size:11.8px;
+  font-family:'D2Coding','Consolas',monospace;white-space:pre-wrap;line-height:1.6}
+.mis{background:#fffbea;border:1px dashed #d8b06a;border-radius:4px;
+  padding:5px 10px;margin-top:4px;font-size:11.8px;color:#5c4708;line-height:1.5}
+.mis b{color:#a4700f}
+table.g{width:100%;border-collapse:collapse;font-size:11.8px;margin:4px 0}
+table.g th{background:#eef2f8;border:1px solid var(--line);padding:3px 6px;font-weight:800}
+table.g td{border:1px solid var(--line);padding:3px 6px;text-align:center;
+  font-family:'D2Coding','Consolas',monospace}
+
+.foot{position:absolute;left:14mm;right:14mm;bottom:7mm;border-top:1px solid var(--line);
+  padding-top:4px;display:flex;font-size:10.5px;color:var(--sub)}
+.foot .r{margin-left:auto}
+
+.bar{width:210mm;margin:0 auto 12px;display:flex;gap:8px;align-items:center;flex-wrap:wrap;
+  background:#fff;border-radius:9px;padding:10px 14px;box-shadow:0 2px 8px rgba(0,0,0,.1)}
+.bar .t{font-weight:800;font-size:14px}
+.btn{background:#b91c1c;color:#fff;border:none;padding:8px 15px;border-radius:7px;
+  cursor:pointer;font-size:13.5px;font-weight:700;font-family:inherit}
+.hint{font-size:12.5px;color:#555}
+
+@media print{
+  @page{size:A4;margin:0}
+  body{background:#fff;padding:0}
+  .page{margin:0;box-shadow:none;page-break-after:always}
+  .page:last-child{page-break-after:auto}
+  .bar{display:none}
+}
+
+.item{margin-bottom:6px}
+.bd{padding:6px 10px}
+.ansline{padding:4px 9px;margin-bottom:4px;font-size:12.8px}
+.sec{font-size:12.1px;margin:3px 0;line-height:1.5}
+.steps{padding:4px 9px;margin:3px 0;font-size:11.4px;line-height:1.52}
+.mis{padding:4px 9px;margin-top:3px;font-size:11.4px;line-height:1.45}
+.qh{padding:4px 10px}
+.tt{font-size:13.4px}
+table.g{font-size:11.4px;margin:3px 0}
+table.g th,table.g td{padding:2px 5px}
+.head{padding-bottom:6px;margin-bottom:9px}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <span class="t">📕 중등 수학경시 <b>빈출 유형 20 · 2세트</b> — 교사용 답지 · 지도 자료</span>
+  <button class="btn" onclick="window.print()">🖨 인쇄 / PDF 저장</button>
+  <span class="hint">학생용과 별도 파일입니다. <b>배부 전 확인</b>하세요.</span>
+</div>
+
+<!-- ====== 1쪽 ====== -->
+<div class="page">
+  <div class="head">
+    <div class="row">
+      <div><h1>중등 수학경시 <span style="font-size:11.5px;background:#7c3aed;color:#fff;padding:1px 7px;border-radius:3px;vertical-align:2px">빈출 유형 20 · 2세트</span><em>교사용</em></h1>
+        <div class="sub">정답 · 풀이 · 지도 방법 · 학생이 자주 하는 오답</div></div>
+      <div class="meta">KMO 중등부 1차 대비<br>1 / 11 쪽</div>
+    </div>
+  </div>
+
+  <div class="item" style="border-color:var(--tip)">
+    <div class="qh" style="background:#effaf7"><span class="tt" style="color:var(--tip)">출제 경향 및 이번 세트의 축</span></div>
+    <div class="bd">
+      <div class="sec"><span class="lb t">시험 형식</span>KMO 중등부 <b>1차</b>는 주관식 <b>20문항 · 100점</b>이며 <b>정수 · 대수 · 기하 · 조합</b>에서 고르게 출제됩니다. 중등부는 <b>나누어떨어짐(정수론)</b>의 활용도가 가장 높습니다.</div>
+      <div class="sec"><span class="lb t">2세트의 축</span><b>“모든 경우를 다 볼 필요는 없다”</b>입니다. ① <b>나머지로 분류</b>(1·4번) ② <b>부등식·인수분해로 범위 조이기</b>(5·7번) ③ <b>색칠로 불가능 증명</b>(10번). 셋 다 <b>무한을 유한으로 바꾸는</b> 기술입니다.</div>
+      <div class="sec"><span class="lb m">1세트와의 관계</span>1세트(약수 개수 · 합동주기 · 자릿수 · GCD·LCM · 부정방정식 · 대칭식 · 내접원 · 넓이비 · 비둘기집)와 <b>겹치는 유형이 없습니다.</b> 두 세트를 합치면 중등부 1차 빈출 유형이 거의 모두 포함됩니다.</div>
+      <table class="g">
+        <tr><th>번호</th><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td><td>10</td></tr>
+        <tr><th>영역</th><td>정수</td><td>정수</td><td>정수</td><td>정수</td><td>정수</td><td>대수</td><td>대수</td><td>기하</td><td>기하</td><td>조합</td></tr>
+        <tr><th>핵심 도구</th><td>mod 3 분류</td><td>10a+b</td><td>르장드르</td><td>나머지 연립</td><td>(m−n)(m+n)</td><td>이중근호</td><td>완전제곱</td><td>접선 길이</td><td>내심각</td><td>색칠</td></tr>
+        <tr><th>난이도</th><td>★★</td><td>★★</td><td>★★</td><td>★★</td><td>★★★</td><td>★★</td><td>★★</td><td>★★</td><td>★★</td><td>★★★</td></tr>
+      </table>
+      <div class="sec"><span class="lb t">운영 제안</span>A세트 <b>50분</b> → 채점 없이 <b>모둠 토론 20분</b> → B세트를 <b>같은 번호끼리 짝지어</b> 풀기. 1세트를 이미 했다면 <b>“1세트의 어떤 도구도 안 통한다”</b>는 점을 먼저 확인시키면 동기가 생깁니다.</div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="qh"><span class="no">A1</span><span class="tt">소수 세 쌍둥이</span><span class="lv">정수 · ★★</span></div>
+    <div class="bd">
+      <div class="ansline"><b>정답</b> <b>p = 3</b>  (3, 5, 7)  — 유일</div>
+      <div class="steps">p = 3 : 3, 5, 7 모두 소수 ✓
+p = 5 : 5, 7, <b>9</b> = 3×3 ✗      p = 7 : 7, <b>9</b> ✗      p = 11 : 11, 13, <b>15</b> ✗
+[왜 p = 3 뿐인가]
+p가 3이 아닌 소수이면 p는 3의 배수가 아니므로 p ≡ 1 또는 2 (mod 3)
+  · p ≡ 1 → p + 2 ≡ 0 (mod 3)  →  p+2 가 3의 배수
+  · p ≡ 2 → p + 4 ≡ 0 (mod 3)  →  p+4 가 3의 배수
+어느 경우든 셋 중 하나가 <b>3보다 큰 3의 배수</b>가 되어 소수가 아니다.
+⇒ p = 3 만 가능    [일반화] p, p+2, p+4 는 3으로 나눈 나머지가 <b>0, 1, 2 전부</b>를 한 번씩 갖는다.</div>
+      <div class="sec"><span class="lb">풀이 핵심</span>“하나씩 대입해 보니 안 되더라”는 <b>증명이 아닙니다.</b> <b>mod 3으로 분류</b>하면 무한히 많은 경우가 단 <b>두 가지</b>로 줄어듭니다.</div>
+      <div class="sec"><span class="lb t">지도 방법</span>먼저 p = 5, 7, 11, 13 을 대입해 <b>걸리는 수에 동그라미</b>를 치게 하세요. 9, 15, 21 … 이 나오는 것을 보면 학생이 스스로 “3의 배수!”를 발견합니다.</div>
+      <div class="mis"><b>자주 하는 오답</b> 답만 3이라 쓰고 <b>유일성을 설명하지 않음</b>. 경시 서술형에서는 절반만 맞은 답입니다. “다른 p는 왜 안 되는가”를 반드시 쓰게 하세요.</div>
+    </div>
+  </div>
+
+  <div class="foot"><span>중등 수학경시 빈출 유형 20 · 2세트 — 교사용 답지</span><span class="r">1 / 11</span></div>
+</div>
+
+<!-- ====== 2쪽 ====== -->
+<div class="page">
+  <div class="head">
+    <div class="row">
+      <div><h1>중등 수학경시 <span style="font-size:11.5px;background:#7c3aed;color:#fff;padding:1px 7px;border-radius:3px;vertical-align:2px">빈출 유형 20 · 2세트</span><em>교사용</em></h1>
+        <div class="sub">정답 · 풀이 · 지도 방법 · 학생이 자주 하는 오답</div></div>
+      <div class="meta">KMO 중등부 1차 대비<br>2 / 11 쪽</div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="qh"><span class="no">A2</span><span class="tt">뒤집은 수와의 관계</span><span class="lv">정수 · ★★</span></div>
+    <div class="bd">
+      <div class="ansline"><b>정답</b> (1) <b>50, 61, 72, 83, 94</b>　(2) <b>8개</b></div>
+      <div class="steps">두 자리 수를 10a + b (a는 1~9, b는 0~9), 뒤집은 수를 10b + a 라 하자.
+(1) 차 : (10a + b) − (10b + a) = <b>9(a − b)</b> = 45   →   a − b = 5
+     (a,b) = (5,0)(6,1)(7,2)(8,3)(9,4)  →  <b>50, 61, 72, 83, 94</b>
+(2) 합 : (10a + b) + (10b + a) = <b>11(a + b)</b> = 121   →   a + b = 11
+     (a,b) = (2,9)(3,8)(4,7)(5,6)(6,5)(7,4)(8,3)(9,2)  →  <b>8개</b>
+     ※ a + b = 11 이므로 b ≥ 2, a ≤ 9 → a는 2~9 중 8가지</div>
+      <div class="sec"><span class="lb">풀이 핵심</span>차는 <b>항상 9의 배수</b>, 합은 <b>항상 11의 배수</b>입니다. 이 사실만 알면 대부분의 뒤집기 문제가 즉시 풀립니다.</div>
+      <div class="sec"><span class="lb t">지도 방법</span>“차가 50인 두 자리 수가 있을까?”를 물어보세요. 9의 배수가 아니므로 <b>존재하지 않습니다.</b> 이런 질문이 구조를 각인시킵니다.</div>
+      <div class="mis"><b>자주 하는 오답</b> (2)에서 b = 0, 1 인 경우까지 세어 10개라 답함. a + b = 11 이면 b는 최소 2입니다(a ≤ 9). <b>자릿수의 범위</b>를 항상 확인시키세요.</div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="qh"><span class="no">A3</span><span class="tt">팩토리얼 끝의 0</span><span class="lv">정수 · ★★</span></div>
+    <div class="bd">
+      <div class="ansline"><b>정답</b> 100! 의 0은 <b>24개</b>,  0이 30개인 최소 n = <b>125</b></div>
+      <div class="steps">끝의 0 하나 = 2 × 5 한 쌍.  1~100에는 2가 훨씬 많으므로 <b>5의 개수</b>가 답이다.
+   5의 배수 :  100 ÷ 5  = 20개
+   25(=5²)의 배수 : 100 ÷ 25 = 4개   ← 5를 <b>하나 더</b> 갖고 있으므로 추가
+   125 &gt; 100 이므로 여기까지
+   합계 20 + 4 = <b>24개</b>
+[0이 30개가 되는 최소 n]
+   n = 120 : 24 + 4 = 28      n = 124 : 24 + 4 = 28
+   n = <b>125</b> : 25 + 5 + 1 = <b>31</b>      ← 125 = 5³ 이라 한 번에 3개가 늘어난다
+   0이 <b>29개, 30개</b>인 n은 <b>존재하지 않는다.</b> 30개를 처음 넘어서는 n = <b>125</b></div>
+      <div class="sec"><span class="lb">풀이 핵심</span><b class="mono">n/5 + n/25 + n/125 + …</b> (몫만 취함)이 공식입니다. 25, 125를 빠뜨리는 것이 최대 실수 요인입니다.</div>
+      <div class="sec"><span class="lb t">지도 방법</span>“왜 2는 세지 않는가?”를 물어보세요. 2의 개수(97개)가 5의 개수(24개)보다 훨씬 많다는 것을 직접 세어 보게 하면 확실히 이해합니다.</div>
+      <div class="mis"><b>주의</b> 두 번째 물음은 0의 개수가 <b>건너뛰는 구간</b>이 있다는 함정이 있습니다. 125에서 28 → 31로 3계단 뛰므로 “정확히 30개”인 n은 없습니다. 문제 표현을 <b>“처음으로 30개 이상”</b>으로 읽도록 안내하세요.</div>
+    </div>
+  </div>
+
+  <div class="foot"><span>중등 수학경시 빈출 유형 20 · 2세트 — 교사용 답지</span><span class="r">2 / 11</span></div>
+</div>
+
+<!-- ====== 3쪽 ====== -->
+<div class="page">
+  <div class="head">
+    <div class="row">
+      <div><h1>중등 수학경시 <span style="font-size:11.5px;background:#7c3aed;color:#fff;padding:1px 7px;border-radius:3px;vertical-align:2px">빈출 유형 20 · 2세트</span><em>교사용</em></h1>
+        <div class="sub">정답 · 풀이 · 지도 방법 · 학생이 자주 하는 오답</div></div>
+      <div class="meta">KMO 중등부 1차 대비<br>3 / 11 쪽</div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="qh"><span class="no">A4</span><span class="tt">나머지가 두 개 주어질 때</span><span class="lv">정수 · ★★</span></div>
+    <div class="bd">
+      <div class="ansline"><b>정답</b> (1) <b>123</b>　(2) <b>35마다</b></div>
+      <div class="steps">조건이 센 <b>7</b>부터 나열한다.  7로 나누어 4 남는 수 : 4, 11, 18, 25, 32, <b>39</b>, 46, …
+그중 5로 나누어 3 남는 수(끝자리가 3 또는 8) : <b>18</b>? → 18÷5 = 3…3 ✓
+   → 가장 작은 자연수 해는 <b>18</b>
+5와 7의 최소공배수가 <b>35</b> 이므로 해는 <b>35마다</b> 반복된다.
+   18, 53, 88, <b>123</b>, 158, …
+세 자리 수 중 가장 작은 것 = <b>123</b>
+[검산] 123 ÷ 5 = 24…3 ✓,  123 ÷ 7 = 17…4 ✓</div>
+      <div class="sec"><span class="lb">풀이 핵심</span>두 조건을 동시에 보려 하지 말고 <b>한쪽을 먼저 나열</b>한 뒤 거르는 것이 정석입니다. 어느 쪽부터 할지는 <b>나누는 수가 큰 쪽</b>이 유리합니다(후보가 적으므로).</div>
+      <div class="sec"><span class="lb m">확장</span>나누는 수들이 <b>서로소</b>이면 해는 반드시 존재하고 <b>최소공배수마다</b> 반복됩니다(중국인의 나머지 정리). 서로소가 아니면 해가 없을 수도 있습니다.</div>
+      <div class="mis"><b>자주 하는 오답</b> 18을 찾고 그대로 답함(세 자리 조건 놓침). 또는 주기를 5+7 = 12로 잘못 씀. — <b>최소공배수</b>임을 강조하고, 18 + 35 = 53이 실제로 두 조건을 만족하는지 검산시키세요.</div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="qh"><span class="no">A5</span><span class="tt">제곱수가 되게 하라</span><span class="lv">정수 · ★★★</span></div>
+    <div class="bd">
+      <div class="ansline"><b>정답</b> <b>n = 4</b>  (4² + 20 = 36 = 6²)</div>
+      <div class="steps">n² + 20 = m² 라 하면   m² − n² = 20   →   <b>(m − n)(m + n) = 20</b>
+m − n 과 m + n 은 <b>홀짝이 같아야 한다.</b>
+   (합) + (차) = 2m 이 짝수이므로 둘 다 짝수이거나 둘 다 홀수.
+   그런데 곱이 20(짝수)이므로 <b>둘 다 짝수</b>여야 한다.
+20 = (짝수)×(짝수) :  <b>2 × 10</b> 뿐   (4×5, 1×20, 20×1 등은 홀짝이 다름)
+   m − n = 2,  m + n = 10   →   m = 6,  n = <b>4</b>
+[검산] 4² + 20 = 16 + 20 = 36 = 6² ✓</div>
+      <div class="sec"><span class="lb">풀이 핵심</span><b>제곱수 조건 → 차의 인수분해</b>가 이 유형의 표준 흐름입니다. 무한히 많은 n을 확인할 필요 없이 <b>20의 약수쌍</b> 몇 개만 보면 끝납니다.</div>
+      <div class="sec"><span class="lb t">지도 방법</span>“왜 홀짝이 같아야 하나?”가 핵심 관문입니다. m − n 과 m + n 의 <b>합이 2m</b>(짝수)라는 점에서 나옵니다. 이 논리를 말로 설명하게 하세요.</div>
+      <div class="mis"><b>자주 하는 오답</b> 20 = 1×20, 4×5 까지 넣어 n을 여러 개 구함. — 각각에서 m, n이 <b>정수가 되는지</b> 실제로 계산시키면(1×20 → m = 10.5) 스스로 걸러 냅니다.</div>
+    </div>
+  </div>
+
+  <div class="foot"><span>중등 수학경시 빈출 유형 20 · 2세트 — 교사용 답지</span><span class="r">3 / 11</span></div>
+</div>
+
+<!-- ====== 4쪽 ====== -->
+<div class="page">
+  <div class="head">
+    <div class="row">
+      <div><h1>중등 수학경시 <span style="font-size:11.5px;background:#7c3aed;color:#fff;padding:1px 7px;border-radius:3px;vertical-align:2px">빈출 유형 20 · 2세트</span><em>교사용</em></h1>
+        <div class="sub">정답 · 풀이 · 지도 방법 · 학생이 자주 하는 오답</div></div>
+      <div class="meta">KMO 중등부 1차 대비<br>4 / 11 쪽</div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="qh"><span class="no">A6</span><span class="tt">이중근호 벗기기</span><span class="lv">대수 · ★★</span></div>
+    <div class="bd">
+      <div class="ansline"><b>정답</b> (1) <b>√5 + √2</b>　(2) <b>√5 − 2</b></div>
+      <div class="steps">(1) 7 + 2√10 에서  <b>합이 7, 곱이 10</b>인 두 수를 찾는다  →  5와 2
+        7 + 2√10 = 5 + 2 + 2√(5×2) = (√5 + √2)²
+     ⇒ √(7 + 2√10) = <b>√5 + √2</b>   (≈ 2.236 + 1.414 = 3.650)
+(2) 4√5 를 2√(?) 꼴로 : 4√5 = 2 × 2√5 = <b>2√20</b>
+        9 − 2√20 에서 <b>합이 9, 곱이 20</b>인 두 수  →  5와 4
+        9 − 2√20 = 5 + 4 − 2√(5×4) = (√5 − √4)² = (√5 − 2)²
+     ⇒ √(9 − 4√5) = <b>√5 − 2</b>
+     ※ √5 ≈ 2.236 &gt; 2 이므로 <b>양수</b>가 되도록 큰 것에서 작은 것을 뺀다. (2 − √5 는 음수라 오답)</div>
+      <div class="sec"><span class="lb">풀이 핵심</span><b>2√( )</b> 꼴로 만드는 것이 첫 단계입니다. 계수가 2가 아니면 반드시 고쳐야 합니다.</div>
+      <div class="sec"><span class="lb t">지도 방법</span>“합이 A, 곱이 B인 두 수”는 <b>이차방정식의 근</b>과 같습니다. 근의 성질을 배운 학생에게는 이 연결을 짚어 주세요.</div>
+      <div class="mis"><b>자주 하는 오답</b> (2)에서 <b>2 − √5</b> 라고 답함. — 근호를 벗기면 반드시 <b>0 이상</b>이어야 합니다. 계산기로 두 값을 비교하게 하면 즉시 납득합니다.</div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="qh"><span class="no">A7</span><span class="tt">가장 작은 값은 얼마인가</span><span class="lv">대수 · ★★</span></div>
+    <div class="bd">
+      <div class="ansline"><b>정답</b> 최솟값 <b>6</b>,  이때 <b>x = 3</b></div>
+      <div class="steps">x &gt; 0 이므로 √x 를 생각할 수 있다.
+   (√x − 3/√x)² ≥ 0
+   x − 2·√x·(3/√x) + 9/x ≥ 0
+   x − 6 + 9/x ≥ 0
+   ⇒ <b>x + 9/x ≥ 6</b>
+등호는 √x = 3/√x, 즉 x = 3 일 때 성립.
+   x = 3 : 3 + 9/3 = 3 + 3 = <b>6</b> ✓
+[값 확인]  x=1 → 10,  x=2 → 6.5,  x=<b>3</b> → <b>6</b>,  x=4 → 6.25,  x=9 → 10</div>
+      <div class="sec"><span class="lb">풀이 핵심</span><b>제곱은 항상 0 이상</b>이라는 사실 하나로 최솟값이 증명됩니다. 표를 만들어 “6보다 작은 값이 안 나온다”를 관찰하는 것은 <b>증명이 아닙니다.</b></div>
+      <div class="sec"><span class="lb m">확장</span>일반적으로 <b class="mono">x + a/x ≥ 2√a</b> (x &gt; 0, a &gt; 0)이고 등호는 <b class="mono">x = √a</b> 일 때. 이것이 산술–기하평균 부등식의 가장 단순한 형태입니다.</div>
+      <div class="mis"><b>자주 하는 오답</b> x = 0 또는 음수를 대입해 더 작은 값을 얻음. — <b>x &gt; 0</b> 조건을 놓친 것입니다. x = −3 이면 −6이 되지만 조건 밖임을 확인시키세요.</div>
+    </div>
+  </div>
+
+  <div class="foot"><span>중등 수학경시 빈출 유형 20 · 2세트 — 교사용 답지</span><span class="r">4 / 11</span></div>
+</div>
+
+<!-- ====== 5쪽 ====== -->
+<div class="page">
+  <div class="head">
+    <div class="row">
+      <div><h1>중등 수학경시 <span style="font-size:11.5px;background:#7c3aed;color:#fff;padding:1px 7px;border-radius:3px;vertical-align:2px">빈출 유형 20 · 2세트</span><em>교사용</em></h1>
+        <div class="sub">정답 · 풀이 · 지도 방법 · 학생이 자주 하는 오답</div></div>
+      <div class="meta">KMO 중등부 1차 대비<br>5 / 11 쪽</div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="qh"><span class="no">A8</span><span class="tt">원 밖의 점에서 그은 접선</span><span class="lv">기하 · ★★</span></div>
+    <div class="bd">
+      <div class="ansline"><b>정답</b> (1) <b>12</b>　(2) <b>8</b>과 <b>7</b></div>
+      <div class="steps">(1) 접선은 접점에서 반지름과 <b>수직</b>이므로 직각삼각형이 된다.
+       (접선)² = 13² − 5² = 169 − 25 = 144   →   접선 = <b>12</b>
+(2) 세 변 a = 13, b = 14, c = 15.  세 꼭짓점에서 그은 <b>접선 길이</b>를 x, y, z 라 하면
+       (한 점에서 그은 두 접선의 길이는 같다)
+       y + z = 13,   z + x = 14,   x + y = 15
+   세 식을 모두 더하면  2(x + y + z) = 42  →  x + y + z = 21   (= 둘레의 절반 s)
+       x = 21 − 13 = <b>8</b>,   y = 21 − 14 = <b>7</b>,   z = 21 − 15 = 6
+   가장 긴 변 15 는 <b>x = 8</b> 과 <b>y = 7</b> 로 나뉜다.   (8 + 7 = 15 ✓)
+[참고] 접선 길이는 <b>s − (마주보는 변)</b> 이다.</div>
+      <div class="sec"><span class="lb">풀이 핵심</span>(2)는 <b>세 식을 더하는</b> 것이 열쇠입니다. 하나씩 풀려고 하면 헤맵니다.</div>
+      <div class="sec"><span class="lb m">확장</span>13-14-15 삼각형은 넓이가 84, 내접원 반지름이 4인 <b>유명한 정수 삼각형</b>입니다. 헤론의 공식을 아는 학생에게 확인시켜 보세요.</div>
+      <div class="mis"><b>자주 하는 오답</b> (1)에서 <b>13 − 5 = 8</b> 이라 답함. — 접선은 <b>빗변이 아니라 직각변</b>입니다. 그림에서 직각의 위치(중심이 아니라 <b>접점</b>)를 정확히 표시하게 하세요.</div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="qh"><span class="no">A9</span><span class="tt">내심이 만드는 각</span><span class="lv">기하 · ★★</span></div>
+    <div class="bd">
+      <div class="ansline"><b>정답</b> <b>130°</b></div>
+      <div class="steps">∠A = 80° 이므로  ∠B + ∠C = 180° − 80° = 100°
+I는 내심이므로  ∠IBC = ∠B/2,  ∠ICB = ∠C/2
+삼각형 IBC에서
+   ∠BIC = 180° − (∠B/2 + ∠C/2)
+         = 180° − (∠B + ∠C)/2
+         = 180° − 100°/2 = 180° − 50° = <b>130°</b>
+[일반 공식]  ∠BIC = <b>90° + ∠A/2</b>   →   90 + 40 = <b>130°</b> ✓</div>
+      <div class="sec"><span class="lb">풀이 핵심</span>∠B와 ∠C를 <b>각각 몰라도</b> 됩니다. <b>합</b>만 알면 되기 때문입니다. 이 “합만 쓰면 되는” 구조를 학생이 발견하는 것이 목표입니다.</div>
+      <div class="sec"><span class="lb t">지도 방법</span>∠A를 60°, 100°로 바꿔 계산시켜 보세요. 120°, 140°가 나오면서 <b>90 + A/2</b> 공식을 스스로 찾아냅니다.</div>
+      <div class="mis"><b>자주 하는 오답</b> ∠BIC = 180° − ∠A = 100° 라고 함(외심·수심 공식과 혼동). — <b>내심은 90 + A/2</b>, <b>외심은 2A</b> 로 나란히 정리해 주세요. ∠A = 80°면 내심 130°, 외심 160°입니다.</div>
+    </div>
+  </div>
+
+  <div class="foot"><span>중등 수학경시 빈출 유형 20 · 2세트 — 교사용 답지</span><span class="r">5 / 11</span></div>
+</div>
+
+<!-- ====== 6쪽 ====== -->
+<div class="page">
+  <div class="head">
+    <div class="row">
+      <div><h1>중등 수학경시 <span style="font-size:11.5px;background:#7c3aed;color:#fff;padding:1px 7px;border-radius:3px;vertical-align:2px">빈출 유형 20 · 2세트</span><em>교사용</em></h1>
+        <div class="sub">정답 · 풀이 · 지도 방법 · 학생이 자주 하는 오답</div></div>
+      <div class="meta">KMO 중등부 1차 대비<br>6 / 11 쪽</div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="qh"><span class="no">A10</span><span class="tt">덮을 수 있을까</span><span class="lv">조합 · ★★★</span></div>
+    <div class="bd">
+      <div class="ansline"><b>정답</b> <b>덮을 수 없다</b></div>
+      <div class="steps">체스판처럼 <b>검은색과 흰색을 번갈아</b> 칠한다.  8 × 8 = 64칸 → 검정 32, 흰색 32
+도미노 하나는 <b>가로든 세로든 반드시 이웃한 두 칸</b>을 덮으므로
+   <b>항상 검정 1칸 + 흰색 1칸</b>을 덮는다.
+따라서 도미노 31개는 <b>검정 31칸 + 흰색 31칸</b>을 덮는다.
+그런데 마주 보는 두 모서리(왼쪽 위와 오른쪽 아래)는 <b>같은 색</b>이다.
+   그 둘을 잘라 내면 남은 것은 <b>검정 30 + 흰색 32</b> (또는 그 반대)
+   30 ≠ 31 이므로 <b>덮는 것이 불가능하다.</b>
+[확인]  4 × 4 판으로 축소해 컴퓨터로 전수 탐색해도 결과가 같다.
+   · 전체 16칸 → 덮기 가능 ✓
+   · 대각 두 칸(같은 색) 제거 → <b>불가능</b>
+   · 이웃한 두 칸(다른 색) 제거 → 가능 ✓</div>
+      <div class="sec"><span class="lb">풀이 핵심</span>“해 봤는데 안 되더라”와 “<b>절대 불가능하다</b>”는 전혀 다릅니다. <b>불변량</b>(여기서는 색의 개수 차)을 찾아야 증명이 됩니다.</div>
+      <div class="sec"><span class="lb t">지도 방법</span>먼저 <b>4 × 4</b>로 줄여 직접 도미노(종이 조각)를 놓아 보게 하세요. 손으로 실패를 겪은 뒤 색칠을 알려 주면 감탄이 나옵니다.</div>
+      <div class="mis"><b>자주 하는 오답</b> 여러 배치를 시도한 뒤 “아마 안 될 것 같다”로 끝냄. — 경시에서는 <b>0점</b>입니다. “불가능을 보이려면 <b>모든 배치에 공통으로 성립하는 성질</b>을 찾아야 한다”를 반복해 강조하세요.</div>
+    </div>
+  </div>
+
+  <div class="item" style="border-color:#1d4ed8">
+    <div class="qh" style="background:#eef5ff"><span class="tt" style="color:#1d4ed8">B세트 · 유사 문제 10 — 해설</span></div>
+    <div class="bd">
+      <div class="sec"><span class="lb">활용법</span>A세트와 <b>같은 번호는 같은 도구</b>입니다. 학생이 막히면 정답 대신 <b>“A 몇 번과 같은 도구야”</b>라고만 알려 주세요.</div>
+      <table class="g">
+        <tr><th>번호</th><td>B1</td><td>B2</td><td>B3</td><td>B4</td><td>B5</td><td>B6</td><td>B7</td><td>B8</td><td>B9</td><td>B10</td></tr>
+        <tr><th>정답</th><td><b>3</b></td><td><b>60개</b></td><td><b>49 / 205</b></td><td><b>68</b></td><td><b>1</b></td><td><b>√5+√3 / 3−√3</b></td><td><b>20</b></td><td><b>8 / 2·3</b></td><td><b>125 / 140</b></td><td><b>불가·불가·가능</b></td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="qh"><span class="no">B1</span><span class="tt">소수 세 쌍둥이</span><span class="lv">정수 · ★★</span></div>
+    <div class="bd">
+      <div class="ansline"><b>정답</b> <b>p = 3</b>  (3, 7, 11)  — 유일</div>
+      <div class="steps">p = 3 : 3, 7, 11 모두 소수 ✓
+p가 3이 아닌 소수이면 p ≡ 1 또는 2 (mod 3).  4 ≡ 1, 8 ≡ 2 (mod 3) 이므로
+   · p ≡ 1 → p + 8 ≡ 1 + 2 = <b>0</b> (mod 3)
+   · p ≡ 2 → p + 4 ≡ 2 + 1 = <b>0</b> (mod 3)
+어느 경우든 셋 중 하나가 3의 배수가 되어 소수가 아니다.
+[확인] p = 5 : 5, 9(✗)   p = 7 : 7, 11, <b>15</b>(✗)   p = 11 : 11, <b>15</b>(✗)
+⇒ <b>p = 3</b></div>
+      <div class="sec"><span class="lb">풀이 핵심</span>A1과 <b>구조가 완전히 같습니다.</b> 간격이 2·4 든 4·8 이든 mod 3에서 <b>0, 1, 2를 전부</b> 훑는다는 점이 같기 때문입니다.</div>
+      <div class="sec"><span class="lb m">확장</span>만약 간격이 <b>6의 배수</b>라면(p, p+6, p+12) 이야기가 달라집니다. 5, 11, 17이 모두 소수이므로 <b>여러 개</b> 존재합니다. 왜 그럴까요?</div>
+      <div class="mis"><b>자주 하는 오답</b> A1의 결론(“간격 2면 안 된다”)만 외워 적용하려다 혼란. — 매번 <b>mod 3으로 직접 계산</b>하는 습관을 들이게 하세요.</div>
+    </div>
+  </div>
+
+  <div class="foot"><span>중등 수학경시 빈출 유형 20 · 2세트 — 교사용 답지</span><span class="r">6 / 11</span></div>
+</div>
+
+<!-- ====== 7쪽 ====== -->
+<div class="page">
+  <div class="head">
+    <div class="row">
+      <div><h1>중등 수학경시 <span style="font-size:11.5px;background:#7c3aed;color:#fff;padding:1px 7px;border-radius:3px;vertical-align:2px">빈출 유형 20 · 2세트</span><em>교사용</em></h1>
+        <div class="sub">정답 · 풀이 · 지도 방법 · 학생이 자주 하는 오답</div></div>
+      <div class="meta">KMO 중등부 1차 대비<br>7 / 11 쪽</div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="qh"><span class="no">B2</span><span class="tt">뒤집은 수와의 관계</span><span class="lv">정수 · ★★</span></div>
+    <div class="bd">
+      <div class="ansline"><b>정답</b> <b>60개</b></div>
+      <div class="steps">세 자리 수를 100a + 10b + c,  뒤집은 수를 100c + 10b + a 라 하면
+   차 = (100a + 10b + c) − (100c + 10b + a) = <b>99(a − c)</b>
+   99(a − c) = 297   →   <b>a − c = 3</b>
+※ 십의 자리 <b>b가 식에서 사라진다</b>  →  b는 0~9 <b>어느 값이어도 무관</b> (10가지)
+[a, c 정하기]  뒤집은 수도 세 자리여야 하므로 <b>c ≥ 1</b>,  또 a ≤ 9
+   (a, c) = (4,1) (5,2) (6,3) (7,4) (8,5) (9,6)   →   <b>6가지</b>
+⇒ 6 × 10 = <b>60개</b>
+[검산] 예) a=4, b=7, c=1 → 471 − 174 = 297 ✓</div>
+      <div class="sec"><span class="lb">풀이 핵심</span><b>십의 자리 b가 사라진다</b>는 것이 이 문제의 묘미입니다. 차가 b와 무관하므로 경우의 수에 <b>10을 곱합니다.</b></div>
+      <div class="sec"><span class="lb t">지도 방법</span>“b가 사라졌다는 게 무슨 뜻일까?”를 물어보세요. 471, 481, 491 … 이 모두 성립함을 직접 확인시키면 확실해집니다.</div>
+      <div class="mis"><b>경계 조건 주의</b> <b>c = 0</b> (예: 300 − 3)을 허용하면 7 × 10 = <b>70개</b>가 됩니다. 학생용에 “<b>바꾼 수도 세 자리</b>”라는 단서를 붙였으므로 정답은 <b>60</b>입니다. 이런 <b>단서 확인 훈련</b>이 경시에서 매우 중요하며, 두 답이 갈리는 이유를 토론시키면 좋습니다.</div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="qh"><span class="no">B3</span><span class="tt">팩토리얼 끝의 0</span><span class="lv">정수 · ★★</span></div>
+    <div class="bd">
+      <div class="ansline"><b>정답</b> 200! → <b>49개</b>,  0이 50개인 최소 n = <b>205</b></div>
+      <div class="steps">[200!]
+   200 ÷ 5   = 40
+   200 ÷ 25  = 8
+   200 ÷ 125 = 1        (125 = 5³ 이므로 여기까지)
+   합계 40 + 8 + 1 = <b>49개</b>
+[0이 50개가 되는 최소 n]
+   n = 200 : 49개
+   n = 205 : 41 + 8 + 1 = <b>50개</b>   ← 205 = 5 × 41 이라 5가 하나 늘어남
+   ⇒ <b>n = 205</b>  (201~204는 5의 배수가 아니므로 그대로 49개)</div>
+      <div class="sec"><span class="lb">풀이 핵심</span>A3보다 한 단계 깊습니다. <b>125 = 5³</b> 까지 세어야 합니다. 5의 거듭제곱을 <b>넘어설 때까지</b> 계속 나눈다고 기억하게 하세요.</div>
+      <div class="sec"><span class="lb m">확장</span>0의 개수가 늘어나는 순간은 <b>5의 배수를 지날 때</b>뿐입니다. 그래서 답은 반드시 5의 배수가 됩니다.</div>
+      <div class="mis"><b>자주 하는 오답</b> 125를 빠뜨려 48개라 답함. — 나누는 수를 5, 25, 125, 625 … 로 <b>세로로 적어 두고</b> 몫이 0이 될 때까지 내려가는 형식을 고정해 주세요.</div>
+    </div>
+  </div>
+
+  <div class="foot"><span>중등 수학경시 빈출 유형 20 · 2세트 — 교사용 답지</span><span class="r">7 / 11</span></div>
+</div>
+
+<!-- ====== 8쪽 ====== -->
+<div class="page">
+  <div class="head">
+    <div class="row">
+      <div><h1>중등 수학경시 <span style="font-size:11.5px;background:#7c3aed;color:#fff;padding:1px 7px;border-radius:3px;vertical-align:2px">빈출 유형 20 · 2세트</span><em>교사용</em></h1>
+        <div class="sub">정답 · 풀이 · 지도 방법 · 학생이 자주 하는 오답</div></div>
+      <div class="meta">KMO 중등부 1차 대비<br>8 / 11 쪽</div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="qh"><span class="no">B4</span><span class="tt">나머지가 세 개 주어질 때</span><span class="lv">정수 · ★★</span></div>
+    <div class="bd">
+      <div class="ansline"><b>정답</b> <b>68</b></div>
+      <div class="steps">가장 센 조건인 <b>7로 나누어 5 남는 수</b>부터 나열한다.
+   5, 12, 19, 26, 33, 40, 47, 54, 61, <b>68</b>, 75, …
+그중 <b>5로 나누어 3 남는 수</b>(끝자리 3 또는 8) : 33, <b>68</b>, …
+그중 <b>3으로 나누어 2 남는 수</b> :
+   33 ÷ 3 = 11…0  ✗
+   <b>68</b> ÷ 3 = 22…2  ✓
+⇒ 가장 작은 자연수는 <b>68</b>
+[검산] 68 ÷ 3 = 22…2 ✓,  68 ÷ 5 = 13…3 ✓,  68 ÷ 7 = 9…5 ✓
+[주기] 3, 5, 7이 서로소이므로 <b>105마다</b> 반복 : 68, 173, 278, …</div>
+      <div class="sec"><span class="lb">풀이 핵심</span>조건이 셋으로 늘어도 방법은 같습니다. <b>가장 센 조건부터, 하나씩 거르기.</b></div>
+      <div class="sec"><span class="lb t">지도 방법</span>조건 순서를 바꿔(3 → 5 → 7) 풀게 한 모둠과 비교하면, <b>큰 수부터</b>가 훨씬 빠름을 체감합니다.</div>
+      <div class="mis"><b>자주 하는 오답</b> 세 조건을 동시에 만족하는 식을 세우려다 시간을 씀. 중등 수준에서는 <b>나열 후 거르기</b>가 가장 확실하고 빠릅니다.</div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="qh"><span class="no">B5</span><span class="tt">제곱수가 되게 하라</span><span class="lv">정수 · ★★★</span></div>
+    <div class="bd">
+      <div class="ansline"><b>정답</b> <b>n = 1</b>  (1² + 8 = 9 = 3²)</div>
+      <div class="steps">n² + 8 = m²  →  (m − n)(m + n) = <b>8</b>
+m − n 과 m + n 은 <b>홀짝이 같아야</b> 하고, 곱이 짝수이므로 <b>둘 다 짝수</b>.
+   8 = <b>2 × 4</b> 뿐   (1 × 8 은 홀짝이 다름)
+   m − n = 2,  m + n = 4   →   m = 3,  n = <b>1</b>
+[검산] 1 + 8 = 9 = 3² ✓
+[비교] A5(20)에서는 2 × 10, B5(8)에서는 2 × 4 — <b>둘 다 짝수 쌍이 하나뿐</b>이라 답이 유일하다.</div>
+      <div class="sec"><span class="lb">풀이 핵심</span>A5와 완전히 같은 흐름입니다. <b>짝수 × 짝수</b> 분해만 살아남는다는 점을 다시 확인시키세요.</div>
+      <div class="sec"><span class="lb m">확장</span>“<b>n² + 12</b> 라면?” 12 = 2 × 6 → m = 4, n = 2 (4 + 12 = 16 ✓). 숫자를 바꿔 가며 연습시키기 좋습니다.</div>
+      <div class="mis"><b>자주 하는 오답</b> 1 × 8 로 계산해 m = 4.5, n = 3.5 를 얻고도 그대로 답함. — <b>자연수인지 반드시 확인</b>하는 습관을 들이게 하세요.</div>
+    </div>
+  </div>
+
+  <div class="foot"><span>중등 수학경시 빈출 유형 20 · 2세트 — 교사용 답지</span><span class="r">8 / 11</span></div>
+</div>
+
+<!-- ====== 9쪽 ====== -->
+<div class="page">
+  <div class="head">
+    <div class="row">
+      <div><h1>중등 수학경시 <span style="font-size:11.5px;background:#7c3aed;color:#fff;padding:1px 7px;border-radius:3px;vertical-align:2px">빈출 유형 20 · 2세트</span><em>교사용</em></h1>
+        <div class="sub">정답 · 풀이 · 지도 방법 · 학생이 자주 하는 오답</div></div>
+      <div class="meta">KMO 중등부 1차 대비<br>9 / 11 쪽</div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="qh"><span class="no">B6</span><span class="tt">이중근호 벗기기</span><span class="lv">대수 · ★★</span></div>
+    <div class="bd">
+      <div class="ansline"><b>정답</b> (1) <b>√5 + √3</b>　(2) <b>3 − √3</b></div>
+      <div class="steps">(1) 8 + 2√15 :  <b>합이 8, 곱이 15</b>인 두 수 → 5와 3
+       = 5 + 3 + 2√(5×3) = (√5 + √3)²    ⇒ <b>√5 + √3</b>
+(2) 6√3 을 2√( ) 꼴로 :  6√3 = 2 × 3√3 = 2√(9×3) = <b>2√27</b>
+       12 − 2√27 :  <b>합이 12, 곱이 27</b>인 두 수 → 9와 3
+       = 9 + 3 − 2√(9×3) = (√9 − √3)² = (3 − √3)²
+       3 &gt; √3 이므로  ⇒ <b>3 − √3</b>
+[검산] (3 − √3)² = 9 − 6√3 + 3 = 12 − 6√3 ✓</div>
+      <div class="sec"><span class="lb">풀이 핵심</span>(2)에서 <b class="mono">6√3 = 2√27</b> 로 고치는 단계가 관문입니다. 계수를 근호 안으로 넣을 때 <b>제곱해서</b> 넣는다는 점을 짚어 주세요.</div>
+      <div class="sec"><span class="lb t">지도 방법</span>A6과 B6의 (2)를 나란히 놓고 <b>계수를 2로 만드는 과정</b>만 따로 연습시키면 정착이 빠릅니다.</div>
+      <div class="mis"><b>자주 하는 오답</b> 6√3 을 2√9 또는 2√18 로 잘못 고침. — <b class="mono">6√3 = 2 × 3 × √3</b> 이고 <b class="mono">3√3 = √27</b> 임을 단계별로 쓰게 하세요.</div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="qh"><span class="no">B7</span><span class="tt">가장 작은 값은 얼마인가</span><span class="lv">대수 · ★★</span></div>
+    <div class="bd">
+      <div class="ansline"><b>정답</b> 최솟값 <b>20</b>,  이때 <b>x = 5/2</b></div>
+      <div class="steps">(2√x − 5/√x)² ≥ 0
+   4x − 2·2√x·(5/√x) + 25/x ≥ 0
+   4x − 20 + 25/x ≥ 0
+   ⇒ <b>4x + 25/x ≥ 20</b>
+등호는 2√x = 5/√x,  즉 2x = 5,  <b>x = 5/2 = 2.5</b> 일 때.
+   x = 2.5 : 4(2.5) + 25/2.5 = 10 + 10 = <b>20</b> ✓
+[일반식] <b class="mono">ax + b/x ≥ 2√(ab)</b>  (x, a, b &gt; 0),  등호는 <b class="mono">x = √(b/a)</b></div>
+      <div class="sec"><span class="lb">풀이 핵심</span>A7과 달리 앞에 <b>계수 4</b>가 붙어 등호 성립 지점이 <b>정수가 아닙니다.</b> 답이 예쁘지 않다고 틀린 것이 아님을 알려 주세요.</div>
+      <div class="sec"><span class="lb m">확장</span>두 항의 <b>곱이 일정</b>하다는 점이 핵심입니다. 4x × 25/x = 100 (일정) → 합의 최솟값은 2√100 = 20.</div>
+      <div class="mis"><b>자주 하는 오답</b> x = 5 라고 답함(25의 제곱근만 봄). — 등호 조건을 <b>직접 방정식으로</b> 세워 풀게 하세요.</div>
+    </div>
+  </div>
+
+  <div class="foot"><span>중등 수학경시 빈출 유형 20 · 2세트 — 교사용 답지</span><span class="r">9 / 11</span></div>
+</div>
+
+<!-- ====== 10쪽 ====== -->
+<div class="page">
+  <div class="head">
+    <div class="row">
+      <div><h1>중등 수학경시 <span style="font-size:11.5px;background:#7c3aed;color:#fff;padding:1px 7px;border-radius:3px;vertical-align:2px">빈출 유형 20 · 2세트</span><em>교사용</em></h1>
+        <div class="sub">정답 · 풀이 · 지도 방법 · 학생이 자주 하는 오답</div></div>
+      <div class="meta">KMO 중등부 1차 대비<br>10 / 11 쪽</div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="qh"><span class="no">B8</span><span class="tt">원 밖의 점에서 그은 접선</span><span class="lv">기하 · ★★</span></div>
+    <div class="bd">
+      <div class="ansline"><b>정답</b> (1) <b>8</b>　(2) <b>2</b>와 <b>3</b></div>
+      <div class="steps">(1) (접선)² = 10² − 6² = 100 − 36 = 64   →   접선 = <b>8</b>
+(2) 세 변 5, 12, 13 (직각삼각형).  s = (5 + 12 + 13)/2 = <b>15</b>
+    접선 길이 = s − (마주보는 변) :  15 − 5 = 10,  15 − 12 = <b>3</b>,  15 − 13 = <b>2</b>
+    가장 짧은 변 <b>5</b> 는 <b>2 와 3</b> 으로 나뉜다.  (2 + 3 = 5 ✓)
+[참고] 직각삼각형이므로 내접원 반지름 r = (5 + 12 − 13)/2 = <b>2</b>
+       직각인 꼭짓점에서의 접선 길이가 r과 같음을 확인시키면 좋다.</div>
+      <div class="sec"><span class="lb">풀이 핵심</span>A8에서 유도한 <b>“접선 길이 = s − 마주보는 변”</b> 을 바로 적용하면 됩니다.</div>
+      <div class="sec"><span class="lb t">지도 방법</span>직각삼각형에서는 <b>접선 길이 하나가 곧 내접원 반지름</b>이 됩니다. 그림으로 정사각형이 만들어지는 것을 보여 주세요.</div>
+      <div class="mis"><b>자주 하는 오답</b> (1)에서 √(10² + 6²) 로 계산함. — 점과 중심 사이 거리 <b>10이 빗변</b>입니다. 그림에서 직각의 위치를 먼저 표시하게 하세요.</div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="qh"><span class="no">B9</span><span class="tt">내심과 외심이 만드는 각</span><span class="lv">기하 · ★★</span></div>
+    <div class="bd">
+      <div class="ansline"><b>정답</b> (1) <b>125°</b>　(2) <b>140°</b></div>
+      <div class="steps">(1) ∠B + ∠C = 180° − 70° = 110°
+    ∠BIC = 180° − (∠B + ∠C)/2 = 180° − 55° = <b>125°</b>
+    [공식] 90° + ∠A/2 = 90 + 35 = <b>125°</b> ✓
+(2) ∠BOC 는 호 BC에 대한 <b>중심각</b>, ∠A 는 같은 호에 대한 <b>원주각</b>.
+    <b>중심각 = 2 × 원주각</b>  →  ∠BOC = 2 × 70° = <b>140°</b>
+[비교]  내심 : 90 + A/2 → A가 커지면 <b>천천히</b> 커진다 (기울기 1/2)
+       외심 : 2A       → A가 커지면 <b>빠르게</b> 커진다 (기울기 2)
+       A = 60° 일 때 둘 다 120°로 <b>같아진다.</b></div>
+      <div class="sec"><span class="lb">풀이 핵심</span>내심은 <b>각의 이등분선</b>, 외심은 <b>원주각과 중심각</b>. 서로 다른 도구를 씁니다.</div>
+      <div class="sec"><span class="lb t">지도 방법</span>A = 60°에서 두 값이 같아진다는 사실을 학생이 찾아내면 아주 좋은 발견입니다. 90 + A/2 = 2A 를 풀어 보게 하세요.</div>
+      <div class="mis"><b>자주 하는 오답</b> 두 공식을 <b>바꿔 씀</b>. — 표로 나란히 정리하고, ∠A = 90°인 특수한 경우(내심 135°, 외심 180° = 지름)로 검증시키면 확실히 구분됩니다.</div>
+    </div>
+  </div>
+
+  <div class="foot"><span>중등 수학경시 빈출 유형 20 · 2세트 — 교사용 답지</span><span class="r">10 / 11</span></div>
+</div>
+
+<!-- ====== 11쪽 ====== -->
+<div class="page">
+  <div class="head">
+    <div class="row">
+      <div><h1>중등 수학경시 <span style="font-size:11.5px;background:#7c3aed;color:#fff;padding:1px 7px;border-radius:3px;vertical-align:2px">빈출 유형 20 · 2세트</span><em>교사용</em></h1>
+        <div class="sub">정답 · 풀이 · 지도 방법 · 학생이 자주 하는 오답</div></div>
+      <div class="meta">KMO 중등부 1차 대비<br>11 / 11 쪽</div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="qh"><span class="no">B10</span><span class="tt">덮을 수 있을까</span><span class="lv">조합 · ★★★</span></div>
+    <div class="bd">
+      <div class="ansline"><b>정답</b> (1) <b>불가능</b>　(2) <b>불가능</b>　(3) <b>항상 가능</b></div>
+      <div class="steps">(1) 5 × 5 = <b>25칸</b> (홀수).  도미노 하나가 2칸을 덮으므로 덮인 칸 수는 <b>항상 짝수</b>.
+    25는 홀수 → <b>불가능</b>   ※ 색칠할 필요도 없이 <b>칸 수만으로</b> 결론이 난다.
+(2) 같은 색 두 칸을 빼면 <b>30 + 32</b> (또는 32 + 30) 이 되어 개수가 다르다  →  <b>불가능</b>
+    (A10과 완전히 같은 논리)
+(3) 다른 색 두 칸을 빼면 <b>31 + 31</b> 로 개수가 맞는다.
+    개수가 맞는다고 <b>자동으로 가능한 것은 아니지만</b>, 8 × 8 체스판에서는
+    실제로 <b>항상 덮을 수 있음</b>이 알려져 있다. (고몰리의 정리)
+    [증명 아이디어] 체스판을 한 붓으로 지나가는 <b>닫힌 고리</b>(64칸을 한 번씩 도는 길)를 만든다.
+    다른 색 두 칸을 빼면 고리가 <b>짝수 길이의 두 토막</b>으로 나뉘고, 각 토막은 도미노로 덮을 수 있다.</div>
+      <div class="sec"><span class="lb">풀이 핵심</span>(1)은 <b>개수</b>, (2)는 <b>색</b>. 불가능을 보이는 도구가 하나가 아님을 배우는 지점입니다.</div>
+      <div class="sec"><span class="lb t">지도 방법</span>(3)의 “가능함”은 <b>불가능함보다 증명이 훨씬 어렵다</b>는 점을 반드시 짚어 주세요. 불가능은 <b>반례 하나 없이 모순</b>만 보이면 되지만, 가능은 <b>모든 경우에 대한 방법</b>을 제시해야 합니다.</div>
+      <div class="mis"><b>자주 하는 오답</b> (3)에서 “개수가 같으니 당연히 가능”이라고 답함. — 개수가 같아도 불가능한 예(예: 서로 떨어진 두 칸만 남은 모양)를 보여 주면 논리의 빈틈을 인식합니다. 중등 수준에서는 <b>결론만</b> 알아도 충분합니다.</div>
+    </div>
+  </div>
+
+  <div class="item" style="border-color:var(--tip)">
+    <div class="qh" style="background:#effaf7"><span class="tt" style="color:var(--tip)">도구 정리표 및 1세트와의 연결</span></div>
+    <div class="bd">
+      <table class="g">
+        <tr><th style="width:13%">영역</th><th>2세트에서 익히는 도구</th><th>1세트에서 익힌 도구</th></tr>
+        <tr><td><b>정수</b></td><td style="text-align:left">mod 3 분류 · 10a+b 표현 · 르장드르(끝의 0) · 나머지 연립 · (m−n)(m+n) 인수분해</td><td style="text-align:left">약수 개수 · 합동 주기 · 2와 5의 짝 · GCD×LCM · 부정방정식</td></tr>
+        <tr><td><b>대수</b></td><td style="text-align:left">이중근호 벗기기 · 완전제곱으로 최솟값 (ax + b/x ≥ 2√(ab))</td><td style="text-align:left">대칭식 x±1/x · a³+b³+c³−3abc</td></tr>
+        <tr><td><b>기하</b></td><td style="text-align:left">접선 길이 = s − 마주보는 변 · 내심각 90+A/2 · 외심각 2A</td><td style="text-align:left">넓이 = r×s · 높이 같은 삼각형의 넓이비</td></tr>
+        <tr><td><b>조합</b></td><td style="text-align:left">색칠 논법(불변량으로 불가능 증명)</td><td style="text-align:left">비둘기집 원리</td></tr>
+      </table>
+      <div class="sec" style="margin-top:5px"><span class="lb t">두 세트를 함께 쓰는 법</span>1세트는 <b>“도구를 알아보는 속도”</b>, 2세트는 <b>“무한을 유한으로 줄이는 기술”</b>에 초점이 있습니다. 1세트를 먼저 하고 2세트로 넘어가면 난이도 상승이 자연스럽습니다.</div>
+      <div class="sec"><span class="lb m">기출 원문 안내</span>KMO 기출문제와 정답은 <b>대한수학회 KMO 공식 홈페이지(kmo.or.kr)</b>의 연도별 자료에서 무료로 볼 수 있습니다. 이 두 세트로 도구를 익힌 뒤 실제 기출로 넘어가는 순서를 권합니다.</div>
+      <div class="sec"><span class="lb m">가장 중요한 한마디</span>“<b>다 해 보지 않고도 결론을 낼 수 있을까?</b>” — 이것이 2세트 전체를 관통하는 질문입니다.</div>
+    </div>
+  </div>
+
+  <div class="foot"><span>중등 수학경시 빈출 유형 20 · 2세트 — 교사용 답지</span><span class="r">11 / 11</span></div>
+</div>
+
+</body>
+</html>
