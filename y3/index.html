@@ -1,0 +1,519 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>용인반도체고 자소서 워크북</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@700;900&family=IBM+Plex+Sans+KR:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+/* Layout: same copper/wafer system as the 합격 로드맵. Stage spine on the left,
+   with a working draft pad (live 글자수 counter) embedded at the point of use. */
+:root{
+  --bg:#F1F3F8; --surface:#FFFFFF; --surface-2:#E6E9F1;
+  --fg:#14161D; --muted:#5A6175; --line:#D2D7E3;
+  --accent:#B4612A; --accent-2:#44409B;
+  --ok:#1C7A46; --warn:#9A6008; --crit:#A8183A;
+  --warn-bg:#FBF0DC; --crit-bg:#FBE6EB; --ok-bg:#E2F2E8;
+  --display:"Gothic A1","IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --body:"IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --mono:"IBM Plex Mono","SFMono-Regular",Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0D1016; --surface:#151921; --surface-2:#1D232E; --fg:#E5E9F1;
+    --muted:#98A0B3; --line:#2A313E; --accent:#E08A4C; --accent-2:#9A93F0;
+    --ok:#62C189; --warn:#E8B45C; --crit:#F0718C;
+    --warn-bg:#2A2212; --crit-bg:#2C1620; --ok-bg:#13261C; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0D1016; --surface:#151921; --surface-2:#1D232E; --fg:#E5E9F1;
+  --muted:#98A0B3; --line:#2A313E; --accent:#E08A4C; --accent-2:#9A93F0;
+  --ok:#62C189; --warn:#E8B45C; --crit:#F0718C;
+  --warn-bg:#2A2212; --crit-bg:#2C1620; --ok-bg:#13261C; color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg); color:var(--fg); font-family:var(--body);
+  font-size:15px; line-height:1.72; margin:0;
+  padding-block:0 64px; padding-left:16px; padding-right:16px; -webkit-font-smoothing:antialiased}
+.wrap{max-width:860px; margin:0 auto}
+
+.mast{padding-block:40px 28px; border-bottom:2px solid var(--fg)}
+.eyebrow{font-family:var(--mono); font-size:11.5px; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--accent); font-weight:600; margin:0 0 14px}
+h1{font-family:var(--display); font-weight:900; font-size:clamp(30px,7.4vw,48px);
+  line-height:1.12; letter-spacing:-.02em; margin:0 0 14px; text-wrap:balance}
+.dek{font-size:16px; color:var(--muted); margin:0; max-width:60ch; line-height:1.65}
+.stats{display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line);
+  border:1px solid var(--line); margin-top:26px}
+.stat{background:var(--surface); padding:14px 12px; min-width:0}
+.stat b{display:block; font-family:var(--mono); font-weight:600; font-size:clamp(19px,4.6vw,25px);
+  letter-spacing:-.02em; font-variant-numeric:tabular-nums; line-height:1.2}
+.stat span{display:block; font-size:11.5px; color:var(--muted); margin-top:3px; line-height:1.45}
+@media (max-width:560px){.stats{grid-template-columns:repeat(2,1fr)}}
+
+.stage{position:relative; padding-left:54px; padding-block:40px 4px}
+.stage::before{content:""; position:absolute; left:17px; top:0; bottom:0; width:2px; background:var(--line)}
+.stage:last-of-type::before{bottom:auto; height:46px}
+.stage-no{position:absolute; left:0; top:38px; width:36px; height:36px; display:grid; place-items:center;
+  border-radius:50%; background:var(--accent-2); color:#fff; font-family:var(--mono); font-size:13px; font-weight:600}
+h2{font-family:var(--display); font-weight:900; font-size:clamp(21px,4.6vw,27px);
+  letter-spacing:-.015em; line-height:1.25; margin:0 0 6px; text-wrap:balance}
+.sub{color:var(--muted); font-size:14px; margin:0 0 22px; max-width:60ch}
+@media (max-width:560px){.stage{padding-left:0}.stage::before{display:none}.stage-no{position:static;margin-bottom:12px}}
+
+h3{font-family:var(--display); font-weight:700; font-size:16.5px; letter-spacing:-.01em; margin:30px 0 10px}
+p{margin:0 0 14px; max-width:66ch}
+ul,ol{margin:0 0 16px; padding-left:20px; max-width:66ch}
+li{margin-bottom:7px}
+li::marker{color:var(--accent)}
+strong{font-weight:600}
+em{font-style:normal; color:var(--accent); font-weight:600}
+a{color:var(--accent); text-underline-offset:2px}
+
+.card{background:var(--surface); border:1px solid var(--line); padding:20px 20px 6px; margin:0 0 16px}
+.card > h3:first-child{margin-top:0}
+.flag{border-left:4px solid var(--accent); padding-left:16px; margin:20px 0}
+.flag.warn{border-color:var(--warn); background:var(--warn-bg); padding:14px 16px 2px}
+.flag.crit{border-color:var(--crit); background:var(--crit-bg); padding:14px 16px 2px}
+.flag.ok{border-color:var(--ok); background:var(--ok-bg); padding:14px 16px 2px}
+.flag-t{font-family:var(--mono); font-size:11px; letter-spacing:.12em; text-transform:uppercase;
+  font-weight:600; display:block; margin-bottom:5px}
+.flag.warn .flag-t{color:var(--warn)} .flag.crit .flag-t{color:var(--crit)} .flag.ok .flag-t{color:var(--ok)}
+
+.tscroll{overflow-x:auto; margin:0 0 18px; border:1px solid var(--line); background:var(--surface)}
+table{border-collapse:collapse; width:100%; min-width:460px; font-size:13.5px}
+th,td{padding:10px 12px; text-align:left; border-bottom:1px solid var(--line); vertical-align:top}
+thead th{background:var(--surface-2); font-family:var(--mono); font-weight:600; font-size:11px;
+  letter-spacing:.07em; text-transform:uppercase; color:var(--muted); white-space:nowrap}
+tbody tr:last-child td{border-bottom:none}
+td.num{font-family:var(--mono); font-variant-numeric:tabular-nums; white-space:nowrap}
+
+/* sample comparison */
+.samples{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:0 0 18px}
+@media (max-width:620px){.samples{grid-template-columns:1fr}}
+.sample{border:1px solid var(--line); background:var(--surface); padding:16px; min-width:0}
+.sample.good{border-top:3px solid var(--ok)}
+.sample.bad{border-top:3px solid var(--crit)}
+.sample .lbl{font-family:var(--mono); font-size:11px; letter-spacing:.1em; text-transform:uppercase;
+  font-weight:600; display:block; margin-bottom:9px}
+.sample.good .lbl{color:var(--ok)} .sample.bad .lbl{color:var(--crit)}
+.sample .txt{font-size:13.5px; line-height:1.78; margin:0 0 12px; max-width:none}
+.sample .cnt{font-family:var(--mono); font-size:11.5px; color:var(--muted);
+  font-variant-numeric:tabular-nums; border-top:1px solid var(--line); padding-top:9px; margin:0 0 9px}
+.sample .why{font-size:12.5px; color:var(--muted); line-height:1.6; margin:0}
+.sample .why b{color:var(--fg); font-weight:600}
+
+/* draft pad */
+.pad{border:1px solid var(--line); background:var(--surface); margin:0 0 18px}
+.pad-h{display:flex; justify-content:space-between; align-items:baseline; gap:12px;
+  padding:13px 16px; border-bottom:1px solid var(--line); background:var(--surface-2); flex-wrap:wrap}
+.pad-h label{font-family:var(--display); font-weight:700; font-size:14.5px}
+.pad-h .hint{font-family:var(--mono); font-size:11px; color:var(--muted); letter-spacing:.05em}
+.pad textarea{width:100%; border:none; background:transparent; color:var(--fg);
+  font-family:var(--body); font-size:14.5px; line-height:1.9; padding:16px; resize:vertical;
+  min-height:140px; display:block}
+.pad textarea:focus{outline:none; box-shadow:inset 0 0 0 2px var(--accent-2)}
+.pad input[type=text]{width:100%; border:none; background:transparent; color:var(--fg);
+  font-family:var(--body); font-size:14.5px; padding:14px 16px; display:block}
+.pad input[type=text]:focus{outline:none; box-shadow:inset 0 0 0 2px var(--accent-2)}
+.meter{border-top:1px solid var(--line); padding:11px 16px; display:flex; align-items:center;
+  gap:12px; flex-wrap:wrap}
+.meter .track{flex:1 1 140px; min-width:120px; height:6px; background:var(--surface-2); position:relative}
+.meter .zone{position:absolute; top:0; bottom:0; left:60%; right:20%; background:var(--line)}
+.meter .fill{position:absolute; top:0; bottom:0; left:0; width:0; background:var(--crit); transition:width .12s linear}
+.meter.ok .fill{background:var(--ok)}
+.meter.over .fill{background:var(--warn)}
+.meter .read{font-family:var(--mono); font-size:12px; font-variant-numeric:tabular-nums; white-space:nowrap}
+.meter .read b{font-weight:600; font-size:14px}
+.meter .verdict{font-family:var(--mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase;
+  font-weight:600; color:var(--crit); white-space:nowrap}
+.meter.ok .verdict{color:var(--ok)} .meter.over .verdict{color:var(--warn)}
+.padnote{font-size:12px; color:var(--muted); margin:-8px 0 24px}
+
+.chk{list-style:none; padding:0; margin:0 0 18px; max-width:none}
+.chk li{display:flex; gap:11px; align-items:flex-start; padding:10px 0; border-bottom:1px solid var(--line); margin:0}
+.chk li:last-child{border-bottom:none}
+.chk input{margin:4px 0 0; width:16px; height:16px; flex:none; accent-color:var(--accent-2)}
+.chk label{flex:1; min-width:0; cursor:pointer; font-size:14px; line-height:1.6}
+.chk label span{display:block; font-size:12.5px; color:var(--muted); line-height:1.5}
+.chk input:checked + label{opacity:.5; text-decoration:line-through; text-decoration-thickness:1px}
+
+details{border-bottom:1px solid var(--line)}
+details:first-of-type{border-top:1px solid var(--line)}
+summary{padding:13px 30px 13px 0; cursor:pointer; font-weight:500; font-size:14.5px;
+  list-style:none; position:relative; line-height:1.55}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+"; position:absolute; right:4px; top:12px; font-family:var(--mono);
+  color:var(--accent); font-size:17px}
+details[open] summary::after{content:"\2013"}
+details[open] summary{font-weight:600}
+.ans{padding:0 0 16px; font-size:13.5px; color:var(--muted); line-height:1.7}
+.ans p{margin:0 0 9px; max-width:66ch}
+.ans p:last-child{margin-bottom:0}
+.ans .key{color:var(--fg); font-weight:600}
+summary:focus-visible,.chk label:focus-visible,a:focus-visible{outline:2px solid var(--accent-2); outline-offset:2px}
+
+footer{margin-top:52px; padding-top:22px; border-top:2px solid var(--fg); font-size:12.5px; color:var(--muted)}
+footer b{font-family:var(--display); font-weight:700; color:var(--fg); font-size:13.5px; display:block; margin-bottom:3px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important; transition:none!important}}
+</style>
+
+<div class="wrap">
+
+<header class="mast">
+  <p class="eyebrow">용인반도체고 · 진로적성 특별전형 · [서식2]</p>
+  <h1>자소서 워크북</h1>
+  <p class="dek">자기소개서 및 취업희망서는 2차 전형 100점 중 35점입니다. 문항은 둘, 각각 150~200자.
+  원고지 한 장이 안 되는 분량이라 문장을 잘 쓰는 능력보다 <strong>무엇을 버릴지 정하는 설계</strong>가 점수를 가릅니다.</p>
+  <div class="stats">
+    <div class="stat"><b>35<span style="font-size:.6em">점</span></b><span>2차 100점 중 자소서·취업희망서</span></div>
+    <div class="stat"><b>200<span style="font-size:.6em">자</span></b><span>문항당 상한 · 하한 150자</span></div>
+    <div class="stat"><b>5<span style="font-size:.6em">줄</span></b><span>서식의 실제 기입 칸 수</span></div>
+    <div class="stat"><b>2<span style="font-size:.6em">순위</span></b><span>동점자 사정 순서 (면접 다음)</span></div>
+  </div>
+</header>
+
+<!-- 0 -->
+<section class="stage">
+  <div class="stage-no">00</div>
+  <h2>이 서류가 실제로 하는 일</h2>
+  <p class="sub">점수 35점짜리 서류이면서, 동시에 60점짜리 면접의 질문지입니다.</p>
+
+  <div class="card">
+    <h3>자소서는 면접관이 질문을 뽑는 원본입니다</h3>
+    <p>면접(60점)은 자소서를 읽은 면접관이 진행합니다. 자소서에 쓴 문장이 그대로 질문이 됩니다.
+    "아두이노로 측정기를 만들었다고 썼는데 어떤 문제가 있었나요?" 같은 식입니다.
+    그래서 자소서를 쓸 때 기준은 '잘 써 보인다'가 아니라 <em>내가 10분 동안 말할 수 있는 소재인가</em>입니다.</p>
+    <p>반대로, 쓰고 나서 설명하지 못할 내용은 쓰면 안 됩니다. 부풀린 한 줄이 면접에서 무너지면
+    35점과 60점을 함께 잃습니다. 자소서를 제출하기 전에 <strong>모든 문장에 "왜요?"를 붙여 소리 내어 답해 보세요.</strong>
+    막히는 문장은 소재가 약한 것이니 교체해야 합니다.</p>
+    <h3>평가의 축은 두 가지입니다</h3>
+    <ul>
+      <li><strong>진로 적합성</strong> — 반도체 제조·장비 분야와 이 학생이 맞는가. 정밀함, 규칙 준수, 손으로 다루는 일에 대한 흥미, 반복 작업을 견디는 성향.</li>
+      <li><strong>취업 의지의 진정성</strong> — 이 전형의 지원자격 자체가 "취업 의지가 명확한 자"입니다. 2차 취득점수가 60점에 미달하면서 지원동기·취업의지가 부족하다고 판정되면 정원과 무관하게 불합격 처리될 수 있습니다.</li>
+    </ul>
+    <div class="flag">
+      <span class="flag-t">제출 원본은 돌아오지 않습니다</span>
+      <p>자기소개서는 자필 원본으로 2차 전형일(11/9)에 직접 제출합니다.
+      반드시 <strong>사진이나 사본을 남겨 두고</strong> 면접 직전에 다시 읽으세요. 자기가 뭐라고 썼는지 기억하지 못하면 답변이 엇갈립니다.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 1 -->
+<section class="stage">
+  <div class="stage-no">01</div>
+  <h2>200자 감각 잡기</h2>
+  <p class="sub">대부분의 학생이 분량을 오해해서 첫 초안을 버립니다. 먼저 크기를 몸으로 아는 게 순서입니다.</p>
+
+  <div class="card">
+    <h3>200자는 네 문장입니다</h3>
+    <p>공백을 포함해 200자면 한국어 문장 <strong>3~4개</strong>입니다. 그래서 다음은 모두 불가능합니다.</p>
+    <ul>
+      <li>성장 과정을 유년기부터 시간순으로 쓰기</li>
+      <li>장점 두 개와 단점 두 개를 각각 설명하기</li>
+      <li>활동 다섯 개를 나열하기</li>
+      <li>"입학하면 열심히 하겠습니다"로 끝맺는 각오 문단 넣기</li>
+    </ul>
+    <p>버려야 할 1순위는 <strong>마지막 각오 문단</strong>입니다. 그 두 문장이 전체의 4분의 1을 먹는데,
+    모든 지원자가 똑같이 쓰기 때문에 점수 차이를 만들지 못합니다. 그 자리에 구체적인 사실을 한 개 더 넣는 게 낫습니다.</p>
+    <div class="tscroll">
+      <table>
+        <thead><tr><th>배분</th><th>쓸 것</th><th>대략 분량</th></tr></thead>
+        <tbody>
+          <tr><td class="num">1문장</td><td>구체적인 장면 하나 (언제, 무엇을)</td><td class="num">40~55자</td></tr>
+          <tr><td class="num">2문장</td><td>거기서 생긴 문제와 내가 한 행동</td><td class="num">55~75자</td></tr>
+          <tr><td class="num">1문장</td><td>그래서 지금 내가 어떤 사람인지 / 무엇을 알게 됐는지</td><td class="num">40~60자</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="flag warn">
+      <span class="flag-t">글자 수 기준</span>
+      <p>요강에 공백 포함 여부가 명시되어 있지 않습니다. 서식이 5줄짜리 손글씨 칸이므로
+      실무적으로는 <strong>공백 포함 기준으로 맞추고, 칸을 넘기지 않는지를 눈으로 확인</strong>하는 방식이 안전합니다.
+      150자 미만으로 비어 보이는 쪽이 200자를 살짝 넘는 것보다 훨씬 불리합니다. 아래 작성 칸은 두 기준을 함께 보여줍니다.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 2 -->
+<section class="stage">
+  <div class="stage-no">02</div>
+  <h2>문항 1 — 성장 과정 · 생활신조 · 성격의 장단점</h2>
+  <p class="sub">세 가지를 요구하지만 나열하면 안 됩니다. 하나의 일화로 셋을 꿰세요.</p>
+
+  <div class="card">
+    <h3>설계 공식</h3>
+    <p><strong>장면 → 그 장면에서 생긴 원칙(생활신조) → 그 원칙이 드러나는 성격(장점+단점+보완 행동)</strong></p>
+    <p>성장 과정을 '어떤 가정에서 자랐는가'로 읽으면 쓸 게 없습니다.
+    <em>내가 무언가를 다뤄 본 경험</em>으로 읽으세요. 반도체 제조·장비 학과가 보고 싶어 하는 건
+    손으로 하는 일에 대한 흥미와, 순서와 규칙을 지키는 태도입니다.</p>
+    <p>단점은 반드시 쓰되 <strong>개선 행동 한 줄</strong>을 붙여 끝내세요. 단점을 안 쓰면 요구를 안 지킨 것이고,
+    개선 행동이 없으면 단점만 남습니다. "장점처럼 보이는 단점"(완벽주의, 너무 꼼꼼함)은 흔해서 효과가 없습니다.</p>
+  </div>
+
+  <div class="samples">
+    <div class="sample good">
+      <span class="lbl">이렇게</span>
+      <p class="txt">초등학교 때부터 고장 난 물건을 분해하는 버릇이 있었습니다. 선풍기 모터를 뜯었다가 다시 못 맞춘 뒤로는 분해하기 전에 순서를 사진으로 남깁니다. '순서를 지키면 되돌릴 수 있다'가 제 생활신조입니다. 한번 시작한 일은 끝을 보지만 속도가 느린 편이라, 작업 전에 단계를 적어두고 시간을 나누는 습관을 들였습니다.</p>
+      <p class="cnt">공백 포함 175자 · 공백 제외 133자</p>
+      <p class="why"><b>장면이 구체적이고</b>, 생활신조가 그 장면에서 자연스럽게 나왔으며, 단점에 보완 행동이 붙어 있습니다. 공정 순서를 지키는 일과도 연결됩니다.</p>
+    </div>
+    <div class="sample bad">
+      <span class="lbl">이렇게 쓰면</span>
+      <p class="txt">저는 화목한 가정에서 밝고 긍정적인 성격으로 자랐습니다. 저의 좌우명은 '하면 된다'입니다. 성격의 장점은 성실하고 책임감이 강한 것이고, 단점은 가끔 소심한 것입니다. 앞으로 고쳐나가도록 노력하겠습니다. 귀교에 입학하면 정말 열심히 하겠습니다.</p>
+      <p class="cnt">공백 포함 137자 · 공백 제외 109자 — 하한 미달</p>
+      <p class="why"><b>누구나 쓸 수 있는 문장만</b> 있어서 구별이 안 됩니다. 쓸 내용이 없으니 글자 수도 차지 않았고, 마지막 두 문장이 분량만 차지합니다.</p>
+    </div>
+  </div>
+
+  <div class="pad">
+    <div class="pad-h"><label for="q1">문항 1 초안</label><span class="hint">150 — 200자</span></div>
+    <textarea id="q1" placeholder="장면 한 문장 → 문제와 행동 두 문장 → 지금의 나 한 문장"></textarea>
+    <div class="meter" data-for="q1"><div class="track"><div class="zone"></div><div class="fill"></div></div>
+      <span class="read"><b>0</b>자 <span style="color:var(--muted)">/ 공백 제외 0</span></span><span class="verdict">짧음</span></div>
+  </div>
+  <p class="padnote">입력 내용은 이 기기에만 저장되며 다른 사람에게 전달되지 않습니다.</p>
+
+  <p style="font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);font-weight:600;margin:26px 0 8px">소재가 떠오르지 않을 때 던질 질문</p>
+  <details><summary>직접 손으로 고치거나 만들어 본 것이 있나요?</summary><div class="ans">
+    <p>자전거 체인, 선풍기, 컴퓨터 조립, 가구 조립, 프라모델, 자수, 요리 무엇이든 됩니다.
+    <span class="key">실패한 경험이 오히려 좋습니다.</span> 실패 → 원인 → 바꾼 습관의 구조가 그대로 생활신조가 됩니다.</p>
+  </div></details>
+  <details><summary>남들보다 오래 붙잡고 있어 본 일이 있나요?</summary><div class="ans">
+    <p>기간과 횟수가 들어가면 바로 구체적인 문장이 됩니다. 3년간 같은 운동, 2년간 같은 봉사,
+    한 달간 매일 연습한 것. <span class="key">반도체 공정은 반복과 인내의 작업</span>이라 이 소재는 학과 적합성이 높습니다.</p>
+  </div></details>
+  <details><summary>규칙을 지켜서 문제를 막아본 적이 있나요?</summary><div class="ans">
+    <p>클린룸 작업은 절차 위반이 곧 불량입니다. 체크리스트를 만들어 실수를 줄인 경험,
+    순서를 기록해 둔 덕에 되돌린 경험 같은 것이 <span class="key">이 학교에 가장 잘 맞는 소재</span>입니다.</p>
+  </div></details>
+  <details><summary>부모님이나 선생님께 자주 듣는 말이 있나요?</summary><div class="ans">
+    <p>자기 성격은 스스로 보기 어렵습니다. 주변에서 반복해 듣는 말이 대개 실제 장단점입니다.
+    그 말을 그대로 쓰지 말고 <span class="key">그런 말을 듣게 된 구체적인 사건</span>을 찾아 쓰세요.</p>
+  </div></details>
+</section>
+
+<!-- 3 -->
+<section class="stage">
+  <div class="stage-no">03</div>
+  <h2>문항 2 — 학교 활동</h2>
+  <p class="sub">봉사활동, 교내외 동아리, 취미, 자격증, 독서 중에서 고릅니다. 다섯 개를 나열하는 칸이 아닙니다.</p>
+
+  <div class="card">
+    <h3>두 개만 고르고, 각각 결말까지 쓰세요</h3>
+    <p>활동 이름만 나열하면 학교생활기록부를 옮겨 적은 것과 같아서 점수가 되지 않습니다.
+    <strong>활동 하나당 "무엇을 했고 → 어떤 문제가 있었고 → 어떻게 끝났는지"</strong>가 들어가야 합니다.
+    숫자(시간, 횟수, 기간, 인원)가 하나라도 들어가면 문장의 신뢰도가 확 올라갑니다.</p>
+    <h3>고르는 우선순위</h3>
+    <ol>
+      <li><strong>전자·기계·과학·코딩 관련 활동</strong> — 동아리, 메이커 활동, 과학실험, 로봇, 아두이노, 프로그래밍. 진로 적합성이 바로 드러납니다.</li>
+      <li><strong>자격증</strong> — 정보처리기능사, GTQ, 컴퓨터활용능력 등. 가지고 있다면 반드시 쓰고, 면접에서 내용을 물어볼 수 있으니 복습해 두세요.</li>
+      <li><strong>꾸준함이 드러나는 활동</strong> — 관련 활동이 없다면 이쪽입니다. 3년간 이어온 봉사, 매주 나간 운동부. 끈기 자체가 이 학과의 평가 요소입니다.</li>
+      <li><strong>독서</strong> — 책 제목만 쓰면 효과가 없습니다. <strong>그 책이 바꾼 생각 한 줄</strong>까지 써야 의미가 생깁니다.</li>
+    </ol>
+  </div>
+
+  <div class="samples">
+    <div class="sample good">
+      <span class="lbl">이렇게</span>
+      <p class="txt">2학년부터 3학년까지 매달 지역아동센터에서 초등학생 학습을 도와 3년간 18시간을 채웠습니다. 과학동아리에서는 아두이노로 온습도 측정기를 만들어 교내 발표회에 냈는데, 센서 값이 계속 튀어서 저항을 바꿔가며 원인을 찾았습니다. 이때 측정과 기록이 왜 중요한지 알게 되었습니다.</p>
+      <p class="cnt">공백 포함 154자 · 공백 제외 122자</p>
+      <p class="why">활동이 <b>둘뿐이고 각각 숫자와 결말</b>이 있습니다. 측정·기록이라는 마무리가 반도체 공정의 수율 관리와 연결되어 면접 질문을 유도합니다.</p>
+    </div>
+    <div class="sample bad">
+      <span class="lbl">이렇게 쓰면</span>
+      <p class="txt">저는 봉사활동을 열심히 했고 동아리 활동도 성실하게 참여했습니다. 취미는 독서이며 책을 많이 읽었습니다. 또한 교내 행사에도 적극적으로 참여하였고 친구들과도 잘 어울렸습니다. 자격증도 따려고 노력하고 있습니다. 앞으로도 꾸준히 노력하는 학생이 되겠습니다.</p>
+      <p class="cnt">공백 포함 142자 · 공백 제외 113자 — 하한 미달</p>
+      <p class="why">다섯 가지를 다 언급했지만 <b>어느 것도 확인할 수 없습니다.</b> 면접관이 뽑을 질문도 없어서 면접에서도 손해입니다.</p>
+    </div>
+  </div>
+
+  <div class="pad">
+    <div class="pad-h"><label for="q2">문항 2 초안</label><span class="hint">150 — 200자</span></div>
+    <textarea id="q2" placeholder="활동 ① 무엇을·숫자·결말 → 활동 ② 문제·행동·결말 → 알게 된 것"></textarea>
+    <div class="meter" data-for="q2"><div class="track"><div class="zone"></div><div class="fill"></div></div>
+      <span class="read"><b>0</b>자 <span style="color:var(--muted)">/ 공백 제외 0</span></span><span class="verdict">짧음</span></div>
+  </div>
+  <p class="padnote">서식에는 봉사활동·교내외 동아리활동·취미활동·자격증 취득활동·독서활동 등이 예시로 적혀 있습니다.</p>
+</section>
+
+<!-- 4 -->
+<section class="stage">
+  <div class="stage-no">04</div>
+  <h2>진로(취업) 희망서</h2>
+  <p class="sub">칸은 작지만 과락 조항과 직접 연결되는 부분입니다. 체크 하나로 면접 난이도가 달라집니다.</p>
+
+  <div class="card">
+    <h3>희망 취업 분야 — 회사가 아니라 직무로 적으세요</h3>
+    <p>서식에 "○○업" 형태로 적게 되어 있습니다. '대기업'이나 '삼성전자'처럼 쓰면
+    그 회사에 대해 아는 것을 면접에서 그대로 묻습니다. 중3이 답하기 어려운 영역입니다.
+    대신 <strong>본인이 지망한 학과에서 실제로 길러내는 직무</strong>를 적으세요.</p>
+    <div class="tscroll">
+      <table>
+        <thead><tr><th>지망 학과</th><th>적을 만한 희망 분야</th><th>하는 일</th></tr></thead>
+        <tbody>
+          <tr><td>반도체제조과</td><td>반도체 공정 오퍼레이터</td><td>팹에서 공정 장비를 운영하며 웨이퍼를 생산</td></tr>
+          <tr><td>반도체제조과</td><td>품질·수율 관리</td><td>불량 원인을 찾고 수율을 끌어올리는 일</td></tr>
+          <tr><td>반도체장비과</td><td>설비 엔지니어</td><td>공정 장비의 상태를 보고 조건을 맞추는 일</td></tr>
+          <tr><td>반도체장비과</td><td>장비 유지보수·설치</td><td>장비를 점검·수리하고 신규 장비를 셋업</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>적은 직무는 자소서 문항 1·2의 소재, 그리고 면접의 지원동기 답변과 <em>같은 방향</em>이어야 합니다.
+    세 군데가 어긋나면 "왜 그렇게 썼나요"라는 질문부터 시작합니다.</p>
+  </div>
+
+  <div class="card">
+    <h3>진로 설계 — 셋 중 하나에 체크</h3>
+    <div class="tscroll">
+      <table>
+        <thead><tr><th>구분</th><th>경로</th><th>이 전형에서의 위치</th></tr></thead>
+        <tbody>
+          <tr><td><strong>선취업</strong></td><td>특성화고 졸업 → 취업 성공</td><td>취업의지 평가에 가장 직결. 다만 "대학은 전혀 안 갈 건가요"라는 확인 질문이 올 수 있음</td></tr>
+          <tr><td><strong>선취업후진학</strong></td><td>졸업 → 취업 성공 → 대학 진학(취업 병행)</td><td>취업이 먼저라 전형 취지와 맞고, 진학 의사도 솔직하게 담김. 가장 무난한 선택</td></tr>
+          <tr><td><strong>선진학후취업</strong></td><td>졸업 → 대학 진학 → 취업 성공</td><td>틀린 선택은 아니지만, 왜 일반고가 아니라 이 학교여야 하는지를 면접에서 반드시 설명해야 함</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="flag crit">
+      <span class="flag-t">여기서 많이 깎입니다</span>
+      <p>실제 생각과 다르게 적으라는 뜻이 아닙니다. 다만 <strong>체크한 경로와 면접 답변이 반드시 일치</strong>해야 합니다.
+      선취업에 체크해 놓고 면접에서 "대학에 가고 싶다"고 말하거나, 선진학후취업에 체크해 놓고
+      "바로 취업하겠다"고 말하면 서류와 진술이 어긋난 지원자가 됩니다.
+      진학 의사가 있다면 <strong>선취업후진학</strong>에 체크하고, 면접에서는
+      "먼저 현장에서 일하며 재직자 전형으로 진학하겠다"는 순서로 설명하는 것이 가장 일관됩니다.</p>
+    </div>
+    <p>서식 하단에 "본인은 귀교의 교육과정 이수 후 희망 분야 취업을 확인합니다"라는 문장과 함께
+    <strong>지원자 서명과 보호자 서명(관계 기재)</strong>란이 있습니다. 가정에서 합의가 되어 있다는 전제의 서류입니다.
+    면접에서 "부모님은 어떻게 생각하시나요"가 나오는 이유이기도 합니다.</p>
+  </div>
+</section>
+
+<!-- 5 -->
+<section class="stage">
+  <div class="stage-no">05</div>
+  <h2>자필 작성 실무</h2>
+  <p class="sub">내용이 좋아도 여기서 무너지는 경우가 많습니다. 서식은 손글씨 전용이고, 원본은 한 장입니다.</p>
+
+  <div class="card">
+    <h3>작성 순서</h3>
+    <ol>
+      <li><strong>타이핑으로 초안</strong> — 위 작성 칸에서 글자 수를 맞춥니다. 150~200자 안에 들어올 때까지 고칩니다.</li>
+      <li><strong>소리 내어 읽기</strong> — 읽다가 숨이 막히는 문장은 깁니다. 끊어서 두 문장으로 나눕니다.</li>
+      <li><strong>연습용 사본에 손글씨</strong> — 서식을 복사해 한 번 써 봅니다. 5줄 칸에 들어가는지, 글자가 커서 넘치는지 여기서 확인합니다.</li>
+      <li><strong>원본에 옮겨 적기</strong> — 서두르지 말고 한 번에. 피곤한 밤보다 아침이 글씨가 낫습니다.</li>
+      <li><strong>사진 촬영 후 보관</strong> — 면접 전날 다시 읽습니다.</li>
+    </ol>
+    <h3>세부 주의</h3>
+    <ul>
+      <li>검정 또는 파랑 볼펜. 연필과 지워지는 펜은 쓰지 마세요.</li>
+      <li>수정테이프는 한두 군데까지. 지운 자국이 많으면 그 자체로 인상이 깎입니다. 많이 틀렸으면 서식을 새로 뽑아 다시 쓰세요.</li>
+      <li>칸을 넘기거나 글씨가 줄 밖으로 나가지 않게. 또박또박이면 충분하고 예쁠 필요는 없습니다.</li>
+      <li>성명, 생년월일, 출신중학교, 학년-반을 빠짐없이 기입.</li>
+      <li><strong>지원자 서명 + 보호자 서명(관계)</strong> 누락이 가장 흔한 실수입니다. 날짜(2026년 ○월 ○일)도 비워두지 마세요.</li>
+      <li>자소서 내용을 증빙할 자료가 있으면 함께 제출할 수 있습니다. 자격증 사본, 활동 확인서, 대회 참가증 등을 미리 챙기세요.</li>
+    </ul>
+    <div class="flag warn">
+      <span class="flag-t">일정</span>
+      <p>서식2는 2차 전형일(11/9 월요일 14:00)에 직접 제출합니다. 1차 발표는 11/6 금요일 11시라
+      그 사이에 <strong>주말 포함 사흘</strong>밖에 없습니다. 자필 원본은 1차 발표를 기다리지 말고
+      <strong>10월 안에 완성</strong>해 두세요. 발표 후에는 면접 연습에만 쓰는 게 맞습니다.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 6 -->
+<section class="stage">
+  <div class="stage-no">06</div>
+  <h2>제출 전 점검</h2>
+  <p class="sub">하나라도 걸리면 고치고 가세요. 체크 상태는 이 기기에 저장됩니다.</p>
+
+  <ul class="chk" id="finalcheck">
+    <li><input type="checkbox" id="f1"><label for="f1">두 문항 모두 150자 이상 200자 이하다<span>하한 미달이 상한 초과보다 불리합니다</span></label></li>
+    <li><input type="checkbox" id="f2"><label for="f2">문항 1에 구체적인 장면이 하나 들어 있다<span>"저는 ~한 성격입니다"로만 이루어져 있지 않은지</span></label></li>
+    <li><input type="checkbox" id="f3"><label for="f3">생활신조(좌우명)가 그 장면에서 나왔다<span>어디서 본 명언을 붙여 넣은 것이 아닌지</span></label></li>
+    <li><input type="checkbox" id="f4"><label for="f4">단점을 썼고, 개선 행동이 붙어 있다<span>단점 누락은 요구사항 미이행입니다</span></label></li>
+    <li><input type="checkbox" id="f5"><label for="f5">문항 2의 활동이 두세 개를 넘지 않는다<span>나열은 생활기록부와 다를 바 없습니다</span></label></li>
+    <li><input type="checkbox" id="f6"><label for="f6">숫자(기간·시간·횟수)가 최소 하나 들어 있다<span>검증 가능한 문장이 신뢰를 만듭니다</span></label></li>
+    <li><input type="checkbox" id="f7"><label for="f7">"열심히 하겠습니다"류의 각오 문단이 없다<span>그 자리에 사실을 하나 더 넣으세요</span></label></li>
+    <li><input type="checkbox" id="f8"><label for="f8">모든 문장에 "왜요?"로 10초씩 답할 수 있다<span>막히는 문장은 면접에서 무너집니다</span></label></li>
+    <li><input type="checkbox" id="f9"><label for="f9">희망 취업 분야를 직무 단위로 적었다<span>회사명이 아니라 하는 일로</span></label></li>
+    <li><input type="checkbox" id="f10"><label for="f10">진로 설계 체크와 면접 답변 방향이 같다<span>선취업 / 선취업후진학 / 선진학후취업</span></label></li>
+    <li><input type="checkbox" id="f11"><label for="f11">지망 학과 · 자소서 소재 · 희망 직무가 한 방향이다<span>세 군데가 어긋나면 첫 질문부터 방어가 시작됩니다</span></label></li>
+    <li><input type="checkbox" id="f12"><label for="f12">지원자 서명, 보호자 서명(관계), 날짜를 모두 채웠다<span>가장 흔한 누락</span></label></li>
+    <li><input type="checkbox" id="f13"><label for="f13">인적사항(성명·생년월일·출신중학교·학년반)을 채웠다<span>서식1 담임추천서도 함께 확인</span></label></li>
+    <li><input type="checkbox" id="f14"><label for="f14">원본 사진을 찍어 보관했다<span>면접 전날 다시 읽을 것</span></label></li>
+    <li><input type="checkbox" id="f15"><label for="f15">증빙자료를 서류 봉투에 함께 넣었다<span>자격증 사본, 활동 확인서 등</span></label></li>
+  </ul>
+
+  <div class="flag ok">
+    <span class="flag-t">마지막으로</span>
+    <p>자소서를 다 쓰고 나면 <strong>본인이 쓴 문장만 보고 예상 질문 10개를 뽑아 보세요.</strong>
+    면접관이 할 일을 미리 해 보는 겁니다. 뽑히는 질문이 다섯 개도 안 된다면 소재가 밋밋하다는 신호이고,
+    열 개가 쉽게 나온다면 면접 준비의 절반은 이미 끝난 셈입니다.</p>
+  </div>
+</section>
+
+<footer>
+  <b>세영코딩연구소  저자 : 컴퓨터공학박사 KIM</b>
+  2027학년도 용인반도체고등학교 신입생 입학전형요강 [서식2] 자기소개서 및 취업 희망서를 기준으로 작성했습니다.
+  예시 문장은 설명을 위해 만든 것으로 그대로 옮겨 쓰면 안 되며, 글자 수 기준(공백 포함 여부)은 요강에 명시되어 있지 않으므로
+  교무실(031-8097-3545) 확인을 권합니다. 작성 칸에 입력한 내용은 이 기기에만 저장됩니다.
+</footer>
+
+</div>
+
+<script>
+(function(){
+  var KEY = "ybs-essay-draft";
+  var store = {};
+  try { store = JSON.parse(localStorage.getItem(KEY) || "{}") || {}; } catch (e) { store = {}; }
+  function save(){ try { localStorage.setItem(KEY, JSON.stringify(store)); } catch (e) {} }
+
+  var MIN = 150, MAX = 200;
+  function update(ta, meter){
+    var v = ta.value;
+    var withSpace = v.length;
+    var noSpace = v.replace(/\s/g, "").length;
+    var fill = meter.querySelector(".fill");
+    var read = meter.querySelector(".read");
+    var verdict = meter.querySelector(".verdict");
+    var pct = Math.min(100, (withSpace / 250) * 100);
+    fill.style.width = pct + "%";
+    read.innerHTML = "<b>" + withSpace + "</b>자 <span style='color:var(--muted)'>/ 공백 제외 " + noSpace + "</span>";
+    meter.className = "meter";
+    if (withSpace < MIN){ verdict.textContent = (MIN - withSpace) + "자 부족"; }
+    else if (withSpace <= MAX){ meter.className = "meter ok"; verdict.textContent = "적정"; }
+    else { meter.className = "meter over"; verdict.textContent = (withSpace - MAX) + "자 초과"; }
+  }
+
+  var pads = document.querySelectorAll(".meter[data-for]");
+  for (var i = 0; i < pads.length; i++){
+    (function(meter){
+      var id = meter.getAttribute("data-for");
+      var ta = document.getElementById(id);
+      if (typeof store[id] === "string") ta.value = store[id];
+      update(ta, meter);
+      ta.addEventListener("input", function(){
+        store[id] = ta.value; save(); update(ta, meter);
+      });
+    })(pads[i]);
+  }
+
+  var CKEY = "ybs-essay-check";
+  var checks = {};
+  try { checks = JSON.parse(localStorage.getItem(CKEY) || "{}") || {}; } catch (e) { checks = {}; }
+  var boxes = document.querySelectorAll("#finalcheck input");
+  function saveChecks(){
+    var out = {};
+    for (var j = 0; j < boxes.length; j++) out[boxes[j].id] = boxes[j].checked;
+    try { localStorage.setItem(CKEY, JSON.stringify(out)); } catch (e) {}
+  }
+  for (var k = 0; k < boxes.length; k++){
+    if (checks[boxes[k].id]) boxes[k].checked = true;
+    boxes[k].addEventListener("change", saveChecks);
+  }
+})();
+</script>
+
+</body></html>

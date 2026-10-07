@@ -1,0 +1,678 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>용인반도체고 합격 로드맵</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@700;900&family=IBM+Plex+Sans+KR:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+/* Layout: a vertical "공정 라인" spine down the left edge; content as stacked
+   process stages, each with a stage number, a rule, and its own cards. */
+:root{
+  --bg:#F1F3F8;
+  --surface:#FFFFFF;
+  --surface-2:#E6E9F1;
+  --fg:#14161D;
+  --muted:#5A6175;
+  --line:#D2D7E3;
+  --accent:#B4612A;        /* copper — interconnect */
+  --accent-2:#44409B;      /* wafer violet — lithography */
+  --ok:#1C7A46;
+  --warn:#9A6008;
+  --crit:#A8183A;
+  --warn-bg:#FBF0DC;
+  --crit-bg:#FBE6EB;
+  --ok-bg:#E2F2E8;
+  --display:"Gothic A1","IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --body:"IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --mono:"IBM Plex Mono","SFMono-Regular",Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0D1016; --surface:#151921; --surface-2:#1D232E; --fg:#E5E9F1;
+    --muted:#98A0B3; --line:#2A313E;
+    --accent:#E08A4C; --accent-2:#9A93F0;
+    --ok:#62C189; --warn:#E8B45C; --crit:#F0718C;
+    --warn-bg:#2A2212; --crit-bg:#2C1620; --ok-bg:#13261C;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0D1016; --surface:#151921; --surface-2:#1D232E; --fg:#E5E9F1;
+  --muted:#98A0B3; --line:#2A313E;
+  --accent:#E08A4C; --accent-2:#9A93F0;
+  --ok:#62C189; --warn:#E8B45C; --crit:#F0718C;
+  --warn-bg:#2A2212; --crit-bg:#2C1620; --ok-bg:#13261C;
+  color-scheme:dark;
+}
+
+*{box-sizing:border-box}
+body{
+  background:var(--bg); color:var(--fg);
+  font-family:var(--body); font-weight:400; font-size:15px; line-height:1.72;
+  margin:0; padding-block:0 64px; padding-left:16px; padding-right:16px;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:860px; margin:0 auto}
+
+/* ---------- masthead ---------- */
+.mast{padding-block:40px 28px; border-bottom:2px solid var(--fg)}
+.eyebrow{
+  font-family:var(--mono); font-size:11.5px; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--accent); font-weight:600; margin:0 0 14px;
+}
+h1{
+  font-family:var(--display); font-weight:900; font-size:clamp(30px,7.4vw,48px);
+  line-height:1.12; letter-spacing:-.02em; margin:0 0 14px; text-wrap:balance;
+}
+.dek{font-size:16px; color:var(--muted); margin:0; max-width:60ch; line-height:1.65}
+
+/* ---------- stat strip ---------- */
+.stats{
+  display:grid; grid-template-columns:repeat(4,1fr); gap:1px;
+  background:var(--line); border:1px solid var(--line); margin-top:26px;
+}
+.stat{background:var(--surface); padding:14px 12px; min-width:0}
+.stat b{
+  display:block; font-family:var(--mono); font-weight:600;
+  font-size:clamp(19px,4.6vw,25px); letter-spacing:-.02em;
+  font-variant-numeric:tabular-nums; line-height:1.2;
+}
+.stat span{display:block; font-size:11.5px; color:var(--muted); margin-top:3px; line-height:1.45}
+@media (max-width:560px){ .stats{grid-template-columns:repeat(2,1fr)} }
+
+/* ---------- stage spine ---------- */
+.stage{position:relative; padding-left:54px; padding-block:40px 4px}
+.stage::before{
+  content:""; position:absolute; left:17px; top:0; bottom:0; width:2px;
+  background:var(--line);
+}
+.stage:last-of-type::before{bottom:auto; height:46px}
+.stage-no{
+  position:absolute; left:0; top:38px; width:36px; height:36px;
+  display:grid; place-items:center; border-radius:50%;
+  background:var(--accent-2); color:#fff;
+  font-family:var(--mono); font-size:13px; font-weight:600;
+}
+h2{
+  font-family:var(--display); font-weight:900; font-size:clamp(21px,4.6vw,27px);
+  letter-spacing:-.015em; line-height:1.25; margin:0 0 6px; text-wrap:balance;
+}
+.sub{color:var(--muted); font-size:14px; margin:0 0 22px; max-width:60ch}
+@media (max-width:560px){ .stage{padding-left:0} .stage::before{display:none} .stage-no{position:static; margin-bottom:12px} }
+
+h3{
+  font-family:var(--display); font-weight:700; font-size:16.5px;
+  letter-spacing:-.01em; margin:30px 0 10px;
+}
+p{margin:0 0 14px; max-width:66ch}
+ul,ol{margin:0 0 16px; padding-left:20px; max-width:66ch}
+li{margin-bottom:7px}
+li::marker{color:var(--accent)}
+strong{font-weight:600}
+em{font-style:normal; color:var(--accent); font-weight:600}
+code{font-family:var(--mono); font-size:.88em; background:var(--surface-2); padding:1px 5px; border-radius:3px}
+
+/* ---------- cards ---------- */
+.card{
+  background:var(--surface); border:1px solid var(--line);
+  padding:20px 20px 6px; margin:0 0 16px;
+}
+.card > h3:first-child{margin-top:0}
+.flag{border-left:4px solid var(--accent); padding-left:16px; margin:20px 0}
+.flag.warn{border-color:var(--warn); background:var(--warn-bg); padding:14px 16px 2px}
+.flag.crit{border-color:var(--crit); background:var(--crit-bg); padding:14px 16px 2px}
+.flag.ok{border-color:var(--ok); background:var(--ok-bg); padding:14px 16px 2px}
+.flag-t{
+  font-family:var(--mono); font-size:11px; letter-spacing:.12em; text-transform:uppercase;
+  font-weight:600; display:block; margin-bottom:5px;
+}
+.flag.warn .flag-t{color:var(--warn)} .flag.crit .flag-t{color:var(--crit)} .flag.ok .flag-t{color:var(--ok)}
+
+/* ---------- tables ---------- */
+.tscroll{overflow-x:auto; margin:0 0 18px; border:1px solid var(--line); background:var(--surface)}
+table{border-collapse:collapse; width:100%; min-width:460px; font-size:13.5px}
+th,td{padding:10px 12px; text-align:left; border-bottom:1px solid var(--line); vertical-align:top}
+thead th{
+  background:var(--surface-2); font-family:var(--mono); font-weight:600;
+  font-size:11px; letter-spacing:.07em; text-transform:uppercase; color:var(--muted);
+  white-space:nowrap;
+}
+tbody tr:last-child td{border-bottom:none}
+td.num{font-family:var(--mono); font-variant-numeric:tabular-nums; white-space:nowrap}
+tr.total td{background:var(--surface-2); font-weight:600}
+.bar{display:block; height:5px; background:var(--accent); margin-top:5px; min-width:3px}
+.bar.v2{background:var(--accent-2)}
+
+/* ---------- timeline ---------- */
+.tl{list-style:none; padding:0; margin:0 0 20px; max-width:none}
+.tl li{
+  display:grid; grid-template-columns:96px 1fr auto; gap:14px; align-items:baseline;
+  padding:12px 0; border-top:1px solid var(--line); margin:0;
+}
+.tl li:last-child{border-bottom:1px solid var(--line)}
+.tl .d{font-family:var(--mono); font-size:12.5px; font-weight:600; font-variant-numeric:tabular-nums; white-space:nowrap}
+.tl .w{min-width:0}
+.tl .w b{display:block; font-weight:600; font-size:14.5px}
+.tl .w span{display:block; font-size:12.5px; color:var(--muted); line-height:1.5}
+.tl .dday{font-family:var(--mono); font-size:11.5px; color:var(--muted); white-space:nowrap}
+.tl li.hot .d{color:var(--accent)}
+.tl li.hot .dday{color:var(--accent); font-weight:600}
+@media (max-width:560px){
+  .tl li{grid-template-columns:1fr auto; gap:4px 10px}
+  .tl .d{grid-column:1; font-size:12px}
+  .tl .dday{grid-column:2; grid-row:1}
+  .tl .w{grid-column:1 / -1}
+}
+
+/* ---------- checklist ---------- */
+.chk{list-style:none; padding:0; margin:0 0 18px; max-width:none}
+.chk li{display:flex; gap:11px; align-items:flex-start; padding:10px 0; border-bottom:1px solid var(--line); margin:0}
+.chk li:last-child{border-bottom:none}
+.chk input{margin:4px 0 0; width:16px; height:16px; flex:none; accent-color:var(--accent-2)}
+.chk label{flex:1; min-width:0; cursor:pointer; font-size:14px; line-height:1.6}
+.chk label b{font-weight:600}
+.chk label span{display:block; font-size:12.5px; color:var(--muted); line-height:1.5}
+.chk input:checked + label{opacity:.5; text-decoration:line-through; text-decoration-thickness:1px}
+.tag{
+  font-family:var(--mono); font-size:10px; font-weight:600; letter-spacing:.06em;
+  padding:2px 6px; border:1px solid currentColor; margin-right:7px;
+  display:inline-block; vertical-align:2px; text-decoration:none;
+}
+.tag.on{color:var(--accent-2)} .tag.hand{color:var(--accent)} .tag.auto{color:var(--muted)}
+
+/* ---------- Q&A ---------- */
+details{border-bottom:1px solid var(--line); padding:0}
+details:first-of-type{border-top:1px solid var(--line)}
+summary{
+  padding:13px 30px 13px 0; cursor:pointer; font-weight:500; font-size:14.5px;
+  list-style:none; position:relative; line-height:1.55;
+}
+summary::-webkit-details-marker{display:none}
+summary::after{
+  content:"+"; position:absolute; right:4px; top:12px;
+  font-family:var(--mono); color:var(--accent); font-size:17px;
+}
+details[open] summary::after{content:"\2013"}
+details[open] summary{font-weight:600}
+.ans{padding:0 0 16px; font-size:13.5px; color:var(--muted); line-height:1.7}
+.ans p{margin:0 0 9px; max-width:66ch}
+.ans p:last-child{margin-bottom:0}
+.ans .key{color:var(--fg); font-weight:600}
+.qgroup{font-family:var(--mono); font-size:11px; letter-spacing:.12em; text-transform:uppercase;
+  color:var(--accent); font-weight:600; margin:26px 0 8px}
+
+summary:focus-visible,.chk label:focus-visible,a:focus-visible{outline:2px solid var(--accent-2); outline-offset:2px}
+
+/* ---------- misc ---------- */
+.kv{display:grid; grid-template-columns:auto 1fr; gap:6px 16px; font-size:13.5px; margin:0 0 16px}
+.kv dt{font-family:var(--mono); font-size:11.5px; color:var(--muted); text-transform:uppercase; letter-spacing:.06em; padding-top:3px}
+.kv dd{margin:0}
+a{color:var(--accent); text-underline-offset:2px}
+footer{margin-top:52px; padding-top:22px; border-top:2px solid var(--fg); font-size:12.5px; color:var(--muted)}
+footer b{font-family:var(--display); font-weight:700; color:var(--fg); font-size:13.5px; display:block; margin-bottom:3px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important; transition:none!important}}
+</style>
+
+<div class="wrap">
+
+<header class="mast">
+  <p class="eyebrow">2027학년도 · 전기 특성화고 · 진로적성 특별전형</p>
+  <h1>용인반도체고 합격 로드맵</h1>
+  <p class="dek">모집정원 128명 전원을 진로적성 특별전형 하나로 뽑습니다. 일반전형 자리는 없습니다.
+  곧 마감되는 내신 항목부터 11월 9일 면접까지, 지금 순서대로 처리해야 할 것들을 정리했습니다.</p>
+
+  <div class="stats">
+    <div class="stat"><b>128<span style="font-size:.6em">명</span></b><span>반도체제조과 64 · 반도체장비과 64</span></div>
+    <div class="stat"><b>154<span style="font-size:.6em">명</span></b><span>1차 통과 인원 (정원 1.2배수)</span></div>
+    <div class="stat"><b>200<span style="font-size:.6em">점</span></b><span>최종 총점 (1차 100 + 2차 100)</span></div>
+    <div class="stat"><b id="ddayBox">D-27</b><span>원서접수 시작 11월 3일까지</span></div>
+  </div>
+</header>
+
+<!-- ========== 0 ========== -->
+<section class="stage">
+  <div class="stage-no">00</div>
+  <h2>먼저 알아둘 것 — 이 학교의 정체</h2>
+  <p class="sub">요강 한 장만 보면 헷갈리는 지점이 몇 개 있습니다. 면접에서 그대로 질문이 되는 내용이라 먼저 정리합니다.</p>
+
+  <div class="card">
+    <h3>요강 제목은 용인반도체고, 서류는 용인바이오고로 갑니다</h3>
+    <p>용인반도체고는 처인구 남사읍 남곡분교장 부지에 신축 중인 <strong>신설 학교</strong>로, 2027년 3월 개교합니다.
+    아직 학교 건물과 행정실이 가동되기 전이라 이번 첫 신입생 모집의 원서 접수·합격자 발표·서류 제출은
+    모두 <strong>용인바이오고등학교</strong>(처인구 이동읍 경기동로687번길 28-14)가 대행합니다.
+    요강 하단 직인과 홈페이지 주소가 용인바이오고로 되어 있는 이유입니다. 혼동해서 다른 곳에 서류를 내는 일이 없어야 합니다.</p>
+    <h3>특성화고로 출발해 마이스터고로 전환될 예정입니다</h3>
+    <p>2026년 7월 교육부 마이스터고 신규 지정 대상에 포함되었고, 2027년 3월 특성화고로 개교한 뒤
+    <strong>2028년 마이스터고 전환</strong>을 목표로 준비 중입니다. 설립 과정에서 삼성전자·SK하이닉스·램리서치 등
+    국내외 50여 개 기업이 교육과정 개발에 참여했고, 1학년 기초 → 2학년 자격증·취업체험 → 3학년 기업 맞춤형 교육과
+    현장실습으로 이어지는 구조로 설계되었습니다. 기숙사는 신입생 전원 수용을 목표로 준비 중입니다.</p>
+    <div class="flag warn">
+      <span class="flag-t">확인 필요</span>
+      <p>개교 준비 중인 학교라 기숙사 운영 시점, 기숙사비·급식비, 통학 지원 같은 항목은 요강에 없습니다.
+      지원 전에 교무실(031-8097-3545) 또는 용인교육지원청의 용인반도체고 안내 게시판으로 직접 확인하시는 편이 안전합니다.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>지원 자격 — 거주 요건이 생각보다 빡빡합니다</h3>
+    <ul>
+      <li>경기도 내 중학교 졸업예정자</li>
+      <li>중학교 졸업자 중 경기도 거주자</li>
+      <li>중학교 졸업 동등학력 인정자(초·중등교육법시행령 제97조) 중 경기도 거주자</li>
+      <li>타 시·도 특성화중학교(전국단위 모집 자율학교 포함) 졸업예정자 중 경기도 거주자</li>
+    </ul>
+    <div class="flag crit">
+      <span class="flag-t">탈락 사유 1순위</span>
+      <p>여기서 말하는 '경기도 거주'는 학생 혼자가 아니라 <strong>원서 접수일 현재 보호자를 포함한 전 가족이 경기도에 주민등록</strong>되어 있고
+      실제로 거주하는 것을 뜻합니다. 부모 중 한 명이 타 시·도에 주민등록이 남아 있는 경우가 실제로 많이 걸립니다.
+      11월 3일 이전에 주민등록등본을 떼어 가족 전원을 확인하세요.</p>
+    </div>
+    <p style="font-size:13.5px;color:var(--muted)">전기 학교라 합격하면 후기 일반고에 지원할 수 없습니다. 이중지원 금지 등 요강에 없는 사항은
+    경기도교육청 「2027학년도 경기도 고등학교 신입생 전형요강」을 따릅니다.</p>
+  </div>
+</section>
+
+<!-- ========== 1 ========== -->
+<section class="stage">
+  <div class="stage-no">01</div>
+  <h2>일정 — 11월 한 달에 다 끝납니다</h2>
+  <p class="sub">접수부터 최종 발표까지 9일입니다. 서류를 11월에 준비하기 시작하면 늦습니다.</p>
+
+  <ul class="tl" id="timeline">
+    <li data-date="2026-10-31"><span class="d">10. 31 (토)</span><span class="w"><b>출결·봉사활동 반영 마감</b><span>경기도 고입 내신 기준상 3학년 10월 말까지의 기록만 반영됩니다</span></span><span class="dday"></span></li>
+    <li data-date="2026-11-03"><span class="d">11. 03 (화) 09:00</span><span class="w"><b>원서 접수 시작</b><span>온라인 제출 · 전형료 없음</span></span><span class="dday"></span></li>
+    <li data-date="2026-11-05"><span class="d">11. 05 (목) 17:00</span><span class="w"><b>원서 접수 마감</b><span>마감 시각 엄수. 우편 접수 시 마감일 17시까지 교육행정실 도착</span></span><span class="dday"></span></li>
+    <li data-date="2026-11-06"><span class="d">11. 06 (금) 11:00</span><span class="w"><b>1차 전형 합격자 발표</b><span>용인바이오고 홈페이지 · 정원의 1.2배수(약 154명)</span></span><span class="dday"></span></li>
+    <li data-date="2026-11-09"><span class="d">11. 09 (월) 14:00</span><span class="w"><b>면접 및 신체검사</b><span>용인바이오고 내 지정 장소 · 담임추천서와 자기소개서를 이날 직접 제출</span></span><span class="dday"></span></li>
+    <li data-date="2026-11-11"><span class="d">11. 11 (수) 10:00</span><span class="w"><b>최종 합격자 발표</b><span>용인바이오고 홈페이지</span></span><span class="dday"></span></li>
+    <li data-date="2026-11-26"><span class="d">11. 26 ~ 27</span><span class="w"><b>전기학교 추가모집 (미달 시)</b><span>12월 1일 14:00 본교 교정에서 발표 · 고입전형 미응시자 또는 불합격자만 지원 가능</span></span><span class="dday"></span></li>
+  </ul>
+
+  <div class="flag">
+    <span class="flag-t">일정의 함정</span>
+    <p>1차 발표(금요일 11시)와 면접(월요일 14시) 사이가 <strong>주말 포함 사흘</strong>입니다.
+    자기소개서를 자필로 쓰고, 담임 선생님께 추천서를 받고, 면접 연습까지 이 사흘에 몰아서 하는 건 불가능합니다.
+    자소서 초안과 추천서 요청은 <strong>원서 접수 전인 10월 말</strong>에 끝내 두고, 1차 발표 후에는 다듬고 연습만 하세요.</p>
+  </div>
+</section>
+
+<!-- ========== 2 ========== -->
+<section class="stage">
+  <div class="stage-no">02</div>
+  <h2>점수 구조 — 어디서 승부가 나는가</h2>
+  <p class="sub">총점 200점이지만 실제로 지원자가 11월에 움직일 수 있는 건 100점입니다.</p>
+
+  <h3>1차 전형 (100점 만점 · 서류, 1.2배수 선발)</h3>
+  <div class="tscroll">
+    <table>
+      <thead><tr><th>평가요소</th><th>배점</th><th>성격</th></tr></thead>
+      <tbody>
+        <tr><td>출결상황</td><td class="num">40점<span class="bar" style="width:80%"></span></td><td>3학년 10월 말까지 확정 · 이미 거의 결정됨</td></tr>
+        <tr><td>봉사활동</td><td class="num">10점<span class="bar" style="width:20%"></span></td><td>3학년 10월 말까지 · 아직 채울 수 있음</td></tr>
+        <tr><td>교과성적</td><td class="num">50점<span class="bar" style="width:100%"></span></td><td>3학년 2학기 1차 지필평가까지 반영</td></tr>
+        <tr class="total"><td>계</td><td class="num">100점</td><td>정량 평가만 · 면접·서류 없음</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="flag warn">
+    <span class="flag-t">이 학교만의 특징</span>
+    <p>경기도 일반 고입 내신(200점 만점)과 배점 구조가 다릅니다. 이 학교는 <strong>출결에 40%</strong>를 주고
+    수상실적·자치회 임원 같은 '학교활동' 항목은 아예 반영하지 않습니다.
+    교과성적이 중간이어도 출결이 깨끗하면 1차 통과 가능성이 높고, 반대로 미인정 결석이 쌓여 있으면
+    교과로 만회하기가 매우 어렵습니다. 세부 환산식은 학교 자체 기준이므로 정확한 감점표는 교무실에 확인하세요.</p>
+  </div>
+
+  <h3>2차 전형 (200점 만점 · 최종 선발)</h3>
+  <div class="tscroll">
+    <table>
+      <thead><tr><th>평가항목</th><th>배점</th><th>비고</th></tr></thead>
+      <tbody>
+        <tr><td>1차 전형 점수</td><td class="num">100점</td><td>그대로 승계</td></tr>
+        <tr><td>담임추천서 [서식1]</td><td class="num">5점<span class="bar v2" style="width:8%"></span></td><td>담임 선생님이 작성 · 2차 전형일 직접 제출</td></tr>
+        <tr><td>자기소개서 및 취업희망서 [서식2]</td><td class="num">35점<span class="bar v2" style="width:58%"></span></td><td>자기소개서는 반드시 본인 자필</td></tr>
+        <tr><td>면접</td><td class="num">60점<span class="bar v2" style="width:100%"></span></td><td>품행 · 지원동기 · 발표력 평가</td></tr>
+        <tr class="total"><td>계</td><td class="num">200점</td><td>2차 자체 배점은 100점</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p>정리하면, 1차를 통과한 154명은 <em>남은 100점(자소서 35 + 면접 60 + 추천서 5)</em>을 놓고 다시 겨룹니다.
+  1차 점수 차이가 몇 점이라면 면접 한 번으로 충분히 뒤집힙니다. 반대로 1차를 아슬아슬하게 통과했어도
+  면접과 자소서에서 상위권을 받으면 합격 범위에 들어갑니다.</p>
+
+  <div class="flag crit">
+    <span class="flag-t">과락 조항 — 반드시 읽어야 할 한 줄</span>
+    <p>2차 전형 취득 점수(1차 점수 제외)가 <strong>전형 총점 100점의 60%, 즉 60점에 미달</strong>하는 지원자 중
+    입학전형관리위원회가 <strong>지원동기와 취업의지가 부족하다고 인정</strong>하면, 모집정원에 관계없이 불합격 처리될 수 있습니다.
+    이 학교는 '성적은 되는데 일단 써 본' 학생을 걸러내겠다는 장치를 명시해 둔 겁니다.
+    면접에서 "대학 가려고요"라는 뉘앙스가 나오면 위험합니다.</p>
+  </div>
+
+  <div class="flag ok">
+    <span class="flag-t">동점자 사정 순서</span>
+    <p>① 면접고사 우수자 → ② 자기소개서 및 취업희망서 → ③ 1차 전형 점수.
+    동점이면 내신이 아니라 <strong>면접이 먼저</strong>입니다. 면접 비중을 다시 한번 확인시켜 주는 조항입니다.</p>
+  </div>
+</section>
+
+<!-- ========== 3 ========== -->
+<section class="stage">
+  <div class="stage-no">03</div>
+  <h2>지금 당장 할 일 — 10월 31일에 닫히는 문</h2>
+  <p class="sub">출결과 봉사활동은 3학년 10월 말 기록까지만 반영됩니다. 이 두 가지는 11월이 되면 손댈 수 없습니다.</p>
+
+  <div class="card">
+    <h3>1. 출결 기록을 직접 확인하세요 (40점)</h3>
+    <p>담임 선생님께 1~3학년 <strong>미인정 결석·지각·조퇴·결과</strong> 일수를 뽑아달라고 요청하세요.
+    질병결석이나 기타결석으로 처리되어야 할 것이 미인정으로 잘못 입력된 경우가 드물지 않습니다.
+    증빙(진료확인서, 가정통신문 회신 등)이 있으면 10월 말 이전에 정정 요청이 가능합니다. 11월에는 못 고칩니다.</p>
+    <p>남은 기간 등교일에 <strong>지각 한 번도 하지 마세요.</strong> 배점 40점 항목에서 1점 깎이는 것이
+    교과 50점에서 1점 올리는 것보다 훨씬 쉽게 벌어집니다.</p>
+  </div>
+
+  <div class="card">
+    <h3>2. 봉사활동 15시간을 채우세요 (10점)</h3>
+    <p>경기도 고입 내신 기준에서 봉사활동은 <strong>3년 통합 15시간 이상이면 만점</strong>, 7시간 이하면 최저점으로 차등 부여됩니다.
+    현재 시간을 확인하고 15시간에 모자라면 10월 말 전에 채우세요. 학교 계획 봉사(교내 환경정리, 또래 멘토링 등)로도 인정됩니다.
+    15시간을 이미 넘겼다면 더 쌓을 필요는 없습니다.</p>
+  </div>
+
+  <div class="card">
+    <h3>3. 교과성적은 3학년 2학기 중간고사까지 (50점)</h3>
+    <p>특성화고 전형은 <strong>3학년 2학기 1차 지필평가(중간고사)</strong>까지 반영합니다.
+    2027학년도 전형부터는 <strong>중학교 1학년 2학기 성적</strong>도 고입 내신에 들어갑니다.
+    2학기 기말고사는 반영되지 않으니, 중간고사가 아직 남았다면 그게 마지막 기회입니다.</p>
+  </div>
+
+  <div class="card">
+    <h3>4. 담임 선생님께 추천서를 미리 요청하세요 (5점)</h3>
+    <p>[서식1] 담임교사 추천서는 학교장 추천 성격이고, 선생님이 작성·서명하셔야 합니다.
+    1차 발표(11/6) 후에 요청하면 주말을 끼고 사흘 안에 받아야 합니다. <strong>10월 중에 미리 말씀드려 두세요.</strong>
+    학생이 왜 반도체 분야를 지망하는지, 어떤 활동을 해 왔는지 선생님이 알고 계셔야 추천서에 쓸 내용이 생깁니다.</p>
+  </div>
+</section>
+
+<!-- ========== 4 ========== -->
+<section class="stage">
+  <div class="stage-no">04</div>
+  <h2>제출서류 체크리스트</h2>
+  <p class="sub">온라인 제출과 전형일 직접 제출이 나뉩니다. 체크 상태는 이 기기에만 저장됩니다.</p>
+
+  <ul class="chk" id="checklist">
+    <li><input type="checkbox" id="c1"><label for="c1"><span class="tag on">온라인</span><b>입학원서 1부</b><span>11/3 09:00 ~ 11/5 17:00 · 학과는 1지망만 선택, 복수 지망 불가 · 원서 출력물은 제출하지 않음</span></label></li>
+    <li><input type="checkbox" id="c2"><label for="c2"><span class="tag on">온라인</span><b>개인정보활용동의서 1부</b><span>입학원서와 함께 온라인 제출</span></label></li>
+    <li><input type="checkbox" id="c3"><label for="c3"><span class="tag auto">자동</span><b>내신 성적 자료 (경기도 내 중학교)</b><span>온라인으로 자동 연계. 별도 제출 없음</span></label></li>
+    <li><input type="checkbox" id="c4"><label for="c4"><span class="tag hand">타시도</span><b>학교생활기록부 1부 (경기도 외 중학교)</b><span>3학년 2학기 1차 정기시험 성적 포함본. 성적이 미기재된 경우 3학년 1학기말 성적 포함본 + 타시도 지원자용 3학년 2학기 1차 정기시험 기준 환산점 서류 1부</span></label></li>
+    <li><input type="checkbox" id="c5"><label for="c5"><span class="tag hand">11/9 지참</span><b>[서식1] 담임교사 추천서</b><span>담임 선생님 서명 + 학교 전화번호 기재 · 2차 전형일에 직접 제출</span></label></li>
+    <li><input type="checkbox" id="c6"><label for="c6"><span class="tag hand">11/9 지참</span><b>[서식2] 자기소개서 및 취업 희망서</b><span>자기소개서는 사전에 <b>본인 자필</b>로 작성 · 지원자 서명 + 보호자 서명 필요 · 증빙자료가 있으면 함께 제출</span></label></li>
+    <li><input type="checkbox" id="c7"><label for="c7"><span class="tag hand">해당자</span><b>검정고시 합격자</b><span>합격증명서·성적증명서 원본 및 사본 각 1부, 주민등록등본 1부, 반명함판 사진 1매(또는 jpg)</span></label></li>
+    <li><input type="checkbox" id="c8"><label for="c8"><span class="tag hand">해당자</span><b>동등학력 인정자</b><span>학교생활기록부·주민등록등본 각 1부, 반명함판 사진 1매(또는 jpg)</span></label></li>
+    <li><input type="checkbox" id="c9"><label for="c9"><span class="tag hand">해당자</span><b>특례입학 대상자</b><span>특례입학신청서, 학교생활기록부 1부, 외국학교 전 학년 성적증명서 등 증빙서류 · 별도 전형 일정에 따라 방문 접수</span></label></li>
+    <li><input type="checkbox" id="c10"><label for="c10"><span class="tag hand">해당자</span><b>국가유공자 자녀 / 북한이탈주민</b><span>국가유공자 자녀(교육지원 대상자) 증명 서류 1부 / 북한이탈주민등록확인서 1부</span></label></li>
+    <li><input type="checkbox" id="c11"><label for="c11"><span class="tag hand">사전 확인</span><b>주민등록등본 (가족 전원)</b><span>제출서류는 아니지만, 보호자 포함 전 가족의 경기도 주민등록 여부를 접수 전에 반드시 확인</span></label></li>
+  </ul>
+
+  <div class="flag">
+    <span class="flag-t">정원 외 전형</span>
+    <p>특례입학 2명, 국가유공자 자녀 3명, 북한이탈주민 2명, 특수교육대상자는 정원 외로 별도 선발합니다.
+    해당된다면 일반 지원자와 경쟁 구도가 달라지므로 지원 전에 교무실에 자격 여부를 확인하는 편이 유리합니다.</p>
+  </div>
+</section>
+
+<!-- ========== 5 ========== -->
+<section class="stage">
+  <div class="stage-no">05</div>
+  <h2>자기소개서 작성 전략 (35점)</h2>
+  <p class="sub">문항당 150~200자. 짧기 때문에 오히려 설계가 필요합니다. 한 문항에 메시지는 하나입니다.</p>
+
+  <div class="card">
+    <h3>문항 1 — 성장 과정, 생활신조(좌우명), 성격의 장·단점 (150~200자)</h3>
+    <p>세 가지를 다 쓰라고 되어 있지만 200자에 셋을 나열하면 아무것도 남지 않습니다.
+    <strong>하나의 일화 → 거기서 생긴 좌우명 → 그게 드러난 성격</strong>으로 꿰는 구조를 권합니다.</p>
+    <ul>
+      <li>성장 과정은 가정 형편이나 출생 이야기가 아니라 <strong>손으로 무언가를 다뤄 본 경험</strong>이 좋습니다. 기계를 분해해 본 일, 고장난 것을 고쳐 본 일, 반복 작업을 끝까지 해낸 일.</li>
+      <li>단점은 반드시 쓰되 <strong>개선 행동 한 줄</strong>을 붙이세요. "꼼꼼하지만 느리다 → 작업 순서를 미리 적어두는 습관을 들였다"처럼.</li>
+      <li>반도체 공정은 정밀도와 규칙 준수가 핵심인 분야입니다. 성실성·정확성·끈기가 드러나는 일화가 학과 성격과 맞습니다.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3>문항 2 — 학교 활동 (150~200자)</h3>
+    <p>봉사활동, 교내외 동아리, 취미, 자격증, 독서 중 <strong>두 가지 정도만</strong> 고르고 각각 결과를 숫자나 결말로 끝내세요.
+    "열심히 했습니다"로 끝나는 문장은 점수가 되지 않습니다.</p>
+    <ul>
+      <li>전자·기계·코딩·과학 관련 동아리나 활동이 있으면 1순위입니다.</li>
+      <li>그런 활동이 없다면 <strong>꾸준함</strong>을 보여주는 활동으로 대체하세요. 3년간 같은 봉사를 이어간 것도 충분한 소재입니다.</li>
+      <li>독서는 책 제목을 적고 <strong>그 책이 바꾼 생각 한 줄</strong>까지 써야 의미가 생깁니다.</li>
+      <li>자격증(정보처리기능사, GTQ, 컴활 등)이 있으면 반드시 기재하고, 면접에서 물어볼 수 있으니 내용을 복습해 두세요.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3>진로(취업) 희망서 — 체크 하나가 지원동기의 일관성을 결정합니다</h3>
+    <p>희망 취업 분야를 적고 아래 셋 중 하나를 선택합니다.</p>
+    <div class="tscroll">
+      <table>
+        <thead><tr><th>구분</th><th>경로</th><th>이 전형에서의 정합성</th></tr></thead>
+        <tbody>
+          <tr><td>선취업</td><td>특성화고 졸업 → 취업 성공</td><td>가장 명확. 취업의지 평가에 직결</td></tr>
+          <tr><td>선취업후진학</td><td>졸업 → 취업 → 대학 진학(취업 병행)</td><td>현실적이면서 취업이 먼저라 무난함</td></tr>
+          <tr><td>선진학후취업</td><td>졸업 → 대학 진학 → 취업</td><td>왜 이 학교여야 하는지 추가 설명이 필요함</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>이 전형의 지원자격 자체가 "<strong>취업 의지가 명확하고</strong> 성장 가능성과 창의성을 가진 자"입니다.
+    선진학후취업을 고르면 틀린 건 아니지만, 과락 조항(취업의지 부족 시 불합격)과 맞물려 면접에서 방어해야 할 질문이 늘어납니다.
+    실제 생각과 다르게 적으라는 뜻이 아니라, 고른 항목과 자소서와 면접 답변이 <strong>같은 방향</strong>이어야 한다는 뜻입니다.</p>
+    <p>희망 취업 분야는 '대기업'처럼 쓰지 말고 <strong>직무 단위</strong>로 적으세요.
+    예: 반도체 공정 오퍼레이터, 설비 엔지니어, 장비 유지보수, 품질·수율 관리.</p>
+  </div>
+
+  <div class="flag warn">
+    <span class="flag-t">자필 작성 실무</span>
+    <ul>
+      <li>연습용 사본에 먼저 쓰고 글자 수와 줄 배치를 맞춘 뒤 원본에 옮기세요. 서식 칸은 5줄입니다.</li>
+      <li>검정 볼펜 사용, 수정테이프 최소화. 많이 지운 흔적은 그 자체로 인상을 깎습니다.</li>
+      <li>지원자 서명과 <strong>보호자 서명(관계 기재)</strong>이 모두 필요합니다. 전형일 아침에 발견하면 늦습니다.</li>
+      <li>자소서 내용을 증빙할 자료가 있으면 함께 제출할 수 있습니다. 자격증 사본, 활동 확인서 등을 미리 챙기세요.</li>
+      <li>원본을 제출하므로 <strong>사본이나 사진을 반드시 남겨 두세요.</strong> 면접 답변이 자소서와 어긋나면 안 됩니다.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ========== 6 ========== -->
+<section class="stage">
+  <div class="stage-no">06</div>
+  <h2>면접 대비 (60점)</h2>
+  <p class="sub">요강에 명시된 평가 기준은 <strong>품행 · 지원동기 · 발표력</strong> 세 가지입니다. 11월 9일 14:00, 용인바이오고 내 지정 장소.</p>
+
+  <div class="card">
+    <h3>답변 기본형 — 30초, 세 문장</h3>
+    <p>중학생 면접에서 긴 답변은 오히려 감점입니다. 모든 질문에 다음 틀로 답하면 발표력 점수가 안정됩니다.</p>
+    <ol>
+      <li><strong>결론</strong> — 질문에 대한 답을 먼저 한 문장으로.</li>
+      <li><strong>근거</strong> — 자기 경험 하나. 추상적인 다짐이 아니라 실제로 있었던 일.</li>
+      <li><strong>연결</strong> — 그래서 이 학교·이 학과에서 무엇을 하고 싶은지.</li>
+    </ol>
+    <p>모르는 걸 물어보면 <strong>"그 부분은 아직 모릅니다. 입학하면 ○○부터 배우고 싶습니다"</strong>라고 답하세요.
+    지어내다가 꼬이는 것보다 훨씬 좋은 평가를 받습니다.</p>
+  </div>
+
+  <div class="card">
+    <h3>알고 들어가야 할 산업 상식</h3>
+    <p>중학생에게 전공 지식을 깊게 묻지는 않지만, 아래 수준은 알고 가면 지원동기의 신빙성이 확 올라갑니다.</p>
+    <ul>
+      <li><strong>반도체 8대 공정</strong> — 웨이퍼 제조 → 산화 → 포토(노광) → 식각 → 증착·이온주입 → 금속배선 → 테스트(EDS) → 패키징. 이름과 순서만이라도.</li>
+      <li><strong>전공정과 후공정</strong>의 차이, <strong>팹(Fab)</strong>·<strong>클린룸</strong>·<strong>수율</strong>이 무슨 뜻인지.</li>
+      <li><strong>두 학과의 차이</strong> — 반도체제조과는 공정을 돌리고 제품을 만드는 쪽, 반도체장비과는 그 공정을 수행하는 장비를 설치·운영·유지보수하는 쪽. 본인이 지망한 쪽을 한 문장으로 설명할 수 있어야 합니다.</li>
+      <li><strong>용인 반도체 벨트</strong> — 처인구 이동·남사읍 삼성전자 첨단시스템반도체 국가산업단지, 원삼면 SK하이닉스 용인반도체클러스터, 기흥 삼성전자 연구개발단지.</li>
+      <li><strong>학교</strong> — 2027년 3월 개교하는 첫 신입생, 2028년 마이스터고 전환 추진, 50여 개 기업이 교육과정 개발에 참여, 학급당 16명 소수정예.</li>
+    </ul>
+  </div>
+
+  <p class="qgroup">예상 질문 — 지원동기 계열</p>
+  <details><summary>왜 인문계 고등학교가 아니라 특성화고를 선택했나요?</summary><div class="ans">
+    <p class="key">평가 포인트: 취업의지. 과락 조항이 걸린 질문입니다.</p>
+    <p>"공부를 못해서"로 들리면 안 됩니다. 기술을 빨리 익혀 현장에 가고 싶다는 <strong>선택</strong>으로 말하세요.
+    언제부터 그 생각을 했는지 계기를 하나 붙이면 설득력이 생깁니다.</p>
+  </div></details>
+  <details><summary>왜 하필 반도체인가요?</summary><div class="ans">
+    <p>"산업이 유망해서"만으로는 부족합니다. 유망한 산업은 많습니다.
+    <span class="key">본인과 반도체를 잇는 개인적인 고리</span>를 하나 만드세요 — 뉴스로 본 것, 가족 중 관련 종사자, 분해해 본 전자기기, 과학 수업에서 흥미를 느낀 단원.</p>
+  </div></details>
+  <details><summary>아직 건물도 다 안 지어진 신설 학교인데 불안하지 않나요?</summary><div class="ans">
+    <p>신설 학교라서 거의 확실히 나오는 질문입니다. <span class="key">첫 입학생이라는 점을 단점이 아니라 선택 이유로</span> 바꿔 답하세요.
+    1기 졸업생으로서 학교의 기준을 만드는 역할, 학급당 16명 소수정예, 기업이 직접 설계한 교육과정 같은 근거를 쓸 수 있습니다.</p>
+  </div></details>
+  <details><summary>집이 멀 텐데 통학은 어떻게 할 계획인가요?</summary><div class="ans">
+    <p>실제 계획을 구체적으로 말하면 됩니다. 기숙사 희망이면 단체생활에 대한 각오까지,
+    통학이면 소요 시간을 실제로 알아보고 왔다는 것이 드러나야 합니다. <span class="key">출결 40점 학교에 통학 계획이 모호한 답변은 불리합니다.</span></p>
+  </div></details>
+  <details><summary>부모님은 이 학교 지원을 어떻게 생각하시나요?</summary><div class="ans">
+    <p>진로희망서에 보호자 서명이 들어가는 전형입니다. 가정에서 합의가 되어 있는지를 보는 질문이니
+    <span class="key">"상의해서 함께 결정했다"</span>는 사실을 말하고, 처음에 반대가 있었다면 어떻게 설득했는지까지 말하면 오히려 좋습니다.</p>
+  </div></details>
+
+  <p class="qgroup">예상 질문 — 학과·진로 계열</p>
+  <details><summary>반도체제조과와 반도체장비과 중 왜 이 학과를 골랐나요?</summary><div class="ans">
+    <p>학과 선택이 1지망 하나뿐이므로 반드시 나옵니다. 두 학과의 차이를 설명하고,
+    <span class="key">본인 성향과 연결</span>하세요. 공정 조건을 다루고 결과를 분석하는 쪽인지, 장비를 뜯고 조립하고 고치는 쪽인지.</p>
+  </div></details>
+  <details><summary>반도체 공정에 대해 아는 대로 말해보세요.</summary><div class="ans">
+    <p>8대 공정 이름을 순서대로 말하고, <span class="key">그중 가장 관심 있는 하나</span>를 골라 왜 관심이 있는지 덧붙이면 충분합니다.
+    모든 공정을 다 설명하려 들면 발표력에서 감점됩니다.</p>
+  </div></details>
+  <details><summary>졸업 후 어떤 회사에서 어떤 일을 하고 싶나요?</summary><div class="ans">
+    <p>회사 이름만 대는 답은 약합니다. <span class="key">직무</span>로 답하세요 — 공정 오퍼레이터, 설비 엔지니어, 장비 유지보수, 품질·수율 관리.
+    진로희망서에 적은 분야와 반드시 일치해야 합니다.</p>
+  </div></details>
+  <details><summary>졸업하면 바로 취업할 건가요, 대학에 갈 건가요?</summary><div class="ans">
+    <p class="key">과락 조항과 직결되는 질문입니다.</p>
+    <p>진학 생각이 있다면 <span class="key">선취업 후 재직자 전형이나 야간·사내 대학으로 진학</span>하겠다는 순서로 답하세요.
+    "일단 들어가서 대학 준비하려고요"는 이 전형에서 가장 위험한 답변입니다.</p>
+  </div></details>
+  <details><summary>학교에 들어와서 따고 싶은 자격증이 있나요?</summary><div class="ans">
+    <p>2학년에 반도체 관련 자격증 취득 과정이 예정되어 있습니다.
+    반도체장비유지보수기능사, 전자기기기능사, 전기기능사, 정보처리기능사 정도는 <span class="key">이름과 대략의 내용</span>을 알아두세요.</p>
+  </div></details>
+
+  <p class="qgroup">예상 질문 — 인성·품행 계열</p>
+  <details><summary>1분 동안 자기소개를 해보세요.</summary><div class="ans">
+    <p>반드시 준비하세요. 구조는 <span class="key">이름과 학교 → 나를 설명하는 한 문장 → 그 근거가 되는 경험 하나 → 입학 후 포부</span>.
+    소리 내어 10번 이상 연습해 분량을 몸에 익히세요. 자소서에 쓴 내용과 어긋나면 안 됩니다.</p>
+  </div></details>
+  <details><summary>중학교 생활기록부에 결석/지각이 있는데 이유가 무엇인가요?</summary><div class="ans">
+    <p>기록이 있다면 거의 확실히 묻습니다. <span class="key">변명하지 말고 사실을 짧게 말한 뒤, 이후에 어떻게 달라졌는지</span>로 넘어가세요.
+    출결 40점 학교이므로 "앞으로 지키겠다"보다 "최근 몇 개월간 무결석이다" 같은 실제 변화가 훨씬 강합니다.</p>
+  </div></details>
+  <details><summary>친구들과 협력해서 무언가를 해낸 경험이 있나요?</summary><div class="ans">
+    <p>클린룸 공정은 교대·협업 작업입니다. 조별 과제, 동아리, 봉사 중 하나를 골라
+    <span class="key">본인이 맡은 역할과 갈등을 조정한 방법</span>까지 말하면 좋습니다.</p>
+  </div></details>
+  <details><summary>힘들었던 일을 끝까지 해낸 경험이 있나요?</summary><div class="ans">
+    <p>인내심을 보는 질문입니다. 거창할 필요 없습니다. 운동, 악기, 긴 봉사, 반복 연습이 필요했던 무엇이든
+    <span class="key">기간과 결과</span>가 들어가면 됩니다.</p>
+  </div></details>
+  <details><summary>기숙사 생활을 하게 되면 가장 걱정되는 점은?</summary><div class="ans">
+    <p>기숙사는 신입생 전원 수용을 목표로 준비 중이고 단체생활 규칙이 있습니다.
+    <span class="key">걱정을 솔직히 말하되 대처 방법을 붙이는</span> 형태로 답하세요. "걱정 없습니다"는 성의 없게 들립니다.</p>
+  </div></details>
+  <details><summary>마지막으로 하고 싶은 말이 있나요?</summary><div class="ans">
+    <p>거의 항상 나오고, 거의 모두가 준비를 안 해 오는 질문입니다.
+    <span class="key">앞에서 못 한 말 한 가지 + 입학 의지</span>를 20초로 준비해 가세요. 여기서 인상이 갈립니다.</p>
+  </div></details>
+
+  <div class="flag">
+    <span class="flag-t">면접 당일 실무</span>
+    <ul>
+      <li>같은 날 <strong>신체검사</strong>가 함께 진행됩니다. 전날 충분히 자고, 안경이나 필요한 것을 챙기세요.</li>
+      <li>교복 착용이 무난합니다. 머리·손톱·신발까지 '품행' 평가 항목에 들어간다고 생각하세요.</li>
+      <li>[서식1] 담임추천서, [서식2] 자기소개서 및 취업희망서, 해당자 증빙서류를 <strong>이날 직접 제출</strong>합니다. 봉투에 미리 넣어 두세요.</li>
+      <li>장소는 용인바이오고 내 지정 장소입니다. 신축 중인 남사읍 부지가 아닙니다. 14:00 시작이므로 최소 30분 전 도착.</li>
+      <li>입실·퇴실 인사, 바른 자세, 눈 맞춤. 발표력 점수의 절반은 내용이 아니라 태도입니다.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ========== 7 ========== -->
+<section class="stage">
+  <div class="stage-no">07</div>
+  <h2>주차별 실행 계획</h2>
+  <p class="sub">오늘부터 최종 발표까지 5주입니다.</p>
+
+  <div class="tscroll">
+    <table>
+      <thead><tr><th>기간</th><th>핵심 과제</th></tr></thead>
+      <tbody>
+        <tr><td class="num">10/7 ~ 10/19</td><td>출결 기록 확인 및 정정 요청 · 봉사시간 확인 후 15시간 채우기 · 담임 선생님께 추천서 사전 요청 · 가족 전원 주민등록등본 확인 · 학과(제조/장비) 1지망 결정</td></tr>
+        <tr><td class="num">10/20 ~ 10/31</td><td>자기소개서 두 문항 초안 작성 및 퇴고 · 진로희망서 경로 선택 확정 · 반도체 8대 공정과 용인 클러스터 기본 학습 · <strong>10/31 출결·봉사 반영 마감</strong></td></tr>
+        <tr><td class="num">11/1 ~ 11/5</td><td>자기소개서 자필 원본 작성(연습본 → 원본) · 보호자 서명 · 증빙자료 정리 · <strong>11/3~11/5 온라인 원서 접수</strong></td></tr>
+        <tr><td class="num">11/6 ~ 11/8</td><td>1차 합격 확인(11/6 11:00) · 담임추천서 수령 · 자소서 기반 예상 질문 답변 작성 · 소리 내어 모의면접 최소 3회 · 제출 봉투 완성</td></tr>
+        <tr><td class="num">11/9</td><td><strong>면접 및 신체검사 14:00</strong> · 서류 직접 제출 · 30분 전 도착</td></tr>
+        <tr><td class="num">11/11</td><td>최종 합격자 발표 10:00 · 불합격 시 11/26~27 추가모집 또는 후기 일반고 지원 검토</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3>문의처</h3>
+    <dl class="kv">
+      <dt>교무실</dt><dd>031-8097-3545</dd>
+      <dt>행정실</dt><dd>031-8097-2605</dd>
+      <dt>팩스</dt><dd>031-8097-2618</dd>
+      <dt>홈페이지</dt><dd><a href="https://yibio-h.goeyi.kr" target="_blank" rel="noopener">yibio-h.goeyi.kr</a> (합격자 발표도 이곳)</dd>
+      <dt>주소</dt><dd>(17136) 경기도 용인시 처인구 이동읍 경기동로687번길 28-14</dd>
+    </dl>
+    <p style="font-size:13px;color:var(--muted)">전형 일정은 학교 소재지 내 감염병 유행 시 교육청 협의 후 조정될 수 있고,
+    면접·실기가 취소될 경우 대체 방안이 추후 공지됩니다. 발표일 전후로 홈페이지를 확인하세요.</p>
+  </div>
+</section>
+
+<footer>
+  <b>세영코딩연구소  저자 : 컴퓨터공학박사 KIM</b>
+  2027학년도 용인반도체고등학교 신입생 입학전형요강(2026. 7. 30. 공고)을 기준으로 정리했습니다.
+  출결·봉사활동의 세부 환산식은 학교 자체 기준이므로 정확한 배점표는 교무실 확인이 필요하며,
+  요강에 명시되지 않은 사항은 경기도교육청 「2027학년도 경기도 고등학교 신입생 전형요강」을 따릅니다.
+</footer>
+
+</div>
+
+<script>
+(function(){
+  // D-day
+  var today = new Date(); today.setHours(0,0,0,0);
+  var DAY = 86400000;
+  function diff(iso){
+    var p = iso.split("-");
+    var t = new Date(+p[0], +p[1]-1, +p[2]); t.setHours(0,0,0,0);
+    return Math.round((t - today) / DAY);
+  }
+  var rows = document.querySelectorAll("#timeline li");
+  for (var i=0;i<rows.length;i++){
+    var d = diff(rows[i].getAttribute("data-date"));
+    var el = rows[i].querySelector(".dday");
+    if (d > 0){ el.textContent = "D-" + d; if (d <= 30) rows[i].className = "hot"; }
+    else if (d === 0){ el.textContent = "D-DAY"; rows[i].className = "hot"; }
+    else { el.textContent = "종료"; rows[i].style.opacity = ".45"; }
+  }
+  var box = document.getElementById("ddayBox");
+  var dStart = diff("2026-11-03");
+  box.textContent = dStart > 0 ? "D-" + dStart : (dStart === 0 ? "D-DAY" : "접수 종료");
+
+  // checklist persistence (per-viewer convenience only)
+  var KEY = "ybs-admission-checklist";
+  var saved = {};
+  try { saved = JSON.parse(localStorage.getItem(KEY) || "{}") || {}; } catch (e) { saved = {}; }
+  var boxes = document.querySelectorAll("#checklist input");
+  function save(){
+    var out = {};
+    for (var j=0;j<boxes.length;j++) out[boxes[j].id] = boxes[j].checked;
+    try { localStorage.setItem(KEY, JSON.stringify(out)); } catch (e) {}
+  }
+  for (var k=0;k<boxes.length;k++){
+    if (saved[boxes[k].id]) boxes[k].checked = true;
+    boxes[k].addEventListener("change", save);
+  }
+})();
+</script>
+
+</body></html>
