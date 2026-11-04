@@ -1,0 +1,812 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>방학특강 바이브코딩 3과목</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@400;500;700;800&family=IBM+Plex+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* 레이아웃: 과목 색인 탭 + 회차 타임라인 레일 — 교무실 벽에 붙는 커리큘럼 보드 */
+:root{
+  --paper:#eceff5;
+  --sheet:#ffffff;
+  --sheet-2:#f5f7fb;
+  --ink:#131a29;
+  --ink-soft:#626d85;
+  --rule:#d7dde8;
+  --rule-soft:#e8ecf3;
+  --c1:#bb3366;
+  --c1-soft:#fbeef3;
+  --c2:#1c57a6;
+  --c2-soft:#eaf1fb;
+  --c3:#14775d;
+  --c3-soft:#e7f4ef;
+  --band:#131a29;
+  --band-ink:#eef1f7;
+
+  --display:'Hahmlet', 'Noto Serif KR', serif;
+  --body:'IBM Plex Sans KR', system-ui, -apple-system, sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0d111b; --sheet:#161d2b; --sheet-2:#1c2434; --ink:#e8edf7;
+    --ink-soft:#97a3bb; --rule:#2a3447; --rule-soft:#222b3b;
+    --c1:#f07da5; --c1-soft:#2d1d26; --c2:#7ea8f0; --c2-soft:#17243a;
+    --c3:#55c8a4; --c3-soft:#15302a; --band:#060a12; --band-ink:#e8edf7;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0d111b; --sheet:#161d2b; --sheet-2:#1c2434; --ink:#e8edf7;
+  --ink-soft:#97a3bb; --rule:#2a3447; --rule-soft:#222b3b;
+  --c1:#f07da5; --c1-soft:#2d1d26; --c2:#7ea8f0; --c2-soft:#17243a;
+  --c3:#55c8a4; --c3-soft:#15302a; --band:#060a12; --band-ink:#e8edf7;
+  color-scheme:dark;
+}
+*,*::before,*::after{ box-sizing:border-box; }
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family:var(--body); font-weight:400; font-size:15px; line-height:1.72;
+  letter-spacing:-0.012em; -webkit-text-size-adjust:100%;
+}
+button{ font-family:inherit; color:inherit; touch-action:manipulation; }
+:focus-visible{ outline:2.5px solid var(--c2); outline-offset:3px; border-radius:4px; }
+h1,h2,h3,h4{ font-family:var(--display); font-weight:700; margin:0; text-wrap:balance;
+  letter-spacing:-0.02em; line-height:1.28; }
+p{ margin:0; }
+.wrap{ width:100%; max-width:1080px; margin-inline:auto;
+  padding-left:max(16px, env(safe-area-inset-left, 0px));
+  padding-right:max(16px, env(safe-area-inset-right, 0px)); }
+
+/* ── 머리띠 ── */
+.band{ background:var(--band); color:var(--band-ink); }
+.band .wrap{ padding-block:clamp(34px, 6vw, 62px); }
+.eyebrow{ display:flex; flex-wrap:wrap; gap:8px 18px; font-size:12.5px;
+  color:color-mix(in srgb, var(--band-ink) 62%, transparent); margin-bottom:18px; }
+.band h1{ font-size:clamp(30px, 6.2vw, 56px); font-weight:800; margin-bottom:16px; }
+.band h1 span{ display:block; font-weight:400; font-size:clamp(17px,2.8vw,24px);
+  color:color-mix(in srgb, var(--band-ink) 70%, transparent); margin-top:10px;
+  letter-spacing:-0.01em; }
+.band .lede{ max-width:60ch; font-size:clamp(14.5px,1.7vw,16.5px);
+  color:color-mix(in srgb, var(--band-ink) 78%, transparent); }
+.spec{ display:flex; flex-wrap:wrap; gap:0; margin-top:26px;
+  border-top:1px solid color-mix(in srgb, var(--band-ink) 22%, transparent); }
+.spec div{ flex:1 1 150px; min-width:0; padding:14px 18px 14px 0; }
+.spec dt{ font-size:11.5px; letter-spacing:.1em;
+  color:color-mix(in srgb, var(--band-ink) 55%, transparent); }
+.spec dd{ margin:3px 0 0; font-family:var(--display); font-weight:700; font-size:21px;
+  font-variant-numeric:tabular-nums; }
+
+/* ── 섹션 ── */
+section{ padding-block:clamp(34px, 5.5vw, 62px); }
+.sechead{ margin-bottom:22px; }
+.sechead .tag{ font-size:11.5px; letter-spacing:.14em; color:var(--ink-soft); }
+.sechead h2{ font-size:clamp(21px,3.4vw,30px); margin-top:6px; }
+.sechead p{ margin-top:8px; color:var(--ink-soft); font-size:14.5px; max-width:62ch; }
+
+/* ── 과목 3장 ── */
+.courses{ display:grid; gap:14px; grid-template-columns:repeat(auto-fit, minmax(270px, 1fr)); }
+.ccard{ background:var(--sheet); border:1px solid var(--rule); border-radius:4px;
+  overflow:hidden; display:flex; flex-direction:column; min-width:0; }
+.ccard .top{ height:7px; background:var(--k); }
+.ccard .inner{ padding:20px 20px 22px; display:flex; flex-direction:column; gap:12px; flex:1; }
+.ccard .no{ font-family:var(--display); font-weight:800; font-size:13px; color:var(--k);
+  letter-spacing:.08em; }
+.ccard h3{ font-size:21px; }
+.ccard .sub{ font-size:13.5px; color:var(--ink-soft); margin-top:-6px; }
+.ccard .meta{ margin-top:auto; display:grid; gap:7px; padding-top:12px;
+  border-top:1px solid var(--rule-soft); }
+.ccard .meta div{ display:grid; grid-template-columns:62px 1fr; gap:10px; font-size:13px; }
+.ccard .meta dt{ color:var(--ink-soft); font-size:12px; }
+.ccard .meta dd{ margin:0; }
+.ccard .meta dd b{ color:var(--k); font-weight:600; }
+
+/* ── 표 ── */
+.scroll{ overflow-x:auto; border:1px solid var(--rule); border-radius:4px; background:var(--sheet); }
+table{ border-collapse:collapse; width:100%; min-width:620px; font-size:13.5px; }
+th,td{ text-align:left; padding:12px 14px; border-bottom:1px solid var(--rule-soft);
+  vertical-align:top; }
+thead th{ background:var(--sheet-2); font-weight:600; font-size:12px; letter-spacing:.04em;
+  color:var(--ink-soft); white-space:nowrap; }
+tbody th{ font-weight:600; white-space:nowrap; font-size:13px; }
+tbody tr:last-child td, tbody tr:last-child th{ border-bottom:none; }
+td b{ font-weight:600; }
+.k1{ color:var(--c1); } .k2{ color:var(--c2); } .k3{ color:var(--c3); }
+
+/* ── 120분 리듬 바 ── */
+.rhythm{ display:flex; border:1px solid var(--rule); border-radius:4px; overflow:hidden;
+  background:var(--sheet); margin-bottom:14px; }
+.rhythm div{ padding:12px 10px; border-right:1px solid var(--rule-soft); min-width:0; }
+.rhythm div:last-child{ border-right:none; }
+.rhythm .m{ font-family:var(--display); font-weight:800; font-size:17px;
+  font-variant-numeric:tabular-nums; }
+.rhythm .n{ font-size:12px; color:var(--ink-soft); margin-top:2px; }
+.rhythm .d{ font-size:12.5px; margin-top:7px; line-height:1.6; }
+.rhythm .brk{ flex:0 0 76px; background:var(--sheet-2); }
+@media (max-width:760px){
+  .rhythm{ flex-direction:column; }
+  .rhythm div{ border-right:none; border-bottom:1px solid var(--rule-soft); }
+  .rhythm .brk{ flex:none; }
+}
+
+.rules{ display:grid; gap:10px; grid-template-columns:repeat(auto-fit, minmax(250px,1fr)); }
+.rule-item{ background:var(--sheet); border:1px solid var(--rule); border-radius:4px;
+  padding:14px 16px; min-width:0; }
+.rule-item b{ display:block; font-family:var(--display); font-weight:700; font-size:15px;
+  margin-bottom:4px; }
+.rule-item span{ font-size:13px; color:var(--ink-soft); }
+
+/* ── 탭 ── */
+.tabs{ display:flex; gap:0; border-bottom:2px solid var(--rule); margin-bottom:24px;
+  overflow-x:auto; scrollbar-width:none; }
+.tabs::-webkit-scrollbar{ display:none; }
+.tabs button{ flex:1 1 auto; min-width:120px; border:none; background:transparent; cursor:pointer;
+  padding:13px 14px 15px; font-size:14.5px; font-weight:500; color:var(--ink-soft);
+  border-bottom:3px solid transparent; margin-bottom:-2px; white-space:nowrap; }
+.tabs button:hover{ color:var(--ink); }
+.tabs button[aria-selected="true"]{ color:var(--kk); border-bottom-color:var(--kk);
+  font-weight:700; font-family:var(--display); }
+
+.coursehead{ display:grid; gap:16px; grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);
+  margin-bottom:26px; }
+@media (max-width:760px){ .coursehead{ grid-template-columns:1fr; } }
+.coursehead h3{ font-size:clamp(20px,3.2vw,27px); }
+.coursehead .sub{ color:var(--ink-soft); font-size:14px; margin-top:6px; }
+.coursehead .desc{ margin-top:12px; font-size:14.5px; max-width:56ch; }
+.io{ background:var(--sheet); border:1px solid var(--rule); border-radius:4px; padding:16px 18px;
+  display:grid; gap:11px; align-content:start; min-width:0; }
+.io div{ min-width:0; }
+.io dt{ font-size:11.5px; letter-spacing:.1em; color:var(--ink-soft); }
+.io dd{ margin:3px 0 0; font-size:14px; }
+.io dd b{ color:var(--kk); font-weight:600; }
+
+/* ── 회차 ── */
+.sessions{ display:grid; gap:12px; }
+.ses{ background:var(--sheet); border:1px solid var(--rule); border-radius:4px;
+  display:grid; grid-template-columns:58px minmax(0,1fr); min-width:0; }
+.ses .rail{ background:var(--kk-soft); border-right:1px solid var(--rule);
+  display:flex; flex-direction:column; align-items:center; padding:16px 0; gap:6px; }
+.ses .rail .n{ font-family:var(--display); font-weight:800; font-size:25px; color:var(--kk);
+  line-height:1; font-variant-numeric:tabular-nums; }
+.ses .rail .u{ font-size:10.5px; color:var(--ink-soft); letter-spacing:.06em; }
+.ses .bodyc{ padding:16px 18px 18px; min-width:0; display:grid; gap:12px; }
+.ses h4{ font-size:18px; }
+.ses .goal{ font-size:13.5px; color:var(--ink-soft); margin-top:3px; }
+.blocks{ display:grid; gap:8px; }
+.blk{ display:grid; grid-template-columns:86px minmax(0,1fr); gap:12px; font-size:13.5px;
+  padding:7px 0; border-top:1px solid var(--rule-soft); align-items:baseline; }
+.blk .lab{ font-size:12px; color:var(--ink-soft); font-variant-numeric:tabular-nums; }
+.blk .lab b{ display:block; font-family:var(--display); font-weight:700; font-size:13px;
+  color:var(--ink); }
+@media (max-width:560px){
+  .blk{ grid-template-columns:1fr; gap:2px; }
+  .blk .lab b{ display:inline; } .blk .lab{ display:flex; gap:7px; align-items:baseline; }
+}
+.outs{ display:grid; gap:7px; padding-top:11px; border-top:1px solid var(--rule-soft); }
+.out{ display:grid; grid-template-columns:76px minmax(0,1fr); gap:12px; font-size:13.5px;
+  align-items:baseline; }
+.out .t{ font-size:11px; letter-spacing:.08em; color:var(--ink-soft); }
+.out.main .v{ font-weight:600; color:var(--kk); }
+@media (max-width:560px){
+  .out{ grid-template-columns:1fr; gap:1px; }
+}
+
+/* ── 트랙 ── */
+.tracks{ display:grid; gap:12px; grid-template-columns:repeat(auto-fit, minmax(210px,1fr));
+  margin-top:20px; }
+.track{ background:var(--sheet); border:1px solid var(--rule); border-left:4px solid var(--kk);
+  border-radius:0 4px 4px 0; padding:14px 16px; min-width:0; }
+.track h5{ margin:0 0 3px; font-family:var(--display); font-weight:700; font-size:16px; }
+.track .one{ font-size:12px; color:var(--ink-soft); }
+.track ul{ margin:9px 0 0; padding-left:16px; font-size:13px; }
+.track li{ margin-bottom:4px; }
+
+/* ── 진도 매트릭스 ── */
+.matrix td{ font-size:12.5px; }
+.matrix tbody th{ background:var(--sheet-2); }
+.matrix .wk{ font-family:var(--display); font-weight:800; font-variant-numeric:tabular-nums; }
+
+.two{ display:grid; gap:14px; grid-template-columns:repeat(auto-fit, minmax(290px,1fr)); }
+.box{ background:var(--sheet); border:1px solid var(--rule); border-radius:4px;
+  padding:18px 20px; min-width:0; }
+.box h3{ font-size:17px; margin-bottom:9px; }
+.box ul{ margin:0; padding-left:17px; font-size:14px; }
+.box li{ margin-bottom:6px; }
+.box li b{ font-weight:600; }
+.note{ font-size:13.5px; color:var(--ink-soft); margin-top:10px; }
+
+.parent{ display:grid; gap:12px; }
+.pcard{ background:var(--sheet); border:1px solid var(--rule); border-radius:4px;
+  padding:16px 18px; border-top:4px solid var(--k); min-width:0; }
+.pcard h4{ font-size:16px; color:var(--k); margin-bottom:6px; }
+.pcard p{ font-size:14px; }
+
+footer{ border-top:1px solid var(--rule); }
+footer .wrap{ padding-block:26px 46px; font-size:12.5px; color:var(--ink-soft); }
+footer b{ color:var(--ink); font-weight:600; }
+@media print{
+  .tabs{ display:none; }
+  .tabpanel{ display:block !important; break-before:page; }
+  body{ background:#fff; }
+}
+</style>
+
+<div class="band">
+  <div class="wrap">
+    <div class="eyebrow">
+      <span>세영코딩연구소 방학특강</span>
+      <span>주 1회 · 2시간 · 6회차</span>
+      <span>과목당 12시간</span>
+    </div>
+    <h1>AI와 함께 만드는 6주<span>바이브코딩 특강 3과목 커리큘럼</span></h1>
+    <p class="lede">코드를 외우는 수업이 아니라, 내가 쓸 것을 내 손으로 만들어 가져가는 수업입니다. 세 과목 모두 회차마다 돌아가는 결과물 하나를 남기고, 마지막 회차에 발표로 닫습니다.</p>
+    <dl class="spec">
+      <div><dt>개설 과목</dt><dd>3과목</dd></div>
+      <div><dt>회차</dt><dd>6회</dd></div>
+      <div><dt>1회 수업</dt><dd>120분</dd></div>
+      <div><dt>총 수업</dt><dd>12시간</dd></div>
+      <div><dt>권장 인원</dt><dd>8~12명</dd></div>
+    </dl>
+  </div>
+</div>
+
+<section class="wrap">
+  <div class="sechead">
+    <p class="tag">개설 과목</p>
+    <h2>세 과목, 세 가지 결과물</h2>
+    <p>과목은 서로 독립적입니다. 하나만 들어도 완결되고, 두 과목을 함께 들으면 만드는 힘과 쓰는 힘이 같이 자랍니다.</p>
+  </div>
+  <div class="courses" id="courseCards"></div>
+</section>
+
+<section class="wrap">
+  <div class="sechead">
+    <p class="tag">선택 안내</p>
+    <h2>어떤 과목을 들을까</h2>
+  </div>
+  <div class="scroll">
+    <table>
+      <thead>
+        <tr><th scope="col">구분</th><th scope="col" class="k1">콘텐츠 만들기</th><th scope="col" class="k2">보고서 만들기</th><th scope="col" class="k3">내신 학습앱</th></tr>
+      </thead>
+      <tbody>
+        <tr><th scope="row">대상 학년</th><td>초6 ~ 고2</td><td>중1 ~ 고2</td><td>중1 ~ 고2</td></tr>
+        <tr><th scope="row">이런 학생에게</th><td>만들고 남에게 보여주는 걸 좋아하는 학생</td><td>수행평가·탐구보고서가 당장 급한 학생</td><td>내신 점수를 올리면서 코딩도 하고 싶은 학생</td></tr>
+        <tr><th scope="row">가져오는 것</th><td>좋아하는 주제 하나</td><td>학교 과제 주제 또는 관심 분야</td><td>최근 시험지와 오답노트</td></tr>
+        <tr><th scope="row">가져가는 것</th><td><b class="k1">공개 주소가 있는 콘텐츠 허브</b>와 작품 4개</td><td><b class="k2">제출 가능한 보고서 1편</b>과 발표 슬라이드</td><td><b class="k3">휴대폰에 설치되는 학습앱</b></td></tr>
+        <tr><th scope="row">코딩 비중</th><td>중간</td><td>낮음 — 글쓰기와 자료 검증이 중심</td><td>높음 — 기능을 계속 붙여 나감</td></tr>
+        <tr><th scope="row">학교 연결</th><td>창의적 체험활동, 동아리</td><td>교과 세특, 탐구보고서, 수행평가</td><td>교과 세특, 자율 탐구</td></tr>
+        <tr><th scope="row">집에서 할 일</th><td>주 30분 — 작품 아이디어 모으기</td><td>주 60분 — 자료 수집과 글쓰기</td><td>주 40분 — 데이터 채우고 실제로 써보기</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="wrap">
+  <div class="sechead">
+    <p class="tag">공통 운영</p>
+    <h2>120분은 이렇게 흐릅니다</h2>
+    <p>세 과목 모두 같은 리듬으로 진행합니다. 학생이 다음 시간에 무슨 일이 일어날지 알고 있으면 집중이 흐트러지지 않습니다.</p>
+  </div>
+  <div class="rhythm">
+    <div><p class="m">20분</p><p class="n">열기</p><p class="d">지난 회차 결과물 돌려보기, 오늘 완성본 시연, 오늘의 질문 하나</p></div>
+    <div><p class="m">40분</p><p class="n">만들기</p><p class="d">1단계 프롬프트로 뼈대 받기, 붙여넣고 화면에 띄우기</p></div>
+    <div class="brk"><p class="m">10분</p><p class="n">쉬는 시간</p></div>
+    <div><p class="m">35분</p><p class="n">다듬기</p><p class="d">2·3단계 프롬프트로 무드와 기능, 내 데이터 넣기</p></div>
+    <div><p class="m">15분</p><p class="n">닫기</p><p class="d">1분 발표, 파일 저장과 백업, 집에서 할 미션 배포</p></div>
+  </div>
+  <div class="rules" style="margin-top:20px" id="ruleBox"></div>
+  <div class="two" style="margin-top:20px">
+    <div class="box">
+      <h3>준비물</h3>
+      <ul>
+        <li>노트북 — 크롬 브라우저 설치, 충전기 지참</li>
+        <li>AI 채팅 계정 — 학부모 동의 후 개설, 첫 회차에 함께 설정</li>
+        <li>구글 계정 — 폰트·문서·배포에 사용</li>
+        <li>이어폰 — 발음 듣기와 영상 작업이 있는 회차</li>
+        <li>과목별 추가 — 보고서반은 과제 안내문, 학습앱반은 최근 시험지</li>
+      </ul>
+      <p class="note">학원 노트북 대여 가능. 1인 1대가 원칙이며 2인 1대로는 진행하지 않습니다.</p>
+    </div>
+    <div class="box">
+      <h3>수료 기준</h3>
+      <ul>
+        <li><b>출석</b> 6회 중 5회 이상</li>
+        <li><b>산출물</b> 회차 결과물 4개 이상 제출</li>
+        <li><b>발표</b> 6회차 최종 발표 완료</li>
+      </ul>
+      <p class="note">수료증에는 만든 산출물 목록과 공개 주소를 함께 적어 드립니다. 생활기록부 기재는 학교 담당 선생님의 판단에 따르며, 학원은 활동 내역 확인서를 제공합니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="wrap">
+  <div class="sechead">
+    <p class="tag">회차별 설계</p>
+    <h2>과목별 6회차 상세</h2>
+    <p>회차마다 목표 한 줄, 네 블록의 활동, 그날의 산출물과 집에서 할 미션, 강사 체크포인트를 함께 적었습니다.</p>
+  </div>
+  <div class="tabs" id="tabs" role="tablist"></div>
+  <div id="panel"></div>
+</section>
+
+<section class="wrap">
+  <div class="sechead">
+    <p class="tag">한눈에</p>
+    <h2>6주 진도표</h2>
+    <p>세 과목을 나란히 놓으면 같은 주에 무엇을 하는지 보입니다. 두 과목을 함께 듣는 학생의 부담을 가늠할 때 씁니다.</p>
+  </div>
+  <div class="scroll">
+    <table class="matrix">
+      <thead>
+        <tr><th scope="col">주차</th><th scope="col" class="k1">콘텐츠 만들기</th><th scope="col" class="k2">보고서 만들기</th><th scope="col" class="k3">내신 학습앱</th></tr>
+      </thead>
+      <tbody id="matrixBody"></tbody>
+    </table>
+  </div>
+</section>
+
+<section class="wrap">
+  <div class="sechead">
+    <p class="tag">상담용</p>
+    <h2>수강 조합 추천</h2>
+  </div>
+  <div class="two">
+    <div class="box">
+      <h3>한 과목만 듣는다면</h3>
+      <ul>
+        <li><b>중1~2, 만드는 경험이 처음</b> — 콘텐츠 만들기. 결과가 눈에 바로 보여 끝까지 옵니다.</li>
+        <li><b>수행평가 기한이 방학 직후</b> — 보고서 만들기. 학교 과제를 그대로 가져와 수업 중에 완성합니다.</li>
+        <li><b>내신이 급하고 코딩도 제대로</b> — 내신 학습앱. 만든 앱을 개학 후 실제로 씁니다.</li>
+        <li><b>고1~2, 세특을 채워야 한다</b> — 보고서 만들기 우선, 여유가 있으면 내신 학습앱 병행.</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h3>두 과목을 함께 듣는다면</h3>
+      <ul>
+        <li><b>보고서 + 내신 학습앱</b> — 개학 직후 둘 다 바로 쓰입니다. 집에서 할 일이 주 100분으로 늘어나니 방학 중 다른 일정이 적을 때 권합니다.</li>
+        <li><b>콘텐츠 + 내신 학습앱</b> — 만드는 재미와 실용이 반반. 학습앱의 화면 디자인이 눈에 띄게 좋아집니다.</li>
+        <li><b>콘텐츠 + 보고서</b> — 보고서 5회차의 웹 보고서가 콘텐츠반 허브에 작품으로 들어갑니다.</li>
+      </ul>
+      <p class="note">연속 수강이라면 콘텐츠 → 내신 학습앱 → 보고서 순서를 권합니다. 손에 익은 다음에 글쓰기로 넘어가는 쪽이 완주율이 높습니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="wrap">
+  <div class="sechead">
+    <p class="tag">안내문</p>
+    <h2>학부모께 드리는 한 문단</h2>
+    <p>모집 안내나 상담 자료에 그대로 옮겨 쓰실 수 있도록 과목별로 정리했습니다.</p>
+  </div>
+  <div class="parent" id="parentBox"></div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p><b>세영코딩연구소</b>　저자 : 컴퓨터공학박사 KIM</p>
+    <p>방학특강 바이브코딩 3과목 커리큘럼 · 주 1회 2시간 6회차</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  'use strict';
+
+  var RULES = [
+    ['결과물 하나로 닫는다', '미완성 상태로 집에 보내지 않습니다. 기능이 모자라도 그날 안에 돌아가는 화면 하나를 만듭니다.'],
+    ['AI는 조수, 결정은 학생', '"예쁘게 해줘"는 쓰지 않습니다. 색상값과 장면으로 말하는 습관을 첫 회차에 들입니다.'],
+    ['프롬프트는 3단계', '뼈대 → 무드 → 기능 순서로 요청합니다. 기능은 한 번에 하나만 붙입니다.'],
+    ['이 부분만 고쳐줘', '"다시 만들어줘"는 금지어입니다. 기존 코드를 지키면서 고치는 요청법을 반복 훈련합니다.'],
+    ['마음에 들면 백업', '좋은 버전이 나오면 v1, v2로 복사해 둡니다. 되돌릴 곳이 있어야 과감해집니다.'],
+    ['에러는 안내문이다', '빨간 글씨를 혼나는 신호가 아니라 읽을 거리로 다룹니다. 콘솔을 같이 읽는 시간을 매 회차 둡니다.']
+  ];
+
+  var COURSES = [
+    {
+      key:'c1', k:'var(--c1)', soft:'var(--c1-soft)', no:'과목 1',
+      name:'콘텐츠 만들기',
+      sub:'AI로 기획하고 코드로 만드는 디지털 콘텐츠',
+      desc:'무엇을 말할지 정하는 데서 시작해, 카드뉴스와 인터랙티브 콘텐츠를 만들고, 마지막에 그것을 하나의 사이트로 묶어 공개 주소까지 만듭니다. 코딩 경험이 없어도 첫 회차에 자기 페이지를 띄웁니다.',
+      who:'초6 ~ 고2 · 코딩 경험 없어도 됩니다',
+      bring:'좋아하는 주제 하나',
+      take:'공개 주소가 있는 내 콘텐츠 허브 + 작품 4개',
+      home:'주 30분',
+      parent:'아이가 좋아하는 주제를 골라 카드뉴스, 인터랙티브 콘텐츠, 숏폼을 직접 만들고, 마지막 주에는 그것들을 모은 자기 사이트를 공개 주소까지 만들어 수료합니다. 결과물이 눈에 보이기 때문에 코딩이 처음인 학생도 끝까지 따라옵니다. 수료 후에도 주소가 남아 동아리 활동이나 포트폴리오로 이어집니다.',
+      sessions:[
+        { t:'기획이 절반 — 주제와 프롬프트',
+          goal:'무엇을 말할지 정하고, AI에게 제대로 시키는 법을 익힙니다',
+          open:'잘 읽히는 콘텐츠와 그냥 지나치는 콘텐츠를 나란히 놓고 비교. "이거 누가 볼까?"로 시작',
+          make:'좋아하는 것 20개 → 3개 → 1개로 좁히기. AI와 주제 대화. 1단계 프롬프트로 소개 카드 뼈대 받기',
+          polish:'색과 폰트를 변수로 빼는 개념 익히기. 내 무드 한 번 입혀보기',
+          close:'내 주제를 한 문장으로 발표',
+          out:'나를 소개하는 한 장 카드 페이지',
+          hw:'내 주제로 만들 콘텐츠 5개 목록 적어오기',
+          chk:'전원 브라우저에 자기 페이지가 떠 있는가' },
+        { t:'보는 콘텐츠 — 카드뉴스 8장',
+          goal:'한 장에 한 메시지라는 원칙을 레이아웃으로 구현합니다',
+          open:'실제 카드뉴스 한 편을 분해. 어디서 멈추고 어디서 넘기는지 표시해보기',
+          make:'좌우로 넘기는 8장 틀 만들기. 내용은 코드에서 분리해 배열로 정리',
+          polish:'색·폰트 토큰 적용, 이미지 넣기, 휴대폰 화면에서 확인',
+          close:'서로 넘겨보고 몇 장에서 멈췄는지 말해주기',
+          out:'내 주제 카드뉴스 8장',
+          hw:'친구 3명에게 보여주고 멈춘 지점 적어오기',
+          chk:'긴 글자가 화면 밖으로 밀려나지 않는가' },
+        { t:'움직이는 콘텐츠 — 인터랙션',
+          goal:'누르면 반응하는 화면을 만듭니다',
+          open:'보기만 하는 콘텐츠와 만지는 콘텐츠의 차이. 체류 시간 이야기',
+          make:'클릭·마우스 올림·스크롤 반응 세 가지 익히기. 화면 상태를 바꾸는 개념',
+          polish:'작은 인터랙티브 하나 완성 — 퀴즈형 / 성향 테스트형 / 카운터형 중 선택',
+          close:'서로의 결과 화면 돌려보기',
+          out:'인터랙티브 콘텐츠 1개',
+          hw:'결과 화면에 들어갈 문구 10개 직접 쓰기',
+          chk:'입력이 달라지면 결과도 실제로 달라지는가' },
+        { t:'소리와 영상 — 숏폼 기획',
+          goal:'3초 안에 멈추게 하는 구조를 설계합니다',
+          open:'좋아하는 숏폼 3편의 처음 3초만 보고 무엇이 있었는지 적기',
+          make:'숏폼 대본을 AI와 쓰기. 장면별 자막 타이밍 표 만들기',
+          polish:'타이포그래피 모션을 코드로. 음악 없이 글자 크기와 속도만으로 리듬 만들기',
+          close:'15초 상영회',
+          out:'타이포그래피 모션 페이지',
+          hw:'15초 분량 대본 하나 더 써오기',
+          chk:'자막과 화면 전환이 어긋나지 않는가' },
+        { t:'흩어진 것을 모으기 — 내 콘텐츠 허브',
+          goal:'작품 네 개를 하나의 사이트로 묶습니다',
+          open:'흩어진 작품은 없는 것과 같다. 주소가 하나여야 하는 이유',
+          make:'허브 구조 설계, 작품 목록을 데이터로 정리, 상세 페이지 연결',
+          polish:'전체 톤 통일, 휴대폰과 태블릿에서 확인, 소개 문구 쓰기',
+          close:'내 사이트 30초 투어',
+          out:'내 콘텐츠 허브 사이트',
+          hw:'소개 문구 다듬고 프로필 이미지 준비',
+          chk:'작품 네 개가 모두 링크로 열리는가' },
+        { t:'공개와 피드백',
+          goal:'남이 볼 수 있는 주소를 만들고, 받은 피드백으로 한 번 고칩니다',
+          open:'공개 전 점검표 — 오탈자, 깨진 링크, 휴대폰 화면, 개인정보',
+          make:'깃허브 페이지로 배포. 내 주소를 QR 카드로 만들기',
+          polish:'전시회 — 스티커 피드백을 받고, 지적받은 것 하나를 그 자리에서 고치기',
+          close:'1분 작품 발표와 수료',
+          out:'공개 주소 + QR 카드 + 1분 발표',
+          hw:'다음 작품 하나를 혼자 만들어 허브에 추가',
+          chk:'다른 사람 휴대폰에서 주소가 열리는가' }
+      ]
+    },
+    {
+      key:'c2', k:'var(--c2)', soft:'var(--c2-soft)', no:'과목 2',
+      name:'보고서 만들기',
+      sub:'중고생 수행평가와 탐구보고서를 AI와 제대로',
+      desc:'AI가 대신 써주는 수업이 아닙니다. 질문을 세우고, 출처를 의심하고, 내 데이터를 모으고, 내가 쓴 문장을 AI에게 고쳐 받는 순서를 훈련합니다. 첫 회차에 "AI가 쓴 문장을 그대로 내지 않는다"는 약속으로 시작합니다.',
+      who:'중1 ~ 고2 · 코딩 경험 없어도 됩니다',
+      bring:'학교 과제 주제 또는 관심 분야',
+      take:'제출 가능한 보고서 1편(PDF) + 웹 보고서 + 발표 슬라이드',
+      home:'주 60분',
+      parent:'학교에서 받은 수행평가나 탐구 과제를 그대로 가져와 6주 동안 한 편을 완성합니다. AI에게 대신 쓰게 하는 것이 아니라, 질문을 세우고 출처를 검증하고 직접 모은 데이터로 근거를 만드는 과정을 배웁니다. AI가 지어낸 가짜 출처를 스스로 걸러내는 훈련을 2회차에 따로 두었고, 마지막 주에는 3분 발표와 질의응답까지 연습합니다.',
+      sessions:[
+        { t:'주제를 질문으로 바꾸기',
+          goal:'검증할 수 있는 탐구 질문을 만듭니다',
+          open:'"환경 오염"과 "우리 학교 급식 잔반량은 요일마다 다를까"를 비교. 오늘의 약속 — AI가 쓴 문장을 그대로 내지 않는다',
+          make:'관심사를 질문으로 바꾸는 연습. AI와 질문 좁히기. 답이 이미 정해진 질문 걸러내기',
+          polish:'탐구 계획서 한 장 작성 — 질문, 가설, 확인 방법, 6주 일정',
+          close:'질문 한 문장 발표. 서로 "그걸 어떻게 확인할 건데?" 묻기',
+          out:'탐구 계획서 1장',
+          hw:'담당 선생님께 주제 확인받기',
+          chk:'질문 안에 확인 방법이 들어 있는가' },
+        { t:'자료 찾기와 의심하기',
+          goal:'AI가 지어낸 출처를 스스로 걸러냅니다',
+          open:'AI가 만든 그럴듯한 논문 제목을 다 같이 검색해보기. 없다는 것을 눈으로 확인',
+          make:'믿을 수 있는 출처 찾기 — 국가통계포털, 공공데이터포털, RISS, 학교 도서관 DB',
+          polish:'검증 3단계 — 존재하는가 / 원문이 정말 그렇게 말하는가 / 내 질문에 맞는가. 인용 표기법',
+          close:'짝과 검증표 교환해서 서로 점검',
+          out:'검증된 출처 8개 + 요약 메모',
+          hw:'출처 2개를 더 찾아 검증표 채우기',
+          chk:'모든 출처에 실제 링크와 확인 날짜가 적혀 있는가' },
+        { t:'내 데이터 만들기',
+          goal:'남의 숫자가 아니라 내가 모은 숫자를 갖습니다',
+          open:'인용만 있는 보고서와 내 데이터가 있는 보고서를 비교',
+          make:'설문·관찰·실험 설계. 구글폼 만들기 또는 측정 계획표 작성',
+          polish:'데이터를 표로 정리하고 코드로 그래프 그리기. 축을 잘라 과장하지 않는 법',
+          close:'내 그래프가 보여주는 것을 한 문장으로',
+          out:'데이터 표 + 그래프 2개',
+          hw:'응답 20개 이상 모으기 또는 관찰 기록 채우기',
+          chk:'그래프에 축 이름과 단위가 있는가' },
+        { t:'구조 잡고 초고 쓰기',
+          goal:'AI를 대필가가 아니라 편집자로 씁니다',
+          open:'서론·방법·결과·고찰·결론이 각각 어떤 질문에 답하는지 정리',
+          make:'개요 짜기. 문단마다 한 줄 요지를 학생이 직접 쓰기',
+          polish:'AI에게 묻는 법 — "근거가 약한 곳은?", "같은 말이 반복된 곳은?", "이 주장의 반론은?". 쓰지 않는 말 — "대신 써줘"',
+          close:'짝과 개요를 바꿔 읽고 빠진 곳 지적하기',
+          out:'초고 — 서론부터 결과까지',
+          hw:'고찰과 결론을 직접 써오기',
+          chk:'모든 문단에 학생이 쓴 요지 한 줄이 있는가' },
+        { t:'보고서를 웹으로',
+          goal:'그래프를 만질 수 있는 보고서를 만듭니다',
+          open:'종이 보고서와 웹 보고서의 차이 — 목차 이동, 각주, 움직이는 그래프',
+          make:'보고서 웹페이지 만들기 — 목차, 본문, 그래프 삽입, 참고문헌',
+          polish:'인쇄용 조정 — 표지, 페이지 나눔, 여백, PDF 출력 확인',
+          close:'서로의 목차만 보고 내용 맞혀보기',
+          out:'웹 보고서 + 제출용 PDF',
+          hw:'오탈자, 출처, 분량 최종 점검',
+          chk:'PDF에서 표와 그래프가 잘리지 않는가' },
+        { t:'발표와 제출',
+          goal:'3분 안에 질문과 답과 근거를 전달합니다',
+          open:'3분 발표의 구조 — 질문 하나, 답 하나, 근거 하나',
+          make:'슬라이드 5장을 보고서에서 뽑아내기. 발표 원고 요지 정리',
+          polish:'리허설 2회. 예상 질문 3개를 미리 만들고 답 준비하기',
+          close:'발표회와 상호 질의응답, 수료',
+          out:'발표 슬라이드 + 제출본 + 질의응답 기록',
+          hw:'학교에 제출하고 선생님 피드백 받아오기',
+          chk:'질문을 받았을 때 "자료에 따르면"으로 답하는가' }
+      ]
+    },
+    {
+      key:'c3', k:'var(--c3)', soft:'var(--c3-soft)', no:'과목 3',
+      name:'내신 학습앱 만들기',
+      sub:'영어·수학·과학·역사 — 내 시험 범위로 만드는 학습앱',
+      desc:'시중 암기앱이 맞지 않는 이유는 하나입니다. 내 시험 범위가 아니기 때문입니다. 학생이 과목 하나를 골라 자기 시험지와 오답노트에서 데이터를 뽑고, 6주에 걸쳐 카드·퀴즈·오답노트·통계를 붙여 휴대폰에 설치되는 앱으로 만듭니다.',
+      who:'중1 ~ 고2 · 영어·수학·과학·역사 중 1과목 선택',
+      bring:'최근 시험지, 오답노트, 교과서 범위',
+      take:'휴대폰 홈 화면에 설치되는 내 과목 학습앱',
+      home:'주 40분',
+      parent:'영어, 수학, 과학, 역사 중 한 과목을 골라 자기 시험 범위로 학습앱을 만듭니다. 시중 앱과 달리 아이가 실제로 틀리는 문제만 들어가고, 6주 뒤에는 휴대폰 홈 화면에서 여는 앱이 되어 개학 후 시험공부에 그대로 쓰입니다. 코딩 분량이 세 과목 중 가장 많아, 변수와 배열, 조건과 반복, 데이터 저장까지 자연스럽게 익히게 됩니다.',
+      tracks:[
+        { n:'영어', one:'단어 · 숙어 · 문법',
+          li:['2회차: 발음 듣기 버튼, 뜻 ↔ 영어 전환','4회차: 예문 빈칸 채우기, 발음 속도 조절','데이터 단위: 단어 한 개 (영어 / 뜻 / 예문)'] },
+        { n:'수학', one:'공식 · 오답 유형',
+          li:['2회차: 공식 카드, 수식 표시','4회차: 숫자만 바꿔 무한 문제 생성, 풀이 단계 펼치기','데이터 단위: 유형 한 개 (문제 틀 / 조건 / 답 공식)'] },
+        { n:'과학', one:'개념 · 실험',
+          li:['2회차: 개념 카드, 도식과 그림','4회차: 변수 슬라이더 시뮬레이션, 개념 연결 지도','데이터 단위: 개념 한 개 (용어 / 정의 / 예시)'] },
+        { n:'역사', one:'연표 · 사건 · 인물',
+          li:['2회차: 연도 카드, 사건 요약','4회차: 타임라인, 사건 순서 맞추기, 인물 관계도','데이터 단위: 사건 한 개 (연도 / 사건 / 의미)'] }
+      ],
+      sessions:[
+        { t:'내 약점에서 출발하기',
+          goal:'시중 앱이 못 하는 "내 시험 범위"를 데이터로 만듭니다',
+          open:'내가 쓰던 암기앱이 왜 안 맞았는지 이야기. 과목 트랙 결정',
+          make:'최근 시험지와 오답노트 분석. 내가 틀리는 유형 3개 찾기. 앱 기획서 한 장',
+          polish:'데이터 구조 설계 — 내 과목에서 "한 개"는 무엇인가. 20개 입력',
+          close:'내 앱이 해결할 문제를 한 문장으로',
+          out:'기획서 + 내 데이터 20개',
+          hw:'데이터를 40개까지 채우기',
+          chk:'데이터 한 줄의 형식이 끝까지 일정한가' },
+        { t:'암기 카드 만들기',
+          goal:'뒤집고 넘기는 기본 학습 화면을 완성합니다',
+          open:'종이 단어장과 카드앱의 차이. 무엇이 편하고 무엇이 불편한가',
+          make:'카드 뒤집기, 이전·다음 넘기기, 진도 표시',
+          polish:'과목별 1차 특화 — 영어는 발음, 수학은 수식, 과학은 도식, 역사는 연도',
+          close:'짝의 앱으로 세 장씩 풀어보기',
+          out:'카드형 암기앱',
+          hw:'하루 10장씩 써보고 불편한 점 3개 적어오기',
+          chk:'내 데이터 40개가 빠짐없이 카드로 나오는가' },
+        { t:'퀴즈와 오답노트',
+          goal:'나를 시험하고 틀린 것을 모아둡니다',
+          open:'읽기만 한 것과 한 번 틀려본 것의 차이',
+          make:'사지선다 자동 생성, 채점, 점수 표시',
+          polish:'오답을 브라우저에 저장하기. 틀린 것만 다시 풀기',
+          close:'오답률이 높은 항목 공유하고 왜 틀리는지 이야기',
+          out:'퀴즈 + 오답노트',
+          hw:'실제 시험공부에 사용하면서 오답 쌓기',
+          chk:'창을 닫았다 열어도 오답이 남아 있는가' },
+        { t:'과목별 특화 기능',
+          goal:'내 과목에만 필요한 기능 하나를 붙입니다',
+          open:'영어·수학·과학·역사는 외우는 방식이 서로 다르다',
+          make:'트랙별 핵심 기능 구현 — 아래 트랙 표 참고',
+          polish:'친구에게 3분 테스트를 받고 지적받은 것 하나를 그 자리에서 고치기',
+          close:'기능 30초 시연',
+          out:'내 과목 전용 기능 1개',
+          hw:'친구 2명에게 더 테스트 받기',
+          chk:'그 기능이 실제 내 시험 유형과 닿아 있는가' },
+        { t:'기록과 통계',
+          goal:'공부한 흔적이 눈에 보이게 합니다',
+          open:'숫자로 보이면 달라지는 것. 도장판의 힘',
+          make:'날짜별 학습 기록 저장, 도장판 화면',
+          polish:'정답률 그래프, 약한 단원 자동 표시',
+          close:'일주일 뒤 내 그래프가 어떤 모양일지 예상해보기',
+          out:'기록·통계 화면',
+          hw:'일주일 동안 기록 쌓기',
+          chk:'기록이 날짜별로 남고 다시 열어도 보이는가' },
+        { t:'앱으로 만들어 쓰기',
+          goal:'휴대폰 홈 화면에서 여는 앱으로 만듭니다',
+          open:'웹페이지와 앱의 경계는 어디인가',
+          make:'홈 화면 추가 설정, 아이콘 만들기, 인터넷 없이 열리는지 확인',
+          polish:'데이터 내보내기와 가져오기. 친구와 단어 세트 주고받기',
+          close:'사용 시연과 시험 기간 사용 계획 발표, 수료',
+          out:'휴대폰에 설치된 내 학습앱',
+          hw:'다음 시험 범위로 데이터 갈아끼우기',
+          chk:'인터넷을 끊어도 앱이 열리는가' }
+      ]
+    }
+  ];
+
+  function el(tag, cls, text){
+    var n = document.createElement(tag);
+    if (cls) n.className = cls;
+    if (text !== undefined) n.textContent = text;
+    return n;
+  }
+  function row(parent, label, value, cls){
+    var d = el('div', cls);
+    d.appendChild(el('dt','t', label));
+    d.appendChild(el('dd','v', value));
+    parent.appendChild(d);
+    return d;
+  }
+
+  /* 운영 원칙 */
+  var rb = document.getElementById('ruleBox');
+  RULES.forEach(function(r){
+    var d = el('div','rule-item');
+    d.appendChild(el('b', null, r[0]));
+    d.appendChild(el('span', null, r[1]));
+    rb.appendChild(d);
+  });
+
+  /* 과목 카드 */
+  var cc = document.getElementById('courseCards');
+  COURSES.forEach(function(c){
+    var card = el('div','ccard');
+    card.style.setProperty('--k', c.k);
+    card.appendChild(el('div','top'));
+    var inner = el('div','inner');
+    inner.appendChild(el('p','no', c.no));
+    var h = el('div');
+    h.appendChild(el('h3', null, c.name));
+    h.appendChild(el('p','sub', c.sub));
+    inner.appendChild(h);
+    inner.appendChild(el('p', null, c.desc));
+    var meta = el('dl','meta');
+    row(meta, '대상', c.who);
+    row(meta, '가져오기', c.bring);
+    var t = row(meta, '가져가기', '');
+    t.lastChild.textContent = '';
+    t.lastChild.appendChild(el('b', null, c.take));
+    row(meta, '집에서', c.home);
+    inner.appendChild(meta);
+    card.appendChild(inner);
+    cc.appendChild(card);
+  });
+
+  /* 학부모 안내 */
+  var pb = document.getElementById('parentBox');
+  COURSES.forEach(function(c){
+    var d = el('div','pcard');
+    d.style.setProperty('--k', c.k);
+    d.appendChild(el('h4', null, c.name));
+    d.appendChild(el('p', null, c.parent));
+    pb.appendChild(d);
+  });
+
+  /* 진도표 */
+  var mb = document.getElementById('matrixBody');
+  for (var w = 0; w < 6; w++){
+    var tr = document.createElement('tr');
+    var th = el('th','wk', (w+1) + '주차');
+    th.setAttribute('scope','row');
+    tr.appendChild(th);
+    COURSES.forEach(function(c){
+      var td = document.createElement('td');
+      var b = el('b', null, c.sessions[w].t);
+      b.style.display = 'block';
+      td.appendChild(b);
+      var s = el('span', null, c.sessions[w].out);
+      s.style.color = 'var(--ink-soft)';
+      s.style.fontSize = '12px';
+      td.appendChild(s);
+      tr.appendChild(td);
+    });
+    mb.appendChild(tr);
+  }
+
+  /* 탭 + 회차 */
+  var tabs = document.getElementById('tabs');
+  var panel = document.getElementById('panel');
+  var active = 0;
+
+  COURSES.forEach(function(c, i){
+    var b = el('button', null, c.name);
+    b.type = 'button';
+    b.setAttribute('role','tab');
+    b.style.setProperty('--kk', c.k);
+    b.addEventListener('click', function(){ active = i; paint(); });
+    tabs.appendChild(b);
+  });
+
+  function sessionCard(s, i, c){
+    var box = el('article','ses');
+    var rail = el('div','rail');
+    rail.appendChild(el('p','n', String(i+1)));
+    rail.appendChild(el('p','u','회차'));
+    box.appendChild(rail);
+
+    var body = el('div','bodyc');
+    var head = el('div');
+    head.appendChild(el('h4', null, s.t));
+    head.appendChild(el('p','goal', s.goal));
+    body.appendChild(head);
+
+    var blocks = el('div','blocks');
+    [['열기','20분',s.open], ['만들기','40분',s.make], ['다듬기','35분',s.polish], ['닫기','15분',s.close]]
+      .forEach(function(b){
+        var d = el('div','blk');
+        var lab = el('p','lab');
+        lab.appendChild(el('b', null, b[0]));
+        lab.appendChild(document.createTextNode(b[1]));
+        d.appendChild(lab);
+        d.appendChild(el('p','v', b[2]));
+        blocks.appendChild(d);
+      });
+    body.appendChild(blocks);
+
+    var outs = el('div','outs');
+    [['main','산출물', s.out], ['', '집 미션', s.hw], ['', '체크포인트', s.chk]].forEach(function(o){
+      var d = el('div','out ' + o[0]);
+      d.appendChild(el('p','t', o[1]));
+      d.appendChild(el('p','v', o[2]));
+      outs.appendChild(d);
+    });
+    body.appendChild(outs);
+    box.appendChild(body);
+    return box;
+  }
+
+  function paint(){
+    var c = COURSES[active];
+    Array.prototype.forEach.call(tabs.children, function(b, i){
+      b.setAttribute('aria-selected', i === active ? 'true' : 'false');
+    });
+    panel.textContent = '';
+    var wrapEl = el('div','tabpanel');
+    wrapEl.style.setProperty('--kk', c.k);
+    wrapEl.style.setProperty('--kk-soft', c.soft);
+
+    var head = el('div','coursehead');
+    var left = el('div');
+    left.appendChild(el('h3', null, c.no + '. ' + c.name));
+    left.appendChild(el('p','sub', c.sub));
+    left.appendChild(el('p','desc', c.desc));
+    head.appendChild(left);
+
+    var io = el('dl','io');
+    row(io, '대상', c.who);
+    row(io, '가져오는 것', c.bring);
+    var t = row(io, '가져가는 것', '');
+    t.lastChild.textContent = '';
+    t.lastChild.appendChild(el('b', null, c.take));
+    row(io, '집에서 할 일', c.home + ' 내외');
+    head.appendChild(io);
+    wrapEl.appendChild(head);
+
+    var list = el('div','sessions');
+    c.sessions.forEach(function(s, i){ list.appendChild(sessionCard(s, i, c)); });
+    wrapEl.appendChild(list);
+
+    if (c.tracks){
+      var th = el('div');
+      th.style.marginTop = '26px';
+      var hh = el('h3', null, '과목별 트랙');
+      hh.style.fontSize = '18px';
+      th.appendChild(hh);
+      var pp = el('p', null, '1회차에 과목을 하나 고르고, 2회차와 4회차에서 트랙별로 다른 기능을 만듭니다. 나머지 회차는 네 트랙이 같은 내용으로 진행합니다.');
+      pp.style.color = 'var(--ink-soft)';
+      pp.style.fontSize = '14px';
+      pp.style.marginTop = '6px';
+      th.appendChild(pp);
+      var tr = el('div','tracks');
+      c.tracks.forEach(function(k){
+        var d = el('div','track');
+        d.appendChild(el('h5', null, k.n));
+        d.appendChild(el('p','one', k.one));
+        var ul = el('ul');
+        k.li.forEach(function(x){ ul.appendChild(el('li', null, x)); });
+        d.appendChild(ul);
+        tr.appendChild(d);
+      });
+      th.appendChild(tr);
+      wrapEl.appendChild(th);
+    }
+
+    panel.appendChild(wrapEl);
+  }
+
+  paint();
+})();
+</script>
+
+</body></html>
