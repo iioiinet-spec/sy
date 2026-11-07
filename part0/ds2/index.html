@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>02 시간·공간 복잡도 — 정답·해설 (교사용)</title>
+<style>
+  :root{
+    --navy:#0f2a4a; --navy-2:#1b3f6b; --teal:#0d7c74; --teal-2:#0fa39a;
+    --ink:#1c2430; --muted:#5b6876; --line:#d7dee6; --soft:#f4f7fa;
+    --soft-2:#eef4f3; --accent:#b4531a; --warm:#fff6ec; --red:#9d2f3f;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{font-family:"Noto Sans CJK KR","Noto Sans KR","Malgun Gothic","Apple SD Gothic Neo",sans-serif;
+    color:var(--ink); font-size:9.8pt; line-height:1.62; background:#e9edf1;}
+  .page{width:210mm;min-height:297mm;padding:16mm 16mm 18mm 16mm;margin:0 auto 8mm auto;background:#fff;position:relative;}
+
+  .cover{display:flex;flex-direction:column;justify-content:space-between;
+    background:linear-gradient(160deg,#0d3f3c 0%,#10514c 45%,#0f2a4a 100%);color:#fff;}
+  .cover .eyebrow{font-size:9.5pt;letter-spacing:.3em;color:#9ee3dc;font-weight:600;}
+  .cover-rule{height:3px;width:52mm;background:var(--teal-2);margin:6mm 0 8mm 0;}
+  .cover .chno{font-size:44pt;font-weight:800;color:#9ee3dc;line-height:1;}
+  .cover h1{font-size:25pt;line-height:1.3;margin:3mm 0 0 0;font-weight:800;}
+  .cover h1 span{display:block;font-size:15pt;color:#9ee3dc;margin-top:4mm;}
+  .cover .sub{margin-top:7mm;font-size:10.5pt;color:#cfe3f2;line-height:1.85;}
+  .badge{display:inline-block;background:#ffd79a;color:#5a3410;font-weight:800;
+    padding:1.6mm 4mm;border-radius:1.5mm;font-size:10pt;margin-top:8mm;}
+  .cover-note{margin-top:8mm;background:rgba(255,255,255,.1);border-left:4px solid var(--teal-2);padding:4.5mm 5.5mm;}
+  .cover-note h3{margin:0 0 2.2mm 0;font-size:10.2pt;color:#9ee3dc;}
+  .cover-note ul{margin:0;padding-left:5mm;font-size:9.8pt;color:#eaf3fa;}
+  .cover-note li{margin-bottom:1.3mm;}
+  .cover-bottom{font-size:9.5pt;color:#cfe3f2;}
+  .cover-bottom .brand{font-size:11.5pt;color:#fff;font-weight:700;}
+
+  h2.sec{font-size:13.6pt;color:var(--navy);margin:0 0 4mm 0;padding-bottom:2.2mm;
+    border-bottom:2.5px solid var(--teal);font-weight:800;}
+  h2.sec .num{display:inline-block;background:var(--teal);color:#fff;font-size:9.6pt;
+    padding:.6mm 2.6mm;border-radius:1mm;margin-right:3mm;vertical-align:2px;}
+  h3.sub{font-size:11pt;color:var(--navy-2);margin:4.6mm 0 2.3mm 0;font-weight:700;
+    padding-left:3mm;border-left:4px solid var(--teal-2);}
+  h3.sub:first-of-type{margin-top:1mm;}
+  p{margin:0 0 2.5mm 0;}
+  ul,ol{margin:0 0 2.6mm 0;padding-left:5.5mm;}
+  li{margin-bottom:1.1mm;}
+  .lead{font-size:10.2pt;color:var(--muted);margin-bottom:4mm;}
+  strong{color:var(--navy);}
+  em.hl{font-style:normal;background:#ffe9a8;color:var(--navy);font-weight:700;
+    padding:.2mm .8mm;border-radius:1mm;box-decoration-break:clone;-webkit-box-decoration-break:clone;}
+
+  table{width:100%;border-collapse:collapse;font-size:8.6pt;margin:0 0 3mm 0;}
+  th,td{border:1px solid var(--line);padding:1.7mm 2.1mm;vertical-align:top;}
+  thead th{background:var(--navy);color:#fff;font-weight:700;text-align:center;font-size:8.5pt;}
+  tbody tr:nth-child(even){background:#fafcfd;}
+  td.c,th.c{text-align:center;}
+  td.k{background:var(--soft-2);font-weight:700;color:var(--navy);white-space:nowrap;}
+  td.tt{font-weight:700;color:var(--navy);}
+  .ok{color:var(--teal);font-weight:800;}
+  .no{color:var(--red);font-weight:800;}
+  .mid{color:var(--accent);font-weight:800;}
+
+  .sol{border:1px solid var(--line);border-radius:1.5mm;margin:0 0 3.4mm 0;overflow:hidden;}
+  .sol-h{background:var(--navy);color:#fff;padding:1.6mm 3.4mm;font-size:9.2pt;font-weight:700;
+    display:flex;justify-content:space-between;align-items:center;}
+  .sol-h .pt{background:var(--teal-2);color:#06302d;border-radius:1mm;padding:.3mm 2.2mm;font-size:7.8pt;font-weight:800;}
+  .sol-b{padding:2.8mm 3.6mm;}
+  .sol-b p:last-child,.sol-b table:last-child,.sol-b ul:last-child,.sol-b div:last-child{margin-bottom:0;}
+  .ask{color:var(--muted);font-size:8.7pt;border-left:3px solid var(--line);padding-left:2.6mm;margin-bottom:2.4mm;}
+  .ans{background:var(--soft-2);border-left:4px solid var(--teal);padding:2.3mm 3.1mm;margin:0 0 2.4mm 0;}
+  .ans b{color:var(--teal);}
+  .miss{background:var(--warm);border-left:4px solid var(--accent);padding:2.3mm 3.1mm;margin:0;}
+  .miss b{color:var(--accent);}
+  .box{border:1px solid var(--line);background:var(--soft);padding:3mm 3.6mm;margin:0 0 3.2mm 0;border-radius:1.5mm;}
+  .box h4{margin:0 0 1.8mm 0;font-size:9.6pt;color:var(--navy);font-weight:800;}
+  .box.teal{background:var(--soft-2);border-color:#b9d9d5;}
+  .box p:last-child,.box ul:last-child{margin-bottom:0;}
+  pre{background:#0f2a4a;color:#e6eef6;padding:2.8mm 3.6mm;border-radius:1.5mm;
+    font-family:"D2Coding","Consolas","DejaVu Sans Mono",monospace;font-size:7.7pt;line-height:1.48;margin:0 0 2.8mm 0;}
+  pre.out{background:#f4f7fa;color:#1c2430;border:1px solid var(--line);}
+  pre.out .lbl{color:var(--teal);font-weight:700;}
+  pre .cm{color:#86b8a5;} pre .kw{color:#8fd6ff;}
+  code.inl{background:var(--soft-2);color:var(--navy);padding:.2mm 1.2mm;border-radius:1mm;
+    font-family:"D2Coding","Consolas","DejaVu Sans Mono",monospace;font-size:8.5pt;}
+
+  .foot{position:absolute;left:16mm;right:16mm;bottom:8mm;border-top:1px solid var(--line);
+    padding-top:2mm;font-size:8pt;color:var(--muted);display:flex;justify-content:space-between;}
+  .foot b{color:var(--navy);font-weight:700;}
+
+  @media print{
+    body{background:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    .page{margin:0;width:auto;height:auto;min-height:0;padding:0;break-after:page;overflow:visible;}
+    .page:last-child{break-after:auto;}
+    .cover{height:266mm;padding:16mm 14mm;}
+    .foot{display:none;}
+    tr,.box,.sol,.ans,.miss,pre{break-inside:avoid;}
+    thead{display:table-header-group;}
+    h2.sec,h3.sub{break-after:avoid;}
+  }
+  @page{size:A4;}
+
+/* 교사용 화면 컨트롤 (인쇄하지 않음) */
+.print-toolbar{position:sticky;z-index:999;top:0;display:flex;justify-content:center;align-items:center;gap:16px;padding:10px 14px;background:#e7f2f0;border-bottom:1px solid #a6c7c1;color:#173e38;font-size:14px}
+.print-toolbar button{background:#125e56;color:white;border:0;border-radius:7px;padding:10px 18px;font-size:14px;font-weight:800;cursor:pointer}
+.print-toolbar button:hover{background:#0b453e}
+.note{font-size:8.4pt;color:#495660;margin:0 0 2.2mm 0;line-height:1.45}
+@page {size:A4; margin:0;}
+@media print {
+  html,body{width:210mm!important;margin:0!important;padding:0!important;background:#fff!important;color:#111!important;-webkit-print-color-adjust:economy!important;print-color-adjust:economy!important}
+  .print-toolbar{display:none!important}
+  body .page{box-sizing:border-box!important;display:block;width:210mm!important;min-height:297mm!important;height:auto!important;margin:0!important;padding:16mm 16mm 18mm!important;background:white!important;overflow:visible!important;break-after:page!important;page-break-after:always!important}
+  body .page:last-child{break-after:auto!important;page-break-after:auto!important}
+  body .page.cover{display:flex!important;flex-direction:column!important;justify-content:space-between!important;min-height:297mm!important;height:297mm!important;padding:16mm!important}
+  body .page *,body .page *::before,body .page *::after{
+     background:transparent!important;background-color:transparent!important;background-image:none!important;
+     box-shadow:none!important;text-shadow:none!important;color:#111!important;
+     -webkit-print-color-adjust:economy!important;print-color-adjust:economy!important;
+  }
+  body .page .cover-rule{height:2px!important;background:#222!important}
+  body .page h2.sec{border-bottom:2px solid #222!important}
+  body .page h2.sec .num,body .page .badge,body .page .pt{border:1px solid #555!important;color:#111!important;background:#fff!important}
+  body .page h3.sub{border-left:3px solid #333!important}
+  body .page .cover-note,body .page .box,body .page .ans,body .page .miss,body .page .ask{border-color:#777!important;background:white!important}
+  body .page .sol-h{border-bottom:1px solid #666!important;background:white!important}
+  body .page table thead th{background:white!important;color:#111!important;border:1px solid #666!important}
+  body .page table th,body .page table td{border-color:#777!important;color:#111!important}
+  body .page pre{color:#111!important;background:white!important;border:1px solid #aaa!important;white-space:pre-wrap!important;overflow-wrap:anywhere!important}
+  body .page .foot{display:none!important}
+  body .page .sol,body .page pre,body .page table tr,body .page .ans,body .page .miss,body .page .box{break-inside:avoid;page-break-inside:avoid}
+  body .page .sol{overflow:visible!important}
+  body .page .cover-bottom{margin-top:auto}
+}
+</style>
+</head>
+<body>
+<div class="print-toolbar" role="toolbar" aria-label="인쇄 옵션">
+  <strong>시간·공간 복잡도 · 교사용 정답·해설</strong>
+  <button type="button" onclick="window.print()">A4 잉크 절약 인쇄</button>
+  <span>화면 색상 유지 · 인쇄 시 흰 배경/검은 글씨</span>
+</div>
+
+<!-- ======== 표지 ======== -->
+<section class="page cover">
+  <div>
+    <div class="eyebrow">PART 0 · 준비 — 자료구조를 보는 눈</div>
+    <div class="cover-rule"></div>
+    <div class="chno">02</div>
+    <h1>시간·공간 복잡도<span>정답 · 해설</span></h1>
+    <div class="sub">
+      연습 10문항 · 도전 2문항 전체 해설 ‖ 실측 기준값과 채점 기준 수록<br>
+      배점 합계 100점 (연습 70점 + 도전 30점)
+    </div>
+    <div class="badge">교사용 — 학생 배부용에는 포함하지 않음</div>
+    <div class="cover-note">
+      <h3>채점할 때 먼저 볼 것</h3>
+      <ul>
+        <li>판정 문항은 결론이 아니라 <b>총 연산 횟수를 적었는지</b>로 채점한다</li>
+        <li>자릿수 실수(10<sup>10</sup>을 10<sup>9</sup>로)는 계산 과정이 맞으면 절반 인정</li>
+        <li>09·10번 실험 문항은 숫자가 달라도 된다 — <b>배율과 해석</b>이 맞으면 정답</li>
+        <li>10번에서 0.0 ms가 나왔다는 학생이 있으면 6쪽의 최적화 함정을 함께 설명한다</li>
+      </ul>
+    </div>
+  </div>
+  <div class="cover-bottom">
+    <div class="brand">세영코딩연구소</div>
+    저자 : 컴퓨터공학박사 KIM<br>
+    DS-C-P0-02-S · 중등정보올림피아드 자료구조 교재
+  </div>
+</section>
+
+<!-- ======== 연습 01~03 ======== -->
+<section class="page">
+  <h2 class="sec"><span class="num">6</span>연습 문제 해설</h2>
+  <p class="lead">01~08은 과정이 보이게 쓰게 하고, 09~10은 실행 결과를 표로 제출받는다.</p>
+
+  <div class="sol">
+    <div class="sol-h"><span>연습 01 — 빅오로 고치기</span><span class="pt">7점</span></div>
+    <div class="sol-b">
+      <table>
+        <thead><tr><th class="c" style="width:7%">번호</th><th style="width:24%">식</th><th class="c" style="width:17%">답</th><th>버린 것과 그 이유</th></tr></thead>
+        <tbody>
+          <tr><td class="c">①</td><td><code class="inl">7N + 300</code></td><td class="c tt">O(N)</td><td>계수 7과 상수 300</td></tr>
+          <tr><td class="c">②</td><td><code class="inl">2N² + 1000N</code></td><td class="c tt">O(N²)</td><td>1000N이 커 보여도 N이 500을 넘으면 2N²에 밀린다</td></tr>
+          <tr><td class="c">③</td><td><code class="inl">N log N + N</code></td><td class="c tt">O(N log N)</td><td>N log N이 N보다 크므로 N을 버린다</td></tr>
+          <tr><td class="c">④</td><td><code class="inl">500</code></td><td class="c tt">O(1)</td><td>N과 무관하면 아무리 커도 O(1)</td></tr>
+          <tr><td class="c">⑤</td><td><code class="inl">N³ + 2^N</code></td><td class="c tt">O(2<sup>N</sup>)</td><td>지수가 다항보다 빠르게 커진다 — N = 30에서 2<sup>N</sup>은 10억, N³은 2만 7천</td></tr>
+          <tr><td class="c">⑥</td><td><code class="inl">N(N+1)/2</code></td><td class="c tt">O(N²)</td><td>전개하면 (N² + N)/2 → 계수 1/2과 N을 버린다</td></tr>
+        </tbody>
+      </table>
+      <div class="miss"><b>흔한 오답.</b> ②를 O(N² + N)으로 쓰는 답 — 빅오는 <strong>한 항만</strong> 남긴다. ⑤를 O(N³)으로 쓰는 답이 가장 많다. N이 작을 때는 N³이 크지만 복잡도는 <em class="hl">N이 아주 커졌을 때</em>를 보는 도구이므로 2<sup>N</sup>이 이긴다. ⑥을 O(N)이라 쓰는 답은 전개를 안 해 본 경우다.</div>
+    </div>
+  </div>
+
+  <div class="sol">
+    <div class="sol-h"><span>연습 02 — 삼각형 이중 루프</span><span class="pt">6점</span></div>
+    <div class="sol-b">
+      <div class="ask"><code class="inl">for(i=0;i&lt;n;i++) for(j=0;j&lt;i;j++) s++;</code></div>
+      <div class="ans"><b>정답.</b> i = 0일 때 0번, i = 1일 때 1번, …, i = n−1일 때 n−1번이므로 합은 <strong>0 + 1 + 2 + … + (n−1) = n(n−1)/2</strong>번. 복잡도는 <strong>O(N²)</strong>.</div>
+      <div class="miss"><b>흔한 오답.</b> “절반만 도니까 O(N²/2)” 또는 “O(N²)보다 빠르니 O(N log N)” — 둘 다 틀렸다. 계수 1/2은 버려지고, 절반이어도 N에 제곱으로 비례한다. N = 100,000이면 <strong>4,999,950,000번(약 50억 번)</strong>이므로 1초 제한에서는 일반적으로 시간 초과 위험이 매우 크다. 이 오해는 07장 이후 이중 루프 문제마다 반복되므로 여기서 확실히 잡는다.</div>
+    </div>
+  </div>
+
+  <div class="sol">
+    <div class="sol-h"><span>연습 03 — 빠른 순서로 나열</span><span class="pt">5점</span></div>
+    <div class="sol-b">
+      <div class="ans"><b>정답.</b> O(1) &lt; O(log N) &lt; O(N) &lt; O(N log N) &lt; O(N²) &lt; O(N³) &lt; O(2<sup>N</sup>)</div>
+      <div class="miss"><b>흔한 오답.</b> O(N log N)을 O(N²) 뒤에 놓는 답. N = 100,000에서 166만과 100억으로 <strong>6,000배</strong> 차이다. 헷갈리면 숫자를 대입해 보게 한다. O(2<sup>N</sup>)을 O(N³)보다 앞에 놓는 답도 있는데, N = 30에서 10억 vs 2만 7천으로 확인시킨다.</div>
+    </div>
+  </div>
+
+  <div class="foot"><span>02 시간·공간 복잡도 — 정답·해설</span><span><b>세영코딩연구소</b> 저자 : 컴퓨터공학박사 KIM</span></div>
+</section>
+
+<!-- ======== 연습 04~05 ======== -->
+<section class="page">
+  <h2 class="sec"><span class="num">6</span>연습 문제 해설 <span style="font-size:9.6pt;color:var(--muted);font-weight:400;">(이어서)</span></h2>
+
+  <div class="sol">
+    <div class="sol-h"><span>연습 04 — N = 100,000에서의 시간 판정(근사)</span><span class="pt">8점</span></div>
+    <div class="sol-b">
+      <table>
+        <thead><tr><th class="c" style="width:8%">번호</th><th style="width:17%">복잡도</th><th style="width:28%">총 연산 횟수</th><th class="c" style="width:17%">모형상 시간*</th><th class="c">예상 판정</th></tr></thead>
+        <tbody>
+          <tr><td class="c">①</td><td class="tt">O(N)</td><td>100,000 × 1 = <strong>10만</strong></td><td class="c">약 0.001초</td><td class="c ok">대체로 가능</td></tr>
+          <tr><td class="c">②</td><td class="tt">O(N log N)</td><td>100,000 × 16.6 ≈ <strong>166만</strong></td><td class="c">약 0.017초</td><td class="c ok">대체로 가능</td></tr>
+          <tr><td class="c">③</td><td class="tt">O(N√N)</td><td>100,000 × 316 ≈ <strong>3,160만</strong></td><td class="c">약 0.32초</td><td class="c mid">환경에 따라</td></tr>
+          <tr><td class="c">④</td><td class="tt">O(N²)</td><td>100,000 × 100,000 = <strong>100억</strong></td><td class="c">약 100초</td><td class="c no">대체로 초과</td></tr>
+        </tbody>
+      </table>
+      <p class="note"><strong>* 모형 계산값:</strong> 각 항을 실제 C 명령어 수가 아닌 단위 작업으로 보고 <strong>초당 1억 단위 작업</strong>을 가정한 값이다. Big-O만으로 실행 시간이 정해지지는 않는다.</p>
+      <div class="ans"><b>채점.</b> 각 2점(횟수 1점 + 판정 및 근거 1점). ③은 근사 기준선 아래에 있지만 코드의 상수·메모리 접근·채점 환경에 따라 결과가 달라질 수 있다. <strong>‘통과 가능하나 보장은 안 됨’</strong>을 인정한다. N√N은 제곱근 분할 기법에서도 등장한다.</div>
+      <div class="miss"><b>흔한 오답.</b> ④를 “10억”으로 쓰는 자릿수 실수. 10<sup>5</sup> × 10<sup>5</sup> = 10<sup>10</sup> = 100억이다. <em class="hl">지수로 먼저 더하고 나중에 한국어 단위로 옮기는 습관</em>을 들이면 사라진다.</div>
+    </div>
+  </div>
+
+  <div class="sol">
+    <div class="sol-h"><span>연습 05 — 제약 조건에서 역산</span><span class="pt">8점</span></div>
+    <div class="sol-b">
+      <table>
+        <thead><tr><th class="c" style="width:8%">번호</th><th style="width:16%">제약</th><th class="c" style="width:17%">대표 권장 복잡도</th><th style="width:22%">총 연산 횟수</th><th>대표 풀이</th></tr></thead>
+        <tbody>
+          <tr><td class="c">①</td><td class="tt">N ≤ 18</td><td class="c tt">O(2<sup>N</sup>)</td><td>2<sup>18</sup> ≈ 26만<br>O(2<sup>N</sup>·N)도 470만</td><td>부분집합 전부 확인, 비트마스크</td></tr>
+          <tr><td class="c">②</td><td class="tt">N ≤ 400</td><td class="c tt">O(N³)</td><td>6,400만</td><td>삼중 루프, 플로이드 워셜</td></tr>
+          <tr><td class="c">③</td><td class="tt">N ≤ 3,000</td><td class="c tt">O(N²)</td><td>900만</td><td>이중 루프 DP</td></tr>
+          <tr><td class="c">④</td><td class="tt">N ≤ 200,000</td><td class="c tt">O(N log N)</td><td>약 350만</td><td>정렬, 세그먼트 트리</td></tr>
+          <tr><td class="c">⑤</td><td class="tt">N ≤ 5,000,000</td><td class="c tt">O(N)</td><td>500만</td><td>한 번 훑기, 누적 합</td></tr>
+        </tbody>
+      </table>
+      <div class="ans"><b>채점.</b> 각 1.6점. 한 단계 위아래로 답했어도 <strong>총 연산 횟수를 계산해 근거를 댔으면</strong> 절반을 준다. ③에서 O(N² log N)(약 1억 작업)을 답했다면 단정적인 통과 판정 대신 <strong>실제 구현과 시간 제한에 따라 아슬아슬하다</strong>는 이유를 요구한다.</div>
+      <div class="miss"><b>지도 포인트.</b> 이 문항의 목적은 암기가 아니라 <em class="hl">“N을 대입해 작업량의 규모를 구하고 제한·상수를 함께 살핀다”</em>는 절차다. 표를 외워 쓴 학생과 계산한 학생을 구분하려면, ①을 N ≤ 22로 바꿔 즉석에서 다시 물어본다(2<sup>22</sup> ≈ 420만, 여전히 가능).</div>
+    </div>
+  </div>
+
+  <div class="foot"><span>02 시간·공간 복잡도 — 정답·해설</span><span><b>세영코딩연구소</b> 저자 : 컴퓨터공학박사 KIM</span></div>
+</section>
+
+<!-- ======== 연습 06~07 ======== -->
+<section class="page">
+  <h2 class="sec"><span class="num">6</span>연습 문제 해설 <span style="font-size:9.6pt;color:var(--muted);font-weight:400;">(이어서)</span></h2>
+
+  <div class="sol">
+    <div class="sol-h"><span>연습 06 — 메모리 계산 (제한 256MB)</span><span class="pt">8점</span></div>
+    <div class="sol-b">
+      <table>
+        <thead><tr><th class="c" style="width:7%">번호</th><th style="width:28%">선언</th><th class="c" style="width:16%">원소 × 크기</th><th class="c" style="width:15%">메모리</th><th class="c" style="width:12%">판정</th><th>메모</th></tr></thead>
+        <tbody>
+          <tr><td class="c">①</td><td><code class="inl">int a[10000000];</code></td><td class="c">10<sup>7</sup> × 4B</td><td class="c">약 38 MB</td><td class="c ok">가능</td><td>여유 있다</td></tr>
+          <tr><td class="c">②</td><td><code class="inl">long long b[50000000];</code></td><td class="c">5×10<sup>7</sup> × 8B</td><td class="c">약 381 MB</td><td class="c no">불가</td><td>제한의 1.5배</td></tr>
+          <tr><td class="c">③</td><td><code class="inl">int c[3000][3000];</code></td><td class="c">900만 × 4B</td><td class="c">약 34 MB</td><td class="c ok">가능</td><td>2차원도 계산법은 같다</td></tr>
+          <tr><td class="c">④</td><td><code class="inl">char d[100000000];</code></td><td class="c">10<sup>8</sup> × 1B</td><td class="c">약 95 MB</td><td class="c ok">가능</td><td>256MiB 기준 약 161MiB 남음(다른 사용량 제외)</td></tr>
+        </tbody>
+      </table>
+      <div class="ans"><b>채점.</b> 각 2점(계산 1점 + 판정 1점). 표의 환산은 <strong>1MiB = 1,048,576바이트</strong> 기준이다(문제의 256MB 표기는 채점 환경의 단위 정의도 확인). 100만 바이트를 1MB로 어림해도 규모 판단에 충분하다. 대회장에서 필요한 것은 정밀도가 아니라 자릿수 감각이다.</div>
+      <div class="miss"><b>흔한 오답.</b> ④에서 <code class="inl">char</code>를 4바이트로 계산하는 답. char는 <strong>1바이트</strong>다. 그래서 값이 0~255 범위라면 <code class="inl">unsigned char</code> 배열을 쓰는 것이 안전하다(일반적인 8비트 바이트·4바이트 <code class="inl">int</code> 환경에서 <em class="hl">원소 저장 공간은 1/4</em>) — 메모리가 빠듯할 때 쓰는 실전 기법이다.</div>
+    </div>
+  </div>
+
+  <div class="sol">
+    <div class="sol-h"><span>연습 07 — 7.6MB인데 왜 죽었나</span><span class="pt">6점</span></div>
+    <div class="sol-b">
+      <div class="ans"><b>정답.</b> <code class="inl">main</code> 안에 선언한 지역 변수는 <strong>스택(stack)</strong>이라는 별도의 좁은 공간에 놓인다. 스택은 보통 운영체제와 실행 환경마다 <strong>크기 제한이 따로 정해져</strong> 있으며, 어떤 환경에서는 7.6MiB 크기의 지역 배열이 스택 한도를 넘어 <strong>스택 오버플로</strong>를 일으킬 수 있다. 전체 메모리 제한이 256MB여도 스택이 그만큼 허용되는 것은 아니다.</div>
+      <p><b>해결 방법 두 가지.</b></p>
+      <ul>
+        <li><strong>전역으로 옮긴다</strong> — 함수 바깥에 <code class="inl">static int a[2000000];</code>으로 선언한다. 덤으로 전역 배열은 <strong>0으로 초기화</strong>된다(정적 저장 기간).</li>
+        <li><strong>동적 할당한다</strong> — <code class="inl">#include &lt;stdlib.h&gt;</code>를 포함하고 <code class="inl">int *a = malloc(2000000 * sizeof *a);</code>로 동적 할당한다. <code class="inl">NULL</code> 여부를 검사하고 사용 후 <code class="inl">free(a)</code>를 호출한다. 05장 동적 배열에서 다시 다룬다.</li>
+      </ul>
+      <div class="miss"><b>지도 포인트.</b> 증상이 특이하다. 입력을 읽기도 전에 죽기 때문에 학생은 “입력이 잘못됐나” 하고 엉뚱한 곳을 본다. <em class="hl">“실행 직후 오류가 나면 큰 지역 배열과 스택 한도를 먼저 점검하라”</em>를 34장 디버깅 체크리스트에 그대로 싣는다. 올림피아드에서는 크고 크기가 정해진 배열은 <strong>전역·정적 저장 기간</strong>을 우선 검토하고, 입력에 따라 크기가 달라지면 <strong>동적 할당</strong>도 고려하게 한다.</div>
+    </div>
+  </div>
+
+  <div class="foot"><span>02 시간·공간 복잡도 — 정답·해설</span><span><b>세영코딩연구소</b> 저자 : 컴퓨터공학박사 KIM</span></div>
+</section>
+
+<!-- ======== 연습 08~09 ======== -->
+<section class="page">
+  <h2 class="sec"><span class="num">6</span>연습 문제 해설 <span style="font-size:9.6pt;color:var(--muted);font-weight:400;">(이어서)</span></h2>
+
+  <div class="sol">
+    <div class="sol-h"><span>연습 08 — 50N log N 과 N²</span><span class="pt">8점</span></div>
+    <div class="sol-b">
+      <p><b>(1) 비슷해지는 N.</b> <code class="inl">50 N log₂N = N²</code> 양변을 N으로 나누면 <code class="inl">50 log₂N = N</code>. 몇 개 대입해 본다.</p>
+      <table>
+        <thead><tr><th class="c" style="width:18%">N</th><th class="c" style="width:28%">A : 50 N log₂N</th><th class="c" style="width:28%">B : N²</th><th class="c">유리한 쪽</th></tr></thead>
+        <tbody>
+          <tr><td class="c">100</td><td class="c">약 33,000</td><td class="c">10,000</td><td class="c tt">B</td></tr>
+          <tr><td class="c">400</td><td class="c">약 173,000</td><td class="c">160,000</td><td class="c tt">B</td></tr>
+          <tr><td class="c">440</td><td class="c">약 193,000</td><td class="c">193,600</td><td class="c">거의 같음</td></tr>
+          <tr><td class="c">1,000</td><td class="c">약 500,000</td><td class="c">1,000,000</td><td class="c tt">A</td></tr>
+        </tbody>
+      </table>
+      <p style="margin-bottom:2mm;">따라서 <strong>N ≈ 440 부근</strong>에서 뒤집힌다. “400~500 사이”라고 답해도 정답이다.</p>
+      <div class="ans"><b>(2) N = 1,000,000일 때.</b> A = 50 × 10<sup>6</sup> × 19.9 ≈ <strong>10억</strong>, B = 10<sup>12</sup>. <strong>A가 약 1,000배 빠르다.</strong><br>
+      그런데 여기서 멈추면 안 된다. <em class="hl">A도 약 10억 단위 작업에 해당하므로 1초 제한에서 안전하다고 보기 어렵다.</em> 복잡도를 N log N으로 맞췄는데도 상수 50 때문에 떨어지는 경우이고, 이럴 때 비로소 2.5절의 “상수를 줄이는 싸움”이 시작된다.</div>
+      <div class="miss"><b>채점.</b> (1) 3점 — 대입표를 만들었으면 값이 조금 달라도 정답. (2) 5점 중 3점은 1,000배, <strong>나머지 2점은 “A도 1초 통과를 보장할 수 없다”를 지적했는지</strong>에 준다. 이 지적을 한 학생은 복잡도를 도구로 쓸 줄 아는 것이다.</div>
+    </div>
+  </div>
+
+  <div class="sol">
+    <div class="sol-h"><span>연습 09 — 이분 탐색 비교 횟수 실험</span><span class="pt">7점</span></div>
+    <div class="sol-b">
+      <pre class="out"><span class="lbl">$ ./counter   (n을 바꿔 가며 실행, key = n-1 인 최악의 경우)</span>
+n=      1000   이분탐색 비교=10    log2(n)= 9.97
+n=    100000   이분탐색 비교=17    log2(n)=16.61
+n=   1000000   이분탐색 비교=20    log2(n)=19.93</pre>
+      <div class="ans"><b>해석.</b> 이 예처럼 범위가 양끝을 포함하고 중간 인덱스를 내림하여 계산하는 표준 이분 탐색에서, <strong>최악의 비교 횟수는 ⌊log₂n⌋ + 1 = ⌈log₂(n+1)⌉</strong>이다. <strong>⌈log₂n⌉와 항상 같은 것은 아니다</strong>(예: n = 1,024이면 최악 11회). 특정 키를 찾는 횟수는 위치에 따라 더 적을 수 있다. 제시된 <code class="inl">key = n-1</code> 예에서는 n = 1,000 → 10회, n = 1,000,000 → 20회다.</div>
+      <div class="miss"><b>채점.</b> 표 3점 + 해석 4점. “일치한다”라고만 쓴 답은 절반. <strong>정확한 최악 횟수의 식과 조건을 짚은 답</strong>에 만점. 값이 ±1 다른 것은 찾는 값의 위치 차이이므로 감점하지 않되, 교재대로 <code class="inl">key = n-1</code>(최악)로 측정했는지 확인한다.</div>
+    </div>
+  </div>
+
+  <div class="foot"><span>02 시간·공간 복잡도 — 정답·해설</span><span><b>세영코딩연구소</b> 저자 : 컴퓨터공학박사 KIM</span></div>
+</section>
+
+<!-- ======== 연습 10 ======== -->
+<section class="page">
+  <h2 class="sec"><span class="num">6</span>연습 문제 해설 <span style="font-size:9.6pt;color:var(--muted);font-weight:400;">(이어서)</span></h2>
+
+  <div class="sol">
+    <div class="sol-h"><span>연습 10 — O(N²) 시간이 몇 배로 늘어나는가</span><span class="pt">7점</span></div>
+    <div class="sol-b">
+      <pre class="out"><span class="lbl">다음은 설명용 측정 예시 — PC·컴파일러에 따라 수치가 달라짐</span>
+N=  25000   O(N^2) 시간 =    96.5 ms   (쌍 3.1억개)
+N=  50000   O(N^2) 시간 =   429.3 ms   (쌍 12.5억개)
+N= 100000   O(N^2) 시간 =  1378.3 ms   (쌍 50.0억개)</pre>
+      <table>
+        <thead><tr><th class="c" style="width:22%">N의 변화</th><th class="c" style="width:22%">이론 배율</th><th class="c" style="width:22%">예시 배율</th><th>판정</th></tr></thead>
+        <tbody>
+          <tr><td class="c">25,000 → 50,000</td><td class="c tt">4배</td><td class="c">429.3 ÷ 96.5 = <strong>4.4배</strong></td><td>이론과 잘 맞는다</td></tr>
+          <tr><td class="c">50,000 → 100,000</td><td class="c tt">4배</td><td class="c">1378.3 ÷ 429.3 = <strong>3.2배</strong></td><td>약간 작지만 4배에 가깝다</td></tr>
+        </tbody>
+      </table>
+      <div class="ans"><b>해석.</b> N이 두 배가 되면 이론적인 반복 횟수는 <strong>약 네 배</strong>로 증가한다. 위의 값은 <strong>원리를 설명하기 위한 예시</strong>이지 모든 환경에서 재현되는 보장값이 아니다. 실제 시간 배율에는 컴파일러 최적화, 캐시, CPU 클록, 다른 프로세스, 측정 방법이 영향을 준다. <em class="hl">한 번의 측정값으로 성능을 확정하지 말고 여러 번 측정해 중앙값과 증가 추세를 비교</em>한다. 예시에서 N = 100,000의 1.38초 역시 해당 예시 조건에서만 의미가 있다.</div>
+      <div class="miss"><b>실험 함정 — 시간이 0.0 ms로 나오면?</b> 실행이 너무 짧아 시계의 해상도에 묻혔거나, 결과가 관찰되지 않는 계산을 컴파일러가 제거했을 가능성이 있다. 단순히 <code class="inl">printf</code>를 추가하는 것만으로 모든 최적화가 막히지는 않는다. 아래처럼 반복마다 관찰 가능한 <code class="inl">volatile</code> 변수에 값을 누적하면 루프 제거를 막는 데 도움이 된다. 단, <code class="inl">volatile</code> 접근 자체에 비용이 있으므로 이 실험은 반복 횟수의 증가 경향을 확인하는 용도로 쓴다.</div>
+      <pre><span class="cm">/* 함수 안에서 사용하는 유효한 C11 코드 예시 */</span>
+<span class="kw">volatile unsigned long long</span> g = 0;
+<span class="kw">for</span> (<span class="kw">int</span> i = 0; i &lt; N; ++i) {
+    <span class="kw">for</span> (<span class="kw">int</span> j = 0; j &lt; i; ++j)
+        g += (<span class="kw">unsigned long long</span>)((i ^ j) &amp; 1);
+}
+<span class="kw">printf</span>(<span class="cm">"(검증용 %llu)\n"</span>, g);</pre>
+      <div class="box teal">
+        <h4>이 함정이 알려 주는 것</h4>
+        <p style="margin-bottom:0;">컴파일러는 프로그램 결과에 영향을 주지 않는 계산을 없앨 수 있다. <strong>관찰 가능한 결과를 유지하고, 충분히 큰 입력으로 반복 측정</strong>하도록 지도한다. 이 예제의 <code class="inl">volatile</code>은 제거 방지용 실험 장치이며 일반 알고리즘 코드에 무분별하게 사용하지 않는다. 34장 디버깅 단원에서 다시 등장한다.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot"><span>02 시간·공간 복잡도 — 정답·해설</span><span><b>세영코딩연구소</b> 저자 : 컴퓨터공학박사 KIM</span></div>
+</section>
+
+<!-- ======== 도전 C1 ======== -->
+<section class="page">
+  <h2 class="sec"><span class="num">7</span>도전 문제 해설</h2>
+  <p class="lead">결론보다 근거를 보고 채점한다.</p>
+
+  <div class="sol">
+    <div class="sol-h"><span>도전 C1 — 출제자의 의도 읽기</span><span class="pt">15점</span></div>
+    <div class="sol-b">
+      <p><b>(1) 각 버전의 허용 상한 — 5점</b></p>
+      <table>
+        <thead><tr><th style="width:16%">버전</th><th class="c" style="width:16%">N 최댓값</th><th class="c" style="width:20%">허용 상한</th><th style="width:22%">그 복잡도의 연산 횟수</th><th>불가능한 것</th></tr></thead>
+        <tbody>
+          <tr><td class="k">A</td><td class="c">1,000</td><td class="c tt">O(N²)</td><td class="c">100만</td><td>O(N³) = 10억 → 초과</td></tr>
+          <tr><td class="k">B</td><td class="c">500,000</td><td class="c tt">O(N log N)</td><td class="c">약 950만</td><td>O(N²) = 2,500억 → 가망 없음</td></tr>
+        </tbody>
+      </table>
+      <p style="margin-bottom:2mm;">A는 O(N² log N)(약 1,000만)까지도 여유가 있다.</p>
+
+      <p><b>(2) 왜 두 버전으로 내는가 — 6점</b></p>
+      <div class="ans">같은 문제를 쉬운 버전과 어려운 버전으로 나누어 <strong>부분 점수 구조</strong>를 만들기 위해서다. 채점 결과는 세 갈래로 갈린다.<br>
+      · 문제를 아예 못 푼 학생 → 둘 다 실패<br>
+      · 느린 풀이(이중 루프)를 떠올린 학생 → <strong>A만 통과</strong>, 절반의 점수<br>
+      · 빠른 풀이를 찾아낸 학생 → 둘 다 통과, 만점<br>
+      출제자 입장에서는 한 문제로 <em class="hl">“아이디어는 있는가”와 “효율까지 생각했는가”를 동시에 물을 수 있다.</em> 올림피아드에서 매우 흔한 출제 방식이므로, 어려운 버전이 안 풀리면 쉬운 버전이라도 확실히 받아 두는 전략을 함께 가르친다.</div>
+
+      <p><b>(3) 내 풀이의 복잡도 추정 — 4점</b></p>
+      <div class="ans">두 판정만으로 <strong>실제 알고리즘의 빅오를 유일하게 결정할 수는 없다.</strong> 같은 O(N log N)도 구현 상수가 크면 B에서 실패할 수 있고, 메모리·입출력 문제일 수도 있다. 다만 <strong>시간 초과가 원인이고 단순한 작업량 모형</strong>을 가정한다면, A에서 약 100만 작업인 O(N²), B에서 약 3.5억 작업인 O(N√N) 등의 풀이를 유력 후보로 의심해 볼 수 있다. 먼저 구현의 반복 구조와 실제 연산 수를 확인해 원인을 좁힌다.</div>
+      <div class="miss"><b>채점.</b> (3)에서 “O(N²) 가능성이 있다”는 근거를 제시하면 3점, <strong>두 통과 결과만으로 복잡도를 확정할 수 없다는 한계까지 설명</strong>하면 4점. 이것이 대회장에서 시간 초과를 받았을 때 실제로 해야 하는 사고 과정이다.</div>
+    </div>
+  </div>
+
+  <div class="foot"><span>02 시간·공간 복잡도 — 정답·해설</span><span><b>세영코딩연구소</b> 저자 : 컴퓨터공학박사 KIM</span></div>
+</section>
+
+<!-- ======== 도전 C2 + 배점 ======== -->
+<section class="page">
+  <h2 class="sec"><span class="num">7</span>도전 문제 해설 <span style="font-size:9.6pt;color:var(--muted);font-weight:400;">(이어서)</span></h2>
+
+  <div class="sol">
+    <div class="sol-h"><span>도전 C2 — 복잡도가 거짓말을 할 때</span><span class="pt">15점</span></div>
+    <div class="sol-b">
+      <p><b>(1) 두 프로그램의 복잡도 — 2점</b></p>
+      <div class="ans">둘 다 원소를 하나씩 정확히 한 번 읽으므로 <strong>모두 O(N)</strong>이다.</div>
+
+      <p><b>(2) 왜 시간이 다른가 — 7점</b></p>
+      <div class="ans">CPU는 메모리에서 값을 하나만 가져오지 않고 <strong>주변 값까지 한 덩어리로</strong> 가져다 가까운 곳에 보관한다(캐시).<br>
+      · <strong>P(배열)</strong> — 주소가 연속이라 한 번 가져올 때 다음에 쓸 값들이 함께 따라온다. 이후 접근은 대체로 캐시 덕분에 빨라질 수 있다.<br>
+      · <strong>Q(연결)</strong> — 노드가 흩어져 있어 매번 먼 곳에서 새로 가져와야 한다. 게다가 <em class="hl">다음 노드의 주소를 읽어야만 그다음으로 갈 수 있어</em> 메모리 지연을 숨기기가 상대적으로 어렵다.<br>
+      빅오는 “몇 번 접근하는가”만 세고 <strong>“한 번 접근이 얼마나 비싼가”는 세지 않는다.</strong> 그 차이가 상수로 나타난다.</div>
+
+      <p><b>(3) 교훈 한 문장 — 6점</b></p>
+      <div class="ans">모범 답안 — <em class="hl">“복잡도와 연산 조건이 비슷하다면 연속 메모리 배치를 우선 검토한다.”</em><br>
+      연속 배열은 캐시 지역성에서 유리한 경우가 많다. 다만 중간 삽입·삭제, 메모리 사용, 실제 연산 패턴에 따라 연결 구조가 더 적합할 수도 있다. 09장의 노드 풀이나 29장의 배열 기반 그래프 표현도 지역성을 고려하는 설계 예다.</div>
+
+      <p><b>(4) 측정값 예시 — 가산점 최대 5점</b></p>
+      <pre class="out"><span class="lbl">설명용 예시 (N = 2,000,000, 연결 노드의 접근 순서가 무작위인 경우)</span>
+ P 배열 순차 읽기 :     0.7 ms
+ Q 연결 따라가기  :    88.2 ms   -> 약 126배 느림</pre>
+      <p style="margin-bottom:2mm;">위 수치는 <strong>재현을 보장하지 않는 비교 예시</strong>이다. 반복 측정해 원인과 차이를 설명하면 3점, 노드 할당·접근 순서가 캐시 효과에 미치는 영향까지 분석하면 추가 2점을 준다. 차이의 배율 자체를 정답 조건으로 삼지 않는다.</p>
+      <div class="miss"><b>채점.</b> (3)은 “배열이 빠르다”로 끝나면 3점. <strong>“복잡도와 실제 연산 조건이 비슷할 때”라는 조건을 붙인 답</strong>에만 만점을 준다. 조건 없이 “배열이 항상 빠르다”로 쓰면 01장에서 배운 중간 삽입 O(N)을 잊은 것이므로 반드시 바로잡는다.</div>
+    </div>
+  </div>
+
+  <h3 class="sub">배점 요약</h3>
+  <table>
+    <thead><tr><th style="width:18%">구분</th><th>문항별 배점</th><th class="c" style="width:12%">소계</th></tr></thead>
+    <tbody>
+      <tr><td class="k">연습</td><td>01(7) · 02(6) · 03(5) · 04(8) · 05(8) · 06(8) · 07(6) · 08(8) · 09(7) · 10(7)</td><td class="c tt">70점</td></tr>
+      <tr><td class="k">도전</td><td>C1(15) · C2(15)</td><td class="c tt">30점</td></tr>
+      <tr><td class="k">기본 합계</td><td>연습 70점 + 도전 30점</td><td class="c tt">100점</td></tr>
+      <tr><td class="k">별도 가산점</td><td>C2 측정·분석: 3점 + 2점</td><td class="c tt">최대 +5점</td></tr>
+      <tr><td class="k">최종 가능 점수</td><td>기본 100점 + 가산점 최대 5점</td><td class="c tt">105점</td></tr>
+    </tbody>
+  </table>
+
+  <div class="foot"><span>02 시간·공간 복잡도 — 정답·해설</span><span><b>세영코딩연구소</b> 저자 : 컴퓨터공학박사 KIM</span></div>
+</section>
+
+<!-- ======== 오답 지도 ======== -->
+<section class="page">
+  <h2 class="sec"><span class="num">8</span>오답 지도와 다음 수업 연결</h2>
+  <p class="lead">이 장은 뒤의 모든 장이 올라설 바닥이다. 미흡한 채로 03장에 넘어가면 PART 5에서 반드시 무너진다.</p>
+
+  <h3 class="sub">8.1 오답 → 보강 지점</h3>
+  <table>
+    <thead><tr><th style="width:16%">틀린 문항</th><th style="width:30%">드러나는 약점</th><th class="c" style="width:14%">다시 볼 절</th><th>보강 활동</th></tr></thead>
+    <tbody>
+      <tr><td class="k">01 · 03</td><td>빅오의 정의와 증가율 순서가 안 잡혔다</td><td class="c">교재 2.2–2.3</td><td>식 10개를 주고 빅오로 고치는 1분 훈련을 매 수업 시작마다 반복</td></tr>
+      <tr><td class="k">02</td><td>절반 루프를 더 빠른 것으로 착각한다</td><td class="c">교재 2.1–2.2</td><td>N = 10에서 실제 실행 횟수를 손으로 세게 한 뒤 N = 10만으로 확장</td></tr>
+      <tr><td class="k">04 · 05</td><td>대입과 판정의 절차가 몸에 안 붙었다</td><td class="c">교재 4.1</td><td>제약 조건 20개 즉답 훈련. <strong>90% 이상이 숙달 기준</strong></td></tr>
+      <tr><td class="k">06 · 07</td><td>메모리 계산과 스택·전역의 구분이 없다</td><td class="c">교재 4.3</td><td>환경별 스택 한도를 살펴보고 전역·동적 할당으로 비교해 본다</td></tr>
+      <tr><td class="k">08</td><td>복잡도만 맞추면 끝이라고 생각한다</td><td class="c">교재 2.5</td><td>같은 복잡도에서 상수로 갈린 사례를 C2 실측과 묶어 설명</td></tr>
+      <tr><td class="k">09 · 10</td><td>실험을 설계하거나 결과를 해석하지 못한다</td><td class="c">교재 3.1–3.2</td><td>카운터와 타이머를 백지에서 다시 작성시킨다 (각 5분)</td></tr>
+      <tr><td class="k">C1</td><td>제약 조건을 힌트로 읽지 못한다</td><td class="c">교재 4.1</td><td>기출 문제 5개의 제약 조건만 보여 주고 풀이 방향을 말하게 한다</td></tr>
+      <tr><td class="k">C2</td><td>빅오가 재지 않는 것이 있다는 점을 모른다</td><td class="c">교재 2.5</td><td>동일한 데이터 수에서 배열·연결 구현을 비교하고 반복 측정 결과를 해석한다</td></tr>
+    </tbody>
+  </table>
+
+  <h3 class="sub">8.2 이 장에서 반드시 남겨야 할 네 문장</h3>
+  <div class="box teal">
+    <ul style="margin-bottom:0;">
+      <li><strong>연산 횟수로 규모를 먼저 추정하고 실제 시간도 확인한다.</strong> 초당 1억 단위 작업은 대략적인 학습용 기준일 뿐 통과 보장은 아니다.</li>
+      <li><strong>제약 조건은 출제자가 남긴 힌트다.</strong> N을 보고 허용 복잡도를 먼저 정한 뒤 풀이를 떠올린다.</li>
+      <li><strong>큰 지역 배열은 스택 한도를 확인한다.</strong> 전역·정적 배열 또는 동적 할당을 검토한다.</li>
+      <li><strong>복잡도와 연산 패턴이 비슷할 때는 메모리의 연속 배치를 우선 고려한다.</strong></li>
+    </ul>
+  </div>
+
+  <h3 class="sub">8.3 다음 차시 준비</h3>
+  <table>
+    <thead><tr><th style="width:20%">항목</th><th>내용</th></tr></thead>
+    <tbody>
+      <tr><td class="k">다음 장</td><td>03 C11 환경과 고속 입출력 — 컴파일 옵션, 전역 배열과 스택 한계, <code class="inl">getchar</code> 기반 입력기</td></tr>
+      <tr><td class="k">이어지는 지점</td><td>이 장에서 만든 타이머를 그대로 써서 <code class="inl">scanf</code>와 고속 입력의 차이를 잰다. 10번을 틀린 학생은 03장 전에 타이머를 다시 작성시킨다</td></tr>
+      <tr><td class="k">미리 안내</td><td>07번의 스택 한도와 전역·동적 메모리 사용 구분을 03장에서도 적용한다</td></tr>
+      <tr><td class="k">숙제</td><td>제약 조건 20개(교사 배부)를 보고 허용 복잡도를 즉답하는 연습. 다음 수업 시작 시 10분 점검</td></tr>
+      <tr><td class="k">진단</td><td>D0 진단 평가는 03장 2차시에 실시한다. 선수 지식(포인터·구조체·재귀) 확인용</td></tr>
+    </tbody>
+  </table>
+
+  <div class="foot"><span>02 시간·공간 복잡도 — 정답·해설</span><span><b>세영코딩연구소</b> 저자 : 컴퓨터공학박사 KIM</span></div>
+</section>
+
+</body>
+</html>
