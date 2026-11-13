@@ -2,7 +2,7 @@ C언어와 Python 읽으면서 이해하기
 
 
 C 언어 조건문 읽기
-http://iioiinet-spec.github.io/sy/reading/if
+http://iioiinet-spec.github.io/sy/reading/cif
 
 C 언어 반복문 읽기
 http://iioiinet-spec.github.io/sy/reading/cfor
