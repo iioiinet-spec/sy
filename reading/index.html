@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C언어와 Python 읽으면서 이해하기 - 세영코딩연구소</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Font: Inter & Pretendard vibe via Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Custom pastel pink smooth gradient background */
+        .pink-gradient {
+            background: linear-gradient(135deg, #fff0f5 0%, #ffe4e6 50%, #fce7f3 100%);
+        }
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 25px -5px rgba(244, 114, 182, 0.25);
+        }
+    </style>
+</head>
+<body class="pink-gradient min-h-screen text-slate-700 flex flex-col justify-between antialiased selection:bg-pink-200 selection:text-pink-900">
+
+    <!-- Header Section -->
+    <header class="w-full py-10 px-4 sm:px-6 lg:px-8 text-center max-w-4xl mx-auto">
+        <div class="inline-flex items-center gap-2 bg-pink-100 text-pink-700 px-4 py-1.5 rounded-full text-sm font-semibold mb-4 shadow-sm">
+            <i class="fa-solid fa-graduation-cap"></i> 세영코딩연구소 (Seyoung Coding Lab)
+        </div>
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-800 tracking-tight mb-3">
+            C언어와 Python <span class="text-pink-600">읽으면서 이해하기</span>
+        </h1>
+        <p class="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto font-light">
+            코드의 흐름을 눈으로 읽고 직관적으로 이해하는 프로그래밍 학습 공간입니다.
+        </p>
+        <div class="mt-4 text-sm font-medium text-pink-700 bg-white/60 backdrop-blur-sm inline-block px-4 py-1 rounded-lg border border-pink-200">
+            Creator: <span class="font-bold">Ph.D KIM</span>
+        </div>
+    </header>
+
+    <!-- Main Content Section (Cards Grid) -->
+    <main class="flex-grow w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+        
+        <!-- Search / Filter Bar for Easy Extension -->
+        <div class="mb-8 flex flex-col sm:flex-row gap-4 items-center justify-between bg-white/70 backdrop-blur-md p-4 rounded-2xl border border-pink-100 shadow-sm">
+            <div class="relative w-full sm:w-72">
+                <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-pink-400">
+                    <i class="fa-solid fa-search"></i>
+                </span>
+                <input type="text" id="searchInput" placeholder="학습 자료 검색..." class="w-full pl-10 pr-4 py-2 bg-pink-50/50 border border-pink-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-pink-400 focus:bg-white transition">
+            </div>
+            <div class="flex items-center gap-2 w-full sm:w-auto overflow-x-auto pb-1 sm:pb-0">
+                <button onclick="filterCategory('all')" id="btn-all" class="category-btn px-4 py-2 text-xs font-semibold rounded-xl bg-pink-600 text-white shadow-sm transition">전체</button>
+                <button onclick="filterCategory('c')" id="btn-c" class="category-btn px-4 py-2 text-xs font-semibold rounded-xl bg-white text-slate-600 border border-pink-200 hover:bg-pink-50 transition">C언어</button>
+                <button onclick="filterCategory('python')" id="btn-python" class="category-btn px-4 py-2 text-xs font-semibold rounded-xl bg-white text-slate-600 border border-pink-200 hover:bg-pink-50 transition">Python</button>
+            </div>
+        </div>
+
+        <!-- Cards Container -->
+        <div id="cardsContainer" class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            
+            <!-- Card 1: C 언어 조건문 -->
+            <a href="http://iioiinet-spec.github.io/sy/reading/if" target="_blank" data-category="c" data-title="C 언어 조건문 읽기" class="reading-card group bg-white/95 backdrop-blur-sm rounded-2xl p-6 border border-pink-100 shadow-sm card-hover transition duration-300 flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="px-3 py-1 bg-sky-100 text-sky-700 text-xs font-bold rounded-lg uppercase tracking-wider">C 언어</span>
+                        <span class="w-8 h-8 rounded-full bg-pink-50 text-pink-600 flex items-center justify-center group-hover:bg-pink-600 group-hover:text-white transition">
+                            <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </span>
+                    </div>
+                    <h2 class="text-xl font-bold text-slate-800 group-hover:text-pink-600 transition mb-2">C 언어 조건문 읽기</h2>
+                    <p class="text-sm text-slate-500 font-light leading-relaxed">
+                        if, else, switch 등 C언어의 핵심 조건문 분기 구조를 읽고 쉽게 이해합니다.
+                    </p>
+                </div>
+                <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-xs text-slate-400">
+                    <span><i class="fa-regular fa-clock mr-1"></i> 읽기 자료 #1</span>
+                    <span class="text-pink-600 font-medium">학습하기 &rarr;</span>
+                </div>
+            </a>
+
+            <!-- Card 2: C 언어 반복문 -->
+            <a href="http://iioiinet-spec.github.io/sy/reading/cfor" target="_blank" data-category="c" data-title="C 언어 반복문 읽기" class="reading-card group bg-white/95 backdrop-blur-sm rounded-2xl p-6 border border-pink-100 shadow-sm card-hover transition duration-300 flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="px-3 py-1 bg-sky-100 text-sky-700 text-xs font-bold rounded-lg uppercase tracking-wider">C 언어</span>
+                        <span class="w-8 h-8 rounded-full bg-pink-50 text-pink-600 flex items-center justify-center group-hover:bg-pink-600 group-hover:text-white transition">
+                            <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </span>
+                    </div>
+                    <h2 class="text-xl font-bold text-slate-800 group-hover:text-pink-600 transition mb-2">C 언어 반복문 읽기</h2>
+                    <p class="text-sm text-slate-500 font-light leading-relaxed">
+                        for, while문과 반복 제어 구조를 완벽하게 파악하는 C언어 반복문 가이드입니다.
+                    </p>
+                </div>
+                <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-xs text-slate-400">
+                    <span><i class="fa-regular fa-clock mr-1"></i> 읽기 자료 #2</span>
+                    <span class="text-pink-600 font-medium">학습하기 &rarr;</span>
+                </div>
+            </a>
+
+            <!-- Card 3: Python 조건문 -->
+            <a href="http://iioiinet-spec.github.io/sy/reading/pif" target="_blank" data-category="python" data-title="Python 조건문 읽기" class="reading-card group bg-white/95 backdrop-blur-sm rounded-2xl p-6 border border-pink-100 shadow-sm card-hover transition duration-300 flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="px-3 py-1 bg-amber-100 text-amber-700 text-xs font-bold rounded-lg uppercase tracking-wider">Python</span>
+                        <span class="w-8 h-8 rounded-full bg-pink-50 text-pink-600 flex items-center justify-center group-hover:bg-pink-600 group-hover:text-white transition">
+                            <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </span>
+                    </div>
+                    <h2 class="text-xl font-bold text-slate-800 group-hover:text-pink-600 transition mb-2">Python 조건문 읽기</h2>
+                    <p class="text-sm text-slate-500 font-light leading-relaxed">
+                        파이썬만의 간결하고 직관적인 if-elif-else 조건문 문법과 활용법을 익힙니다.
+                    </p>
+                </div>
+                <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-xs text-slate-400">
+                    <span><i class="fa-regular fa-clock mr-1"></i> 읽기 자료 #3</span>
+                    <span class="text-pink-600 font-medium">학습하기 &rarr;</span>
+                </div>
+            </a>
+
+            <!-- Card 4: Python 반복문 -->
+            <a href="http://iioiinet-spec.github.io/sy/reading/ploop" target="_blank" data-category="python" data-title="Python 반복문 읽기" class="reading-card group bg-white/95 backdrop-blur-sm rounded-2xl p-6 border border-pink-100 shadow-sm card-hover transition duration-300 flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="px-3 py-1 bg-amber-100 text-amber-700 text-xs font-bold rounded-lg uppercase tracking-wider">Python</span>
+                        <span class="w-8 h-8 rounded-full bg-pink-50 text-pink-600 flex items-center justify-center group-hover:bg-pink-600 group-hover:text-white transition">
+                            <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </span>
+                    </div>
+                    <h2 class="text-xl font-bold text-slate-800 group-hover:text-pink-600 transition mb-2">Python 반복문 읽기</h2>
+                    <p class="text-sm text-slate-500 font-light leading-relaxed">
+                        for in range 및 while문, 그리고 파이썬 반복 구조의 핵심을 이해합니다.
+                    </p>
+                </div>
+                <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-xs text-slate-400">
+                    <span><i class="fa-regular fa-clock mr-1"></i> 읽기 자료 #4</span>
+                    <span class="text-pink-600 font-medium">학습하기 &rarr;</span>
+                </div>
+            </a>
+
+        </div>
+
+        <!-- Extension Guide Note -->
+        <div class="mt-10 p-5 bg-white/50 backdrop-blur-sm border border-pink-200/60 rounded-2xl text-center">
+            <p class="text-xs text-slate-500">
+                <i class="fa-solid fa-circle-info text-pink-500 mr-1"></i> 새로운 학습 자료가 추가되면 HTML 코드 내의 카드 리스트에 간편하게 확장할 수 있습니다.
+            </p>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="w-full py-6 text-center text-xs text-slate-500 border-t border-pink-100/80 bg-white/40 backdrop-blur-sm">
+        <p>&copy; 2026 <span class="font-semibold text-slate-700">세영코딩연구소 (Seyoung Coding Lab)</span>. All rights reserved.</p>
+        <p class="mt-1 text-pink-600 font-medium">Directed by Ph.D KIM</p>
+    </footer>
+
+    <!-- Interactive Script for Filtering & Searching -->
+    <script>
+        // Search functionality
+        const searchInput = document.getElementById('searchInput');
+        const cards = document.querySelectorAll('.reading-card');
+
+        searchInput.addEventListener('input', (e) => {
+            const term = e.target.value.toLowerCase();
+            cards.forEach(card => {
+                const title = card.getAttribute('data-title').toLowerCase();
+                if (title.includes(term)) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+
+        // Category filter functionality
+        function filterCategory(category) {
+            // Update button styles
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                btn.classList.remove('bg-pink-600', 'text-white');
+                btn.classList.add('bg-white', 'text-slate-600', 'border', 'border-pink-200');
+            });
+            const activeBtn = document.getElementById(`btn-${category}`);
+            activeBtn.classList.remove('bg-white', 'text-slate-600', 'border', 'border-pink-200');
+            activeBtn.classList.add('bg-pink-600', 'text-white');
+
+            // Filter cards
+            cards.forEach(card => {
+                const cardCat = card.getAttribute('data-category');
+                if (category === 'all' || cardCat === category) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>

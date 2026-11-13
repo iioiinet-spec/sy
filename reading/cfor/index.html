@@ -1,0 +1,383 @@
+<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>C언어 반복문 - 초등 저학년 읽기 학습</title><style>:root{--ink:#17191d;--line:#c9ced7;--soft:#f5f7fa;--blue:#174a9d;--green:#17633d}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#fff;color:var(--ink);font-family:'Malgun Gothic','Apple SD Gothic Neo',sans-serif;font-size:17px;line-height:1.8}
+.toolbar{position:sticky;top:0;z-index:10;background:#fff;border-bottom:1px solid #aeb6c1;padding:9px 15px;box-shadow:0 1px 5px #00000010}
+.toolbarinner{max-width:950px;margin:auto;display:flex;gap:10px;align-items:center;flex-wrap:wrap}.toolbar label{font-size:14px;font-weight:700}.toolbar select,.toolbar button,.interactive select{border:1px solid #9aa8bc;border-radius:6px;background:#fff;color:#111;padding:9px 12px;font:inherit}.toolbar button{background:#1f4a92;color:white;cursor:pointer;font-weight:800}.toolbar .small{margin-left:auto;font-size:13px;color:#464b55}
+main{max-width:900px;margin:auto;padding:20px 24px 70px}section{margin:24px 0 52px}h1{font-size:38px;line-height:1.35;margin:12px 0 14px}h2{font-size:26px;color:#182d4c;margin:0 0 14px;padding-top:14px;border-top:3px solid #162a4b}h3{font-size:19px;margin:0 0 7px}p{margin:9px 0 14px}ol{margin:5px 0;padding-left:24px}.hero{padding:32px 0 28px}.eyebrow{font-size:14px;font-weight:800;letter-spacing:.03em;color:var(--blue)}.subtitle{font-size:21px}.meta,.student{border-bottom:1px solid var(--line);padding:14px 0;margin:16px 0}.introgrid,.storygrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.introgrid>div,.story,.tip,.interactive{padding:16px;border:1px solid var(--line);border-radius:10px}.introgrid p{margin:4px 0 0}.story{display:flex;flex-direction:column}.storygrid{grid-template-columns:repeat(3,1fr)}.mini,.small{font-size:14px;color:#4f5762}.goal{font-weight:750;color:#24436d;margin-top:-3px}.tip{margin:18px 0;background:#f9fbfd}.example{margin:23px 0 25px;padding:20px 0;border-bottom:1px solid var(--line)}.two{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:13px}.smallcap{font-size:13px;font-weight:800;color:#455365;margin-bottom:4px}.read{margin:10px 0;padding:10px 14px;border-left:3px solid #335a92;background:#fcfdff}.read ol{margin-top:3px}.try{padding:8px 12px;border:1px dashed #77899f;border-radius:7px}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#fafafa;border:1px solid #cfd5df;padding:12px 13px;border-radius:7px;line-height:1.6;font:15px/1.63 Consolas,'D2Coding','Malgun Gothic',monospace;margin:5px 0 13px;color:#151515}code{font:0.92em Consolas,'D2Coding',monospace;background:#f2f4f7;padding:1px 4px;border-radius:3px}pre code{font:inherit;background:none;padding:0}.output{color:#17633d;font-weight:700;background:#fff}table{border-collapse:collapse;width:100%;margin:18px 0}th,td{border:1px solid #bbc3cf;padding:8px 11px;text-align:left;vertical-align:top}th{background:#f3f4f6} .interactive{background:#f8fbff;margin:20px 0}.interactive input[type=range]{width:100%;margin:10px 0;accent-color:#244e91}.outcome{font-size:25px;color:#1a6239;font-weight:900;margin:10px 0}.mistake{border-bottom:1px dashed #aaa;margin:12px 0 20px}.checklist{border:1px solid var(--line);padding:10px 20px}.checklist p{margin:10px 0}.chapter{break-inside:auto}.question{border-bottom:1px solid var(--line);padding:10px 0 18px;margin:0 0 14px;break-inside:avoid}.question h3{margin-bottom:1px}.kind{font-size:13px;font-weight:400;color:#526074}.answerline{display:flex;align-items:center;gap:10px;margin:12px 0;color:#282e38}.write-line{flex:1;border-bottom:1px solid #aaa;height:1.4em}.writebox{height:90px;background:repeating-linear-gradient(to bottom,transparent 0,transparent 29px,#ced3dc 30px)}.solution{border-bottom:1px solid var(--line);padding:10px 0 15px;break-inside:avoid}.solutionvalue{font-weight:850;font-size:18px}.pagefront{display:none}
+body.view-theory .problem,body.view-theory .answers,body.view-problem .theory,body.view-problem .answers,body.view-answer .theory,body.view-answer .problem{display:none}
+@media(max-width:660px){body{font-size:16px}main{padding:12px 15px 60px}.two,.introgrid{grid-template-columns:1fr}.storygrid{grid-template-columns:1fr}h1{font-size:31px}h2{font-size:23px}pre{font-size:14px}.toolbar .small{margin-left:0}}
+@page{size:A4;margin:16mm 15mm 16mm 15mm}
+@media print{body{font-size:11.3pt;line-height:1.6;-webkit-print-color-adjust:economy;print-color-adjust:economy}.toolbar{display:none!important}main{max-width:none;padding:0}h1{font-size:25pt}h2{font-size:16pt;color:#000;border-top:1px solid #555;padding-top:7px;break-after:avoid}h3{font-size:12.6pt;break-after:avoid}p{margin:5px 0 9px}section{margin:6px 0 25px}.hero{padding:0 0 16px}.example{margin:13px 0;padding:7px 0}.read{background:white;border-color:#777;padding:6px 10px}.introgrid>div,.story,.tip,.interactive,.checklist{background:white!important;border:1px solid #aaa}.try{border-color:#aaa}pre{font-size:9.5pt;background:#fff!important;border:1px solid #ccc;padding:6px 8px;margin:5px 0}code{background:transparent}table{font-size:10.2pt}th{background:#fff!important}.interactive input,.interactive select{display:none}.interactive{padding:10px}.outcome{font-size:14pt;color:#000}.goal{color:#111}.chapter{break-before:page}.question,.solution{break-inside:avoid}.question{padding:5px 0 11px;margin:0 0 8px}.answerline{margin:9px 0}.writebox{height:85px}.answers{break-before:page}.storygrid{gap:5px}.story{padding:7px}.mini{color:#444}body.view-theory .problem,body.view-theory .answers,body.view-problem .theory,body.view-problem .answers,body.view-answer .theory,body.view-answer .problem{display:none!important}}
+@media (min-width:661px){.two{grid-template-columns:minmax(0,1.45fr) minmax(0,.95fr)}}
+@media (max-width:420px){.toolbarinner{gap:6px}.toolbar select,.toolbar button{padding:8px 9px;font-size:13px}.interactive pre{font-size:13px}}
+@media print{.problem.chapter{break-before:page}.answers.chapter{break-before:page}.two{grid-template-columns:minmax(0,1.45fr) minmax(0,.95fr)}.example pre{font-size:8.8pt}.interactive #clapCode,.interactive #coinCode{display:block}.writebox{background:none;border-bottom:1px solid #bbb;height:78px}}
+</style></head><body class="view-all"><nav class="toolbar"><div class="toolbarinner"><label for="printMode">화면·인쇄 범위</label><select id="printMode"><option value="all">전체 자료</option><option value="theory">개념·예제만</option><option value="problem">연습문제만</option><option value="answer">정답·해설만</option></select><button type="button" id="printBtn">선택한 부분 인쇄</button><span class="small">오프라인 사용 · A4 흰 배경</span></div></nav><main><section class="theory hero"><div class="eyebrow">초등 1~3학년 · 읽고 따라 쓰는 C언어</div>
+<h1>C언어 반복문<br>읽으면서 이해하기</h1>
+<p class="subtitle">박수 세 번, 로켓 카운트다운, 동전 모으기!<br>생활 속 반복으로 배우는 <b>for · while · do-while</b></p>
+<div class="meta">이름: ____________________ &nbsp;&nbsp; 날짜: ______________</div>
+<div class="introgrid"><div><b>오늘의 목표</b><p>반복이 언제 시작하고 끝나는지 한 줄씩 읽어 봐요.</p></div><div><b>공부하는 순서</b><p>1. 이야기 → 2. 코드 읽기 → 3. 출력 예상 → 4. 값 바꾸기</p></div></div>
+<p class="mini">1~6장 기초 · 7~10장 도전! 모든 예제는 GCC에서 컴파일한 완전한 C 프로그램입니다.</p></section><section class="theory chapter"><h2>1. 반복문은 무엇일까요?</h2><p class="goal">같은 일을 여러 번 시키는 명령을 반복문이라고 해요.</p><p>친구에게 네 번 인사한다면 똑같은 인사를 네 번 해야 해요. 컴퓨터에도 같은 일을 여러 번 시킬 수 있어요.</p><p>C언어의 반복문에는 <strong>for</strong>, <strong>while</strong>, <strong>do-while</strong>이 있어요. 먼저 정해진 횟수만큼 반복하는 <code>for</code>부터 시작해요.</p><div class="storygrid"><div class="story"><b>박수</b><span>짝! 짝! 짝! → 같은 행동 3번</span></div><div class="story"><b>계단</b><span>1칸, 2칸, 3칸 → 숫자 세기</span></div><div class="story"><b>동전</b><span>동전 3개가 모일 때까지 넣기 → 목표까지 반복</span></div></div><div class="tip"><b>기억해요!</b> 반복문은 같은 일을 여러 번 실행해요.</div></section><section class="theory chapter"><h2>2. for: 정한 횟수만큼 반복해요</h2><p class="goal">for는 시작·조건·변화를 적고 차례로 반복해요.</p><p>C언어는 <code>for (시작; 조건; 변화) { 반복할 일 }</code>처럼 써요. 처음에는 <code>for (int i = 0; i &lt; 3; i++)</code>를 <strong>0부터 시작하고, 3보다 작은 동안, 1씩 더하기</strong>라고 읽으면 돼요.</p><p><code>printf()</code>는 화면에 글자를 보여 줘요. <code>\n</code>은 줄을 바꾸는 약속이고, <code>;</code>는 명령의 끝을 표시해요.</p><p><strong>기본 틀:</strong> 위에 <code>#include &lt;stdio.h&gt;</code>를 쓰고, <code>int main(void) {</code>에서 시작해 마지막에 <code>return 0;</code>과 <code>}</code>로 끝내요. 모든 예제는 그대로 복사해 실행할 수 있어요.</p><table><tr><th>코드/기호</th><th>읽는 방법</th></tr>
+<tr><td><code>#include &lt;stdio.h&gt;</code></td><td>printf를 사용할 준비</td></tr>
+<tr><td><code>int main(void) {</code></td><td>프로그램 시작</td></tr>
+<tr><td><code>for (시작; 조건; 변화)</code></td><td>시작하고, 조건이 맞는 동안, 숫자를 바꾸며 반복</td></tr>
+<tr><td><code>i++</code></td><td>i를 1 키우기</td></tr><tr><td><code>printf("짝!\n");</code></td><td>글자 출력하고 줄 바꾸기</td></tr>
+<tr><td><code>{ }</code></td><td>반복할 문장 묶기</td></tr><tr><td><code>return 0;</code></td><td>프로그램 마치기</td></tr></table><div class="tip"><b>소리 내어 읽기:</b> <code>for (int i = 0; i &lt; 3; i++)</code>는 “i는 0에서 시작, 3보다 작은 동안, 매번 1씩 늘리기”예요.</div><article class="example"><h3>예제 1. 박수를 세 번 쳐요</h3><p>박수 세 번을 C언어로 나타내요.</p><div class="two"><div><div class="smallcap">C언어 코드 · 그대로 복사해 실행 가능</div><pre><code>#include &lt;stdio.h&gt;
+
+int main(void) {
+    for (int i = 0; i &lt; 3; i++) {
+        printf(&quot;짝!\n&quot;);
+    }
+    return 0;
+}</code></pre></div><div><div class="smallcap">실행 결과</div><pre class="output">짝!
+짝!
+짝!</pre></div></div><div class="read"><b>한 줄씩 읽어 봐요</b><ol><li>처음 i는 0이에요.</li><li>0 &lt; 3은 참이라 “짝!”을 출력해요.</li><li>i++로 i를 1 크게 하고 다시 조건을 확인해요.</li><li>i가 0, 1, 2일 때 실행하고 3이 되면 끝나요.</li></ol></div><p class="try"><b>바꿔 보기</b> <code>i &lt; 3</code>을 <code>i &lt; 5</code>로 바꾸면 몇 번 출력할까요?</p></article><article class="example"><h3>예제 2. 친구에게 네 번 인사해요</h3><p>안녕하세요를 네 번 말해 보아요.</p><div class="two"><div><div class="smallcap">C언어 코드 · 그대로 복사해 실행 가능</div><pre><code>#include &lt;stdio.h&gt;
+
+int main(void) {
+    for (int turn = 0; turn &lt; 4; turn++) {
+        printf(&quot;안녕하세요\n&quot;);
+    }
+    return 0;
+}</code></pre></div><div><div class="smallcap">실행 결과</div><pre class="output">안녕하세요
+안녕하세요
+안녕하세요
+안녕하세요</pre></div></div><div class="read"><b>한 줄씩 읽어 봐요</b><ol><li>turn은 처음에 0이에요.</li><li>0, 1, 2, 3에서 네 번 인사해요.</li><li>turn이 4가 되면 4 &lt; 4가 거짓이라 멈춰요.</li></ol></div><p class="try"><b>바꿔 보기</b> <code>turn &lt; 4</code>를 <code>turn &lt; 2</code>로 고쳐 보세요.</p></article><div class="interactive"><h3>직접 체험 1. 박수를 몇 번 칠까요?</h3>
+<label for="clapRange">박수 횟수 <strong id="clapVal">3</strong>번</label>
+<input type="range" id="clapRange" min="0" max="8" value="3">
+<div class="outcome" id="clapResult" aria-live="polite">짝! · 짝! · 짝!</div><p id="clapReason">i가 0, 1, 2일 때 3번 출력해요.</p>
+<div class="smallcap">바뀌는 C 코드</div><pre id="clapCode"></pre>
+<p class="small">이 체험은 코드를 실제로 실행하지 않고 반복 횟수를 보여 주는 활동이에요.</p></div></section><section class="theory chapter"><h2>3. 0부터, 또는 1부터 숫자를 세요</h2><p class="goal">시작 숫자와 마지막에 검사할 조건을 살펴봐요.</p><p><code>int n = 1</code>은 처음 숫자를 1로 정한다는 뜻이에요. <code>n &lt;= 5</code>는 n이 5보다 <strong>작거나 같을 동안</strong>이에요.</p><p><code>&lt;</code>는 작다, <code>&lt;=</code>는 작거나 같다예요. <strong><code>&lt; 5</code>는 5를 포함하지 않지만, <code>&lt;= 5</code>는 5를 포함해요.</strong></p><table><tr><th>반복 조건</th><th>출력 숫자</th><th>횟수</th></tr>
+<tr><td><code>n = 0; n &lt; 3; n++</code></td><td>0, 1, 2</td><td>3번</td></tr>
+<tr><td><code>n = 1; n &lt;= 3; n++</code></td><td>1, 2, 3</td><td>3번</td></tr>
+<tr><td><code>n = 2; n &lt;= 6; n += 2</code></td><td>2, 4, 6</td><td>3번</td></tr>
+<tr><td><code>n = 3; n &gt;= 1; n--</code></td><td>3, 2, 1</td><td>3번</td></tr></table><article class="example"><h3>예제 3. 하나부터 다섯까지 세기</h3><p>손가락을 펴며 1부터 5까지 세어 봐요.</p><div class="two"><div><div class="smallcap">C언어 코드 · 그대로 복사해 실행 가능</div><pre><code>#include &lt;stdio.h&gt;
+
+int main(void) {
+    for (int n = 1; n &lt;= 5; n++) {
+        printf(&quot;%d\n&quot;, n);
+    }
+    return 0;
+}</code></pre></div><div><div class="smallcap">실행 결과</div><pre class="output">1
+2
+3
+4
+5</pre></div></div><div class="read"><b>한 줄씩 읽어 봐요</b><ol><li>n이 1에서 시작해요.</li><li>n &lt;= 5가 참일 때 숫자를 보여 줘요.</li><li>%d는 숫자 한 개를 화면에 표시하는 자리예요.</li><li>5까지 출력한 뒤 n이 6이 되면 멈춰요.</li></ol></div><p class="try"><b>바꿔 보기</b> 7까지 세려면 <code>n &lt;= 7</code>로 바꿔 보세요.</p></article><article class="example"><h3>예제 4. 0부터 네 번 숫자 세기</h3><p>컴퓨터는 0에서 출발하는 경우도 많아요.</p><div class="two"><div><div class="smallcap">C언어 코드 · 그대로 복사해 실행 가능</div><pre><code>#include &lt;stdio.h&gt;
+
+int main(void) {
+    for (int n = 0; n &lt; 4; n++) {
+        printf(&quot;%d\n&quot;, n);
+    }
+    return 0;
+}</code></pre></div><div><div class="smallcap">실행 결과</div><pre class="output">0
+1
+2
+3</pre></div></div><div class="read"><b>한 줄씩 읽어 봐요</b><ol><li>처음 n은 0이에요.</li><li>0, 1, 2, 3이 출력돼요.</li><li>4 &lt; 4는 거짓이므로 4는 나오지 않아요.</li></ol></div><p class="try"><b>바꿔 보기</b> 만약 <code>n &lt;= 4</code>로 바꾼다면 몇 줄이 출력될까요?</p></article></section><section class="theory chapter"><h2>4. 건너뛰고, 거꾸로 세어 봐요</h2><p class="goal">숫자를 2씩 더하거나 1씩 뺄 수도 있어요.</p><p><code>n += 2</code>는 <strong>n에 2를 더하기</strong>예요. <code>n--</code>는 <strong>n을 1 줄이기</strong>예요.</p><p>로켓 발사처럼 거꾸로 셀 때는 조건과 감소 방향이 서로 맞아야 해요.</p><article class="example"><h3>예제 5. 짝수 발판만 밟아요</h3><p>2번, 4번, 6번, 8번 발판만 밟아요.</p><div class="two"><div><div class="smallcap">C언어 코드 · 그대로 복사해 실행 가능</div><pre><code>#include &lt;stdio.h&gt;
+
+int main(void) {
+    for (int n = 2; n &lt;= 8; n += 2) {
+        printf(&quot;%d\n&quot;, n);
+    }
+    return 0;
+}</code></pre></div><div><div class="smallcap">실행 결과</div><pre class="output">2
+4
+6
+8</pre></div></div><div class="read"><b>한 줄씩 읽어 봐요</b><ol><li>처음 n은 2예요.</li><li>n에 2씩 더하므로 2, 4, 6, 8로 바뀌어요.</li><li>n이 10이 되면 10 &lt;= 8이 거짓이라 멈춰요.</li></ol></div><p class="try"><b>바꿔 보기</b> 홀수 발판을 밟으려면 시작 숫자를 1로 바꿔 보세요.</p></article><article class="example"><h3>예제 6. 로켓 발사 카운트다운</h3><p>5부터 1까지 거꾸로 센 후 출발해요.</p><div class="two"><div><div class="smallcap">C언어 코드 · 그대로 복사해 실행 가능</div><pre><code>#include &lt;stdio.h&gt;
+
+int main(void) {
+    for (int n = 5; n &gt;= 1; n--) {
+        printf(&quot;%d\n&quot;, n);
+    }
+    printf(&quot;출발!\n&quot;);
+    return 0;
+}</code></pre></div><div><div class="smallcap">실행 결과</div><pre class="output">5
+4
+3
+2
+1
+출발!</pre></div></div><div class="read"><b>한 줄씩 읽어 봐요</b><ol><li>n을 5로 시작해요.</li><li>n--로 숫자를 1씩 줄여요.</li><li>1까지 출력하고 n이 0이 되면 멈춰요.</li><li>중괄호 바깥의 “출발!”은 마지막에 한 번만 나와요.</li></ol></div><p class="try"><b>바꿔 보기</b> 3부터 시작하고 싶다면 시작 숫자를 3으로 고쳐요.</p></article></section><section class="theory chapter"><h2>5. 반복할 곳은 중괄호로 정해요</h2><p class="goal">{ } 안쪽은 여러 번, 바깥쪽은 한 번 실행돼요.</p><p>C언어는 <strong>중괄호 <code>{ }</code></strong>로 반복할 범위를 구분해요. 들여쓰기는 읽기 쉽게 만드는 것이고, 실제 범위는 중괄호로 결정돼요.</p><p>반복 변수 이름은 <code>i</code>, <code>n</code>, <code>turn</code>처럼 바꿀 수 있어요. 한 글자를 저장하는 <code>char</code>는 심화 예제로 살펴볼게요.</p><article class="example"><h3>예제 7. 사과 세 개를 나눠 줘요</h3><p>친구에게 사과를 하나씩 세 번 나눠 줘요.</p><div class="two"><div><div class="smallcap">C언어 코드 · 그대로 복사해 실행 가능</div><pre><code>#include &lt;stdio.h&gt;
+
+int main(void) {
+    for (int apple = 1; apple &lt;= 3; apple++) {
+        printf(&quot;사과 %d개째\n&quot;, apple);
+    }
+    printf(&quot;나눔 끝!\n&quot;);
+    return 0;
+}</code></pre></div><div><div class="smallcap">실행 결과</div><pre class="output">사과 1개째
+사과 2개째
+사과 3개째
+나눔 끝!</pre></div></div><div class="read"><b>한 줄씩 읽어 봐요</b><ol><li>apple이 1, 2, 3으로 변해요.</li><li>사과를 세 번 나눠 준 뒤 반복을 끝내요.</li><li>마지막 “나눔 끝!”은 중괄호 밖이라 한 번만 보여 줘요.</li></ol></div><p class="try"><b>바꿔 보기</b> 마지막 printf 문장을 중괄호 안으로 옮기면 어떻게 될까요?</p></article><article class="example"><h3>예제 8. 알파벳 A부터 C까지</h3><p>알파벳 카드를 A, B, C 차례로 보여 줘요.</p><div class="two"><div><div class="smallcap">C언어 코드 · 그대로 복사해 실행 가능</div><pre><code>#include &lt;stdio.h&gt;
+
+int main(void) {
+    for (char letter = &#x27;A&#x27;; letter &lt;= &#x27;C&#x27;; letter++) {
+        printf(&quot;%c\n&quot;, letter);
+    }
+    return 0;
+}</code></pre></div><div><div class="smallcap">실행 결과</div><pre class="output">A
+B
+C</pre></div></div><div class="read"><b>한 줄씩 읽어 봐요</b><ol><li>char는 글자 한 개를 담는 이름표예요.</li><li>letter는 A에서 시작해 B, C가 돼요.</li><li>%c는 글자 한 개를 표시하는 자리예요.</li><li>C를 보여 준 뒤 글자가 다음 글자로 변하면 조건이 거짓이에요.</li></ol></div><p class="try"><b>바꿔 보기</b> <code>&#x27;C&#x27;</code>를 <code>&#x27;D&#x27;</code>로 바꾸어 A부터 D까지 보여 줘요.</p></article></section><section class="theory chapter"><h2>6. while: 조건이 맞는 동안 반복해요</h2><p class="goal">while은 참인 동안 계속 반복해요.</p><p><code>while (조건) { ... }</code>은 <strong>조건을 먼저 확인하고</strong> 참이면 중괄호 안을 실행해요.</p><p>꼭 기억해요. <code>while</code> 안에서 숫자를 바꾸는 일을 빼먹으면 반복이 <strong>끝나지 않을 수 있어요.</strong></p><div class="tip"><b>무한 반복 주의:</b> while 안에서 <code>step++;</code>처럼 값을 바꾸어야 끝날 수 있어요. 코드를 실행하기 전에 확인해요.</div><article class="example"><h3>예제 9. 세 걸음 걸어요</h3><p>세 걸음이 될 때까지 하나씩 걸어요.</p><div class="two"><div><div class="smallcap">C언어 코드 · 그대로 복사해 실행 가능</div><pre><code>#include &lt;stdio.h&gt;
+
+int main(void) {
+    int step = 1;
+    while (step &lt;= 3) {
+        printf(&quot;걸음 %d\n&quot;, step);
+        step++;
+    }
+    return 0;
+}</code></pre></div><div><div class="smallcap">실행 결과</div><pre class="output">걸음 1
+걸음 2
+걸음 3</pre></div></div><div class="read"><b>한 줄씩 읽어 봐요</b><ol><li>처음 step은 1이에요.</li><li>1, 2, 3에서는 step &lt;= 3이 참이에요.</li><li>step++로 매번 숫자를 하나씩 키워요.</li><li>step이 4가 되면 반복이 끝나요.</li></ol></div><p class="try"><b>바꿔 보기</b> <code>step &lt;= 3</code>을 <code>step &lt;= 5</code>로 바꾸면 다섯 걸음이에요.</p></article><article class="example"><h3>예제 10. 동전을 세 개 모아요</h3><p>저금통에 동전을 하나씩 넣어요.</p><div class="two"><div><div class="smallcap">C언어 코드 · 그대로 복사해 실행 가능</div><pre><code>#include &lt;stdio.h&gt;
+
+int main(void) {
+    int coin = 0;
+    while (coin &lt; 3) {
+        coin++;
+        printf(&quot;동전 %d개\n&quot;, coin);
+    }
+    return 0;
+}</code></pre></div><div><div class="smallcap">실행 결과</div><pre class="output">동전 1개
+동전 2개
+동전 3개</pre></div></div><div class="read"><b>한 줄씩 읽어 봐요</b><ol><li>처음 coin은 0개예요.</li><li>3개보다 적으면 동전 하나를 더해요.</li><li>1개, 2개, 3개에서 결과를 보여 줘요.</li><li>coin이 3이면 3 &lt; 3은 거짓이어서 끝나요.</li></ol></div><p class="try"><b>바꿔 보기</b> 동전 목표를 5개로 바꿔 보세요.</p></article><div class="interactive"><h3>직접 체험 2. 동전 목표 바꾸기</h3>
+<label for="coinRange">목표 동전 <strong id="coinVal">3</strong>개</label>
+<input type="range" id="coinRange" min="1" max="7" value="3">
+<div class="outcome" id="coinResult" aria-live="polite">동전 1개 → 동전 2개 → 동전 3개</div><p id="coinReason">동전이 3개가 되면 반복을 멈춰요.</p>
+<div class="smallcap">바뀌는 C 코드</div><pre id="coinCode"></pre></div></section><section class="theory chapter"><h2>7. do-while: 먼저 한 번, 그다음 확인해요</h2><p class="goal">do-while은 한 번 실행하고 조건을 확인해요.</p><p><code>while</code>은 <strong>조건 먼저</strong>, <code>do-while</code>은 <strong>실행 먼저</strong>라는 차이가 있어요.</p><p><code>do { ... } while (조건);</code>처럼 마지막에 <strong>세미콜론 <code>;</code>이 꼭 필요해요.</strong></p><article class="example"><h3>예제 11. 세 번 인사하는 do-while</h3><p>인사를 먼저 한 번 하고, 계속할지 확인해요.</p><div class="two"><div><div class="smallcap">C언어 코드 · 그대로 복사해 실행 가능</div><pre><code>#include &lt;stdio.h&gt;
+
+int main(void) {
+    int hello = 1;
+    do {
+        printf(&quot;인사 %d번\n&quot;, hello);
+        hello++;
+    } while (hello &lt;= 3);
+    return 0;
+}</code></pre></div><div><div class="smallcap">실행 결과</div><pre class="output">인사 1번
+인사 2번
+인사 3번</pre></div></div><div class="read"><b>한 줄씩 읽어 봐요</b><ol><li>do 안쪽을 먼저 실행해요.</li><li>hello를 1 크게 만든 다음 조건을 확인해요.</li><li>hello가 4가 되면 4 &lt;= 3은 거짓이라 끝나요.</li></ol></div><p class="try"><b>바꿔 보기</b> <code>hello &lt;= 3</code>을 <code>hello &lt;= 2</code>로 고쳐 보세요.</p></article><article class="example"><h3>예제 12. 조건이 틀려도 한 번은 실행해요</h3><p>이미 숫자가 커도 do-while은 먼저 한 번 출력해요.</p><div class="two"><div><div class="smallcap">C언어 코드 · 그대로 복사해 실행 가능</div><pre><code>#include &lt;stdio.h&gt;
+
+int main(void) {
+    int count = 5;
+    do {
+        printf(&quot;한 번 실행!\n&quot;);
+        count++;
+    } while (count &lt; 3);
+    return 0;
+}</code></pre></div><div><div class="smallcap">실행 결과</div><pre class="output">한 번 실행!</pre></div></div><div class="read"><b>한 줄씩 읽어 봐요</b><ol><li>count는 처음부터 5예요.</li><li>do 안쪽의 문장을 먼저 실행해요.</li><li>count가 6이 된 뒤 6 &lt; 3을 검사하면 거짓이에요.</li><li>거짓이어도 <strong>첫 번째 실행 한 번은 있었어요.</strong></li></ol></div><p class="try"><b>바꿔 보기</b> 같은 조건을 <code>while</code>로 썼다면 한 번도 실행하지 않아요.</p></article></section><section class="theory chapter"><h2>8. if · break · continue를 함께 써 봐요</h2><p class="goal">반복하다가 필요한 숫자만 골라내거나 멈춰요.</p><p><code>if</code>는 “만약”, <code>break</code>는 “반복을 완전히 멈춤”, <code>continue</code>는 “이번 차례만 건너뛰기”예요.</p><p>어려운 부분이므로 선생님과 함께 손가락으로 한 줄씩 따라가 보세요.</p><article class="example"><h3>예제 13. 짝수 카드만 보여 줘요</h3><p>숫자 카드 1~5 중 짝수만 골라요.</p><div class="two"><div><div class="smallcap">C언어 코드 · 그대로 복사해 실행 가능</div><pre><code>#include &lt;stdio.h&gt;
+
+int main(void) {
+    for (int n = 1; n &lt;= 5; n++) {
+        if (n % 2 == 0) {
+            printf(&quot;%d 짝수\n&quot;, n);
+        }
+    }
+    return 0;
+}</code></pre></div><div><div class="smallcap">실행 결과</div><pre class="output">2 짝수
+4 짝수</pre></div></div><div class="read"><b>한 줄씩 읽어 봐요</b><ol><li>%는 나머지를 구하는 기호예요.</li><li>n을 2로 나눠 나머지가 0이면 짝수예요.</li><li>1, 3, 5에서는 출력하지 않아요.</li></ol></div><p class="try"><b>바꿔 보기</b> <code>n % 2 == 1</code>로 바꾸면 홀수 카드를 고를 수 있어요.</p></article><article class="example"><h3>예제 14. 보물을 찾으면 멈춰요</h3><p>3번 상자에서 보물을 발견해요.</p><div class="two"><div><div class="smallcap">C언어 코드 · 그대로 복사해 실행 가능</div><pre><code>#include &lt;stdio.h&gt;
+
+int main(void) {
+    for (int box = 1; box &lt;= 5; box++) {
+        if (box == 3) {
+            printf(&quot;보물 발견!\n&quot;);
+            break;
+        }
+        printf(&quot;상자 %d\n&quot;, box);
+    }
+    return 0;
+}</code></pre></div><div><div class="smallcap">실행 결과</div><pre class="output">상자 1
+상자 2
+보물 발견!</pre></div></div><div class="read"><b>한 줄씩 읽어 봐요</b><ol><li>상자 1, 2는 그대로 출력해요.</li><li>3이 되면 보물을 찾고 break를 만나요.</li><li>break가 반복 전체를 끝내므로 4, 5는 확인하지 않아요.</li></ol></div><p class="try"><b>바꿔 보기</b> 보물을 4번 상자에 숨기려면 <code>box == 4</code>로 바꿔요.</p></article><article class="example"><h3>예제 15. 비 오는 날은 산책을 쉬어요</h3><p>3일째는 건너뛰고 다른 날에 산책해요.</p><div class="two"><div><div class="smallcap">C언어 코드 · 그대로 복사해 실행 가능</div><pre><code>#include &lt;stdio.h&gt;
+
+int main(void) {
+    for (int day = 1; day &lt;= 5; day++) {
+        if (day == 3) {
+            continue;
+        }
+        printf(&quot;산책 %d일째\n&quot;, day);
+    }
+    return 0;
+}</code></pre></div><div><div class="smallcap">실행 결과</div><pre class="output">산책 1일째
+산책 2일째
+산책 4일째
+산책 5일째</pre></div></div><div class="read"><b>한 줄씩 읽어 봐요</b><ol><li>day가 3일 때 continue를 만나요.</li><li>그 아래 printf는 이번 차례만 건너뛰어요.</li><li>4일과 5일은 다시 정상적으로 출력해요.</li></ol></div><p class="try"><b>바꿔 보기</b> <code>day == 2</code>로 바꾸면 2일째만 건너뛰어요.</p></article></section><section class="theory chapter"><h2>9. 숫자를 모으고, 반복을 겹쳐요</h2><p class="goal">합계와 두 겹 반복문에 도전해요.</p><p><code>total += n</code>은 total에 n을 더한 뒤 저장한다는 뜻이에요.</p><p>반복문 안에 또 반복문을 쓰면 <strong>바깥쪽 1번마다 안쪽이 여러 번</strong> 실행돼요.</p><article class="example"><h3>예제 16. 1부터 4까지 숫자 더하기</h3><p>동전 1개, 2개, 3개, 4개를 차례로 더해요.</p><div class="two"><div><div class="smallcap">C언어 코드 · 그대로 복사해 실행 가능</div><pre><code>#include &lt;stdio.h&gt;
+
+int main(void) {
+    int total = 0;
+    for (int n = 1; n &lt;= 4; n++) {
+        total += n;
+    }
+    printf(&quot;합계: %d\n&quot;, total);
+    return 0;
+}</code></pre></div><div><div class="smallcap">실행 결과</div><pre class="output">합계: 10</pre></div></div><div class="read"><b>한 줄씩 읽어 봐요</b><ol><li>처음 total은 0이에요.</li><li>1을 더하면 1, 2를 더하면 3이에요.</li><li>3을 더하면 6, 4를 더하면 10이 돼요.</li><li>반복이 끝난 뒤 합계를 한 번 출력해요.</li></ol></div><p class="try"><b>바꿔 보기</b> 1부터 5까지 더하려면 <code>n &lt;= 5</code>로 고쳐 보세요.</p></article><article class="example"><h3>예제 17. 책상 2줄 × 3칸</h3><p>2줄에서 각 줄마다 책상 3개씩 확인해요.</p><div class="two"><div><div class="smallcap">C언어 코드 · 그대로 복사해 실행 가능</div><pre><code>#include &lt;stdio.h&gt;
+
+int main(void) {
+    for (int row = 1; row &lt;= 2; row++) {
+        for (int col = 1; col &lt;= 3; col++) {
+            printf(&quot;%d줄 %d칸\n&quot;, row, col);
+        }
+    }
+    return 0;
+}</code></pre></div><div><div class="smallcap">실행 결과</div><pre class="output">1줄 1칸
+1줄 2칸
+1줄 3칸
+2줄 1칸
+2줄 2칸
+2줄 3칸</pre></div></div><div class="read"><b>한 줄씩 읽어 봐요</b><ol><li>바깥 반복이 1줄, 2줄을 만들어요.</li><li>안쪽 반복은 매 줄마다 1, 2, 3칸을 돌아요.</li><li>모두 2 × 3 = 6번 출력해요.</li></ol></div><p class="try"><b>바꿔 보기</b> 3줄 × 2칸으로 바꾸려면 바깥 3, 안쪽 2로 고쳐요.</p></article></section><section class="theory chapter"><h2>10. 별 모으기 게임과 실수 고치기</h2><p class="goal">반복문과 조건문을 합친 작은 게임을 읽어 봐요.</p><p>1~5번째 차례 중 <strong>홀수 차례</strong>에만 별을 얻는 게임을 만들어 봐요.</p><p>모든 줄을 암기하지 말고 <strong>시작 → 조건 검사 → 출력 → 숫자 변화</strong> 순서로 따라 읽어요.</p><article class="example"><h3>예제 18. 홀수 차례에 별 모으기</h3><p>1, 3, 5번째에 별을 하나씩 받아요.</p><div class="two"><div><div class="smallcap">C언어 코드 · 그대로 복사해 실행 가능</div><pre><code>#include &lt;stdio.h&gt;
+
+int main(void) {
+    int stars = 0;
+    for (int turn = 1; turn &lt;= 5; turn++) {
+        if (turn % 2 == 1) {
+            stars++;
+            printf(&quot;별 %d개\n&quot;, stars);
+        }
+    }
+    return 0;
+}</code></pre></div><div><div class="smallcap">실행 결과</div><pre class="output">별 1개
+별 2개
+별 3개</pre></div></div><div class="read"><b>한 줄씩 읽어 봐요</b><ol><li>turn이 1일 때 별이 1개가 돼요.</li><li>2일 때는 조건이 거짓이라 출력하지 않아요.</li><li>3일 때 별 2개, 5일 때 별 3개가 돼요.</li></ol></div><p class="try"><b>바꿔 보기</b> 짝수 차례마다 얻으려면 <code>turn % 2 == 0</code>으로 바꿔요.</p></article><h3>자주 하는 실수 다섯 가지</h3><div class="mistake"><b>1. 반복이 한 번 더 또는 덜 돼요</b><div class="two"><div><div class="smallcap">틀린 코드</div><pre><code>for (int i = 1; i &lt; 3; i++) {
+    printf(&quot;짝\n&quot;);
+}</code></pre></div><div><div class="smallcap">고친 코드</div><pre><code>for (int i = 1; i &lt;= 3; i++) {
+    printf(&quot;짝\n&quot;);
+}</code></pre></div></div><p>1, 2, 3을 세려면 3을 포함하는 &lt;=가 필요해요.</p></div><div class="mistake"><b>2. 숫자를 바꾸지 않아 끝나지 않아요</b><div class="two"><div><div class="smallcap">틀린 코드</div><pre><code>int n = 1;
+while (n &lt;= 3) {
+    printf(&quot;%d\n&quot;, n);
+}</code></pre></div><div><div class="smallcap">고친 코드</div><pre><code>int n = 1;
+while (n &lt;= 3) {
+    printf(&quot;%d\n&quot;, n);
+    n++;
+}</code></pre></div></div><p>while에서 숫자를 바꾸지 않으면 계속 반복될 수 있어요.</p></div><div class="mistake"><b>3. do-while 끝의 ;를 빼먹어요</b><div class="two"><div><div class="smallcap">틀린 코드</div><pre><code>do {
+    printf(&quot;안녕\n&quot;);
+} while (0)</code></pre></div><div><div class="smallcap">고친 코드</div><pre><code>do {
+    printf(&quot;안녕\n&quot;);
+} while (0);</code></pre></div></div><p>do-while은 끝의 세미콜론을 반드시 적어요.</p></div><div class="mistake"><b>4. 중괄호 밖에 출력문을 두었어요</b><div class="two"><div><div class="smallcap">틀린 코드</div><pre><code>for (int i = 0; i &lt; 3; i++) {
+}
+printf(&quot;짝\n&quot;);</code></pre></div><div><div class="smallcap">고친 코드</div><pre><code>for (int i = 0; i &lt; 3; i++) {
+    printf(&quot;짝\n&quot;);
+}</code></pre></div></div><p>반복시키려는 문장을 { } 안쪽에 놓아요.</p></div><div class="mistake"><b>5. break와 continue를 헷갈려요</b><div class="two"><div><div class="smallcap">틀린 코드</div><pre><code>for (int i = 1; i &lt;= 4; i++) {
+    if (i == 2) break;
+    printf(&quot;%d\n&quot;, i);
+}</code></pre></div><div><div class="smallcap">고친 코드</div><pre><code>for (int i = 1; i &lt;= 4; i++) {
+    if (i == 2) continue;
+    printf(&quot;%d\n&quot;, i);
+}</code></pre></div></div><p>2만 건너뛰고 3, 4는 계속하려면 continue예요.</p></div></section><section class="theory summary"><h2>11. 오늘 배운 것 정리</h2><div class="checklist"><p>□ for는 시작 → 조건 → 실행 → 변화 순으로 진행해요.</p><p>□ for (int i = 0; i &lt; 3; i++)는 3번 반복해요.</p><p>□ &lt;는 같은 숫자를 포함하지 않고, &lt;=는 포함해요.</p><p>□ while은 조건을 먼저 확인하고 반복해요.</p><p>□ do-while은 먼저 한 번 실행하고 조건을 확인해요.</p><p>□ break는 바로 멈춤, continue는 이번 차례만 건너뛰기예요.</p><p>□ C언어의 { } 안쪽에 반복할 내용을 넣고, ;를 빠뜨리지 않아요.</p></div><p>이제 연습문제 20개에 도전해 보세요.</p></section><section class="problem chapter" id="worksheet"><h2>12. 연습문제 20개</h2><p class="goal">각 문제의 코드는 아래 <code>int main(void)</code>의 중괄호 안에 들어가는 부분이에요. 완전한 프로그램을 쓰는 문제는 기본 틀까지 적어요.</p><p class="student">이름: ____________________ &nbsp; 날짜: ______________ &nbsp; 맞힌 개수: _____ / 20</p><article class="question"><h3>문제 1. <span class="kind">출력 예상 · 쉬움</span></h3><p>“안녕”은 몇 번 출력될까요? 순서대로 적어요.</p><pre><code>for (int i = 0; i &lt; 3; i++) {
+    printf(&quot;안녕\n&quot;);
+}</code></pre><div class="answerline"><b>답:</b><span class="write-line"></span></div></article><article class="question"><h3>문제 2. <span class="kind">출력 예상 · 쉬움</span></h3><p>0부터 숫자가 어디까지 나올까요?</p><pre><code>for (int n = 0; n &lt; 4; n++) {
+    printf(&quot;%d\n&quot;, n);
+}</code></pre><div class="answerline"><b>답:</b><span class="write-line"></span></div></article><article class="question"><h3>문제 3. <span class="kind">출력 예상 · 쉬움</span></h3><p>1부터 4까지 숫자를 출력해 봐요.</p><pre><code>for (int n = 1; n &lt;= 4; n++) {
+    printf(&quot;%d\n&quot;, n);
+}</code></pre><div class="answerline"><b>답:</b><span class="write-line"></span></div></article><article class="question"><h3>문제 4. <span class="kind">출력 예상 · 쉬움</span></h3><p>2씩 커지면 어떤 숫자가 나올까요?</p><pre><code>for (int n = 2; n &lt;= 6; n += 2) {
+    printf(&quot;%d\n&quot;, n);
+}</code></pre><div class="answerline"><b>답:</b><span class="write-line"></span></div></article><article class="question"><h3>문제 5. <span class="kind">출력 예상 · 쉬움</span></h3><p>거꾸로 세면 어떤 숫자가 나올까요?</p><pre><code>for (int n = 3; n &gt;= 1; n--) {
+    printf(&quot;%d\n&quot;, n);
+}</code></pre><div class="answerline"><b>답:</b><span class="write-line"></span></div></article><article class="question"><h3>문제 6. <span class="kind">출력 예상 · 쉬움</span></h3><p>중괄호 밖의 “끝!”은 몇 번 출력될까요?</p><pre><code>for (int i = 0; i &lt; 2; i++) {
+    printf(&quot;짝\n&quot;);
+}
+printf(&quot;끝!\n&quot;);</code></pre><div class="answerline"><b>답:</b><span class="write-line"></span></div></article><article class="question"><h3>문제 7. <span class="kind">출력 예상</span></h3><p>while이 걸음 수를 어떻게 출력할까요?</p><pre><code>int step = 1;
+while (step &lt;= 3) {
+    printf(&quot;%d\n&quot;, step);
+    step++;
+}</code></pre><div class="answerline"><b>답:</b><span class="write-line"></span></div></article><article class="question"><h3>문제 8. <span class="kind">출력 예상</span></h3><p>3부터 숫자가 하나씩 줄어들면?</p><pre><code>int n = 3;
+while (n &gt; 0) {
+    printf(&quot;%d\n&quot;, n);
+    n--;
+}</code></pre><div class="answerline"><b>답:</b><span class="write-line"></span></div></article><article class="question"><h3>문제 9. <span class="kind">출력 예상</span></h3><p>do-while에서 처음 조건이 거짓이면?</p><pre><code>int count = 5;
+do {
+    printf(&quot;한 번!\n&quot;);
+} while (count &lt; 3);</code></pre><div class="answerline"><b>답:</b><span class="write-line"></span></div></article><article class="question"><h3>문제 10. <span class="kind">출력 예상</span></h3><p>다음 코드에서 짝수만 출력해 보세요.</p><pre><code>for (int n = 1; n &lt;= 5; n++) {
+    if (n % 2 == 0) {
+        printf(&quot;%d\n&quot;, n);
+    }
+}</code></pre><div class="answerline"><b>답:</b><span class="write-line"></span></div></article><article class="question"><h3>문제 11. <span class="kind">출력 예상</span></h3><p>break를 만나면 어디까지 출력될까요?</p><pre><code>for (int n = 1; n &lt;= 5; n++) {
+    if (n == 3) break;
+    printf(&quot;%d\n&quot;, n);
+}</code></pre><div class="answerline"><b>답:</b><span class="write-line"></span></div></article><article class="question"><h3>문제 12. <span class="kind">출력 예상</span></h3><p>continue는 어떤 숫자를 건너뛸까요?</p><pre><code>for (int n = 1; n &lt;= 5; n++) {
+    if (n == 3) continue;
+    printf(&quot;%d\n&quot;, n);
+}</code></pre><div class="answerline"><b>답:</b><span class="write-line"></span></div></article><article class="question"><h3>문제 13. <span class="kind">출력 예상</span></h3><p>1부터 3까지 더한 합은 얼마일까요?</p><pre><code>int total = 0;
+for (int n = 1; n &lt;= 3; n++) {
+    total += n;
+}
+printf(&quot;%d\n&quot;, total);</code></pre><div class="answerline"><b>답:</b><span class="write-line"></span></div></article><article class="question"><h3>문제 14. <span class="kind">출력 예상 · 도전</span></h3><p>2줄 × 2칸의 출력 순서를 쓰세요.</p><pre><code>for (int row = 1; row &lt;= 2; row++) {
+    for (int col = 1; col &lt;= 2; col++) {
+        printf(&quot;%d %d\n&quot;, row, col);
+    }
+}</code></pre><div class="answerline"><b>답:</b><span class="write-line"></span></div></article><article class="question"><h3>문제 15. <span class="kind">출력 예상 · 도전</span></h3><p>3번 반복하지만 어떤 날을 건너뛸까요?</p><pre><code>for (int day = 1; day &lt;= 3; day++) {
+    if (day == 2) continue;
+    printf(&quot;산책 %d\n&quot;, day);
+}</code></pre><div class="answerline"><b>답:</b><span class="write-line"></span></div></article><article class="question"><h3>문제 16. <span class="kind">빈칸 채우기</span></h3><p>1부터 4까지 출력하려면 빈칸에 무엇을 넣을까요?</p><pre><code>for (int n = 1; n __ 4; n++) {
+    printf(&quot;%d\n&quot;, n);
+}</code></pre><div class="answerline"><b>답:</b><span class="write-line"></span></div></article><article class="question"><h3>문제 17. <span class="kind">빈칸 채우기</span></h3><p>while을 끝내려면 빈칸에 어떤 코드를 넣을까요?</p><pre><code>int n = 1;
+while (n &lt;= 3) {
+    printf(&quot;%d\n&quot;, n);
+    ____
+}</code></pre><div class="answerline"><b>답:</b><span class="write-line"></span></div></article><article class="question"><h3>문제 18. <span class="kind">빈칸 채우기</span></h3><p>3만 건너뛰려면 빈칸에 어떤 명령을 넣을까요?</p><pre><code>for (int n = 1; n &lt;= 5; n++) {
+    if (n == 3) {
+        ____
+    }
+    printf(&quot;%d\n&quot;, n);
+}</code></pre><div class="answerline"><b>답:</b><span class="write-line"></span></div></article><article class="question"><h3>문제 19. <span class="kind">고쳐 쓰기</span></h3><p>끝나지 않는 while 코드를 고쳐 보세요.</p><pre><code>int n = 1;
+while (n &lt;= 3) {
+    printf(&quot;%d\n&quot;, n);
+}</code></pre><div class="answerline"><b>답:</b><span class="write-line"></span></div><div class="writebox"></div><div class="writebox"></div></article><article class="question"><h3>문제 20. <span class="kind">직접 쓰기</span></h3><p>“박수”를 4번 출력하는 완전한 C 프로그램을 작성해 보세요.</p><div class="answerline"><b>답:</b><span class="write-line"></span></div><div class="writebox"></div><div class="writebox"></div></article></section><section class="answers chapter" id="answerkey"><h2>13. 정답과 자세한 해설</h2><p class="goal">먼저 풀어 본 뒤에 확인해요. 직접 작성한 코드는 다른 정답도 가능해요.</p><article class="solution"><h3>문제 1. 정답</h3><pre><code>안녕
+안녕
+안녕</code></pre><p><b>왜 그럴까요?</b> i가 0, 1, 2일 때 총 3번 출력해요.</p></article><article class="solution"><h3>문제 2. 정답</h3><pre><code>0
+1
+2
+3</code></pre><p><b>왜 그럴까요?</b> 4 &lt; 4는 거짓이므로 4는 나오지 않아요.</p></article><article class="solution"><h3>문제 3. 정답</h3><pre><code>1
+2
+3
+4</code></pre><p><b>왜 그럴까요?</b> &lt;=는 마지막 숫자 4도 포함해요.</p></article><article class="solution"><h3>문제 4. 정답</h3><pre><code>2
+4
+6</code></pre><p><b>왜 그럴까요?</b> 2씩 더하므로 2, 4, 6이 나와요.</p></article><article class="solution"><h3>문제 5. 정답</h3><pre><code>3
+2
+1</code></pre><p><b>왜 그럴까요?</b> n--로 1씩 작아지고, n이 0이면 끝나요.</p></article><article class="solution"><h3>문제 6. 정답</h3><pre><code>짝
+짝
+끝!</code></pre><p><b>왜 그럴까요?</b> 짝은 두 번, 반복 범위 밖의 끝!은 한 번 출력해요.</p></article><article class="solution"><h3>문제 7. 정답</h3><pre><code>1
+2
+3</code></pre><p><b>왜 그럴까요?</b> step이 4가 되면 while을 끝내요.</p></article><article class="solution"><h3>문제 8. 정답</h3><pre><code>3
+2
+1</code></pre><p><b>왜 그럴까요?</b> n이 0이 되면 0 &gt; 0은 거짓이에요.</p></article><article class="solution"><h3>문제 9. 정답</h3><p class="solutionvalue">한 번!</p><p><b>왜 그럴까요?</b> do-while은 조건 검사 전에 몸체를 한 번 실행해요.</p></article><article class="solution"><h3>문제 10. 정답</h3><pre><code>2
+4</code></pre><p><b>왜 그럴까요?</b> 2로 나눈 나머지가 0인 숫자만 출력해요.</p></article><article class="solution"><h3>문제 11. 정답</h3><pre><code>1
+2</code></pre><p><b>왜 그럴까요?</b> 3에서 반복을 완전히 끝내요.</p></article><article class="solution"><h3>문제 12. 정답</h3><pre><code>1
+2
+4
+5</code></pre><p><b>왜 그럴까요?</b> 3에서만 아래 출력을 건너뛰고 다음 차례로 가요.</p></article><article class="solution"><h3>문제 13. 정답</h3><p class="solutionvalue">6</p><p><b>왜 그럴까요?</b> 1 + 2 + 3 = 6이에요.</p></article><article class="solution"><h3>문제 14. 정답</h3><pre><code>1 1
+1 2
+2 1
+2 2</code></pre><p><b>왜 그럴까요?</b> 바깥의 한 줄마다 안쪽 두 칸을 출력해요.</p></article><article class="solution"><h3>문제 15. 정답</h3><pre><code>산책 1
+산책 3</code></pre><p><b>왜 그럴까요?</b> 2일째는 이번 차례만 건너뛰어요.</p></article><article class="solution"><h3>문제 16. 정답</h3><p class="solutionvalue">&lt;=</p><p><b>왜 그럴까요?</b> 4도 포함하려면 n &lt;= 4가 되어야 해요.</p></article><article class="solution"><h3>문제 17. 정답</h3><p class="solutionvalue">n++;</p><p><b>왜 그럴까요?</b> 매번 n을 1씩 크게 만들어야 반복이 끝나요.</p></article><article class="solution"><h3>문제 18. 정답</h3><p class="solutionvalue">continue;</p><p><b>왜 그럴까요?</b> continue;는 이번 차례만 건너뛰어요.</p></article><article class="solution"><h3>문제 19. 정답</h3><pre><code>#include &lt;stdio.h&gt;
+
+int main(void) {
+    int n = 1;
+    while (n &lt;= 3) {
+        printf(&quot;%d\n&quot;, n);
+        n++;
+    }
+    return 0;
+}</code></pre><p><b>왜 그럴까요?</b> n을 늘리는 명령을 while 안에 추가해요.</p></article><article class="solution"><h3>문제 20. 정답</h3><pre><code>#include &lt;stdio.h&gt;
+
+int main(void) {
+    for (int i = 0; i &lt; 4; i++) {
+        printf(&quot;박수\n&quot;);
+    }
+    return 0;
+}</code></pre><p><b>왜 그럴까요?</b> for 안에서 printf를 네 번 실행해요. #include부터 return 0;까지 적어 보세요.</p></article></section></main><script>(function(){
+  const mode=document.getElementById('printMode');
+  const classes={all:'view-all',theory:'view-theory',problem:'view-problem',answer:'view-answer'};
+  mode.addEventListener('change',()=>{document.body.classList.remove(...Object.values(classes));document.body.classList.add(classes[mode.value]);});
+  document.getElementById('printBtn').addEventListener('click',()=>window.print());
+  const cl=document.getElementById('clapRange');
+  function updateClap(){
+    const n=Number(cl.value);
+    document.getElementById('clapVal').textContent=n;
+    document.getElementById('clapResult').textContent=n?Array(n).fill('짝!').join(' · '):'아무것도 출력하지 않아요';
+    document.getElementById('clapReason').textContent=n?('i가 0부터 '+(n-1)+'까지 변하므로 '+n+'번 출력해요.'):'처음부터 0 < 0이 거짓이라 실행하지 않아요.';
+    document.getElementById('clapCode').textContent='for (int i = 0; i < '+n+'; i++) {\n    printf("짝!\\n");\n}';
+  }
+  cl.addEventListener('input',updateClap);updateClap();
+  const co=document.getElementById('coinRange');
+  function updateCoin(){
+    const n=Number(co.value);
+    document.getElementById('coinVal').textContent=n;
+    document.getElementById('coinResult').textContent=Array.from({length:n},(_,i)=>'동전 '+(i+1)+'개').join(' → ');
+    document.getElementById('coinReason').textContent=n+'개를 채우면 '+n+' < '+n+'은 거짓이라 끝나요.';
+    document.getElementById('coinCode').textContent='int coin = 0;\nwhile (coin < '+n+') {\n    coin++;\n    printf("동전 %d개\\n", coin);\n}';
+  }
+  co.addEventListener('input',updateCoin);updateCoin();
+})();</script></body></html>

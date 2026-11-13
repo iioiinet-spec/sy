@@ -1,0 +1,184 @@
+<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title> 파이썬 조건문 - 읽으면서 이해하기</title><style>
+:root{--ink:#17191d;--line:#c9ced7;--soft:#f5f7fa;--blue:#174a9d;--green:#17633d}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#fff;color:var(--ink);font-family:'Malgun Gothic','Apple SD Gothic Neo',sans-serif;font-size:17px;line-height:1.8}
+.toolbar{position:sticky;top:0;z-index:10;background:#fff;border-bottom:1px solid #aeb6c1;padding:9px 15px;box-shadow:0 1px 5px #00000010}
+.toolbarinner{max-width:950px;margin:auto;display:flex;gap:10px;align-items:center;flex-wrap:wrap}.toolbar label{font-size:14px;font-weight:700}.toolbar select,.toolbar button,.interactive select{border:1px solid #9aa8bc;border-radius:6px;background:#fff;color:#111;padding:9px 12px;font:inherit}.toolbar button{background:#1f4a92;color:white;cursor:pointer;font-weight:800}.toolbar .small{margin-left:auto;font-size:13px;color:#464b55}
+main{max-width:900px;margin:auto;padding:20px 24px 70px}section{margin:24px 0 52px}h1{font-size:38px;line-height:1.35;margin:12px 0 14px}h2{font-size:26px;color:#182d4c;margin:0 0 14px;padding-top:14px;border-top:3px solid #162a4b}h3{font-size:19px;margin:0 0 7px}p{margin:9px 0 14px}ol{margin:5px 0;padding-left:24px}.hero{padding:32px 0 28px}.eyebrow{font-size:14px;font-weight:800;letter-spacing:.03em;color:var(--blue)}.subtitle{font-size:21px}.meta,.student{border-bottom:1px solid var(--line);padding:14px 0;margin:16px 0}.introgrid,.storygrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.introgrid>div,.story,.tip,.interactive{padding:16px;border:1px solid var(--line);border-radius:10px}.introgrid p{margin:4px 0 0}.story{display:flex;flex-direction:column}.storygrid{grid-template-columns:repeat(3,1fr)}.mini,.small{font-size:14px;color:#4f5762}.goal{font-weight:750;color:#24436d;margin-top:-3px}.tip{margin:18px 0;background:#f9fbfd}.example{margin:23px 0 25px;padding:20px 0;border-bottom:1px solid var(--line)}.two{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:13px}.smallcap{font-size:13px;font-weight:800;color:#455365;margin-bottom:4px}.read{margin:10px 0;padding:10px 14px;border-left:3px solid #335a92;background:#fcfdff}.read ol{margin-top:3px}.try{padding:8px 12px;border:1px dashed #77899f;border-radius:7px}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#fafafa;border:1px solid #cfd5df;padding:12px 13px;border-radius:7px;line-height:1.6;font:15px/1.63 Consolas,'D2Coding','Malgun Gothic',monospace;margin:5px 0 13px;color:#151515}code{font:0.92em Consolas,'D2Coding',monospace;background:#f2f4f7;padding:1px 4px;border-radius:3px}pre code{font:inherit;background:none;padding:0}.output{color:#17633d;font-weight:700;background:#fff}table{border-collapse:collapse;width:100%;margin:18px 0}th,td{border:1px solid #bbc3cf;padding:8px 11px;text-align:left;vertical-align:top}th{background:#f3f4f6} .interactive{background:#f8fbff;margin:20px 0}.interactive input[type=range]{width:100%;margin:10px 0;accent-color:#244e91}.outcome{font-size:25px;color:#1a6239;font-weight:900;margin:10px 0}.mistake{border-bottom:1px dashed #aaa;margin:12px 0 20px}.checklist{border:1px solid var(--line);padding:10px 20px}.checklist p{margin:10px 0}.chapter{break-inside:auto}.question{border-bottom:1px solid var(--line);padding:10px 0 18px;margin:0 0 14px;break-inside:avoid}.question h3{margin-bottom:1px}.kind{font-size:13px;font-weight:400;color:#526074}.answerline{display:flex;align-items:center;gap:10px;margin:12px 0;color:#282e38}.write-line{flex:1;border-bottom:1px solid #aaa;height:1.4em}.writebox{height:90px;background:repeating-linear-gradient(to bottom,transparent 0,transparent 29px,#ced3dc 30px)}.solution{border-bottom:1px solid var(--line);padding:10px 0 15px;break-inside:avoid}.solutionvalue{font-weight:850;font-size:18px}.pagefront{display:none}
+body.view-theory .problem,body.view-theory .answers,body.view-problem .theory,body.view-problem .answers,body.view-answer .theory,body.view-answer .problem{display:none}
+@media(max-width:660px){body{font-size:16px}main{padding:12px 15px 60px}.two,.introgrid{grid-template-columns:1fr}.storygrid{grid-template-columns:1fr}h1{font-size:31px}h2{font-size:23px}pre{font-size:14px}.toolbar .small{margin-left:0}}
+@page{size:A4;margin:16mm 15mm 16mm 15mm}
+@media print{body{font-size:11.3pt;line-height:1.6;-webkit-print-color-adjust:economy;print-color-adjust:economy}.toolbar{display:none!important}main{max-width:none;padding:0}h1{font-size:25pt}h2{font-size:16pt;color:#000;border-top:1px solid #555;padding-top:7px;break-after:avoid}h3{font-size:12.6pt;break-after:avoid}p{margin:5px 0 9px}section{margin:6px 0 25px}.hero{padding:0 0 16px}.example{margin:13px 0;padding:7px 0}.read{background:white;border-color:#777;padding:6px 10px}.introgrid>div,.story,.tip,.interactive,.checklist{background:white!important;border:1px solid #aaa}.try{border-color:#aaa}pre{font-size:9.5pt;background:#fff!important;border:1px solid #ccc;padding:6px 8px;margin:5px 0}code{background:transparent}table{font-size:10.2pt}th{background:#fff!important}.interactive input,.interactive select{display:none}.interactive{padding:10px}.outcome{font-size:14pt;color:#000}.goal{color:#111}.chapter{break-before:page}.question,.solution{break-inside:avoid}.question{padding:5px 0 11px;margin:0 0 8px}.answerline{margin:9px 0}.writebox{height:85px}.answers{break-before:page}.storygrid{gap:5px}.story{padding:7px}.mini{color:#444}body.view-theory .problem,body.view-theory .answers,body.view-problem .theory,body.view-problem .answers,body.view-answer .theory,body.view-answer .problem{display:none!important}}
+</style></head><body class="view-all"><nav class="toolbar"><div class="toolbarinner"><label for="printMode">화면·인쇄 범위</label><select id="printMode"><option value="all">전체 자료</option><option value="theory">개념·예제만</option><option value="problem">연습문제만</option><option value="answer">정답·해설만</option></select><button id="printBtn" type="button">선택한 부분 인쇄</button><span class="small">오프라인 사용 가능 · A4 흰 배경</span></div></nav><main><section class="theory hero"><div class="eyebrow">읽고 따라 쓰는 파이썬</div><h1>파이썬 조건문<br>읽으면서 이해하기</h1><p class="subtitle">만약 비가 온다면? 동전이 충분하다면?<br>생활 속 선택으로 배우는 <b>if · else · elif</b></p><div class="meta">이름: ____________________ &nbsp;&nbsp; 날짜: ______________</div><div class="introgrid"><div><b>오늘의 목표</b><p>조건문을 읽고, 어떤 결과가 나올지 말할 수 있어요.</p></div><div><b>공부하는 순서</b><p>① 이야기 읽기 → ② 코드 읽기 → ③ 결과 예상하기 → ④ 직접 고치기</p></div></div><p class="mini">학습 방법: 1~6장부터 읽은 뒤 쉬는 시간을 갖고, 7~10장은 천천히 도전해요.</p></section><section class="theory chapter"><h2>1. 조건문은 무엇일까요?</h2><p class="goal">우리 생활의 “만약 ~라면”을 컴퓨터 말로 표현해요.</p><p>아침에 창밖을 보세요. 비가 오면 우산을 챙기고, 비가 오지 않으면 우산을 놓고 나갑니다.</p><p>이처럼 상황을 살펴보고 행동을 정하는 문장을 <strong>조건문</strong>이라고 해요. 컴퓨터도 조건문으로 서로 다른 일을 할 수 있어요.</p><div class="storygrid"><div class="story"><b>우산</b><span>비가 온다면 → 우산 챙기기</span></div><div class="story"><b>신호등</b><span>빨간불이라면 → 멈추기</span></div><div class="story"><b>간식</b><span>사과가 3개 이상이라면 → 친구에게 나누기</span></div></div><div class="tip"><b>기억해요.</b> 조건을 먼저 확인하고, 조건에 맞는 행동을 해요.</div></section><section class="theory chapter"><h2>2. 파이썬 코드의 약속 네 가지</h2><p class="goal">if 코드를 읽기 위한 기호를 먼저 만나요.</p><p><code>if</code>는 영어로 “만약 ~라면”이라는 뜻이에요. <code>print()</code>는 화면에 글자를 보여 주는 명령이에요.</p><p><code>=</code>는 값을 넣는 기호, <code>==</code>는 두 값이 같은지 묻는 기호예요. <code>:</code>를 쓴 다음에는 명령을 오른쪽으로 <strong>공백 4칸</strong> 들여써요.</p><table><thead><tr><th>기호</th><th>어떻게 읽을까요?</th></tr></thead><tbody><tr><td><code>if</code></td><td>만약 ~라면</td></tr><tr><td><code>print()</code></td><td>화면에 보여 줘</td></tr><tr><td><code>=</code></td><td>값 저장하기</td></tr><tr><td><code>==</code></td><td>같은지 물어보기</td></tr><tr><td><code>:</code></td><td>여기부터 안쪽 일이 시작돼요</td></tr><tr><td>공백 4칸</td><td>if 안쪽의 일이에요</td></tr></tbody></table><article class="example"><h3>기호가 보이는 첫 번째 코드</h3><p>하나씩 소리 내어 읽어 봐요.</p><div class="two"><div><div class="smallcap">파이썬 코드</div><pre><code>weather = &quot;비&quot;
+if weather == &quot;비&quot;:
+    print(&quot;우산 챙기기&quot;)
+print(&quot;학교 가기&quot;)</code></pre></div><div><div class="smallcap">실행 결과</div><pre class="output">우산 챙기기
+학교 가기</pre></div></div><div class="read"><b>한 줄씩 읽어 봐요</b><ol><li>weather라는 이름표에 “비”를 넣어요. (`=`: 저장)</li><li>“weather가 비와 같나요?”라고 물어요. (`==`: 비교)</li><li>맞으므로 4칸 들어간 줄의 “우산 챙기기”를 보여 줘요.</li><li>들여쓰지 않은 “학교 가기”는 언제나 보여 줘요.</li></ol></div><p class="try"><b>바꿔 보기</b> <code>==</code>를 <code>=</code>로 바꾸면 비교할 수 없어요. 그대로 두세요.</p></article></section><section class="theory chapter"><h2>3. if: 맞으면 실행해요</h2><p class="goal">조건이 참(True)일 때만 들여쓴 줄이 실행돼요.</p><p>조건이 맞으면 <strong>참(True)</strong>, 맞지 않으면 <strong>거짓(False)</strong>이라고 해요. <code>if</code>는 참일 때만 안쪽 일을 해요.</p><article class="example"><h3>예제 1. 우산 챙기기</h3><p>오늘 날씨가 비인 경우예요.</p><div class="two"><div><div class="smallcap">파이썬 코드</div><pre><code>weather = &quot;비&quot;
+if weather == &quot;비&quot;:
+    print(&quot;우산을 챙겨요&quot;)
+print(&quot;출발!&quot;)</code></pre></div><div><div class="smallcap">실행 결과</div><pre class="output">우산을 챙겨요
+출발!</pre></div></div><div class="read"><b>한 줄씩 읽어 봐요</b><ol><li>weather는 “비”예요.</li><li>“비” == “비”는 참이에요.</li><li>“우산을 챙겨요”를 출력해요.</li><li>“출발!”은 if 밖에 있으므로 꼭 출력해요.</li></ol></div><p class="try"><b>바꿔 보기</b> 날씨를 <code>&quot;맑음&quot;</code>으로 바꾸면 <strong>“출발!”만</strong> 나와요.</p></article><article class="example"><h3>예제 2. 사과 나누기</h3><p>사과가 3개 이상이면 친구와 나눌 거예요.</p><div class="two"><div><div class="smallcap">파이썬 코드</div><pre><code>apple = 4
+if apple &gt;= 3:
+    print(&quot;친구와 나눠 먹자&quot;)
+print(&quot;맛있게 먹자&quot;)</code></pre></div><div><div class="smallcap">실행 결과</div><pre class="output">친구와 나눠 먹자
+맛있게 먹자</pre></div></div><div class="read"><b>한 줄씩 읽어 봐요</b><ol><li>사과는 4개예요.</li><li>4 &gt;= 3 은 “4는 3 이상인가?”예요. 참이에요.</li><li>두 줄 모두 화면에 나와요.</li></ol></div><p class="try"><b>바꿔 보기</b> 사과가 2개라면 첫 번째 출력문은 건너뛰어요.</p></article></section><section class="theory chapter"><h2>4. if-else: 둘 중 하나를 골라요</h2><p class="goal">맞으면 if, 틀리면 else로 가요.</p><p><code>else</code>는 “그렇지 않다면”이라는 뜻이에요. <code>if</code>와 <code>else</code>의 안쪽 길 중 <strong>하나만</strong> 선택해요.</p><article class="example"><h3>예제 3. 신호등 살펴보기</h3><p>빨간불인지 먼저 확인해요.</p><div class="two"><div><div class="smallcap">파이썬 코드</div><pre><code>light = &quot;빨강&quot;
+if light == &quot;빨강&quot;:
+    print(&quot;멈춰요&quot;)
+else:
+    print(&quot;주위를 살펴요&quot;)</code></pre></div><div><div class="smallcap">실행 결과</div><pre class="output">멈춰요</pre></div></div><div class="read"><b>한 줄씩 읽어 봐요</b><ol><li>빨간불과 같은지 물어요.</li><li>같으므로 if 쪽의 “멈춰요”를 보여 줘요.</li><li>else 쪽은 실행하지 않아요.</li></ol></div><p class="try"><b>바꿔 보기</b> <code>light = &quot;초록&quot;</code>으로 바꾸면 <strong>“주위를 살펴요”</strong>가 나와요. 초록불이어도 주변을 확인해요.</p></article><article class="example"><h3>예제 4. 숙제 먼저, 게임 나중</h3><p>숙제를 했는지에 따라 알림을 다르게 보여 줘요.</p><div class="two"><div><div class="smallcap">파이썬 코드</div><pre><code>homework = False
+if homework == True:
+    print(&quot;게임 시간!&quot;)
+else:
+    print(&quot;숙제를 먼저 해요&quot;)</code></pre></div><div><div class="smallcap">실행 결과</div><pre class="output">숙제를 먼저 해요</pre></div></div><div class="read"><b>한 줄씩 읽어 봐요</b><ol><li>homework에는 거짓(False)이 들어 있어요.</li><li>False == True 는 거짓이에요.</li><li>else의 “숙제를 먼저 해요”가 나와요.</li></ol></div><p class="try"><b>바꿔 보기</b> <code>False</code>를 <code>True</code>로 바꿔 실행해 보세요.</p></article><div class="interactive" id="lightlab"><h3>직접 체험: 신호등 바꿔 보기</h3><label for="lightSelect">신호등 색 고르기</label> <select id="lightSelect"><option value="빨강">빨강</option><option value="초록">초록</option></select><div class="outcome" id="lightResult">멈춰요</div><p id="lightReason">빨강이므로 if 쪽이 실행돼요.</p></div></section><section class="theory chapter"><h2>5. 비교 기호는 숫자 질문이에요</h2><p class="goal">같다·다르다·크다·작다를 읽을 수 있어요.</p><p>기호를 무조건 외우지 말고, 숫자 질문으로 읽어 보세요.</p><table><thead><tr><th>기호</th><th>뜻</th><th>예</th><th>결과</th></tr></thead><tbody><tr><td><code>=</code></td><td>값을 넣어요</td><td><code>a = 3</code></td><td>a에 3 저장</td></tr><tr><td><code>==</code></td><td>같나요?</td><td><code>3 == 3</code></td><td>참</td></tr><tr><td><code>!=</code></td><td>다른가요?</td><td><code>3 != 4</code></td><td>참</td></tr><tr><td><code>&gt;</code></td><td>더 큰가요?</td><td><code>5 &gt; 2</code></td><td>참</td></tr><tr><td><code>&lt;</code></td><td>더 작은가요?</td><td><code>2 &lt; 5</code></td><td>참</td></tr><tr><td><code>&gt;=</code></td><td>크거나 같나요?</td><td><code>5 &gt;= 5</code></td><td>참</td></tr><tr><td><code>&lt;=</code></td><td>작거나 같나요?</td><td><code>3 &lt;= 2</code></td><td>거짓</td></tr></tbody></table><div class="tip"><b>주의!</b> 저장하는 <code>=</code> 한 개와 비교하는 <code>==</code> 두 개는 서로 달라요.</div><article class="example"><h3>예제 5. 내 키와 롤러코스터 기준</h3><p>숫자 비교를 간단히 연습해요.</p><div class="two"><div><div class="smallcap">파이썬 코드</div><pre><code>height = 120
+if height &gt;= 120:
+    print(&quot;키 조건을 통과했어요&quot;)
+else:
+    print(&quot;다음에 도전해요&quot;)</code></pre></div><div><div class="smallcap">실행 결과</div><pre class="output">키 조건을 통과했어요</pre></div></div><div class="read"><b>한 줄씩 읽어 봐요</b><ol><li>키는 120이라고 저장해요.</li><li>120 &gt;= 120 은 참이에요. “크거나 같다”니까 같은 것도 포함돼요.</li><li>첫 번째 문장이 나와요.</li></ol></div><p class="try"><b>바꿔 보기</b> 키를 119로 바꾸면 else가 실행돼요. 실제 탑승은 시설의 모든 안전 규정을 따라야 해요.</p></article></section><section class="theory chapter"><h2>6. elif: 선택이 세 개라면?</h2><p class="goal">if부터 차례로 확인하고 처음 참인 길 하나를 골라요.</p><p><code>elif</code>는 “앞의 조건은 아니고, 이 조건이라면?”이라는 뜻이에요. 먼저 큰 기준부터 차례로 적어요.</p><article class="example"><h3>예제 6. 동전으로 간식 고르기</h3><p>동전이 5개 이상이면 초콜릿, 3개 이상이면 젤리, 그보다 적으면 물을 골라요.</p><div class="two"><div><div class="smallcap">파이썬 코드</div><pre><code>coin = 4
+if coin &gt;= 5:
+    print(&quot;초콜릿&quot;)
+elif coin &gt;= 3:
+    print(&quot;젤리&quot;)
+else:
+    print(&quot;물&quot;)</code></pre></div><div><div class="smallcap">실행 결과</div><pre class="output">젤리</pre></div></div><div class="read"><b>한 줄씩 읽어 봐요</b><ol><li>4 &gt;= 5 는 거짓이에요. 첫 번째 길을 지나가요.</li><li>4 &gt;= 3 은 참이에요. “젤리”를 보여 줘요.</li><li>한 번 선택했으니 else는 보지 않아요.</li></ol></div><p class="try"><b>바꿔 보기</b> 동전을 2개, 5개, 8개로 바꾸며 어떤 결과가 나오는지 예상해 보세요.</p></article><article class="example"><h3>예제 7. 기분 온도계</h3><p>숫자로 고른 기분에 맞춰 인사를 출력해요.</p><div class="two"><div><div class="smallcap">파이썬 코드</div><pre><code>mood = 2
+if mood == 1:
+    print(&quot;신나요&quot;)
+elif mood == 2:
+    print(&quot;차분해요&quot;)
+else:
+    print(&quot;쉬고 싶어요&quot;)</code></pre></div><div><div class="smallcap">실행 결과</div><pre class="output">차분해요</pre></div></div><div class="read"><b>한 줄씩 읽어 봐요</b><ol><li>mood는 2예요.</li><li>2 == 1은 거짓이에요.</li><li>2 == 2는 참이므로 “차분해요”만 나와요.</li></ol></div><p class="try"><b>바꿔 보기</b> 기분을 1 또는 3으로 바꿔 보세요.</p></article><div class="interactive" id="coinlab"><h3>직접 체험: 동전 개수를 움직여 보세요</h3><label for="coinRange">동전 <strong id="coinVal">4</strong>개</label><input type="range" id="coinRange" min="0" max="10" value="4"/><div class="outcome" id="coinResult" aria-live="polite">젤리</div><p id="coinReason">5개 미만, 3개 이상이므로 젤리예요.</p><p class="small">인쇄할 때에는 2개 → 물 / 4개 → 젤리 / 5개 → 초콜릿으로 기억해요.</p></div></section><section class="theory chapter"><h2>7. and · or · not: 질문을 이어 붙여요</h2><p class="goal">두 조건을 동시에 보거나, 둘 중 하나를 보거나, 결과를 뒤집어요.</p><p><code>and</code>는 <strong>둘 다</strong>, <code>or</code>는 <strong>하나라도</strong>, <code>not</code>은 <strong>반대</strong>라는 뜻이에요.</p><article class="example"><h3>예제 8. 둘 다 있어야 입장: and</h3><p>입장권도 있고, 줄도 섰다면 입장할 수 있어요.</p><div class="two"><div><div class="smallcap">파이썬 코드</div><pre><code>ticket = True
+waited = True
+if ticket and waited:
+    print(&quot;입장할 수 있어요&quot;)
+else:
+    print(&quot;아직 준비 중이에요&quot;)</code></pre></div><div><div class="smallcap">실행 결과</div><pre class="output">입장할 수 있어요</pre></div></div><div class="read"><b>한 줄씩 읽어 봐요</b><ol><li>ticket과 waited가 모두 True인지 봐요.</li><li>둘 다 맞으므로 첫 번째 문장이 나와요.</li></ol></div><p class="try"><b>바꿔 보기</b> <code>waited = False</code>로 바꾸면 어떻게 될까요?</p></article><article class="example"><h3>예제 9. 둘 중 하나면 좋아: or</h3><p>토요일 또는 일요일이면 주말이에요.</p><div class="two"><div><div class="smallcap">파이썬 코드</div><pre><code>day = &quot;일&quot;
+if day == &quot;토&quot; or day == &quot;일&quot;:
+    print(&quot;주말이에요&quot;)
+else:
+    print(&quot;평일이에요&quot;)</code></pre></div><div><div class="smallcap">실행 결과</div><pre class="output">주말이에요</pre></div></div><div class="read"><b>한 줄씩 읽어 봐요</b><ol><li>“일”은 “토”와 다르지만 “일”과 같아요.</li><li>or는 하나라도 맞으면 참이에요.</li></ol></div><p class="try"><b>바꿔 보기</b> <code>day = &quot;수&quot;</code>로 바꿔 보세요.</p></article><article class="example"><h3>예제 10. 비가 오지 않아요: not</h3><p>`not`은 맞다/아니다를 뒤집어 줘요.</p><div class="two"><div><div class="smallcap">파이썬 코드</div><pre><code>rain = False
+if not rain:
+    print(&quot;산책을 생각해 봐요&quot;)</code></pre></div><div><div class="smallcap">실행 결과</div><pre class="output">산책을 생각해 봐요</pre></div></div><div class="read"><b>한 줄씩 읽어 봐요</b><ol><li>rain은 거짓이에요.</li><li>not False 는 True예요.</li><li>따라서 출력문이 실행돼요.</li></ol></div><p class="try"><b>바꿔 보기</b> <code>rain = True</code>로 바꾸면 아무것도 출력되지 않아요.</p></article></section><section class="theory chapter"><h2>8. 내가 입력한 숫자로 판단해요</h2><p class="goal">input으로 받은 글자를 숫자로 바꿔 비교해요.</p><p><code>input()</code>은 키보드에서 입력받아요. 입력한 <code>5</code>도 처음에는 <strong>글자</strong>이므로, 계산이나 숫자 비교를 하려면 <code>int()</code>로 바꿔요.</p><article class="example"><h3>예제 11. 내 동전 개수 입력하기</h3><p>컴퓨터에 동전 수를 직접 입력하는 코드예요.</p><div class="two"><div><div class="smallcap">파이썬 코드</div><pre><code>coin = int(input(&quot;동전 몇 개? &quot;))
+if coin &gt;= 5:
+    print(&quot;간식 선택 가능&quot;)
+else:
+    print(&quot;동전을 더 모아요&quot;)</code></pre></div><div><div class="smallcap">실행 결과</div><pre class="output">동전 몇 개? 6
+간식 선택 가능</pre></div></div><div class="read"><b>한 줄씩 읽어 봐요</b><ol><li>“동전 몇 개?”를 묻고 숫자를 입력받아요.</li><li>int()가 입력된 글자를 정수로 바꿔요.</li><li>5 이상이면 첫 번째 출력, 아니면 두 번째 출력을 해요.</li></ol></div><p class="try"><b>바꿔 보기</b> 숫자 <code>2</code>를 입력했다면 “동전을 더 모아요”가 나와요. 숫자 대신 글자를 입력하면 오류가 날 수 있어요.</p></article></section><section class="theory chapter"><h2>9. 조건 속에 또 조건: 중첩 if</h2><p class="goal">첫 번째 질문이 맞을 때만 안쪽 질문을 해요.</p><p>큰 문을 통과해야 작은 문에 갈 수 있다고 생각해 봐요. 들여쓰기는 안쪽으로 갈수록 더 깊어져요.</p><article class="example"><h3>예제 12. 보물상자 열기</h3><p>열쇠가 있어야 문을 확인할 수 있어요.</p><div class="two"><div><div class="smallcap">파이썬 코드</div><pre><code>key = True
+password = False
+if key:
+    if password:
+        print(&quot;보물상자 열기!&quot;)
+    else:
+        print(&quot;암호가 필요해요&quot;)
+else:
+    print(&quot;열쇠를 찾아요&quot;)</code></pre></div><div><div class="smallcap">실행 결과</div><pre class="output">암호가 필요해요</pre></div></div><div class="read"><b>한 줄씩 읽어 봐요</b><ol><li>key가 True라서 바깥 if 안으로 들어가요.</li><li>password는 False예요.</li><li>안쪽 else가 실행되어 “암호가 필요해요”가 나와요.</li></ol></div><p class="try"><b>바꿔 보기</b> <code>password = True</code> 또는 <code>key = False</code>로 바꿔서 세 가지 결과를 확인해 보세요.</p></article></section><section class="theory chapter"><h2>10. 한 걸음 더 배우기</h2><p class="goal">기존 자료에 나온 내용을 쉬운 예제로 복습하고 조금 넓혀요.</p><p>여기부터는 초등 저학년이라면 선생님과 함께 읽어도 좋아요. 앞의 1~9장을 이해했다면 도전해 봐요.</p><article class="example"><h3>예제 13. 사이에 있는 숫자: 범위 비교</h3><p>10부터 20까지인지 한 번에 확인해요.</p><div class="two"><div><div class="smallcap">파이썬 코드</div><pre><code>number = 15
+if 10 &lt;= number &lt;= 20:
+    print(&quot;범위 안이에요&quot;)</code></pre></div><div><div class="smallcap">실행 결과</div><pre class="output">범위 안이에요</pre></div></div><div class="read"><b>한 줄씩 읽어 봐요</b><ol><li>15가 10 이상인지 보아요.</li><li>15가 20 이하인지도 보아요.</li><li>두 조건을 만족하므로 출력해요.</li></ol></div><p class="try"><b>바꿔 보기</b> number를 9 또는 21로 바꾸면 결과가 나올까요?</p></article><article class="example"><h3>예제 14. 목록에 있어요: in</h3><p>내가 고른 과일이 목록에 있는지 확인해요.</p><div class="two"><div><div class="smallcap">파이썬 코드</div><pre><code>fruit = &quot;사과&quot;
+if fruit in [&quot;사과&quot;, &quot;배&quot;, &quot;포도&quot;]:
+    print(&quot;목록에 있어요&quot;)</code></pre></div><div><div class="smallcap">실행 결과</div><pre class="output">목록에 있어요</pre></div></div><div class="read"><b>한 줄씩 읽어 봐요</b><ol><li>과일 목록에 “사과”가 있나요?</li><li>있으므로 if 안쪽을 실행해요.</li></ol></div><p class="try"><b>바꿔 보기</b> fruit를 “바나나”로 바꾸면 아무것도 출력되지 않아요.</p></article><article class="example"><h3>예제 15. 빈 상자: 빈 리스트는 거짓</h3><p>아무 물건도 없으면 빈 상자예요.</p><div class="two"><div><div class="smallcap">파이썬 코드</div><pre><code>items = []
+if items:
+    print(&quot;물건이 있어요&quot;)
+else:
+    print(&quot;비어 있어요&quot;)</code></pre></div><div><div class="smallcap">실행 결과</div><pre class="output">비어 있어요</pre></div></div><div class="read"><b>한 줄씩 읽어 봐요</b><ol><li>[]는 비어 있는 목록(리스트)이에요.</li><li>빈 목록은 조건문에서 거짓처럼 취급해요.</li><li>else가 실행돼요.</li></ol></div><p class="try"><b>바꿔 보기</b> <code>items = [&quot;공&quot;]</code>으로 바꾸면 “물건이 있어요”가 나와요.</p></article><article class="example"><h3>예제 16. 한 줄로 선택하기</h3><p>if-else를 한 줄로 쓰는 방법은 나중에 배워도 좋아요.</p><div class="two"><div><div class="smallcap">파이썬 코드</div><pre><code>coin = 5
+message = &quot;성공&quot; if coin &gt;= 5 else &quot;다음에&quot;
+print(message)</code></pre></div><div><div class="smallcap">실행 결과</div><pre class="output">성공</pre></div></div><div class="read"><b>한 줄씩 읽어 봐요</b><ol><li>coin이 5 이상인지 묻습니다.</li><li>참이라서 message에 “성공”을 넣어요.</li><li>message를 출력해요.</li></ol></div><p class="try"><b>바꿔 보기</b> 읽기 어려우면 4장의 if-else처럼 여러 줄로 써도 괜찮아요.</p></article><article class="example"><h3>예제 17. 순서가 바뀌면 결과도 달라져요</h3><p>큰 기준부터 확인해야 해요.</p><div class="two"><div><div class="smallcap">파이썬 코드</div><pre><code>score = 95
+if score &gt;= 60:
+    print(&quot;보통&quot;)
+elif score &gt;= 90:
+    print(&quot;우수&quot;)</code></pre></div><div><div class="smallcap">실행 결과</div><pre class="output">보통</pre></div></div><div class="read"><b>한 줄씩 읽어 봐요</b><ol><li>95는 이미 60 이상이므로 첫 조건이 참이에요.</li><li>“보통”을 출력한 뒤 elif는 확인하지 않아요.</li><li>90 이상을 먼저 검사하도록 순서를 바꿔야 “우수”가 나와요.</li></ol></div><p class="try"><b>바꿔 보기</b> <code>score &gt;= 90</code>을 첫 번째 조건으로 올려 보세요.</p></article><h3>실수하기 쉬운 다섯 가지</h3><div class="mistakes"><div class="mistake"><b>1. 저장과 비교를 헷갈려요</b><div class="two"><div><div class="smallcap">틀린 코드</div><pre><code>if x = 5:</code></pre></div><div><div class="smallcap">바른 코드</div><pre><code>if x == 5:</code></pre></div></div><p>조건을 비교할 때는 ==를 써요.</p></div><div class="mistake"><b>2. 콜론을 잊어요</b><div class="two"><div><div class="smallcap">틀린 코드</div><pre><code>if x &gt; 5</code></pre></div><div><div class="smallcap">바른 코드</div><pre><code>if x &gt; 5:</code></pre></div></div><p>조건문 끝에는 :를 적어요.</p></div><div class="mistake"><b>3. 들여쓰기를 잊어요</b><div class="two"><div><div class="smallcap">틀린 코드</div><pre><code>if x &gt; 5:
+print(&quot;네&quot;)</code></pre></div><div><div class="smallcap">바른 코드</div><pre><code>if x &gt; 5:
+    print(&quot;네&quot;)</code></pre></div></div><p>안쪽 문장은 공백 4칸만큼 들여써요.</p></div><div class="mistake"><b>4. 숫자 변환을 잊어요</b><div class="two"><div><div class="smallcap">틀린 코드</div><pre><code>n = input()
+if n &gt;= 5:</code></pre></div><div><div class="smallcap">바른 코드</div><pre><code>n = int(input())
+if n &gt;= 5:</code></pre></div></div><p>input()은 글자를 받으므로 int()가 필요해요.</p></div><div class="mistake"><b>5. 비교 순서가 달라요</b><div class="two"><div><div class="smallcap">틀린 코드</div><pre><code>if score &gt;= 60:
+    print(&quot;보통&quot;)
+elif score &gt;= 90:
+    print(&quot;우수&quot;)</code></pre></div><div><div class="smallcap">바른 코드</div><pre><code>if score &gt;= 90:
+    print(&quot;우수&quot;)
+elif score &gt;= 60:
+    print(&quot;보통&quot;)</code></pre></div></div><p>더 높은 기준부터 검사해요.</p></div></div></section><section class="theory summary"><h2>11. 오늘 배운 것 정리</h2><div class="checklist"><p>□ if는 “만약 ~라면”이에요.</p><p>□ else는 “그렇지 않다면”이에요.</p><p>□ elif는 “다음 조건도 확인해 볼까?”예요.</p><p>□ ==는 같은지 비교하고, =는 값을 넣어요.</p><p>□ if 끝에는 :를 붙이고, 안쪽 줄은 4칸 들여써요.</p><p>□ and는 둘 다, or는 하나라도, not은 반대예요.</p></div><p>말로 설명할 수 있다면 이미 조건문을 잘 이해한 거예요. 이제 문제를 풀어 봐요.</p></section><section class="problem chapter" id="worksheet"><h2>12. 연습문제 20개</h2><p class="goal">먼저 종이에 답을 쓰고, 정답과 비교해 봐요.</p><p class="student">이름: ____________________ &nbsp; 날짜: ______________ &nbsp; 맞힌 개수: _____ / 20</p><article class="question"><h3>문제 1. <span class="kind">예측</span></h3><p>다음 코드의 출력은 무엇일까요?</p><pre><code>weather = &quot;비&quot;
+if weather == &quot;비&quot;:
+    print(&quot;우산&quot;)</code></pre><div class="answerline"><b>답:</b><span class="write-line"></span></div></article><article class="question"><h3>문제 2. <span class="kind">예측</span></h3><p>어떤 글자가 출력될까요?</p><pre><code>weather = &quot;맑음&quot;
+if weather == &quot;비&quot;:
+    print(&quot;우산&quot;)
+print(&quot;출발&quot;)</code></pre><div class="answerline"><b>답:</b><span class="write-line"></span></div></article><article class="question"><h3>문제 3. <span class="kind">예측</span></h3><p>사과가 2개라면?</p><pre><code>apple = 2
+if apple &gt;= 3:
+    print(&quot;나누기&quot;)
+else:
+    print(&quot;모으기&quot;)</code></pre><div class="answerline"><b>답:</b><span class="write-line"></span></div></article><article class="question"><h3>문제 4. <span class="kind">예측</span></h3><p>초록불일 때 무엇이 나올까요?</p><pre><code>light = &quot;초록&quot;
+if light == &quot;빨강&quot;:
+    print(&quot;멈춰요&quot;)
+else:
+    print(&quot;주위를 살펴요&quot;)</code></pre><div class="answerline"><b>답:</b><span class="write-line"></span></div></article><article class="question"><h3>문제 5. <span class="kind">예측</span></h3><p>동전이 5개면 어떤 간식을 골라요?</p><pre><code>coin = 5
+if coin &gt;= 5:
+    print(&quot;초콜릿&quot;)
+elif coin &gt;= 3:
+    print(&quot;젤리&quot;)
+else:
+    print(&quot;물&quot;)</code></pre><div class="answerline"><b>답:</b><span class="write-line"></span></div></article><article class="question"><h3>문제 6. <span class="kind">예측</span></h3><p>동전이 3개면 무엇을 골라요?</p><pre><code>coin = 3
+if coin &gt;= 5:
+    print(&quot;초콜릿&quot;)
+elif coin &gt;= 3:
+    print(&quot;젤리&quot;)
+else:
+    print(&quot;물&quot;)</code></pre><div class="answerline"><b>답:</b><span class="write-line"></span></div></article><article class="question"><h3>문제 7. <span class="kind">예측</span></h3><p>나이가 8이라면 무엇이 출력될까요?</p><pre><code>age = 8
+if age &gt;= 10:
+    print(&quot;열 살 이상&quot;)</code></pre><div class="answerline"><b>답:</b><span class="write-line"></span></div></article><article class="question"><h3>문제 8. <span class="kind">예측</span></h3><p>숙제를 했을 때 어떤 글자가 나올까요?</p><pre><code>homework = True
+if homework:
+    print(&quot;게임 시간&quot;)
+else:
+    print(&quot;숙제 먼저&quot;)</code></pre><div class="answerline"><b>답:</b><span class="write-line"></span></div></article><article class="question"><h3>문제 9. <span class="kind">예측</span></h3><p>비가 오지 않을 때 무엇이 나올까요?</p><pre><code>rain = False
+if not rain:
+    print(&quot;산책&quot;)</code></pre><div class="answerline"><b>답:</b><span class="write-line"></span></div></article><article class="question"><h3>문제 10. <span class="kind">예측</span></h3><p>표도 있고, 줄도 섰을 때 출력은?</p><pre><code>ticket = True
+waited = True
+if ticket and waited:
+    print(&quot;입장&quot;)
+else:
+    print(&quot;대기&quot;)</code></pre><div class="answerline"><b>답:</b><span class="write-line"></span></div></article><article class="question"><h3>문제 11. <span class="kind">예측</span></h3><p>요일이 일요일이면 무엇이 출력될까요?</p><pre><code>day = &quot;일&quot;
+if day == &quot;토&quot; or day == &quot;일&quot;:
+    print(&quot;주말&quot;)
+else:
+    print(&quot;평일&quot;)</code></pre><div class="answerline"><b>답:</b><span class="write-line"></span></div></article><article class="question"><h3>문제 12. <span class="kind">예측</span></h3><p>숫자 15는 범위 안일까요?</p><pre><code>n = 15
+if 10 &lt;= n &lt;= 20:
+    print(&quot;범위 안&quot;)</code></pre><div class="answerline"><b>답:</b><span class="write-line"></span></div></article><article class="question"><h3>문제 13. <span class="kind">빈칸</span></h3><p>빈칸에 들어갈 비교 기호를 적으세요.</p><pre><code>color = &quot;빨강&quot;
+if color __ &quot;빨강&quot;:
+    print(&quot;멈춰요&quot;)</code></pre><div class="answerline"><b>답:</b><span class="write-line"></span></div></article><article class="question"><h3>문제 14. <span class="kind">빈칸</span></h3><p>if 조건의 끝에 꼭 필요한 기호를 적으세요.</p><pre><code>if coin &gt;= 5 __
+    print(&quot;성공&quot;)</code></pre><div class="answerline"><b>답:</b><span class="write-line"></span></div></article><article class="question"><h3>문제 15. <span class="kind">빈칸</span></h3><p>print 앞에는 공백을 몇 칸 넣어야 할까요?</p><pre><code>if apple &gt;= 3:
+____print(&quot;나누기&quot;)</code></pre><div class="answerline"><b>답:</b><span class="write-line"></span></div></article><article class="question"><h3>문제 16. <span class="kind">빈칸</span></h3><p>세 가지 길 중 두 번째 조건에 쓰는 단어를 적으세요.</p><pre><code>if coin &gt;= 5:
+    print(&quot;초콜릿&quot;)
+____ coin &gt;= 3:
+    print(&quot;젤리&quot;)
+else:
+    print(&quot;물&quot;)</code></pre><div class="answerline"><b>답:</b><span class="write-line"></span></div></article><article class="question"><h3>문제 17. <span class="kind">직접 쓰기</span></h3><p>사과가 3개 이상이면 “나누기”를 출력하는 코드를 작성하세요.</p><div class="answerline"><b>답:</b><span class="write-line"></span></div><div class="writebox"></div></article><article class="question"><h3>문제 18. <span class="kind">직접 쓰기</span></h3><p>빨간불이면 “멈춰요”, 아니면 “살펴요”를 출력하세요.</p><div class="answerline"><b>답:</b><span class="write-line"></span></div><div class="writebox"></div></article><article class="question"><h3>문제 19. <span class="kind">고쳐 쓰기</span></h3><p>잘못된 코드를 두 군데 고쳐 보세요.</p><pre><code>x = 5
+if x = 5
+    print(&quot;같아요&quot;)</code></pre><div class="answerline"><b>답:</b><span class="write-line"></span></div><div class="writebox"></div></article><article class="question"><h3>문제 20. <span class="kind">도전</span></h3><p>보물상자의 출력 결과를 예상해 보세요.</p><pre><code>key = True
+password = False
+if key:
+    if password:
+        print(&quot;보물&quot;)
+    else:
+        print(&quot;암호 필요&quot;)
+else:
+    print(&quot;열쇠 필요&quot;)</code></pre><div class="answerline"><b>답:</b><span class="write-line"></span></div></article></section><section class="answers chapter" id="answerkey"><h2>13. 정답과 한 줄 해설</h2><p class="goal">풀어 본 뒤에 확인하세요. 직접 쓰기 문제는 예시 답안과 달라도 맞을 수 있어요.</p><article class="solution"><h3>문제 1. 정답</h3><p class="solutionvalue">우산</p><p><b>왜 그럴까요?</b> “비”와 “비”가 같아서 if가 실행돼요.</p></article><article class="solution"><h3>문제 2. 정답</h3><p class="solutionvalue">출발</p><p><b>왜 그럴까요?</b> 비가 아니므로 안쪽은 건너뛰지만 마지막 줄은 실행돼요.</p></article><article class="solution"><h3>문제 3. 정답</h3><p class="solutionvalue">모으기</p><p><b>왜 그럴까요?</b> 2 &gt;= 3은 거짓이어서 else가 실행돼요.</p></article><article class="solution"><h3>문제 4. 정답</h3><p class="solutionvalue">주위를 살펴요</p><p><b>왜 그럴까요?</b> 초록은 빨강과 다르므로 else를 선택해요.</p></article><article class="solution"><h3>문제 5. 정답</h3><p class="solutionvalue">초콜릿</p><p><b>왜 그럴까요?</b> 첫 번째 조건이 참이므로 다른 갈래는 검사하지 않아요.</p></article><article class="solution"><h3>문제 6. 정답</h3><p class="solutionvalue">젤리</p><p><b>왜 그럴까요?</b> 3은 5 이상이 아니지만 3 이상이에요.</p></article><article class="solution"><h3>문제 7. 정답</h3><p class="solutionvalue">아무것도 출력되지 않아요.</p><p><b>왜 그럴까요?</b> 8 &gt;= 10이 거짓이고 else도 없어요.</p></article><article class="solution"><h3>문제 8. 정답</h3><p class="solutionvalue">게임 시간</p><p><b>왜 그럴까요?</b> True이므로 if 안쪽이 실행돼요.</p></article><article class="solution"><h3>문제 9. 정답</h3><p class="solutionvalue">산책</p><p><b>왜 그럴까요?</b> not False는 True예요.</p></article><article class="solution"><h3>문제 10. 정답</h3><p class="solutionvalue">입장</p><p><b>왜 그럴까요?</b> and는 두 조건이 모두 참이어야 해요.</p></article><article class="solution"><h3>문제 11. 정답</h3><p class="solutionvalue">주말</p><p><b>왜 그럴까요?</b> or는 하나라도 맞으면 참이에요.</p></article><article class="solution"><h3>문제 12. 정답</h3><p class="solutionvalue">범위 안</p><p><b>왜 그럴까요?</b> 15는 10 이상 20 이하예요.</p></article><article class="solution"><h3>문제 13. 정답</h3><p class="solutionvalue">==</p><p><b>왜 그럴까요?</b> 두 값이 같은지 비교하는 기호예요.</p></article><article class="solution"><h3>문제 14. 정답</h3><p class="solutionvalue">:</p><p><b>왜 그럴까요?</b> if 조건식의 끝에는 콜론을 써요.</p></article><article class="solution"><h3>문제 15. 정답</h3><p class="solutionvalue">공백 4칸</p><p><b>왜 그럴까요?</b> 파이썬은 들여쓰기(보통 공백 4칸)로 안쪽 코드를 나타내요.</p></article><article class="solution"><h3>문제 16. 정답</h3><p class="solutionvalue">elif</p><p><b>왜 그럴까요?</b> 앞 조건이 거짓일 때 새로운 조건을 확인해요.</p></article><article class="solution"><h3>문제 17. 정답</h3><pre><code>apple = 4
+if apple &gt;= 3:
+    print(&quot;나누기&quot;)</code></pre><p><b>왜 그럴까요?</b> apple = 4 대신 다른 숫자를 저장해 시험해도 돼요.</p></article><article class="solution"><h3>문제 18. 정답</h3><pre><code>light = &quot;빨강&quot;
+if light == &quot;빨강&quot;:
+    print(&quot;멈춰요&quot;)
+else:
+    print(&quot;살펴요&quot;)</code></pre><p><b>왜 그럴까요?</b> if와 else의 갈래를 하나씩 작성해요.</p></article><article class="solution"><h3>문제 19. 정답</h3><pre><code>x = 5
+if x == 5:
+    print(&quot;같아요&quot;)</code></pre><p><b>왜 그럴까요?</b> ==로 비교하고 if 끝에 :를 붙여요.</p></article><article class="solution"><h3>문제 20. 정답</h3><p class="solutionvalue">암호 필요</p><p><b>왜 그럴까요?</b> 열쇠는 있지만 암호가 없어서 안쪽 else가 실행돼요.</p></article></section></main><script>
+(function(){
+ const mode=document.getElementById('printMode');
+ const modes={all:'view-all',theory:'view-theory',problem:'view-problem',answer:'view-answer'};
+ mode.addEventListener('change',()=>{document.body.classList.remove(...Object.values(modes));document.body.classList.add(modes[mode.value]);});
+ document.getElementById('printBtn').addEventListener('click',()=>window.print());
+ const cr=document.getElementById('coinRange');
+ cr.addEventListener('input',()=>{const n=Number(cr.value);let label,why;
+ if(n>=5){label='초콜릿';why=n+'개는 5개 이상이에요. 첫 번째 if가 참!';}
+ else if(n>=3){label='젤리';why=n+'개는 5개 미만이지만 3개 이상이에요. elif가 참!';}
+ else{label='물';why=n+'개는 5개도, 3개도 되지 않아요. else 실행!';}
+ document.getElementById('coinVal').textContent=n;
+ document.getElementById('coinResult').textContent=label;
+ document.getElementById('coinReason').textContent=why;
+ });
+ const light=document.getElementById('lightSelect');
+ light.addEventListener('change',()=>{const red=light.value==='빨강';document.getElementById('lightResult').textContent=red?'멈춰요':'주위를 살펴요';document.getElementById('lightReason').textContent=red?'빨강이므로 if 쪽이 실행돼요.':'빨강이 아니므로 else 쪽이 실행돼요.';});
+})();
+</script></body></html>
